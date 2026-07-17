@@ -1,0 +1,76 @@
+SCREEN 5102 APP_TYPE api_dashremindkpbcx
+
+
+LOCAL
+PGM_FIELDS
+lstatus				STRING		61
+lTipeRequest			STRING		21
+lnamfil				STRING		31
+lrequestreply			STRING		31
+lmsttitle			STRING		31
+ldettitle			STRING		31
+linplabels			STRING		501
+linpfields			STRING		801
+linpmap				STRING		21
+lsavedata			INT2		2
+lmstlabel			STRING		100
+lmstfields			STRING		100
+ldetlabels			STRING		251
+ldetfields			STRING		251
+ldetnamamap			STRING		31
+lversi				STRING		11
+lketUpdate			STRING		100
+lREKPBCX			STRING		11
+
+IMAGE(master)
+/--------------------------------------------------------\
+| /----------------------------------------------------\ |
+| |i.NoBuk   : ____________________                    | |
+| \----------------------------------------------------/ |
+\--------------------------------------------------------/
+
+FIELDS(master)
+lTipeRequest			NONE		INPUTRI		1
+
+DEFAULTS(master)
+lREKPBCX	INIT		REKPBCX
+lversi		INIT		09072026v1
+lketUpdate	INIT		"Tambah no hp salah sambung"
+lnamfil		INIT		"spk"
+lrequestreply	INIT		"reply"
+lmsttitle	INIT		""
+ldettitle	INIT		"Details"
+lstatus		INIT		"OK"
+lsavedata	INIT		1
+linplabels	INIT		"noMesin+noPol+kodeCabang+noHp+kpbKe+tglJTP+noFaktur+tglDibuat+updateTerakhir+jamUpdate+broadcastTerakhir+namaBroadcast+status+isiPesan+noHpSalahSambung"
+linpfields	INIT		"spknohp4+spknohp5+spkcab+spknohp+spkkat+spktgl+spknohp2+spktglft+spktglft2+spkkat2+spktglft3+spkket2+spktype+spknote+spknohp3"
+ldetlabels	INIT		"noMesin+noPol+kodeCabang+noHp+kpbKe+tglJTP+noFaktur+tglDibuat+updateTerakhir+jamUpdate+broadcastTerakhir+namaBroadcast+status+isiPesan+noHpSalahSambung"
+ldetfields	INIT		"spknohp4+spknohp5+spkcab+spknohp+spkkat+spktgl+spknohp2+spktglft+spktglft2+spkkat2+spktglft3+spkket2+spktype+spknote+spknohp3"
+lmstlabel	INIT		"status"
+lmstfields	INIT		"lstatus"
+linpmap		INIT		"mspk"
+ldetnamamap	INIT		"mspk"
+
+CALCS()
+cnobuk		"APKPB" + STRIP(spknohp2)
+
+MAP(mspk)
+lREKPBCX	spkdata		REPLACE
+cnobuk		spknobuk	DO_CALC
+
+HOOKS(master)
+/* untuk nerima API, linplabels & linpfields untuk master, linpmap untuk jalanin map ke field tujuan, ldetlabels & ldetfields untuk data detail (kosongin kalau gak perlu) */
+
+BEFORE_INPUT	cur_field=lTipeRequest DO_LIB ap_rdjsn(lnamfil,linplabels,linpfields,linpmap,ldetlabels,ldetfields,ldetnamamap,lsavedata);
+
+SPCALCS(spmaster)
+DO_LIB		ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields); /* untuk reply, labelnya apa, isinya apa (dalam local), ntar jadinya "namalabel" : fields*/
+
+
+POSTING(master)
+	PST_COMMAND	spmaster
+
+
+END_SCREEN
+
+
