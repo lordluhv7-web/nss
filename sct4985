@@ -546,6 +546,7 @@ DEBUG	lTIDAK		spkkat		REPLACE_IF cTDKPERLUPROPOSAL
 
 CALCS()
 ctambahpenandainfo	lpenandainfo + 1
+ctambahcounttacc	spkjrk3	+ 1
 
 MAP(mupdd3)
 	cblanks		spkkat2		DO_CALC_IF cMtINPG_PROPOSALTACC
@@ -575,6 +576,7 @@ MAP(mupdd3)
 	l1		spkjrk		REPLACE_IF cMtINPG_PROPOSALSUDAHTACC
 	l1		spkjrk2		REPLACE_IF cMtINPG_PROPOSALSUDAHTACC
 	cblanks		spkssgaji	DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC
+	ctambahcounttacc spkjrk3	DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC
 
 	cblanks         spkkat2         DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC2
         cblanks         spktglft        DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC2
@@ -593,6 +595,7 @@ MAP(mupdd3)
         l1         	spkjrk         	REPLACE_IF cMtINPG_PROPOSALSUDAHTACC2
         l1         	spkjrk2         REPLACE_IF cMtINPG_PROPOSALSUDAHTACC2
         cblanks         spkssgaji       DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC2
+	ctambahcounttacc spkjrk3	DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC2
 
 	cblanks         spkkat2         DO_CALC_IF cMtINPG_KLAIMCAIRREVISI2
         cblanks         spktglft        DO_CALC_IF cMtINPG_KLAIMCAIRREVISI2
@@ -617,6 +620,7 @@ MAP(mupdd3)
         l1              spkjrk          REPLACE_IF cMtINPG_KLAIMCAIRREVISI2
         l1              spkjrk2         REPLACE_IF cMtINPG_KLAIMCAIRREVISI2
         cblanks         spkssgaji       DO_CALC_IF cMtINPG_KLAIMCAIRREVISI2
+	ctambahcounttacc spkjrk3	DO_CALC_IF cMtINPG_KLAIMCAIRREVISI2
 
 
 	cblanks		spkkat5		DO_CALC_IF cMtINPG_KLAIMTACC
@@ -627,6 +631,7 @@ MAP(mupdd3)
 	cblanks		spktglft5	DO_CALC_IF cMtINPG_KLAIMCAIRREVISI1
 	cblanks		spkkode4	DO_CALC_IF cMtINPG_KLAIMCAIRREVISI1
 	cblanks		spkkode5	DO_CALC_IF cMtINPG_KLAIMCAIRREVISI1
+	ctambahcounttacc spkjrk3	DO_CALC_IF cMtINPG_KLAIMCAIRREVISI1
 
 CALCS()
 cMtCLSD		mtssts == "CLSD"
