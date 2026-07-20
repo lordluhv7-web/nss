@@ -114,6 +114,8 @@ lHK			STRING		11
 lhemaks			INT2		7
 lhetoday5		INT2		7
 lthblblndpn		STRING		5
+lspkket			STRING		251
+lspkket2		STRING		251
 
 MAP(muplok)
 	gv_ok		mtstypbrg	REPLACE
@@ -838,8 +840,23 @@ MAP(mupdtldceklis)
 SPCALCS(standaceklistld)
 DO_LIB		ap_dbclc(DNAME dupdtldceklis,DCOMMAND UPDATE_RANGE,DTARGET tldbukurtidx mtdnobuk mtdnourt,DMAP mupdtldceklis);
 
+MAP(mcekalasanrevisi)
+	spkket		lspkket		REPLACE
+	spkket2		lspkket2	REPLACE
+
+DBCALCS(dcekalasanrevisi)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	spkdatbuktyp	mtsdata	mtsnobuk lPROGCLAIM
+	DBC_MAP		mcekalasanrevisi
+
+CALCS()
+cskipaktdisetujui	mtssts != "INPG" || (mtssts == "INPG" && dcekalasanrevisi == 1 && lspkket != "BEBERAPA_AKTIVITAS" && lspkket2 != "BEBERAPA_AKTIVITAS")
+ctidakbisaubah		mtdnobbm == "TIDAK"
 
 HOOKS(transt)
+BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF ctidakbisaubah
+BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF ctidakbisaubah
+BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF ctidakbisaubah
 BEFORE_INPUT	cur_field=mtdket	DO_MAP SHOW IF ctambahdev mnourut1
 BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF ctambahdev
 BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF ctambahdev
@@ -851,14 +868,14 @@ BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cubahceklisdev
 BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cubahceklisdev
 BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cubahceklisdev
 BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cubahceklisdev
-BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cubahceklisdev
+/*BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cubahceklisdev*/
 
 BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cMtINPG_APR1
 BEFORE_INPUT	cur_field=mtdket	DO_SKIP_IF cMtINPG_APR1
 BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cMtINPG_APR1
 BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF cMtINPG_APR1
 BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cMtINPG_APR1
+/*BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cMtINPG_APR1*/
 BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cDetailNonCeklis
 
 BEFORE_INPUT    cur_field=mtdtgl2       DO_SKIP_IF cMtINPG_APR2
@@ -866,8 +883,9 @@ BEFORE_INPUT    cur_field=mtdket        DO_SKIP_IF cMtINPG_APR2
 BEFORE_INPUT    cur_field=mtdperdis     DO_SKIP_IF cMtINPG_APR2
 BEFORE_INPUT    cur_field=mtddk         DO_SKIP_IF cMtINPG_APR2
 BEFORE_INPUT    cur_field=mtdplg     	DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdnobbm      DO_SKIP_IF cMtINPG_APR2
+/*BEFORE_INPUT    cur_field=mtdnobbm      DO_SKIP_IF cMtINPG_APR2*/
 BEFORE_INPUT    cur_field=mtdukrwrn     DO_SKIP_IF cDetailNonCeklis
+BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cskipaktdisetujui
 
 /*AFTER_INPUT	cur_field=mtdplg	DO_MAP SHOW mhapusalasantacc*/
 AFTER_INPUT	cur_field=mtddk		DO_MAP SHOW mhapusacc
@@ -1023,6 +1041,9 @@ ctambahnourut2  lnourut2        DO_CALC
 lnourut2        mtdnourt        REPLACE
 
 HOOKS(transat)
+BEFORE_INPUT    cur_field=mtddk         DO_SKIP_IF ctidakbisaubah
+BEFORE_INPUT    cur_field=mtdplg        DO_SKIP_IF ctidakbisaubah
+BEFORE_INPUT    cur_field=mtdukrwrn     DO_SKIP_IF ctidakbisaubah
 BEFORE_INPUT	cur_field=mtdgrup2	DO_MAP SHOW IF ctambahtac mnourut2
 BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF ctambahtac
 BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF ctambahtac
@@ -1035,7 +1056,7 @@ BEFORE_INPUT	cur_field=mtdtgl4	DO_SKIP_IF cubahceklistac
 BEFORE_INPUT	cur_field=mtdjml	DO_SKIP_IF cubahceklistac
 BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cubahceklistac
 BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cubahceklistac
-BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cubahceklistac
+/*BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cubahceklistac*/
 BEFORE_INPUT	cur_field=mtdgrup2	DO_SKIP_IF cubahceklistac
 BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cubahceklistac
 BEFORE_INPUT	cur_field=mtdlok2	DO_SKIP_IF cubahceklistac
@@ -1053,7 +1074,7 @@ BEFORE_INPUT	cur_field=mtdtgl4	DO_SKIP_IF cMtINPG_APR1
 BEFORE_INPUT	cur_field=mtdjml	DO_SKIP_IF cMtINPG_APR1
 BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cMtINPG_APR1
 BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cMtINPG_APR1
+/*BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cMtINPG_APR1*/
 BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF cMtINPG_APR1
 BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cDetailNonCeklis
 
@@ -1067,9 +1088,10 @@ BEFORE_INPUT    cur_field=mtdtgl4       DO_SKIP_IF cMtINPG_APR2
 BEFORE_INPUT    cur_field=mtdjml        DO_SKIP_IF cMtINPG_APR2
 BEFORE_INPUT    cur_field=mtdperdis     DO_SKIP_IF cMtINPG_APR2
 BEFORE_INPUT    cur_field=mtdplg     	DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdnobbm      DO_SKIP_IF cMtINPG_APR2
+/*BEFORE_INPUT    cur_field=mtdnobbm      DO_SKIP_IF cMtINPG_APR2*/
 BEFORE_INPUT    cur_field=mtddk         DO_SKIP_IF cMtINPG_APR2
 BEFORE_INPUT    cur_field=mtdukrwrn     DO_SKIP_IF cDetailNonCeklis
+BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cskipaktdisetujui
 
 /*AFTER_INPUT     cur_field=mtdplg        DO_MAP SHOW mhapusalasantacc*/
 AFTER_INPUT     cur_field=mtddk         DO_MAP SHOW mhapusacc

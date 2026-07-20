@@ -639,6 +639,15 @@ cMtCLSD		mtssts == "CLSD"
 MAP(mupdd1d2)
 DEBUG	gv_CLSD		mtdsts		REPLACE
 
+MAP(mupdmtd)
+	cblanks		mtddk		DO_CALC
+	cblanks		mtdplg		DO_CALC
+DEBUG	cblanks		mtdukrwrn	DO_CALC
+
+MAP(mupdtld)
+	cblanks		tldtgl2		DO_CALC
+	cblanks		tldjasbrg	DO_CALC
+DEBUG	cblanks		tlddk		DO_CALC
 /* ======================== SPCALCS ======================== */
 
 SPCALCS(spmaster)
@@ -656,6 +665,8 @@ DO_LIB_IF cMtINPG_PROPOSAL	ap_dbclc(DNAME daddabk6,DCOMMAND ADD,DFILE abk,DMAP m
 DO_LIB_IF cMtINPG_PROPOSALTACC	ap_dbclc(DNAME daddabk7,DCOMMAND ADD,DFILE abk,DMAP maddabk7);
 DO_LIB_IF cMtINPG_PROPOSALACC	ap_dbclc(DNAME daddabk8,DCOMMAND ADD,DFILE abk,DMAP maddabk8);
 DO_LIB_IF cMtINPG_PROPOSALSUDAHTACC ap_dbclc(DNAME daddabk9,DCOMMAND ADD,DFILE abk,DMAP maddabk9);
+DO_LIB_IF cMtINPG_PROPOSALSUDAHTACC ap_dbclc(DNAME dupdmtd,DCOMMAND UPDATE_RANGE,DTARGET mtdbukurtidx lNOBUK,DMAP mupdmtd);
+DO_LIB_IF cMtINPG_PROPOSALSUDAHTACC ap_dbclc(DNAME dupdtld,DCOMMAND UPDATE_RANGE,DTARGET tldbukurtidx lNOBUK,DMAP mupdtld);
 DO_LIB_IF cMtINPG_PROPOSALSUDAHTACC2 ap_dbclc(DNAME daddabk10,DCOMMAND ADD,DFILE abk,DMAP maddabk10);
 DO_LIB_IF cMtINPG_PROPOSALSUDAHACC1 ap_dbclc(DNAME daddabk11,DCOMMAND ADD,DFILE abk,DMAP maddabk11);
 DO_LIB_IF cMtINPG_PROPOSALSUDAHACC2 ap_dbclc(DNAME daddabk12,DCOMMAND ADD,DFILE abk,DMAP maddabk12);
@@ -664,6 +675,8 @@ DO_LIB_IF cMtINPG_KLAIMACC 	ap_dbclc(DNAME daddabk14,DCOMMAND ADD,DFILE abk,DMAP
 DO_LIB_IF cMtINPG_KLAIMACC 	ap_dbclc(DNAME daddabkbaca2,DCOMMAND ADD,DFILE abk,DMAP maddabkbaca2);
 DO_LIB_IF cMtINPG_KLAIMCAIRREVISI1 ap_dbclc(DNAME daddabk15,DCOMMAND ADD,DFILE abk,DMAP maddabk15);
 DO_LIB_IF cMtINPG_KLAIMCAIRREVISI2 ap_dbclc(DNAME daddabk16,DCOMMAND ADD,DFILE abk,DMAP maddabk9);
+DO_LIB_IF cMtINPG_KLAIMCAIRREVISI2 ap_dbclc(DNAME dupdmtd2,DCOMMAND UPDATE_RANGE,DTARGET mtdbukurtidx lNOBUK,DMAP mupdmtd);
+DO_LIB_IF cMtINPG_KLAIMCAIRREVISI2 ap_dbclc(DNAME dupdtld2,DCOMMAND UPDATE_RANGE,DTARGET tldbukurtidx lNOBUK,DMAP mupdtld);
 DO_LIB_IF cMtINPG_PROPOSALBELUM5 ap_dbclc(DNAME daddabkbaca,DCOMMAND ADD,DFILE abk,DMAP maddabkbaca);
 DO_LIB_IF cMtINPG_AKTIVITAS_3D	ap_dbclc(DNAME dadd3d,DCOMMAND ADD,DFILE spk,DMAP madd3d);
 DO_LIB				ap_dbclc(DNAME dupdmaster,DCOMMAND UPDATE,DTARGET mtsprmidx mtsprm,DMAP mupdmaster);
