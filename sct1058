@@ -1102,6 +1102,7 @@ IMAGE(transbt)
 /-------------------------------------------------------\
 spasi
  /-----------------------------------------------------\
+  t.JmlTacc			___
   t.ApakahPerluProsoal		______________________
  \-----------------------------------------------------/
  /-----------------------------------------------------\
@@ -1191,6 +1192,7 @@ spasi
 IMAGE(transb)
 
 FIELD(transbt)
+spkjrk3		PROTECT		INPUTRI	1		/* jml tacc */
 spkkat          PROTECT        	INPUTRI 1               /* apakah perlu proposal */
 
 spkkat2		PROTECT		INPUTRI	2		/* sts upl 1 */
