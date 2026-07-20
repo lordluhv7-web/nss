@@ -159,8 +159,8 @@ DBCALCS(djoindetailblmapprove2)
 CALCS()
 ctambahfotomtddev	mtdkat == "DEV" && mtdtotdis != BLANKS && mtddk != BLANKS
 ctambahfotomtdtac	mtdkat == "TAC" && (mtdtotdis != BLANKS || mtdsatbsr != BLANKS || mtdhrgnet != BLANKS) && mtddk != BLANKS
-ctambahfototlddev	tldkat == "DEV" && tldjasbrg != BLANKS && tlddk != BLANKS
-ctambahfototldtac	tldkat == "TAC" && tldjasbrg != BLANKS && tlddk != BLANKS
+ctambahfototlddev	mtdkat == "DEV" && mtdjasbrg != BLANKS && mtddk != BLANKS
+ctambahfototldtac	mtdkat == "TAC" && mtdjasbrg != BLANKS && mtddk != BLANKS
 cselproposal		spkkat2 != BLANKS
 cselaprproposal		spkkode != BLANKS
 cselinfoproposal	spkkode2 != BLANKS
@@ -170,7 +170,7 @@ MAP(mfototld)
 	l1		lfototldtac	REPLACE_IF ctambahfototldtac
 DBCALCS(djoinuplfototambahan2)
 	DBC_COMMAND	SCANSCAN
-	DBC_TARGET	tldbukurtidx	mtsnobuk
+	DBC_TARGET	mtdbukurtidx	mtsnobuk
 	DBC_SUM_MAP	mfototld
 
 MAP(mfotomtd)
@@ -696,13 +696,26 @@ spasi
 
 
  \-----------------------------------------------------/
+spasi
+ /-----------------------------------------------------\
+  t.FotoTambahan
+ \-----------------------------------------------------/
+ /------------------s.UPLOAD2--------------------------\
+
+
+
+
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+                t.TglUpl : __________ t.StsUpl : ____
+ \-----------------------------------------------------/
  /-----------------------------------------------------\
   t.ChecklistCBD  	_______________________
   t.ApprovalAm    	_______________________
   t.ApprovalCXHO  	_______________________
   t.AktvAcc       	_______________________
   spasi
-  _______________                                   ___
+                                     		___
  \-----------------------------------------------------/
 \-------------------------------------------------------/
 
@@ -721,14 +734,18 @@ mtdtgl2			NOLIMIT {DD-MM-YY} INPUTRI 7		/* tanggal */
 mtdbisnis		PROTECT		INPUTRI	8		/* kode aktiva */
 mtdket        		ALLCAPS         INPUTRI 9               /* nama aktivitas */
 
-mtdperdis       	NUMERIC         INPUTRI 10               /* total biaya */
+mtdperdis       	NUMERIC         INPUTRI 10              /* total biaya */
 ltomhitung1		TOMBOL		INPUTRI	20		/* tombol hitung */
+
+mtdtgl5			PROTECT {DD-MM-YY} INPUTRI	21		/* tgl upl */
+mtdjasbrg		PROTECT		INPUTRI	22		/* tanda upl */
+
 mtddk			NOCHANGE	INPUTRI	11		/* checklist */
 mtdplg          	NOCHANGE        INPUTRI 12             	/* approval am */
 
 mtdukrwrn          	NOCHANGE        INPUTRI 13             	/* approval cx ho */
 mtdnobbm		NOCHANGE	INPUTRI	14		/* apakah aktivitas disetujui */
-ltomfototambahan1	TOMBOL		INPUTRI	14		/* tombol foto tambahan */
+/*ltomfototambahan1	TOMBOL		INPUTRI	14*/		/* tombol foto tambahan */
 lblanks         	NOCHANGE        INPUTRI 15              /* enter */
 
 DEFAULT(transt)
@@ -895,12 +912,12 @@ AFTER_INPUT	cur_keybd=EN		DO_SPCALCS standaceklistld
 
 
 MAP(mupd1)
-        g_tgltrn        tldtgl2         REPLACE
-        gv_ok           tldjasbrg       REPLACE
+        g_tgltrn        mtdtgl5         REPLACE
+        gv_ok           mtdjasbrg       REPLACE
 
 DBCALCS(dupd1)
         DBC_COMMAND     UPDATE
-        DBC_TARGET      tldprmidx tldprm
+        DBC_TARGET      mtdprmidx	mtdprm
         DBC_MAP         mupd1
 
 CALCS()
@@ -912,7 +929,9 @@ SFL_TITLE(transt)
 SFL_COND		cmasukdetail
 SFL_UPL_DIRFLD		mtdtglfak
 SFL_UPLFLD              mtdnoll
-SFL_UPLREADONLY
+SFL_UPLFLD2             mtdnobuk mtdoto
+SFL_UPLFLD2_DBCALCS	dupd1
+SFL_UPL_READONLY
 SFL_TARGET
 mtdbukbrglok    mtsnobuk lCLAIMDEVELOPMENT
 
@@ -970,13 +989,26 @@ spasi
 
 
  \-----------------------------------------------------/
+spasi
+ /-----------------------------------------------------\
+  t.FotoTambahan
+ \-----------------------------------------------------/
+ /------------------s.UPLOAD4--------------------------\
+
+
+
+
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+                t.TglUpl : __________ t.StsUpl : ____
+ \-----------------------------------------------------/
  /-----------------------------------------------------\
   t.ChecklistCBD        _______________________
   t.ApprovalAm          _______________________
   t.ApprovalCXHO        _______________________
   t.AktvAcc             _______________________
   spasi
-  _______________                                   ___
+                                     		___
  \-----------------------------------------------------/
 \-------------------------------------------------------/
 
@@ -1000,11 +1032,13 @@ mtdjml			NUMERIC		INPUTRI	12		/* jumlah barang */
 mtdperdis		NUMERIC		INPUTRI	13		/* total keluar biaya */
 ltomhitung2		TOMBOL		INPUTRI	20		/* tombol hitung tac */
 
+mtdtgl5			PROTECT {DD-MM-YY} INPUTRI 21		/* tgl upl */
+mtdjasbrg		PROTECT		INPUTRI	22		/* tanda upl */
 mtddk                   NOCHANGE        INPUTRI 14              /* checklist */
 mtdplg                  NOCHANGE        INPUTRI 15              /* approval am */
 mtdukrwrn               NOCHANGE        INPUTRI 16              /* approval cx ho */
 mtdnobbm                NOCHANGE        INPUTRI 17              /* apakah aktivitas disetujui */
-ltomfototambahan2       TOMBOL          INPUTRI 18              /* tombol foto tambahan */
+/*ltomfototambahan2       TOMBOL          INPUTRI 18*/              /* tombol foto tambahan */
 lblanks                 NOCHANGE        INPUTRI 19              /* enter */
 
 DEFAULT(transat)
@@ -1109,7 +1143,11 @@ SFL_UPL_DIRFLD          mtdtglfak
 SFL_UPLFLD              mtdnoll mtdnorangka
 SFL_UPLFLD2             mtdnoll mtdnomesin
 SFL_UPLFLD3		mtdnoll lFOTOH3
-SFL_UPLREADONLY
+SFL_UPLFLD4		mtdnobuk mtdoto
+SFL_UPL_READONLY
+SFL_UPL_READONLY2
+SFL_UPL_READONLY3
+SFL_UPLFLD4_DBCALCS     dupd1
 SFL_TARGET
 mtdbukbrglok    mtsnobuk lCLAIMTACTICAL
 
@@ -1499,6 +1537,7 @@ SFL_UPL_DIRFLD		tldtglfak
 SFL_UPLFLD              tldnobuk tldoto
 SFL_UPLFLD_DBCALCS	dupd1
 SFL_UPL_DELCOND		c0
+SFL_COND		c0
 SFL_TARGET
 tldbukurtidx		mtdnobuk mtdnourt
 
@@ -1535,6 +1574,7 @@ SFL_UPL_DIRFLD		tldtglfak
 SFL_UPLFLD              tldnobuk tldoto
 SFL_UPLFLD_DBCALCS      dupd1
 SFL_UPL_DELCOND		c0
+SFL_COND		c0
 SFL_TARGET
 tldbukurtidx            mtdnobuk mtdnourt
 
