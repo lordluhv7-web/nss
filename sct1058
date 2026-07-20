@@ -218,7 +218,7 @@ CALCS()
 cdjoindetailceklis	djoindetailceklis == 1
 cdjoindetailblmapprove	djoindetailblmapprove == 0
 cdjoindetailblmapprove2	djoindetailblmapprove2 == 0
-cdjoinuplfototambahan	djoinuplfototambahan >= 0 && djoinuplfototambahan2 >= 0 && lfotomtddev <= lfototlddev && lfotomtdtac <= lfototldtac
+cdjoinuplfototambahan	djoinuplfototambahan >= 0 && djoinuplfototambahan2 >= 0 && ((lfotomtddev == 0 && lfototlddev > 0) || (lfotomtddev > 0)) && ((lfotomtdtac == 0 && lfototldtac > 0) || (lfotomtdtac > 0))
 cdjoinproposal		djoinproposal == 1
 cdjoinapproveproposal	djoinapproveproposal == 1
 cdjoin3dupl		djoin3dupl == 1
@@ -1583,7 +1583,7 @@ tldbukurtidx            mtdnobuk mtdnourt
 CALCS()
 ctambahdetail		mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS")
 cupdatedetail		mtssts == "INPG" && mtshcex != "AKTIVITAS" && mtshcex != "PROPOSAL" && mtshcex != "KLAIM" && mtshcex != "CAIR"
-cupdatedetail3d		mtssts == "INPG" && (mtshcex == "AKTIVITAS" || mtshcex == "PROPOSAL" || mtshcex == "KLAIM" || mtshcex == "CAIR")
+cupdatedetail3d		mtssts == "INPG" && (mtshcex == "AKTIVITAS" || (mtshcex == "PROPOSAL" && spkjrk != 2) || mtshcex == "KLAIM" || mtshcex == "CAIR")
 cupdatemaster		mtssts == "OPEN" || mtssts == "RINP" || (mtssts == "INPG" && mtshcex == BLANKS && (mtstotdis > 0 || mtsperdisd > 0))
 cthbl			THBLS(mtstgl)
 
