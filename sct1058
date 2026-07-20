@@ -17,6 +17,7 @@ SCR_NXT_COND            cgyok
 SCR_NXT_MSG             IF              ckondisi01              t.BelumCeklisDetail1dAtau2d
                         IF              ckondisi02              t.LengkapiApproveDetail
                         IF              ckondisi03              t.BelumUploadBuktiKirimProposal
+                        IF              ckondisi03a             t.BelumKirimBuktiPengajuanKlaim
                         IF              ckondisi04              t.BelumApproveKirimProposal
                         IF              ckondisi05              t.BelumIsiInfoProposal
                         IF              ckondisi06              t.BelumUploadFotoTambahan
@@ -277,7 +278,7 @@ cgyok			djoinpsi == 1 &&
 				(mtssts == "INPG" && mtshcex == "RVS" && lsudahceklis == "OK" && lsudahuplfototambahan == "OK") ||
 				(mtssts == "INPG" && mtshcex == "PROPOSAL" && lsudahapproveproposal == "OK" && lproses3dke == 1) ||
 				(mtssts == "INPG" && mtshcex == "PROPOSAL" && lsudahinfoproposal == "OK" && lproses3dke == 2 && (lsdhinfo == "BELUM" || (lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == "OK" && (lproses3dke2 == 1 || luplkirimklaim == "OK")))) ||
-				(mtssts == "INPG" && mtshcex == "AKTIVITAS" && lsudahuplproposal == "OK") ||
+				(mtssts == "INPG" && mtshcex == "AKTIVITAS" && (lsudahuplproposal == "OK" || ((mtsplg == "INDACO") && luplkirimklaim == "OK" ))) ||
 				(mtssts == "INPG" && mtshcex == "KLAIM" && lapprovalkirimaju != BLANKS && lproses3dke3 == 1) ||
 				(mtssts == "INPG" && mtshcex == "KLAIM" && ((ldanacair == "BELUM") || (ldanacair == "SUDAH" && lupldanacair == "OK")) && lproses3dke3 == 2) ||
 				(mtssts == "INPG" && mtshcex == "CAIR" && ((ldanacair == "BELUM") || (ldanacair == "SUDAH" && lupldanacair == "OK")) && lproses3dke3 == 2) ||
@@ -285,7 +286,8 @@ cgyok			djoinpsi == 1 &&
 			)
 ckondisi01		lsudahceklis == BLANKS
 ckondisi02		mtssts == "INPG" && ((mtshcex == "APR1" && lsudahapprove == BLANKS) || (mtshcex == "APR2" && lsudahapprove2 == BLANKS))
-ckondisi03		mtshcex == "AKTIVITAS" && lsudahuplproposal == BLANKS
+ckondisi03		mtshcex == "AKTIVITAS" && lsudahuplproposal == BLANKS && mtsplg != "INDACO"
+ckondisi03a		mtshcex == "AKTIVITAS" && luplkirimklaim == BLANKS && mtsplg == "INDACO"
 ckondisi04		mtshcex == "PROPOSAL" && lproses3dke == 1 && lsudahapproveproposal == BLANKS
 ckondisi05		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsudahinfoproposal == BLANKS
 ckondisi06		lsudahuplfototambahan == BLANKS
@@ -867,7 +869,7 @@ DBCALCS(dcekalasanrevisi)
 	DBC_MAP		mcekalasanrevisi
 
 CALCS()
-cskipaktdisetujui	mtssts != "INPG" || (mtssts == "INPG" && dcekalasanrevisi == 1 && lspkket != "BEBERAPA_AKTIVITAS" && lspkket2 != "BEBERAPA_AKTIVITAS")
+cskipaktdisetujui	mtssts != "INPG" || (mtssts == "INPG" && dcekalasanrevisi == 1 && lspkket != "BEBERAPA_AKTIVITAS" && lspkket2 != "BEBERAPA_AKTIVITAS") || dcekalasanrevisi == 0
 ctidakbisaubah		mtdnobbm == "TIDAK"
 
 HOOKS(transt)
