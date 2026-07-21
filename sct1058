@@ -33,6 +33,9 @@ SCR_NXT_MSG             IF              ckondisi01              t.BelumCeklisDet
 
 LOCAL
 PGM_FIELDS
+ltipeaktivitas          STRING          21
+ltypeatl                STRING          21
+lnamacabang		STRING		251
 ltom1d			STRING		25
 ltom2d			STRING		25
 ltom3d			STRING		25
@@ -373,13 +376,11 @@ cMtINPG_KLAIM2REVISIxLAINNYA mtssts == "INPG" && ((mtshcex == "KLAIM" && spkjrk2
 IMAGE(master)
 /-----------------------------------------------------------------\
 |/---------------------------------------------------------------\|
-|| t.NoBuk	 : __________________________			_||
-|| t.Status	 : _________ ________________			 ||
+|| t.NoBuk	 : ______________    t.Status ______ __________ _||
 || t.Quartal	 : __________________________			 ||
-|| t.Dealer	 : __________________________			 ||
-|| t.MainDealer	 : __________________________			 ||
-|| t.ProsesClaim : _________________________			 ||
-|| t.Pic	 : _________ ________________ ___________________||
+|| t.Dealer	 : ______ ___________________			 ||
+|| t.MainDealer	 : ____________ t.ProsesClaim _________________  ||
+|| t.Pic	 : _________ ________________ __________________ ||
 || t.AM		 : _________ ________________			 ||
 || t.Kawil 	 : _________ ________________			 ||
 || t.AdaNominalDevTac	:	 	     __________________	 ||
@@ -415,11 +416,12 @@ IMAGE(master)
 
 FIELD(master)
 mtsnobuk		PROTECT		INPUTRI		1	/* nobuk */
-lblanks			NOCHANGE	INPUTRI		2	/* biar pas balik ke atas ttp skip */
 mtssts			PROTECT		INPUTRI		2	/* status */
 mtshcex			PROTECT		INPUTRI		3	/* status 2 */
+lblanks			NOCHANGE	INPUTRI		3	/* biar pas balik ke atas ttp skip */
 mtsnoasal		PROTECT		INPUTRI		4	/* quartal */
 mtscab			PROTECT		INPUTRI		5	/* dealer */
+lnamacabang		PROTECT		INPUTRI		5	/* nama dealer */
 mtsplg			PROTECT		INPUTRI		6	/* main dealer */
 mtsgrup			PROTECT		INPUTRI		7	/* proses claim */
 mtsgrup2		PROTECT		INPUTRI		8	/* pic */
@@ -495,6 +497,8 @@ lFOTOH3			INIT		"FOTOH3"
 ltglakhirbulan		INIT		{ctglakhirbulan}
 ltglawalbulandepan	INIT		{ctglawalbulandepan}
 lHK			INIT		"HK"
+ltypeatl                INIT            "TYPEATL"
+ltipeaktivitas          INIT            TIPEAKTIVITAS
 lversi			INIT		"08072026v1"
 mtsdata                 INIT_QUERY_F11	"mtsdata=="CLAIMBD""
 
@@ -594,6 +598,7 @@ MAP(mcab)
 	lnamakawil	lnamakawil	REPLACE_IF cdjoinnamakawil
 	lnamapic	lnamapic	REPLACE_IF cdjoinnamapic
 	ljabpic		ljabpic		REPLACE_IF cdjoinnamapic
+	cabnama		lnamacabang	REPLACE
 
 MAP(mhapustandaposting)
 	lblanks		mtsstspst	REPLACE
@@ -996,7 +1001,7 @@ spasi
   t.TanggalInput	______________________
   t.Cabang              ______________________
   t.Tipe                _____________________
-  t.TypeAct		______________________
+  t.TypeAct		_____________________
   t.Tema		______________________
   t.Media		______________________
   t.TglMulai            ______________________
@@ -1096,6 +1101,10 @@ mtdukrwrn       DFALT_SCAN_BLANKS       ACC     TACC
 mtdnobbm	DFALT_SCAN_BLANKS	YA	TIDAK
 mtdlok2		DFALT_SCAN_BLANKS	ATL	BTL
 
+CALCS()
+catlbknklik     mtdlok2 == "ATL"
+cbtl1           mtdlok2 == "BTL"
+
 EDIT(transat)
 e.MandatoryApproval	mtdplg		MANDATORY_IF cMtINPG_APR1
 e.MandatoryTipe		mtdlok2 	MANDATORY_IF ctambahtac
@@ -1106,6 +1115,13 @@ e.MandatoryTglMulai	mtdtgl3		MANDATORY_IF ctambahtac
 e.MandatoryTglSelesai	mtdtgl4		MANDATORY_IF ctambahtac
 e.MandatoryJumlahBarang	mtdjml		MANDATORY_IF ctambahtac
 e.MandatoryTotBiaya	mtdperdis	MANDATORY_IF ctambahtac
+
+e.Validate      	mtdlok         	VALIDATE_IF catlbknklik tbddatkodidx mtbd2 stbd  {Pgv_dttabel} {Pgv_infoumum} {Pltypeatl}
+e.Validate      	mtdlok         	VALIDATE_IF cbtl1 tbddatkodidx mtbd2 stbd2 {Pgv_dttabel} {Pgv_infoumum} {Pltipeaktivitas}
+
+
+MAP(mtbd2)
+tbdkode		mtdlok		REPLACE
 
 CALCS()
 ctambahnourut2  lnourut2 + 1
