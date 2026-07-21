@@ -314,7 +314,7 @@ c0			0
 cgyok			djoinpsi == 1 &&
 			(
 				((mtssts == "OPEN" || mtssts == "RINP") && (mtsdvs == "SUDAH" || mtsdvs == "BELUM")) || 
-				(mtssts == "INPG" && mtshcex == BLANKS && lsudahceklis == "OK" && lsudahuplfototambahan == "OK" && (mtstotal == 0 || (mtstotal > 0 && mtstotdis == BLANKS && mtsperdisd == BLANKS)) && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis) ||
+				(mtssts == "INPG" && mtshcex == BLANKS && lsudahceklis == "OK" && lsudahuplfototambahan == "OK" && (mtstotal == 0 || (mtstotal > 0 && mtstotdis <= 0 && mtsperdisd <= 0)) && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis) ||
 				(mtssts == "INPG" && mtshcex == "APR1" && lsudahapprove == "OK") ||
 				(mtssts == "INPG" && mtshcex == "APR2" && lsudahapprove2 == "OK") ||
 				(mtssts == "INPG" && mtshcex == "RVS" && lsudahceklis == "OK" && lsudahuplfototambahan == "OK") ||
@@ -345,8 +345,8 @@ ckondisi15		lsaldoklaimtac != mtsperdisd
 cMtOPENRINP		mtssts == "OPEN" || mtssts == "RINP"
 cMtxOPENRINP		mtssts != "OPEN" && mtssts != "RINP"
 cMtINPG			mtssts == "INPG"
-cMtINPG_ALASAN1		mtssts == "INPG" && mtstotdis == BLANKS || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS)
-cMtINPG_ALASAN2		mtssts == "INPG" && mtsperdisd == BLANKS || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS)
+cMtINPG_ALASAN1		mtssts == "INPG" && mtstotdis <= 0 || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS)
+cMtINPG_ALASAN2		mtssts == "INPG" && mtsperdisd <= 0 || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS)
 cMtINPG_MAND_ALASAN1	mtssts == "INPG" && mtshcex == BLANKS && mtstotdis > 0
 cMtINPG_MAND_ALASAN2	mtssts == "INPG" && mtshcex == BLANKS && mtsperdisd > 0
 cMtINPG_APR1		mtssts == "INPG" && mtshcex == "APR1"
@@ -362,7 +362,7 @@ cMtINPG_PROPOSAL2TACC	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 
 cMtINPG_PROPOSAL2TACCa	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && spkkode2 == "SUDAH" && spkkode3 == "TACC" && spknama != "LAINNYA"
 cMtINPG_PROPOSAL2LAINNYA mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && spkkode2 == "SUDAH" && spkkode3 == "TACC" && spknama == "LAINNYA"
 cMtINPG_PROPOSAL2xLAINNYA mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && spkkode2 == "SUDAH" && spkkode3 == "TACC" && spknama != "LAINNYA"
-cSkipTglAkt		mtssts != "INPG" || (mtssts == "INPG" && mtstotdis == BLANKS && mtsperdisd == BLANKS) || (mtssts == "INPG" && mtshcex != BLANKS)
+cSkipTglAkt		mtssts != "INPG" || (mtssts == "INPG" && mtstotdis <= 0 && mtsperdisd <= 0) || (mtssts == "INPG" && mtshcex != BLANKS)
 cMtINPG_KLAIM		mtssts == "INPG" && mtshcex == "KLAIM" && spkjrk2 == 1
 cMtINPG_KLAIM2		mtssts == "INPG" && ((mtshcex == "KLAIM" && spkjrk2 == 2) || mtshcex == "CAIR")
 cMtINPG_KLAIM2xREVISI	mtssts == "INPG" && ((mtshcex == "KLAIM" && spkjrk2 == 2) || mtshcex == "CAIR") && spkkode5 != "REVISI"
@@ -636,7 +636,7 @@ DBCALCS(djoincektgl2)
 
 CALCS()
 ctglvalid	(mtstgl1 > g_tgltrn && mtstgl1 <= (g_tgltrn + 7)) || mtsdvs == "SUDAH"
-ctglvalid2	djoinhemaks == 1 && djoinhetoday == 1 && (mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS) || (mtssts == "INPG" && mtstotdis == BLANKS && mtsperdisd == BLANKS) ||
+ctglvalid2	djoinhemaks == 1 && djoinhetoday == 1 && (mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS) || (mtssts == "INPG" && mtstotdis <= 0 && mtsperdisd <= 0) ||
 		(lhetoday5 <= lhemaks && djoincektgl1 == 1 && mtstgljtp > g_tgltrn) ||
 		(lhetoday5 > lhemaks && djoincektgl2 == 1 && mtstgljtp <= ltgllimit && mtstgljtp > g_tgltrn)
 
@@ -1387,7 +1387,16 @@ chplus7		spktglft2		DO_CALC_IF cbelumadainfo
 MAP(mhplus7enter)
 ltgltmp		spktglft2		REPLACE_IF cbalikintgl
 
+CALCS()
+cdanabelumcair	spkkode5 == "BELUM"
+cdanaxbelumcair	spkkode5 != "BELUM"
+
+MAP(mtglreminderpencairan)
+chplus7		spktglft6		DO_CALC_IF cdanabelumcair
+lblanks		spktglft6		REPLACE_IF cdanaxbelumcair
+
 HOOKS(transbt)
+AFTER_INPUT	cur_field=spkkode5	DO_MAP SHOW mtglreminderpencairan
 BEFORE_INPUT	cur_field=spkkode	DO_SKIP_IF cMtINPG_AKTIVITAS
 BEFORE_INPUT	cur_field=spkkode2	DO_SKIP_IF cMtINPG_AKTIVITAS
 BEFORE_INPUT	cur_field=spktglft2	DO_SKIP_IF cMtINPG_AKTIVITAS
