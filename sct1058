@@ -5,11 +5,11 @@ SCR_AUTO_EQLFLD         r_string1
 SCR_AUTO_QRYFLD_FLYONLY
 SCR_LOGFLD mtsnobuk
 SCR_UPL_DIRFLD          mtstgl
-SCR_UPLFLD              mtsnobuk mtsoto
-SCR_UPLFLD_DBCALCS	duplok
-SCR_UPL_DELCOND         c0
+SCR_DOCUPLFLD           mtsnobuk mtsoto
+SCR_DOCUPLFLD_DBCALCS	duplok
+SCR_DOCUPL_DELCOND      c0
 
-SCR_JOIN_FILE1          ketdatbukkod    gt_extra        mtsnobuk	gt_UMUM
+SCR_JOIN_FILE1          ketdatbukkod    gt_CX        mtsnobuk	gt_CX21
 
 SCR_NXT_POSTING         4985
 SCR_NXT_MAP             mnext
@@ -28,6 +28,8 @@ SCR_NXT_MSG             IF              ckondisi01              t.BelumCeklisDet
                         IF              ckondisi11              t.BelumIsiApprovalKirimPengajuanKlaim
                         IF              ckondisi12              t.BelumIsiApakahDanaSudahCair
                         IF              ckondisi13              t.BelumUploadBuktiSudahCair
+                        IF              ckondisi14              t.MohonKlikTombolHitungSisaDev1D
+                        IF              ckondisi15              t.MohonKlikTombolHitungSisaTac2D
 
 LOCAL
 PGM_FIELDS
@@ -93,8 +95,10 @@ lsudahuplfototambahan	STRING		5
 
 lFOTOH3			STRING		11
 lkunciabsen		STRING		11
-lsaldo1			DFLOAT		8
-lsaldo2			DFLOAT		8
+lsaldo1			DFLOAT		20
+lsaldo2			DFLOAT		20
+lsaldoklaimdev		DFLOAT		20
+lsaldoklaimtac		DFLOAT		20
 lversi			STRING		21
 lmtstgl			STRING		11
 lurl			STRING		51
@@ -103,6 +107,8 @@ ldua			STRING		10
 ltiga			STRING		10
 lempat			STRING		10
 llima			STRING		10
+ljmlmtddev		INT2		10
+ljmlmtdtac		INT2		10
 lfotomtddev		INT2		10
 lfotomtdtac		INT2		10
 lfototlddev		INT2		10
@@ -166,6 +172,8 @@ ctambahfototldtac	mtdkat == "TAC" && mtdjasbrg != BLANKS && mtddk != BLANKS
 cselproposal		spkkat2 != BLANKS
 cselaprproposal		spkkode != BLANKS
 cselinfoproposal	spkkode2 != BLANKS
+cjikadevceklis		mtdkat == "DEV" && mtddk != BLANKS
+cjikatacceklis		mtdkat == "TAC" && mtddk != BLANKS
 
 MAP(mfototld)
 	l1		lfototlddev	REPLACE_IF ctambahfototlddev
@@ -178,6 +186,8 @@ DBCALCS(djoinuplfototambahan2)
 MAP(mfotomtd)
 	l1		lfotomtddev	REPLACE_IF ctambahfotomtddev
 	l1		lfotomtdtac	REPLACE_IF ctambahfotomtdtac
+	l1		ljmlmtddev	REPLACE_IF cjikadevceklis
+	l1		ljmlmtdtac	REPLACE_IF cjikatacceklis
 DBCALCS(djoinuplfototambahan)
 	DBC_COMMAND	SCANSCAN
 	DBC_TARGET	mtdbukurtidx	mtsnobuk
@@ -226,14 +236,29 @@ DBCALCS(dcekalasanrevisi)
 	DBC_MAP		mcekalasanrevisi
 
 CALCS()
+cklaimdev		mtdkat == "DEV" && mtddk != BLANKS
+cklaimtac		mtdkat == "TAC" && mtddk != BLANKS
+
+MAP(mscansaldosisa)
+	mtdperdis	lsaldoklaimdev	REPLACE_IF cklaimdev
+	mtdperdis	lsaldoklaimtac	REPLACE_IF cklaimtac
+
+DBCALCS(dscansaldosisa)
+	DBC_COMMAND	SCANSCAN
+	DBC_TARGET	mtdbukbrglok mtdnobuk
+	DBC_SUM_MAP	mscansaldosisa
+
+
+CALCS()
 cdjoindetailceklis	djoindetailceklis == 1
 cdjoindetailblmapprove	djoindetailblmapprove == 0
 cdjoindetailblmapprove2	djoindetailblmapprove2 == 0
-cdjoinuplfototambahan	djoinuplfototambahan >= 0 && djoinuplfototambahan2 >= 0 && ((lfotomtddev == 0 && lfototlddev > 0) || (lfotomtddev > 0)) && ((lfotomtdtac == 0 && lfototldtac > 0) || (lfotomtdtac > 0))
+cdjoinuplfototambahan	djoinuplfototambahan >= 0 && djoinuplfototambahan2 >= 0 && ((lfotomtddev == 0 && lfototlddev >= ljmlmtddev) || (lfotomtddev > 0) || (ljmlmtddev == 0)) && ((lfotomtdtac == 0 && lfototldtac >= ljmlmtdtac) || (lfotomtdtac > 0) || (ljmlmtdtac == 0))
 cdjoinproposal		djoinproposal == 1
 cdjoinapproveproposal	djoinapproveproposal == 1
 cdjoin3dupl		djoin3dupl == 1
 cdjoinsdhinfoproposal	djoinsdhinfoproposal == 1
+cdscansaldosisa		dscansaldosisa >= 0
 
 MAP(mjoinpsi)
 	lblanks		lsudahceklis		REPLACE
@@ -249,6 +274,11 @@ MAP(mjoinpsi)
 	lblanks		lproses3dke2		REPLACE
 	lblanks		lproses3dke3		REPLACE
 	lblanks		lsudahuplfototambahan	REPLACE
+	lblanks		lsaldoklaimdev		REPLACE
+	lblanks		lsaldoklaimtac		REPLACE
+
+	lsaldoklaimdev	lsaldoklaimdev		REPLACE_IF cdscansaldosisa
+	lsaldoklaimtac	lsaldoklaimtac		REPLACE_IF cdscansaldosisa
 
 	lproses3dke	lproses3dke		REPLACE_IF cdjoin3dupl
 	lproses3dke2	lproses3dke2		REPLACE_IF cdjoin3dupl
@@ -276,14 +306,15 @@ mtsplg			r_string4	REPLACE
 CALCS()
 ctambahdev		mtdkat == "DEV" && g_curcmd == 1
 ctambahtac		mtdkat == "TAC" && g_curcmd == 1
-cubahceklisdev		mtdkat == "DEV" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2
-cubahceklistac		mtdkat == "TAC" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2
+cubahceklisdev		mtdkat == "DEV" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2 && (mtdppdoto == BLANKS || (mtdppdoto != BLANKS && mtdppdoto != g_usrkode))
+cubahceklistac		mtdkat == "TAC" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2 && (mtdppdoto == BLANKS || (mtdppdoto != BLANKS && mtdppdoto != g_usrkode))
+cubahceklistaca		mtdkat == "TAC" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2
 cnominalsdhada		mtsdvs == "SUDAH" && g_curcmd == 0
 c0			0
 cgyok			djoinpsi == 1 &&
 			(
 				((mtssts == "OPEN" || mtssts == "RINP") && (mtsdvs == "SUDAH" || mtsdvs == "BELUM")) || 
-				(mtssts == "INPG" && mtshcex == BLANKS && lsudahceklis == "OK" && lsudahuplfototambahan == "OK" && (mtstotal == 0 || (mtstotal > 0 && mtstotdis == BLANKS && mtsperdisd == BLANKS))) ||
+				(mtssts == "INPG" && mtshcex == BLANKS && lsudahceklis == "OK" && lsudahuplfototambahan == "OK" && (mtstotal == 0 || (mtstotal > 0 && mtstotdis == BLANKS && mtsperdisd == BLANKS)) && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis) ||
 				(mtssts == "INPG" && mtshcex == "APR1" && lsudahapprove == "OK") ||
 				(mtssts == "INPG" && mtshcex == "APR2" && lsudahapprove2 == "OK") ||
 				(mtssts == "INPG" && mtshcex == "RVS" && lsudahceklis == "OK" && lsudahuplfototambahan == "OK") ||
@@ -309,6 +340,8 @@ ckondisi10		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && 
 ckondisi11		mtshcex == "KLAIM" && lproses3dke3 == 1 && lapprovalkirimaju == BLANKS
 ckondisi12		mtshcex == "KLAIM" && lproses3dke3 == 2 && ldanacair == BLANKS
 ckondisi13		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ldanacair == "SUDAH" && lupldanacair == BLANKS 
+ckondisi14		lsaldoklaimdev != mtstothrg
+ckondisi15		lsaldoklaimtac != mtsperdisd
 cMtOPENRINP		mtssts == "OPEN" || mtssts == "RINP"
 cMtxOPENRINP		mtssts != "OPEN" && mtssts != "RINP"
 cMtINPG			mtssts == "INPG"
@@ -367,7 +400,7 @@ IMAGE(master)
 |/---------------------------------------------------------------\|
 || t.UplBukNomDevTac						 ||
 |\---------------------------------------------------------------/|
-|/--------------------------s.UPLOAD-----------------------------\|
+|/--------------------------s.DOCUPLOAD--------------------------\|
 ||								 ||
 ||								 ||
 ||								 ||
@@ -543,8 +576,8 @@ e.MandatoryNomDev	mtsjml		MANDATORY_IF csdhterimaclaim
 e.MandatoryNomTac	mtsjml2		MANDATORY_IF csdhterimaclaim
 e.MandatoryTglTerima	mtstgl1		MANDATORY_IF cblmterimaclaim
 e.WajibUplBukNominal	mtstypbrg	MANDATORY_IF cnominalsdhada
-e.IsiAlasanSisaSaldoDev	ketisi_1	MANDATORY_IF cMtINPG_MAND_ALASAN1
-e.IsiAlasanSisaSaldoTac	ketisi2_1	MANDATORY_IF cMtINPG_MAND_ALASAN2
+e.KlikTombolHitungNominal1DAtauIsiAlasanSisaSaldoDev	ketisi_1	MANDATORY_IF cMtINPG_MAND_ALASAN1
+e.KlikTombolHitungNominal2DAtauIsiAlasanSisaSaldoTac	ketisi2_1	MANDATORY_IF cMtINPG_MAND_ALASAN2
 e.MandatoryTglAktivitas	mtstgljtp	MANDATORY_IF cMandatoryTglAkt
 
 MAP(mcab)
@@ -602,12 +635,13 @@ DBCALCS(djoincektgl2)
 	DBC_MAP		mcektgl2
 
 CALCS()
-ctglvalid	(mtstgl1 > g_tgltrn && mtstgl1 <= (g_tgltrn + 14)) || mtsdvs == "SUDAH"
+ctglvalid	(mtstgl1 > g_tgltrn && mtstgl1 <= (g_tgltrn + 7)) || mtsdvs == "SUDAH"
 ctglvalid2	djoinhemaks == 1 && djoinhetoday == 1 && (mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS) || (mtssts == "INPG" && mtstotdis == BLANKS && mtsperdisd == BLANKS) ||
 		(lhetoday5 <= lhemaks && djoincektgl1 == 1 && mtstgljtp > g_tgltrn) ||
 		(lhetoday5 > lhemaks && djoincektgl2 == 1 && mtstgljtp <= ltgllimit && mtstgljtp > g_tgltrn)
 
 )
+cblmadanom	mtsdvs == "BELUM"
 
 MAP(mdum)
 	lversi		lversi		REPLACE
@@ -616,7 +650,12 @@ MAP(mhapusnominal)
 	lblanks		mtsjml		REPLACE_IF cblmterimaclaim
 	lblanks		mtsjml2		REPLACE_IF cblmterimaclaim
 
+MAP(minittglestimasi)
+	chplus7		mtstgl1		DO_CALC
+
+
 HOOKS(master)
+AFTER_INPUT		cur_field=mtsdvs	DO_MAP SHOW IF cblmadanom minittglestimasi
 BEFORE_INPUT		cur_field=mtstgl1	DO_SKIP_IF csdhterimaclaim
 BEFORE_INPUT		cur_field=mtsjml	DO_SKIP_IF cblmterimaclaim
 BEFORE_INPUT		cur_field=mtsjml2	DO_SKIP_IF cblmterimaclaim
@@ -638,7 +677,7 @@ CLICKED			cur_field=ltompost	DO_SPCALCS shapustandaposting
 AFTER_INPUT		cur_field=mtstgl1	DO_MAP SHOW
 			IF ctglvalid	mdum
 			ELSE HKCURSOR STAY
-			HKMSG Tanggal tidak boleh yang sudah lewat atau hari ini dan maksimal H+14
+			HKMSG Tanggal tidak boleh yang sudah lewat atau hari ini dan maksimal H+7
 AFTER_INPUT		cur_field=mtsdvs	DO_MAP SHOW mhapusnominal
 AFTER_INPUT		cur_field=mtstgljtp	DO_MAP SHOW
 			IF ctglvalid2 mdum
@@ -791,6 +830,7 @@ MAP(mnourut1)
 	lnourut		lnourut		REPLACE_IF cdscannourt
 	ctambahnourut1	lnourut		DO_CALC
 	lnourut		mtdnourt	REPLACE
+	g_usrkode	mtdppdoto	REPLACE
 /*
 MAP(mhapusalasantacc)
 	lblanks		mtdket		REPLACE_IF capproveacc
@@ -1071,13 +1111,14 @@ CALCS()
 ctambahnourut2  lnourut2 + 1
 
 MAP(mnourut2)
-cy		mtddk		DO_CALC
-mtscab		mtdcab		REPLACE
-mtsnobuk	mtdnobuk	REPLACE
-lblanks         lnourut2        REPLACE
-lnourut2        lnourut2        REPLACE_IF cdscannourt
-ctambahnourut2  lnourut2        DO_CALC
-lnourut2        mtdnourt        REPLACE
+	cy		mtddk		DO_CALC
+	mtscab		mtdcab		REPLACE
+	mtsnobuk	mtdnobuk	REPLACE
+	lblanks         lnourut2        REPLACE
+	lnourut2        lnourut2        REPLACE_IF cdscannourt
+	ctambahnourut2  lnourut2        DO_CALC
+	lnourut2        mtdnourt        REPLACE
+	g_usrkode	mtdppdoto	REPLACE
 
 HOOKS(transat)
 BEFORE_INPUT    cur_field=mtddk         DO_SKIP_IF ctidakbisaubah
@@ -1089,12 +1130,12 @@ BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF ctambahtac
 BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF ctambahtac
 BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF ctambahtac
 BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF ctambahtac
-BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cubahceklistac
+BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cubahceklistaca
 BEFORE_INPUT	cur_field=mtdtgl3	DO_SKIP_IF cubahceklistac
 BEFORE_INPUT	cur_field=mtdtgl4	DO_SKIP_IF cubahceklistac
 BEFORE_INPUT	cur_field=mtdjml	DO_SKIP_IF cubahceklistac
-BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cubahceklistac
-BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cubahceklistac
+BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cubahceklistaca
+BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cubahceklistaca
 /*BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cubahceklistac*/
 BEFORE_INPUT	cur_field=mtdgrup2	DO_SKIP_IF cubahceklistac
 BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cubahceklistac

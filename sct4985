@@ -215,21 +215,21 @@ cblmterimaclaimabk	mtsdvs == "BELUM" && (lSTATUS == "OPEN" || lSTATUS == "RINP")
 cMtINPG_SISA		lSTATUS == "INPG" && lSTATUS2 == BLANKS && (mtstotdis != BLANKS || mtsperdisd != BLANKS)
 cMtINPG_SISA_ABK	lSTATUS == "INPG" && lSTATUS2 == BLANKS && (mtstotdis != BLANKS || mtsperdisd != BLANKS) && (abksts == "RINP" || abksts == "INPG")
 
-cMtINPG_APR1		lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis == BLANKS && mtsperdisd == BLANKS && (lMD == "WAHANA" || lMD == "DAW" || lMD == "ASPER" || lMD == "SINSEN" || lMD == "INDACO")
-cMtINPG_APR2		(lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis == BLANKS && mtsperdisd == BLANKS && (lMD == "TDM")) || (lSTATUS == "INPG" && lSTATUS2 == "APR1")
+cMtINPG_APR1		lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "WAHANA" || lMD == "DAW" || lMD == "ASPER" || lMD == "SINSEN" || lMD == "INDACO")
+cMtINPG_APR2		(lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "TDM")) || (lSTATUS == "INPG" && lSTATUS2 == "APR1")
 
-cMtINPG_APR1_ABK	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis == BLANKS && mtsperdisd == BLANKS && (abksts == "RINP" || abksts == "INPG") && (lMD == "WAHANA" || lMD == "DAW" || lMD == "ASPER" || lMD == "SINSEN" || lMD == "INDACO")
-cMtINPG_APR2_ABK            ((lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis == BLANKS && mtsperdisd == BLANKS && (lMD == "TDM")) || (lSTATUS == "INPG" && lSTATUS2 == "APR1")) && (abksts == "RINP" || abksts == "INPG")
+cMtINPG_APR1_ABK	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (abksts == "RINP" || abksts == "INPG") && (lMD == "WAHANA" || lMD == "DAW" || lMD == "ASPER" || lMD == "SINSEN" || lMD == "INDACO")
+cMtINPG_APR2_ABK            ((lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "TDM")) || (lSTATUS == "INPG" && lSTATUS2 == "APR1")) && (abksts == "RINP" || abksts == "INPG")
 
-cMtINPG_AKTIVITASDAM	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis == BLANKS && mtsperdisd == BLANKS && (lMD == "CAPELA" || lMD == "DAM")
-cMtINPG_AKTIVITASDAM_ABK lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis == BLANKS && mtsperdisd == BLANKS && (lMD == "CAPELA" || lMD == "DAM") && (abksts == "RINP" || abksts == "INPG")
+cMtINPG_AKTIVITASDAM	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "CAPELA" || lMD == "DAM")
+cMtINPG_AKTIVITASDAM_ABK lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "CAPELA" || lMD == "DAM") && (abksts == "RINP" || abksts == "INPG")
 
 
 cMtINPG_RVS		lSTATUS == "INPG" && lSTATUS2 == "APR2" && djoindetailtacc == 1
 cMtINPG_RVS_ABK		lSTATUS == "INPG" && lSTATUS2 == "APR2" && djoindetailtacc == 1 && (abksts == "RINP" || abksts == "INPG")
 
-cMtINPG_AKTIVITASMPM	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis == BLANKS && mtsperdisd == BLANKS && (lMD == "HSO" || lMD == "MPM")
-cMtINPG_AKTIVITASMPM_ABK lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis == BLANKS && mtsperdisd == BLANKS && (lMD == "HSO" || lMD == "MPM") && (abksts == "RINP" || abksts == "INPG")
+cMtINPG_AKTIVITASMPM	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "HSO" || lMD == "MPM")
+cMtINPG_AKTIVITASMPM_ABK lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "HSO" || lMD == "MPM") && (abksts == "RINP" || abksts == "INPG")
 
 cMtINPG_AKTIVITAS	lSTATUS == "INPG" && ((lSTATUS2 == "APR2" && djoindetailtacc == 0) || (lSTATUS2 == "RVS")) && lMD != "INDACO"
 cMtINPG_AKTIVITAS_3D	lSTATUS == "INPG" && ((lSTATUS2 == "APR2" && djoindetailtacc == 0) || (lSTATUS2 == "RVS")) && djoindetail3d == 0
