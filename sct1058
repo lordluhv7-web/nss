@@ -117,6 +117,7 @@ lhetoday5		INT2		7
 lthblblndpn		STRING		5
 lspkket			STRING		251
 lspkket2		STRING		251
+lspkjrk3		INT2		7
 
 MAP(muplok)
 	gv_ok		mtstypbrg	REPLACE
@@ -213,6 +214,16 @@ DBCALCS(djoin3dupl)
 	DBC_COMMAND	JOIN
 	DBC_TARGET	spkdatbuktyp	mtsdata mtsnobuk lPROGCLAIM
 	DBC_MAP		mjoin3dupl
+
+MAP(mcekalasanrevisi)
+	spkket		lspkket		REPLACE
+	spkket2		lspkket2	REPLACE
+	spkjrk3		lspkjrk3	REPLACE
+
+DBCALCS(dcekalasanrevisi)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	spkdatbuktyp	mtsdata	mtsnobuk lPROGCLAIM
+	DBC_MAP		mcekalasanrevisi
 
 CALCS()
 cdjoindetailceklis	djoindetailceklis == 1
@@ -859,17 +870,9 @@ MAP(mupdtldceklis)
 SPCALCS(standaceklistld)
 DO_LIB		ap_dbclc(DNAME dupdtldceklis,DCOMMAND UPDATE_RANGE,DTARGET tldbukurtidx mtdnobuk mtdnourt,DMAP mupdtldceklis);
 
-MAP(mcekalasanrevisi)
-	spkket		lspkket		REPLACE
-	spkket2		lspkket2	REPLACE
-
-DBCALCS(dcekalasanrevisi)
-	DBC_COMMAND	JOIN
-	DBC_TARGET	spkdatbuktyp	mtsdata	mtsnobuk lPROGCLAIM
-	DBC_MAP		mcekalasanrevisi
 
 CALCS()
-cskipaktdisetujui	mtssts != "INPG" || (mtssts == "INPG" && dcekalasanrevisi == 1 && lspkket != "BEBERAPA_AKTIVITAS" && lspkket2 != "BEBERAPA_AKTIVITAS") || dcekalasanrevisi == 0
+cskipaktdisetujui	mtssts != "INPG" || (mtssts == "INPG" && dcekalasanrevisi == 1 && lspkket != "BEBERAPA_AKTIVITAS" && lspkket2 != "BEBERAPA_AKTIVITAS" && lspkjrk3 == 0) || dcekalasanrevisi == 0
 ctidakbisaubah		mtdnobbm == "TIDAK"
 
 HOOKS(transt)
@@ -1582,7 +1585,7 @@ tldbukurtidx            mtdnobuk mtdnourt
 
 CALCS()
 ctambahdetail		mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS")
-cupdatedetail		mtssts == "INPG" && mtshcex != "AKTIVITAS" && mtshcex != "PROPOSAL" && mtshcex != "KLAIM" && mtshcex != "CAIR"
+cupdatedetail		(mtssts == "INPG" && mtshcex != "AKTIVITAS" && mtshcex != "PROPOSAL" && mtshcex != "KLAIM" && mtshcex != "CAIR") || (mtssts == "INPG" && lspkjrk3 > 0)
 cupdatedetail3d		mtssts == "INPG" && (mtshcex == "AKTIVITAS" || (mtshcex == "PROPOSAL" && spkjrk != 2) || mtshcex == "KLAIM" || mtshcex == "CAIR")
 cupdatemaster		mtssts == "OPEN" || mtssts == "RINP" || (mtssts == "INPG" && mtshcex == BLANKS && (mtstotdis > 0 || mtsperdisd > 0))
 cthbl			THBLS(mtstgl)
