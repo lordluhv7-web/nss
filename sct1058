@@ -30,6 +30,8 @@ SCR_NXT_MSG             IF              ckondisi01              t.BelumCeklisDet
                         IF              ckondisi13              t.BelumUploadBuktiSudahCair
                         IF              ckondisi14              t.MohonKlikTombolHitungSisaDev1D
                         IF              ckondisi15              t.MohonKlikTombolHitungSisaTac2D
+                        IF              ckondisi16              t.HarapMelengkapiAktivitasDev
+                        IF              ckondisi17              t.HarapMelengkapiAktivitasTac
 
 LOCAL
 PGM_FIELDS
@@ -248,7 +250,7 @@ MAP(mscansaldosisa)
 
 DBCALCS(dscansaldosisa)
 	DBC_COMMAND	SCANSCAN
-	DBC_TARGET	mtdbukbrglok mtdnobuk
+	DBC_TARGET	mtdbukbrglok mtsnobuk
 	DBC_SUM_MAP	mscansaldosisa
 
 
@@ -344,14 +346,16 @@ ckondisi11		mtshcex == "KLAIM" && lproses3dke3 == 1 && lapprovalkirimaju == BLAN
 ckondisi12		mtshcex == "KLAIM" && lproses3dke3 == 2 && ldanacair == BLANKS
 ckondisi13		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ldanacair == "SUDAH" && lupldanacair == BLANKS 
 ckondisi14		lsaldoklaimdev != mtstothrg
-ckondisi15		lsaldoklaimtac != mtsperdisd
+ckondisi15		lsaldoklaimtac != mtsperdis
+ckondisi16		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtstotdis > 0)
+ckondisi17		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtsperdisd > 0)
 cMtOPENRINP		mtssts == "OPEN" || mtssts == "RINP"
 cMtxOPENRINP		mtssts != "OPEN" && mtssts != "RINP"
 cMtINPG			mtssts == "INPG"
 cMtINPG_ALASAN1		mtssts == "INPG" && mtstotdis <= 0 || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS)
 cMtINPG_ALASAN2		mtssts == "INPG" && mtsperdisd <= 0 || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS)
-cMtINPG_MAND_ALASAN1	mtssts == "INPG" && mtshcex == BLANKS && mtstotdis > 0
-cMtINPG_MAND_ALASAN2	mtssts == "INPG" && mtshcex == BLANKS && mtsperdisd > 0
+cMtINPG_MAND_ALASAN1	mtssts == "INPG" && mtshcex == BLANKS && mtstotdis > 0 && djoinpsi == 1 && lsaldoklaimdev == mtstothrg
+cMtINPG_MAND_ALASAN2	mtssts == "INPG" && mtshcex == BLANKS && mtsperdisd > 0 && djoinpsi == 1 && lsaldoklaimtac == mtsperdis
 cMtINPG_APR1		mtssts == "INPG" && mtshcex == "APR1"
 cMtINPG_APR2		mtssts == "INPG" && mtshcex == "APR2"
 cDetailNonCeklis	mtddk == BLANKS
@@ -570,7 +574,7 @@ cdjoinkawil		djoinkawil == 1
 cdjoinnamaam		djoinnamaam == 1
 cdjoinnamakawil		djoinnamakawil == 1
 cdjoinnamapic		djoinnamapic == 1
-cMandatoryTglAkt	mtssts == "INPG" && mtshcex == BLANKS && (mtstotdis > 0 || mtsperdisd > 0)
+cMandatoryTglAkt	mtssts == "INPG" && mtshcex == BLANKS && (mtstotdis > 0 || mtsperdisd > 0) && djoinpsi == 1 && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis
 
 EDIT(master)
 e.ValidateCab		mtscab		VALIDATE		cabkodidx	mcab	0
@@ -580,8 +584,8 @@ e.MandatoryNomDev	mtsjml		MANDATORY_IF csdhterimaclaim
 e.MandatoryNomTac	mtsjml2		MANDATORY_IF csdhterimaclaim
 e.MandatoryTglTerima	mtstgl1		MANDATORY_IF cblmterimaclaim
 e.WajibUplBukNominal	mtstypbrg	MANDATORY_IF cnominalsdhada
-e.KlikTombolHitungNominal1DAtauIsiAlasanSisaSaldoDev	ketisi_1	MANDATORY_IF cMtINPG_MAND_ALASAN1
-e.KlikTombolHitungNominal2DAtauIsiAlasanSisaSaldoTac	ketisi2_1	MANDATORY_IF cMtINPG_MAND_ALASAN2
+e.IsiAlasanSisaSaldoDev	ketisi_1	MANDATORY_IF cMtINPG_MAND_ALASAN1
+e.IsiAlasanSisaSaldoTac	ketisi2_1	MANDATORY_IF cMtINPG_MAND_ALASAN2
 e.MandatoryTglAktivitas	mtstgljtp	MANDATORY_IF cMandatoryTglAkt
 
 MAP(mcab)
