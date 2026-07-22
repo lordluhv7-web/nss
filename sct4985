@@ -130,8 +130,10 @@ SFL_TARGET
 
 
 /* ======================== MAP ======================== */
+/*
 CALCS()
 cdetailtacc		mtdplg == "TACC" || mtdukrwrn == "TACC"
+*/
 
 MAP(mjoinnsoh)
         sgmstr5         lnipnsoh          REPLACE
@@ -171,10 +173,12 @@ DBCALCS(djoinhocx)
 	DBC_MAP		mjoinhocx
 	DBC_SELECT	cselhocx
 
+/*
 DBCALCS(djoindetailtacc)
         DBC_COMMAND     JOIN
         DBC_TARGET      mtdbukbrglok	lNOBUK
         DBC_SELECT      cdetailtacc
+*/
 
 MAP(mjoindetail3d)
 	spkkode		laccproposal	REPLACE
@@ -225,17 +229,15 @@ cMtINPG_AKTIVITASDAM	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 &
 cMtINPG_AKTIVITASDAM_ABK lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "CAPELA" || lMD == "DAM") && (abksts == "RINP" || abksts == "INPG")
 
 
-cMtINPG_RVS		lSTATUS == "INPG" && lSTATUS2 == "APR2" && djoindetailtacc == 1
-cMtINPG_RVS_ABK		lSTATUS == "INPG" && lSTATUS2 == "APR2" && djoindetailtacc == 1 && (abksts == "RINP" || abksts == "INPG")
 
 cMtINPG_AKTIVITASMPM	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "HSO" || lMD == "MPM")
 cMtINPG_AKTIVITASMPM_ABK lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "HSO" || lMD == "MPM") && (abksts == "RINP" || abksts == "INPG")
 
-cMtINPG_AKTIVITAS	lSTATUS == "INPG" && ((lSTATUS2 == "APR2" && djoindetailtacc == 0) || (lSTATUS2 == "RVS")) && lMD != "INDACO"
-cMtINPG_AKTIVITAS_3D	lSTATUS == "INPG" && ((lSTATUS2 == "APR2" && djoindetailtacc == 0) || (lSTATUS2 == "RVS")) && djoindetail3d == 0
+cMtINPG_AKTIVITAS	lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || (lSTATUS2 == "RVS")) && lMD != "INDACO"
+cMtINPG_AKTIVITAS_3D	lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || (lSTATUS2 == "RVS")) && djoindetail3d == 0
 cMtINPG_AKTIVITAS_3DDAM	lSTATUS == "INPG" && (lMD == "CAPELA" || lMD == "DAM" || lMD == "HSO" || lMD == "MPM") && djoindetail3d == 0
 
-cMtINPG_AKTIVITAS_ABK	lSTATUS == "INPG" && ((lSTATUS2 == "APR2" && djoindetailtacc == 0) || (lSTATUS2 == "RVS")) && (abksts == "RINP" || abksts == "INPG")
+cMtINPG_AKTIVITAS_ABK	lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || (lSTATUS2 == "RVS")) && (abksts == "RINP" || abksts == "INPG")
 cMtINPG_PROPOSAL	lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && lMD != "INDACO" && lMD != "DAM" && lMD != "CAPELA"
 
 cMtINPG_PROPOSAL_ABK	lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (abksts == "RINP" || abksts == "INPG")
@@ -256,8 +258,8 @@ cMtINPG_PROPOSALSUDAHTACC_ABK lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && lin
 cMtINPG_PROPOSALSUDAHTACC2	lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && (laprproposal == "PERBAIKAN_BUKTI_AKTIVITAS" || laprproposal == "LAINNYA")
 cMtINPG_PROPOSALSUDAHTACC2_ABK lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && (laprproposal == "PERBAIKAN_BUKTI_AKTIVITAS" || laprproposal == "LAINNYA") && (abksts == "RINP" || abksts == "INPG")
 
-cMtINPG_PROPOSALSUDAHACC1	(lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && lproposalterima == "ACC" && lproses3dke2 == 1 && lMD != "INDACO") || (lSTATUS == "INPG" && (lSTATUS2 == "RVS" || (lSTATUS2 == "APR2" && djoindetailtacc == 0)) && lproses3dke2 == 1 && lMD == "INDACO")
-cMtINPG_PROPOSALSUDAHACC1_ABK ((lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && lproposalterima == "ACC" && lproses3dke2 == 1 && lMD != "INDACO") || (lSTATUS == "INPG" && (lSTATUS2 == "RVS" || (lSTATUS2 == "APR2" && djoindetailtacc == 0)) && lproses3dke2 == 1 && lMD == "INDACO")) && (abksts == "RINP" || abksts == "INPG")
+cMtINPG_PROPOSALSUDAHACC1	(lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && lproposalterima == "ACC" && lproses3dke2 == 1 && lMD != "INDACO") || (lSTATUS == "INPG" && (lSTATUS2 == "RVS" || (lSTATUS2 == "APR2")) && lproses3dke2 == 1 && lMD == "INDACO")
+cMtINPG_PROPOSALSUDAHACC1_ABK ((lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && lproposalterima == "ACC" && lproses3dke2 == 1 && lMD != "INDACO") || (lSTATUS == "INPG" && (lSTATUS2 == "RVS" || (lSTATUS2 == "APR2")) && lproses3dke2 == 1 && lMD == "INDACO")) && (abksts == "RINP" || abksts == "INPG")
 
 cMtINPG_PROPOSALSUDAHACC2	((lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && lproposalterima == "ACC" && lproses3dke2 == 2 && lMD != "INDACO" && lMD != "DAM" && lMD != "CAPELA") || (lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (lMD == "INDACO" || lMD == "DAM" || lMD == "CAPELA")))
 cMtINPG_PROPOSALSUDAHACC2_ABK ((lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && lproposalterima == "ACC" && lproses3dke2 == 2 && lMD != "INDACO" && lMD != "DAM" && lMD != "CAPELA") || (lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (lMD == "INDACO" || lMD == "DAM" || lMD == "CAPELA"))) && (abksts == "RINP" || abksts == "INPG")
@@ -287,7 +289,7 @@ cMtINPG_KLAIMCAIRREVISI1INDACO_ABK lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || 
 cMtINPG_KLAIMCAIRREVISI2	lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK"
 cMtINPG_KLAIMCAIRREVISI2_ABK lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && (abksts == "RINP" || abksts == "INPG") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK"
 
-cMtINPG_APR2RVSINDACO		lSTATUS == "INPG" && ((lSTATUS2 == "APR2" && djoindetailtacc == 0) || lSTATUS2 == "RVS") && lMD == "INDACO"
+cMtINPG_APR2RVSINDACO		lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || lSTATUS2 == "RVS") && lMD == "INDACO"
 
 cdjoinnsoh		djoinnsoh == 1
 cdjoinhosmg		djoinhosmg == 1
@@ -297,7 +299,6 @@ cdjoinhocx		djoinhocx == 1
 cketabk1		"INPUT CLAIM BD"
 cketabk2		"APPROVAL CLAIM BD"
 cketabk3		"APPROVAL CLAIM BD"
-cketabk4		"REVISI AKTIVITAS"
 cketabk5		"UPLOAD PROPOSAL CBD"
 cketabk6		"ACC KIRIM PROPOSAL"
 cketabk7		"UPL ULANG PROPOSAL"
@@ -364,9 +365,9 @@ MAP(mupdmaster)
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_AKTIVITASDAM
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_PROPOSALTACC
 	lPROPOSAL	mtshcex		REPLACE_IF cMtINPG_PROPOSAL
-	lRVS		mtshcex		REPLACE_IF cMtINPG_RVS
 	lKLAIM		mtshcex		REPLACE_IF cMtINPG_PROPOSALSUDAHACC2
 	cblanks		mtshcex		DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC
+	cblanks		mtstotal	DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_PROPOSALSUDAHTACC2
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_APR2RVSINDACO
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_KLAIMTACCINDACO
@@ -375,6 +376,7 @@ MAP(mupdmaster)
 	gv_CLSD		mtssts		REPLACE_IF cMtINPG_KLAIMCAIRSUDAH
 	lCAIR		mtshcex		REPLACE_IF cMtINPG_KLAIMCAIRBELUM
 	cblanks		mtshcex		DO_CALC_IF cMtINPG_KLAIMCAIRREVISI2
+	cblanks		mtstotal	DO_CALC_IF cMtINPG_KLAIMCAIRREVISI2
 
 	lPROPOSAL	mtshcex		REPLACE_IF cMtINPG_KLAIMCAIRREVISI1
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_KLAIMCAIRREVISI1INDACO
@@ -383,7 +385,6 @@ DEBUG	gv_INPG		mtssts		REPLACE_IF csdhterimaclaim
 
 MAP(mupdabk1)
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_PROPOSAL_ABK
-	gv_CLSD		abksts		REPLACE_IF cMtINPG_RVS_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITAS_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITASMPM_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITASDAM_ABK
@@ -445,14 +446,6 @@ cbesok        	abktgl          DO_CALC
 lniphocx        abkkym          REPLACE
 cketabk3        abkkym2         DO_CALC
 
-MAP(maddabk4)
-lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
-lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
-cbesok        	abktgl          DO_CALC
-mtsgrup2        abkkym          REPLACE
-cketabk4        abkkym2         DO_CALC
 
 MAP(maddabk5)
 lkunciabsen     abkdata         REPLACE
@@ -735,7 +728,6 @@ DO_LIB				ap_dbclc(DNAME dupdabk1,DCOMMAND UPDATE_RANGE,DTARGET abkdatbukidx lku
 DO_LIB_IF csdhterimaclaim	ap_dbclc(DNAME daddabk1,DCOMMAND ADD,DFILE abk,DMAP maddabk1);
 DO_LIB_IF cMtINPG_APR1		ap_dbclc(DNAME daddabk2,DCOMMAND ADD,DFILE abk,DMAP maddabk2);
 DO_LIB_IF cMtINPG_APR2		ap_dbclc(DNAME daddabk3,DCOMMAND ADD,DFILE abk,DMAP maddabk3);
-DO_LIB_IF cMtINPG_RVS		ap_dbclc(DNAME daddabk4,DCOMMAND ADD,DFILE abk,DMAP maddabk4);
 DO_LIB_IF cMtINPG_AKTIVITAS	ap_dbclc(DNAME daddabk5,DCOMMAND ADD,DFILE abk,DMAP maddabk5);
 DO_LIB_IF cMtINPG_AKTIVITASMPM	ap_dbclc(DNAME daddabk5a,DCOMMAND ADD,DFILE abk,DMAP maddabk5);
 DO_LIB_IF cMtINPG_PROPOSAL	ap_dbclc(DNAME daddabk6,DCOMMAND ADD,DFILE abk,DMAP maddabk6);

@@ -312,6 +312,7 @@ CALCS()
 ctambahdev		mtdkat == "DEV" && g_curcmd == 1
 ctambahtac		mtdkat == "TAC" && g_curcmd == 1
 cubahceklisdev		mtdkat == "DEV" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2 && (mtdppdoto == BLANKS || (mtdppdoto != BLANKS && mtdppdoto != g_usrkode))
+cubahceklisdeva		mtdkat == "DEV" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2
 cubahceklistac		mtdkat == "TAC" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2 && (mtdppdoto == BLANKS || (mtdppdoto != BLANKS && mtdppdoto != g_usrkode))
 cubahceklistaca		mtdkat == "TAC" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2
 cnominalsdhada		mtsdvs == "SUDAH" && g_curcmd == 0
@@ -357,8 +358,11 @@ cMtINPG_ALASAN2		mtssts == "INPG" && mtsperdisd <= 0 || mtssts != "INPG" || (mts
 cMtINPG_MAND_ALASAN1	mtssts == "INPG" && mtshcex == BLANKS && mtstotdis > 0 && djoinpsi == 1 && lsaldoklaimdev == mtstothrg
 cMtINPG_MAND_ALASAN2	mtssts == "INPG" && mtshcex == BLANKS && mtsperdisd > 0 && djoinpsi == 1 && lsaldoklaimtac == mtsperdis
 cMtINPG_APR1		mtssts == "INPG" && mtshcex == "APR1"
+cMtINPG_APR1ACC		mtssts == "INPG" && mtshcex == "APR1" && (mtdplg == "ACC" || mtdplg == BLANKS)
+cMtINPG_APR1ACCADD	mtssts == "INPG" && mtshcex == "APR1" && (mtdplg == "ACC" || mtdplg == BLANKS || mtdsat != BLANKS)
 cMtINPG_APR2		mtssts == "INPG" && mtshcex == "APR2"
-cDetailNonCeklis	mtddk == BLANKS
+cMtINPG_APR2ACC		mtssts == "INPG" && mtshcex == "APR2" && (mtdukrwrn == "ACC" || mtdukrwrn == BLANKS)
+cMtINPG_APR2ACCADD	mtssts == "INPG" && mtshcex == "APR2" && (mtdukrwrn == "ACC" || mtdukrwrn == BLANKS || mtdsat != BLANKS)
 cMtINPG_AKTIVITAS	mtssts == "INPG" && mtshcex == "AKTIVITAS"
 cMtINPG_PROPOSAL1	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 1
 cMtINPG_PROPOSAL2	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2
@@ -698,7 +702,7 @@ IMAGE(master2)
 /-----------------------------------------------------------------\
 |/---------------------------------------------------------------\|
 || t.NoBuk       : __________________________                    ||
-|| t.Status      : __________________________                    ||
+|| t.Status      : ___________ ______________                    ||
 || t.Quartal     : __________________________                    ||
 || t.Dealer      : __________________________                    ||
 || t.MainDealer  : __________________________                    ||
@@ -716,6 +720,7 @@ IMAGE(master2)
 FIELD(master2)
 mtsnobuk                PROTECT         INPUTRI         1       /* nobuk */
 mtssts                  PROTECT         INPUTRI         2       /* status */
+mtshcex                 PROTECT         INPUTRI         2       /* status */
 mtsnoasal               PROTECT         INPUTRI         3       /* quartal */
 mtscab                  PROTECT         INPUTRI         4       /* dealer */
 mtsplg                  PROTECT         INPUTRI         5       /* main dealer */
@@ -829,7 +834,7 @@ e.MandatoryTgl		mtdtgl2		MANDATORY_IF ctambahdev
 CALCS()
 ctambahnourut1	lnourut + 1
 /*capproveacc	mtdplg == "ACC"*/
-cceklisblanks	mtddk == BLANKS
+/*cceklisblanks	mtddk == BLANKS*/
 
 MAP(mnourut1)
 	cy		mtddk		DO_CALC
@@ -843,9 +848,9 @@ MAP(mnourut1)
 /*
 MAP(mhapusalasantacc)
 	lblanks		mtdket		REPLACE_IF capproveacc
-*/
 MAP(mhapusacc)
 	lblanks		mtdplg		REPLACE_IF cceklisblanks
+*/
 
 CALCS()
 csaldoceklis		mtddk == "Y"
@@ -921,7 +926,7 @@ DO_LIB		ap_dbclc(DNAME dupdtldceklis,DCOMMAND UPDATE_RANGE,DTARGET tldbukurtidx 
 
 
 CALCS()
-cskipaktdisetujui	mtssts != "INPG" || (mtssts == "INPG" && dcekalasanrevisi == 1 && lspkket != "BEBERAPA_AKTIVITAS" && lspkket2 != "BEBERAPA_AKTIVITAS" && lspkjrk3 == 0) || dcekalasanrevisi == 0
+cskipaktdisetujui	mtssts != "INPG" || (mtssts == "INPG" && dcekalasanrevisi == 1 && lspkket != "BEBERAPA_AKTIVITAS" && lspkket2 != "BEBERAPA_AKTIVITAS" && lspkjrk3 == 0) || dcekalasanrevisi == 0 || (mtssts == "INPG" && mtshcex != BLANKS)
 ctidakbisaubah		mtdnobbm == "TIDAK"
 
 HOOKS(transt)
@@ -937,29 +942,27 @@ BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF ctambahdev
 BEFORE_INPUT	cur_field=mtdket	DO_SKIP_IF cubahceklisdev
 BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cubahceklisdev
 BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cubahceklisdev
-BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cubahceklisdev
-BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cubahceklisdev
+BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cubahceklisdeva
+BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cubahceklisdeva
 /*BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cubahceklisdev*/
 
-BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdket	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF cMtINPG_APR1
+BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtdket	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF cMtINPG_APR1ACC
 BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cMtINPG_APR1
 /*BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cMtINPG_APR1*/
-BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cDetailNonCeklis
 
-BEFORE_INPUT    cur_field=mtdtgl2       DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdket        DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdperdis     DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtddk         DO_SKIP_IF cMtINPG_APR2
+BEFORE_INPUT    cur_field=mtdtgl2       DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtdket        DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtdperdis     DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtddk         DO_SKIP_IF cMtINPG_APR2ACC
 BEFORE_INPUT    cur_field=mtdplg     	DO_SKIP_IF cMtINPG_APR2
 /*BEFORE_INPUT    cur_field=mtdnobbm      DO_SKIP_IF cMtINPG_APR2*/
-BEFORE_INPUT    cur_field=mtdukrwrn     DO_SKIP_IF cDetailNonCeklis
 BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cskipaktdisetujui
 
 /*AFTER_INPUT	cur_field=mtdplg	DO_MAP SHOW mhapusalasantacc*/
-AFTER_INPUT	cur_field=mtddk		DO_MAP SHOW mhapusacc
+/*AFTER_INPUT	cur_field=mtddk		DO_MAP SHOW mhapusacc*/
 AFTER_INPUT	cur_keybd=EN		DO_SPCALCS shitung
 CLICKED		cur_field=ltomhitung1	DO_SPCALCS shitung
 AFTER_INPUT	cur_keybd=EN		DO_SPCALCS standaceklistld
@@ -1165,36 +1168,34 @@ BEFORE_INPUT	cur_field=mtdbisnis	DO_SKIP_IF cubahceklistac
 BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cMtOPENRINP
 
 BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdlok2	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdlok	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdbisnis	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdgrup2	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdtgl3	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdtgl4	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdjml	DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cMtINPG_APR1
+BEFORE_INPUT	cur_field=mtdlok2	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtdlok	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtdbisnis	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtdgrup2	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtdtgl3	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtdtgl4	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtdjml	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cMtINPG_APR1ACCADD
 BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cMtINPG_APR1
 /*BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cMtINPG_APR1*/
-BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF cMtINPG_APR1
-BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cDetailNonCeklis
+BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF cMtINPG_APR1ACC
 
 BEFORE_INPUT    cur_field=mtdtgl2       DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdlok2       DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdlok        DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdbisnis     DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdgrup2      DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdtgl3       DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdtgl4       DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdjml        DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdperdis     DO_SKIP_IF cMtINPG_APR2
+BEFORE_INPUT    cur_field=mtdlok2       DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtdlok        DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtdbisnis     DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtdgrup2      DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtdtgl3       DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtdtgl4       DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtdjml        DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtdperdis     DO_SKIP_IF cMtINPG_APR2ACCADD
 BEFORE_INPUT    cur_field=mtdplg     	DO_SKIP_IF cMtINPG_APR2
 /*BEFORE_INPUT    cur_field=mtdnobbm      DO_SKIP_IF cMtINPG_APR2*/
-BEFORE_INPUT    cur_field=mtddk         DO_SKIP_IF cMtINPG_APR2
-BEFORE_INPUT    cur_field=mtdukrwrn     DO_SKIP_IF cDetailNonCeklis
+BEFORE_INPUT    cur_field=mtddk         DO_SKIP_IF cMtINPG_APR2ACC
 BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cskipaktdisetujui
 
 /*AFTER_INPUT     cur_field=mtdplg        DO_MAP SHOW mhapusalasantacc*/
-AFTER_INPUT     cur_field=mtddk         DO_MAP SHOW mhapusacc
+/*AFTER_INPUT     cur_field=mtddk         DO_MAP SHOW mhapusacc*/
 AFTER_INPUT	cur_keybd=EN		DO_SPCALCS shitung2
 CLICKED		cur_field=ltomhitung2	DO_SPCALCS shitung2
 AFTER_INPUT	cur_keybd=EN		DO_SPCALCS standaceklistld
