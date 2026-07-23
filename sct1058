@@ -335,7 +335,7 @@ cgyok			djoinpsi == 1 && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsper
 				(mtssts == "INPG" && mtshcex == "PROPOSAL" && lsudahinfoproposal == "OK" && lproses3dke == 2 && (lsdhinfo == "BELUM" || (lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == "OK" && (lproses3dke2 == 1 || luplkirimklaim == "OK")))) ||
 				(mtssts == "INPG" && mtshcex == "AKTIVITAS" && (lsudahuplproposal == "OK" || ((mtsplg == "INDACO" || mtsplg == "DAM" || mtsplg == "CAPELA") && luplkirimklaim == "OK" ))) ||
 				(mtssts == "INPG" && mtshcex == "KLAIM" && lapprovalkirimaju != BLANKS && lproses3dke3 == 1) ||
-				(mtssts == "INPG" && mtshcex == "KLAIM" && ((ldanacair == "BELUM") || (ldanacair == "SUDAH" && lupldanacair == "OK")) && lproses3dke3 == 2) ||
+				(mtssts == "INPG" && mtshcex == "KLAIM" && ((ldanacair == "BELUM") || (ldanacair == "SUDAH" && lupldanacair == "OK" && ketdf1_1 > 0 && (ketdf2_1 > 0 || mtstype1 == "TIDAK"))) && lproses3dke3 == 2) ||
 				(mtssts == "INPG" && mtshcex == "CAIR" && ((ldanacair == "BELUM") || (ldanacair == "SUDAH" && lupldanacair == "OK" && ketdf1_1 > 0 && (ketdf2_1 > 0 || mtstype1 == "TIDAK"))) && lproses3dke3 == 2) ||
 				(mtssts == "INPG" && (mtshcex == "CAIR" || mtshcex == "KLAIM") && ldanacair == "REVISI")
 			)
