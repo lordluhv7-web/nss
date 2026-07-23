@@ -366,12 +366,12 @@ cMtINPG_ALASAN1		(mtssts == "INPG" && mtstotdis <= 0) || mtssts != "INPG" || (mt
 cMtINPG_ALASAN2		(mtssts == "INPG" && mtsperdisd <= 0) || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS && mtshcex != "APR1" && mtshcex != "APR2")
 cMtINPG_MAND_ALASAN1	mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "APR1" || mtshcex == "APR2") && mtstotdis > 0 && djoinpsi == 1 && lsaldoklaimdev == mtstothrg
 cMtINPG_MAND_ALASAN2	mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "APR1" || mtshcex == "APR2") && mtsperdisd > 0 && djoinpsi == 1 && lsaldoklaimtac == mtsperdis
-cMtINPG_APR1		mtssts == "INPG" && mtshcex == "APR1"
-cMtINPG_APR1ACC		mtssts == "INPG" && mtshcex == "APR1" && (mtdplg == "ACC" || mtdplg == BLANKS)
-cMtINPG_APR1ACCADD	mtssts == "INPG" && mtshcex == "APR1" && (mtdplg == "ACC" || mtdplg == BLANKS || mtdsat != BLANKS)
-cMtINPG_APR2		mtssts == "INPG" && mtshcex == "APR2"
-cMtINPG_APR2ACC		mtssts == "INPG" && mtshcex == "APR2" && (mtdukrwrn == "ACC" || mtdukrwrn == BLANKS)
-cMtINPG_APR2ACCADD	mtssts == "INPG" && mtshcex == "APR2" && (mtdukrwrn == "ACC" || mtdukrwrn == BLANKS || mtdsat != BLANKS)
+cMtINPG_APR1		mtssts == "INPG" && mtshcex == "APR1" && g_curcmd == 2
+cMtINPG_APR1ACC		mtssts == "INPG" && mtshcex == "APR1" && (mtdplg == "ACC" || mtdplg == BLANKS) && g_curcmd == 2
+cMtINPG_APR1ACCADD	mtssts == "INPG" && mtshcex == "APR1" && (mtdplg == "ACC" || mtdplg == BLANKS || mtdsat != BLANKS) && g_curcmd == 2
+cMtINPG_APR2		mtssts == "INPG" && mtshcex == "APR2" && g_curcmd == 2
+cMtINPG_APR2ACC		mtssts == "INPG" && mtshcex == "APR2" && (mtdukrwrn == "ACC" || mtdukrwrn == BLANKS) && g_curcmd == 2
+cMtINPG_APR2ACCADD	mtssts == "INPG" && mtshcex == "APR2" && (mtdukrwrn == "ACC" || mtdukrwrn == BLANKS || mtdsat != BLANKS) && g_curcmd == 2
 cMtINPG_AKTIVITAS	mtssts == "INPG" && mtshcex == "AKTIVITAS"
 cMtINPG_PROPOSAL1	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 1
 cMtINPG_PROPOSAL2	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2
@@ -690,7 +690,7 @@ CALCS()
 cpanjangdev		DO_LIB ap_strln(ketisi_1,&lpanjangdev);
 cpanjangtac		DO_LIB ap_strln(ketisi2_1,&lpanjangtac);
 cpanjangdevsesuai	lpanjangdev >= 10 || mtssts == "OPEN" || mtssts == "RINP" || (mtssts == "INPG" && mtstotdis <= 0) || mtssts != "INPG"
-cpanjangtacsesuai	lpanjangtac >= 10 || mtssts == "OPEN" || mtssts == "RINP" || (mtssts == "INPG" && mtstotdis <= 0) || mtssts != "INPG"
+cpanjangtacsesuai	lpanjangtac >= 10 || mtssts == "OPEN" || mtssts == "RINP" || (mtssts == "INPG" && mtsperdisd <= 0) || mtssts != "INPG"
 
 MAP(mcekpanjangdev)
 	cpanjangdev	lpanjangdev	DO_CALC
