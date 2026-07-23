@@ -30,8 +30,9 @@ SCR_NXT_MSG             IF              ckondisi01              t.BelumCeklisDet
                         IF              ckondisi14              t.BelumUploadBuktiSudahCair
                         IF              ckondisi15              t.MohonKlikTombolHitungSisaDev1D
                         IF              ckondisi16              t.MohonKlikTombolHitungSisaTac2D
-                        IF              ckondisi17              t.HarapMelengkapiAktivitasDev
-                        IF              ckondisi18              t.HarapMelengkapiAktivitasTac
+                        IF              ckondisi17              t.MohonMelengkapiAktivitasDev
+                        IF              ckondisi18              t.MohonMelengkapiAktivitasTac
+                        IF              ckondisi19              t.MohonIsiNominalCair
 
 LOCAL
 PGM_FIELDS
@@ -285,6 +286,7 @@ MAP(mjoinpsi)
 	lblanks		lsudahuplfototambahan	REPLACE
 	lblanks		lsaldoklaimdev		REPLACE
 	lblanks		lsaldoklaimtac		REPLACE
+	lblanks		ldanacair		REPLACE
 
 	lsaldoklaimdev	lsaldoklaimdev		REPLACE_IF cdscansaldosisa
 	lsaldoklaimtac	lsaldoklaimtac		REPLACE_IF cdscansaldosisa
@@ -292,6 +294,7 @@ MAP(mjoinpsi)
 	lproses3dke	lproses3dke		REPLACE_IF cdjoin3dupl
 	lproses3dke2	lproses3dke2		REPLACE_IF cdjoin3dupl
 	lproses3dke3	lproses3dke3		REPLACE_IF cdjoin3dupl
+	ldanacair	ldanacair		REPLACE_IF cdjoin3dupl
 	gv_ok		lsudahceklis		REPLACE_IF cdjoindetailceklis
 	gv_ok		lsudahapprove		REPLACE_IF cdjoindetailblmapprove
 	gv_ok		lsudahapprove2		REPLACE_IF cdjoindetailblmapprove2
@@ -333,7 +336,7 @@ cgyok			djoinpsi == 1 && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsper
 				(mtssts == "INPG" && mtshcex == "AKTIVITAS" && (lsudahuplproposal == "OK" || ((mtsplg == "INDACO" || mtsplg == "DAM" || mtsplg == "CAPELA") && luplkirimklaim == "OK" ))) ||
 				(mtssts == "INPG" && mtshcex == "KLAIM" && lapprovalkirimaju != BLANKS && lproses3dke3 == 1) ||
 				(mtssts == "INPG" && mtshcex == "KLAIM" && ((ldanacair == "BELUM") || (ldanacair == "SUDAH" && lupldanacair == "OK")) && lproses3dke3 == 2) ||
-				(mtssts == "INPG" && mtshcex == "CAIR" && ((ldanacair == "BELUM") || (ldanacair == "SUDAH" && lupldanacair == "OK")) && lproses3dke3 == 2) ||
+				(mtssts == "INPG" && mtshcex == "CAIR" && ((ldanacair == "BELUM") || (ldanacair == "SUDAH" && lupldanacair == "OK" && ketdf1_1 > 0 && (ketdf2_1 > 0 || mtstype1 == "TIDAK"))) && lproses3dke3 == 2) ||
 				(mtssts == "INPG" && (mtshcex == "CAIR" || mtshcex == "KLAIM") && ldanacair == "REVISI")
 			)
 ckondisi01		lsudahceklis == BLANKS
@@ -349,14 +352,16 @@ ckondisi10		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && 
 ckondisi11		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == "OK" && luplkirimklaim == BLANKS
 ckondisi12		mtshcex == "KLAIM" && lproses3dke3 == 1 && lapprovalkirimaju == BLANKS
 ckondisi13		mtshcex == "KLAIM" && lproses3dke3 == 2 && ldanacair == BLANKS
-ckondisi14		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ldanacair == "SUDAH" && lupldanacair == BLANKS 
+ckondisi14		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ldanacair == "SUDAH" && lupldanacair == BLANKS && ketdf1_1 > 0 && ketdf2_1 > 0
 ckondisi15		lsaldoklaimdev != mtstothrg
 ckondisi16		lsaldoklaimtac != mtsperdis
 ckondisi17		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtstotdis > 0)
 ckondisi18		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtsperdisd > 0)
+ckondisi19		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ldanacair == "SUDAH" && lupldanacair != BLANKS && (ketdf1_1 <= 0 || ketdf2_1 <= 0)
 cMtOPENRINP		mtssts == "OPEN" || mtssts == "RINP"
 cMtxOPENRINP		mtssts != "OPEN" && mtssts != "RINP"
 cMtINPG			mtssts == "INPG"
+cMtINPG_NOMCAIR		mtssts == "INPG" && djoinpsi == 1 && ldanacair != "SUDAH"
 cMtINPG_ALASAN1		(mtssts == "INPG" && mtstotdis <= 0) || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS && mtshcex != "APR1" && mtshcex != "APR2")
 cMtINPG_ALASAN2		(mtssts == "INPG" && mtsperdisd <= 0) || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS && mtshcex != "APR1" && mtshcex != "APR2")
 cMtINPG_MAND_ALASAN1	mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "APR1" || mtshcex == "APR2") && mtstotdis > 0 && djoinpsi == 1 && lsaldoklaimdev == mtstothrg
@@ -718,8 +723,8 @@ BEFORE_INPUT    	cur_field=ketdf2_1      DO_SKIP_IF cMtOPENRINP
 BEFORE_INPUT    	cur_field=mtstgljtp     DO_SKIP_IF cMtOPENRINP
 BEFORE_INPUT    	cur_field=mtstgljtp     DO_SKIP_IF cSkipTglAkt
 BEFORE_INPUT		cur_field=mtsdvs	DO_SKIP_IF cMtINPG
-BEFORE_INPUT		cur_field=ketdf1_1	DO_SKIP_IF cMtINPG
-BEFORE_INPUT		cur_field=ketdf2_1	DO_SKIP_IF cMtINPG
+BEFORE_INPUT		cur_field=ketdf1_1	DO_SKIP_IF cMtINPG_NOMCAIR
+BEFORE_INPUT		cur_field=ketdf2_1	DO_SKIP_IF cMtINPG_NOMCAIR
 BEFORE_INPUT		cur_field=ketisi_1	DO_SKIP_IF cMtINPG_ALASAN1
 BEFORE_INPUT		cur_field=ketisi2_1	DO_SKIP_IF cMtINPG_ALASAN2
 CLICKED			cur_field=ltompost	DO_SPCALCS shapustandaposting
