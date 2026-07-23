@@ -258,7 +258,7 @@ CALCS()
 cdjoindetailceklis	djoindetailceklis == 1
 cdjoindetailblmapprove	djoindetailblmapprove == 0
 cdjoindetailblmapprove2	djoindetailblmapprove2 == 0
-cdjoinuplfototambahan	djoinuplfototambahan >= 0 && djoinuplfototambahan2 >= 0 && ((lfotomtddev == 0 && lfototlddev >= ljmlmtddev) || (lfotomtddev > 0) || (ljmlmtddev == 0)) && ((lfotomtdtac == 0 && lfototldtac >= ljmlmtdtac) || (lfotomtdtac > 0) || (ljmlmtdtac == 0))
+cdjoinuplfototambahan	djoinuplfototambahan >= 0 && djoinuplfototambahan2 >= 0 && lfototlddev >= ljmlmtddev && lfototldtac >= ljmlmtdtac/*((lfotomtddev == 0 && lfototlddev >= ljmlmtddev) || (lfotomtddev > 0) || (ljmlmtddev == 0)) && ((lfotomtdtac == 0 && lfototldtac >= ljmlmtdtac) || (lfotomtdtac > 0) || (ljmlmtdtac == 0))*/
 cdjoinproposal		djoinproposal == 1
 cdjoinapproveproposal	djoinapproveproposal == 1
 cdjoin3dupl		djoin3dupl == 1
@@ -1655,7 +1655,7 @@ SFL_TARGET
 tldbukurtidx            mtdnobuk mtdnourt
 
 CALCS()
-ctambahdetail		mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS")
+ctambahdetail		mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS" || mtshcex == "APR1" || mtshcex == "APR2")
 cupdatedetail		(mtssts == "INPG" && mtshcex != "AKTIVITAS" && mtshcex != "PROPOSAL" && mtshcex != "KLAIM" && mtshcex != "CAIR") || (mtssts == "INPG" && lspkjrk3 > 0)
 cupdatedetail3d		mtssts == "INPG" && (mtshcex == "AKTIVITAS" || (mtshcex == "PROPOSAL" && spkjrk != 2) || mtshcex == "KLAIM" || mtshcex == "CAIR")
 cupdatemaster		mtssts == "OPEN" || mtssts == "RINP" || (mtssts == "INPG" && mtshcex == BLANKS && (mtstotdis > 0 || mtsperdisd > 0))

@@ -219,14 +219,17 @@ cblmterimaclaimabk	mtsdvs == "BELUM" && (lSTATUS == "OPEN" || lSTATUS == "RINP")
 cMtINPG_SISA		lSTATUS == "INPG" && lSTATUS2 == BLANKS && (mtstotdis != BLANKS || mtsperdisd != BLANKS)
 cMtINPG_SISA_ABK	lSTATUS == "INPG" && lSTATUS2 == BLANKS && (mtstotdis != BLANKS || mtsperdisd != BLANKS) && (abksts == "RINP" || abksts == "INPG")
 
-cMtINPG_APR1		lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "WAHANA" || lMD == "DAW" || lMD == "ASPER" || lMD == "SINSEN" || lMD == "INDACO")
-cMtINPG_APR2		(lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "TDM")) || (lSTATUS == "INPG" && lSTATUS2 == "APR1")
+cMtINPG_APR1		lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "WAHANA" || lMD == "DAW" || lMD == "ASPER" || lMD == "SINSEN" || lMD == "INDACO" || lMD == "TRIO")
+cMtINPG_APR2		((lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "TDM")) || (lSTATUS == "INPG" && lSTATUS2 == "APR1")) && lMD != "TRIO"
 
-cMtINPG_APR1_ABK	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (abksts == "RINP" || abksts == "INPG") && (lMD == "WAHANA" || lMD == "DAW" || lMD == "ASPER" || lMD == "SINSEN" || lMD == "INDACO")
-cMtINPG_APR2_ABK            ((lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "TDM")) || (lSTATUS == "INPG" && lSTATUS2 == "APR1")) && (abksts == "RINP" || abksts == "INPG")
+cMtINPG_APR1_ABK	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (abksts == "RINP" || abksts == "INPG") && (lMD == "WAHANA" || lMD == "DAW" || lMD == "ASPER" || lMD == "SINSEN" || lMD == "INDACO" || lMD == "TRIO")
+cMtINPG_APR2_ABK            ((lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "TDM")) || (lSTATUS == "INPG" && lSTATUS2 == "APR1")) && (abksts == "RINP" || abksts == "INPG") && lMD != "TRIO"
 
 cMtINPG_AKTIVITASDAM	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "CAPELA" || lMD == "DAM")
 cMtINPG_AKTIVITASDAM_ABK lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "CAPELA" || lMD == "DAM") && (abksts == "RINP" || abksts == "INPG")
+
+cMtINPG_AKTIVITASTRIO	lSTATUS == "INPG" && lSTATUS2 == "APR1" && mtstotdis <= 0 && mtsperdisd <= 0 && lMD == "TRIO"
+cMtINPG_AKTIVITASTRIO_ABK lSTATUS == "INPG" && lSTATUS2 == "APR1" && mtstotdis <= 0 && mtsperdisd <= 0 && lMD == "TRIO" && (abksts == "RINP" || abksts == "INPG")
 
 
 
@@ -235,7 +238,7 @@ cMtINPG_AKTIVITASMPM_ABK lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <=
 
 cMtINPG_AKTIVITAS	lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || (lSTATUS2 == "RVS")) && lMD != "INDACO"
 cMtINPG_AKTIVITAS_3D	lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || (lSTATUS2 == "RVS")) && djoindetail3d == 0
-cMtINPG_AKTIVITAS_3DDAM	lSTATUS == "INPG" && (lMD == "CAPELA" || lMD == "DAM" || lMD == "HSO" || lMD == "MPM") && djoindetail3d == 0
+cMtINPG_AKTIVITAS_3DDAM	lSTATUS == "INPG" && (lMD == "CAPELA" || lMD == "DAM" || lMD == "HSO" || lMD == "MPM" || lMD == "TRIO") && djoindetail3d == 0
 
 cMtINPG_AKTIVITAS_ABK	lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || (lSTATUS2 == "RVS")) && (abksts == "RINP" || abksts == "INPG")
 cMtINPG_PROPOSAL	lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && lMD != "INDACO" && lMD != "DAM" && lMD != "CAPELA"
@@ -363,6 +366,7 @@ MAP(mupdmaster)
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_AKTIVITAS
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_AKTIVITASMPM
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_AKTIVITASDAM
+	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_AKTIVITASTRIO
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_PROPOSALTACC
 	lPROPOSAL	mtshcex		REPLACE_IF cMtINPG_PROPOSAL
 	lKLAIM		mtshcex		REPLACE_IF cMtINPG_PROPOSALSUDAHACC2
@@ -388,6 +392,7 @@ MAP(mupdabk1)
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITAS_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITASMPM_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITASDAM_ABK
+	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITASTRIO_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_PROPOSALTACC_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_PROPOSALACC_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_APR1_ABK
@@ -413,6 +418,12 @@ MAP(mupdabk1)
 	gt_RINP		abksts		REPLACE_IF cblmterimaclaimabk
 DEBUG	mtstgl1		abktgl		REPLACE_IF cblmterimaclaimabk
 
+CALCS()
+cMD1_APR1	lMD == "WAHANA" || lMD == "DAW" || lMD == "INDACO"
+cMD2_APR1	lMD == "ASPER" || lMD == "SINSEN"
+cMDMPM		lMD == "MPM"
+cMDTRIO		lMD == "TRIO"
+
 MAP(maddabk1)
 lkunciabsen     abkdata         REPLACE
 l1058           abkscr          REPLACE
@@ -420,12 +431,8 @@ lNOBUK          abknobuk        REPLACE
 gt_RINP         abksts          REPLACE
 cbesok		abktgl		DO_CALC
 mtsgrup2	abkkym		REPLACE
+lniphocx	abkkym		REPLACE_IF cMDTRIO
 cketabk1        abkkym2         DO_CALC
-
-CALCS()
-cMD1_APR1	lMD == "WAHANA" || lMD == "DAW" || lMD == "INDACO"
-cMD2_APR1	lMD == "ASPER" || lMD == "SINSEN"
-cMDMPM		lMD == "MPM"
 
 MAP(maddabk2)
 lkunciabsen     abkdata         REPLACE
@@ -435,6 +442,7 @@ gt_RINP         abksts          REPLACE
 cbesok          abktgl          DO_CALC
 lnipam       	abkkym          REPLACE_IF cMD1_APR1
 lnipkawil	abkkym		REPLACE_IF cMD2_APR1
+lnipam		abkkym		REPLACE_IF cMDTRIO
 cketabk2        abkkym2         DO_CALC
 
 MAP(maddabk3)
@@ -455,6 +463,7 @@ gt_RINP         abksts          REPLACE
 cbesok          abktgl          DO_CALC
 mtsgrup2        abkkym          REPLACE
 lnipam		abkkym		REPLACE_IF cMDMPM
+lniphocx	abkkym		REPLACE_IF cMDTRIO
 cketabk5        abkkym2         DO_CALC
 
 MAP(maddabk6)
@@ -730,6 +739,7 @@ DO_LIB_IF cMtINPG_APR1		ap_dbclc(DNAME daddabk2,DCOMMAND ADD,DFILE abk,DMAP madd
 DO_LIB_IF cMtINPG_APR2		ap_dbclc(DNAME daddabk3,DCOMMAND ADD,DFILE abk,DMAP maddabk3);
 DO_LIB_IF cMtINPG_AKTIVITAS	ap_dbclc(DNAME daddabk5,DCOMMAND ADD,DFILE abk,DMAP maddabk5);
 DO_LIB_IF cMtINPG_AKTIVITASMPM	ap_dbclc(DNAME daddabk5a,DCOMMAND ADD,DFILE abk,DMAP maddabk5);
+DO_LIB_IF cMtINPG_AKTIVITASTRIO	ap_dbclc(DNAME daddabk5b,DCOMMAND ADD,DFILE abk,DMAP maddabk5);
 DO_LIB_IF cMtINPG_PROPOSAL	ap_dbclc(DNAME daddabk6,DCOMMAND ADD,DFILE abk,DMAP maddabk6);
 DO_LIB_IF cMtINPG_PROPOSALTACC	ap_dbclc(DNAME daddabk7,DCOMMAND ADD,DFILE abk,DMAP maddabk7);
 DO_LIB_IF cMtINPG_PROPOSALACC	ap_dbclc(DNAME daddabk8,DCOMMAND ADD,DFILE abk,DMAP maddabk8);
