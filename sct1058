@@ -54,6 +54,8 @@ lnipam			STRING		21
 lnipkawil		STRING		21
 lnamapic		STRING		61
 ljabpic			STRING		21
+ljabam			STRING		21
+ljabkawil		STRING		21
 lnamaam			STRING		61
 lnamakawil		STRING		61
 lCLAIMBD		STRING		21
@@ -323,8 +325,8 @@ cgyok			djoinpsi == 1 &&
 			(
 				((mtssts == "OPEN" || mtssts == "RINP") && (mtsdvs == "SUDAH" || mtsdvs == "BELUM")) || 
 				(mtssts == "INPG" && mtshcex == BLANKS && lsudahceklis == "OK" && lsudahuplfototambahan == "OK" && (mtstotal == 0 || (mtstotal > 0 && mtstotdis <= 0 && mtsperdisd <= 0)) && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis) ||
-				(mtssts == "INPG" && mtshcex == "APR1" && lsudahapprove == "OK") ||
-				(mtssts == "INPG" && mtshcex == "APR2" && lsudahapprove2 == "OK") ||
+				(mtssts == "INPG" && mtshcex == "APR1" && lsudahapprove == "OK" && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis) ||
+				(mtssts == "INPG" && mtshcex == "APR2" && lsudahapprove2 == "OK" && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis) ||
 				(mtssts == "INPG" && mtshcex == "RVS" && lsudahceklis == "OK" && lsudahuplfototambahan == "OK") ||
 				(mtssts == "INPG" && mtshcex == "PROPOSAL" && lsudahapproveproposal == "OK" && lproses3dke == 1) ||
 				(mtssts == "INPG" && mtshcex == "PROPOSAL" && lsudahinfoproposal == "OK" && lproses3dke == 2 && (lsdhinfo == "BELUM" || (lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == "OK" && (lproses3dke2 == 1 || luplkirimklaim == "OK")))) ||
@@ -386,13 +388,19 @@ cMtINPG_KLAIM2REVISIxLAINNYA mtssts == "INPG" && ((mtshcex == "KLAIM" && spkjrk2
 IMAGE(master)
 /-----------------------------------------------------------------\
 |/---------------------------------------------------------------\|
-|| t.NoBuk	 : ______________    t.Status ______ __________ _||
-|| t.Quartal	 : __________________________			 ||
-|| t.Dealer	 : ______ ___________________			 ||
-|| t.MainDealer	 : ____________ t.ProsesClaim _________________  ||
+|| t.NoBuk	 : ______________ t.Status ______ ______________ _||
+|| t.Quartal	 : ______________ t.Dealer ______ ______________ ||
+|| t.MainDealer	 : ______________ t.ProsesClaim________________  ||
+||spasi								 ||
+||		   t.Nip      t.Nama	       t.Jabatan	 ||
 || t.Pic	 : _________ ________________ __________________ ||
-|| t.AM		 : _________ ________________			 ||
-|| t.Kawil 	 : _________ ________________			 ||
+|| t.AM		 : _________ ________________ __________________ ||
+|| t.Kawil 	 : _________ ________________ __________________ ||
+||spasi								 ||
+|\---------------------------------------------------------------/|
+|								  |
+|/---------------------------------------------------------------\|
+|| t.BisaKlaimTac	:		     ___________________ ||
 || t.AdaNominalDevTac	:	 	     __________________	 ||
 || t.TglEstTerimaNom	:	 	     ___________________ ||
 || t.NomDevelopment	:	 	     ___________________ ||
@@ -439,9 +447,12 @@ lnamapic		PROTECT		INPUTRI		9	/* nama pic */
 ljabpic			PROTECT		INPUTRI		10	/* jabatan pic */
 lnipam			PROTECT		INPUTRI		11	/* am */
 lnamaam			PROTECT		INPUTRI		12	/* nama am */
+ljabam			PROTECT		INPUTRI		12	/* jabatan am */
 lnipkawil		PROTECT		INPUTRI		13	/* kawil */
 lnamakawil		PROTECT		INPUTRI		14	/* nama kawil */
+ljabkawil		PROTECT		INPUTRI		14	/* jabatan kawil */
 
+mtstype1		PROTECT		INPUTRI		15	/* bisa klaim tactical atau tidak */
 mtsdvs			NOCHANGE	INPUTRI		15	/* apakah sdh ada nominal dev tac */
 mtstgl1			NOLIMIT {DD-MM-YY} INPUTRI	16	/* tgl estimasi info terima nom */
 
@@ -524,9 +535,11 @@ sgmstr5			lnipkawil	REPLACE
 
 MAP(mnamaam)
 psinama			lnamaam		REPLACE
+psijabatan		ljabam		REPLACE
 
 MAP(mnamakawil)
 psinama			lnamakawil	REPLACE
+psijabatan		ljabkawil	REPLACE
 
 MAP(mnamapic)
 psinama			lnamapic	REPLACE
@@ -1002,6 +1015,7 @@ DBCALCS(dupd1)
 
 CALCS()
 cmasukdetail		mtsdvs == "SUDAH" && mtssts != "OPEN" && mtssts != "RINP"
+cmasukdetailtac		mtsdvs == "SUDAH" && mtssts != "OPEN" && mtssts != "RINP" && mtstype1 == "YA"
 
 SUBFILE(trans)
 SFL_LINES(1)
@@ -1228,7 +1242,7 @@ AFTER_INPUT	cur_keybd=EN		DO_SPCALCS standaceklistld
 SUBFILE(transa)
 SFL_LINES(1)
 SFL_TITLE(transat)
-SFL_COND		cmasukdetail
+SFL_COND		cmasukdetailtac
 SFL_UPL_DIRFLD          mtdtglfak
 SFL_UPLFLD              mtdnoll mtdnorangka
 SFL_UPLFLD2             mtdnoll mtdnomesin
@@ -1765,15 +1779,23 @@ MAP(mparam1)
 mtsnobuk		mtsnobuk	REPLACE
 cthbl			lmtstgl		DO_CALC
 
+CALCS()
+cMDDAW			mtsplg == "DAW"
+cMDTRIO			mtsplg == "TRIO"
+cMDWAHANA		mtsplg == "WAHANA"
+cMDASPER		mtsplg == "ASPER"
+cMDHSO			mtsplg == "HSO"
+cMDSINSEN		mtsplg == "SINSEN"
+
 DEFAULT(report)
 lurl	     INIT		"uat.nusantara-sakti.co.id"
-lpil         DFALT_SCAN_BLANKS  1 "Format Proposal Klaim Bonus DAW"
-                                2 "Format Proposal Klaim Bonus TRIO"
-                                3 "Format Proposal Klaim Bonus WAHANA"
-                                4 "Format Proposal Klaim Bonus ASPER"
-                                5 "Format Proposal Klaim Bonus HSO"
-                                6 "Format Proposal Klaim Bonus Sinsen"
-				7 "Cetak Bukti Foto"
+IF cMDDAW	lpil         DFALT_SCAN_BLANKS  1 "Format Proposal Klaim Bonus DAW"
+IF cMDTRIO	lpil         DFALT_SCAN_BLANKS  2 "Format Proposal Klaim Bonus TRIO"
+IF cMDWAHANA	lpil         DFALT_SCAN_BLANKS  3 "Format Proposal Klaim Bonus WAHANA"
+IF cMDASPER	lpil         DFALT_SCAN_BLANKS  4 "Format Proposal Klaim Bonus ASPER"
+IF cMDHSO	lpil         DFALT_SCAN_BLANKS  5 "Format Proposal Klaim Bonus HSO"
+IF cMDSINSEN	lpil         DFALT_SCAN_BLANKS  6 "Format Proposal Klaim Bonus Sinsen"
+		lpil	     DFALT_SCAN_BLANKS	7 "Cetak Bukti Foto"
 lxls				DFALT_LIST      YA
                         			TIDAK
 
