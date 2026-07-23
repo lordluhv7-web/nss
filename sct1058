@@ -17,24 +17,26 @@ SCR_NXT_COND            cgyok
 SCR_NXT_MSG             IF              ckondisi01              t.BelumCeklisDetail1dAtau2d
                         IF              ckondisi02              t.LengkapiApproveDetail
                         IF              ckondisi03              t.BelumUploadBuktiKirimProposal
-                        IF              ckondisi03a             t.BelumKirimBuktiPengajuanKlaim
-                        IF              ckondisi04              t.BelumApproveKirimProposal
-                        IF              ckondisi05              t.BelumIsiInfoProposal
-                        IF              ckondisi06              t.BelumUploadFotoTambahan
-                        IF              ckondisi07              t.MasterSudahCLSD
-                        IF              ckondisi08              t.BelumUplBuktiInfoProposal
-                        IF              ckondisi09              t.BelumUplBuktiDiterimaDitolak
-                        IF              ckondisi10              t.BelumKirimBuktiPengajuanKlaim
-                        IF              ckondisi11              t.BelumIsiApprovalKirimPengajuanKlaim
-                        IF              ckondisi12              t.BelumIsiApakahDanaSudahCair
-                        IF              ckondisi13              t.BelumUploadBuktiSudahCair
-                        IF              ckondisi14              t.MohonKlikTombolHitungSisaDev1D
-                        IF              ckondisi15              t.MohonKlikTombolHitungSisaTac2D
-                        IF              ckondisi16              t.HarapMelengkapiAktivitasDev
-                        IF              ckondisi17              t.HarapMelengkapiAktivitasTac
+                        IF              ckondisi04             	t.BelumKirimBuktiPengajuanKlaim
+                        IF              ckondisi05              t.BelumApproveKirimProposal
+                        IF              ckondisi06              t.BelumIsiInfoProposal
+                        IF              ckondisi07              t.BelumUploadFotoTambahan
+                        IF              ckondisi08              t.MasterSudahCLSD
+                        IF              ckondisi09              t.BelumUplBuktiInfoProposal
+                        IF              ckondisi10              t.BelumUplBuktiDiterimaDitolak
+                        IF              ckondisi11              t.BelumKirimBuktiPengajuanKlaim
+                        IF              ckondisi12              t.BelumIsiApprovalKirimPengajuanKlaim
+                        IF              ckondisi13              t.BelumIsiApakahDanaSudahCair
+                        IF              ckondisi14              t.BelumUploadBuktiSudahCair
+                        IF              ckondisi15              t.MohonKlikTombolHitungSisaDev1D
+                        IF              ckondisi16              t.MohonKlikTombolHitungSisaTac2D
+                        IF              ckondisi17              t.HarapMelengkapiAktivitasDev
+                        IF              ckondisi18              t.HarapMelengkapiAktivitasTac
 
 LOCAL
 PGM_FIELDS
+lpanjangdev		INT2		7
+lpanjangtac		INT2		7
 ltipeaktivitas          STRING          21
 ltypeatl                STRING          21
 lnamacabang		STRING		251
@@ -112,12 +114,12 @@ ldua			STRING		10
 ltiga			STRING		10
 lempat			STRING		10
 llima			STRING		10
-ljmlmtddev		INT2		10
-ljmlmtdtac		INT2		10
-lfotomtddev		INT2		10
-lfotomtdtac		INT2		10
-lfototlddev		INT2		10
-lfototldtac		INT2		10
+ljmldevceklis		INT2		10
+ljmltacceklis		INT2		10
+lfotobawaandev		INT2		10
+lfotobawaantac		INT2		10
+lfototambahandev	INT2		10
+lfototambahantac	INT2		10
 ltglakhirbulan		DATE		8
 ltglawalbulandepan	DATE		8
 ltgllimit		DATE		8
@@ -170,29 +172,29 @@ DBCALCS(djoindetailblmapprove2)
 
 
 CALCS()
-ctambahfotomtddev	mtdkat == "DEV" && mtdtotdis != BLANKS && mtddk != BLANKS
-ctambahfotomtdtac	mtdkat == "TAC" && (mtdtotdis != BLANKS || mtdsatbsr != BLANKS || mtdhrgnet != BLANKS) && mtddk != BLANKS
-ctambahfototlddev	mtdkat == "DEV" && mtdjasbrg != BLANKS && mtddk != BLANKS
-ctambahfototldtac	mtdkat == "TAC" && mtdjasbrg != BLANKS && mtddk != BLANKS
+ckondfotobawaandev	mtdkat == "DEV" && mtdtotdis != BLANKS && mtddk != BLANKS
+ckondfotobawaantac	mtdkat == "TAC" && (mtdtotdis != BLANKS || mtdsatbsr != BLANKS || mtdhrgnet != BLANKS) && mtddk != BLANKS
+ckondfototambahandev	mtdkat == "DEV" && mtdjasbrg != BLANKS && mtddk != BLANKS && mtdtotdis == BLANKS
+ckondfototambahantac	mtdkat == "TAC" && mtdjasbrg != BLANKS && mtddk != BLANKS && mtdtotdis == BLANKS && mtdsatbsr == BLANKS && mtdhrgnet == BLANKS
 cselproposal		spkkat2 != BLANKS
 cselaprproposal		spkkode != BLANKS
 cselinfoproposal	spkkode2 != BLANKS
-cjikadevceklis		mtdkat == "DEV" && mtddk != BLANKS
-cjikatacceklis		mtdkat == "TAC" && mtddk != BLANKS
+ckondceklisdev		mtdkat == "DEV" && mtddk != BLANKS
+ckondceklistac		mtdkat == "TAC" && mtddk != BLANKS
 
 MAP(mfototld)
-	l1		lfototlddev	REPLACE_IF ctambahfototlddev
-	l1		lfototldtac	REPLACE_IF ctambahfototldtac
+	l1		lfototambahandev REPLACE_IF ckondfototambahandev
+	l1		lfototambahantac REPLACE_IF ckondfototambahantac
 DBCALCS(djoinuplfototambahan2)
 	DBC_COMMAND	SCANSCAN
 	DBC_TARGET	mtdbukurtidx	mtsnobuk
 	DBC_SUM_MAP	mfototld
 
 MAP(mfotomtd)
-	l1		lfotomtddev	REPLACE_IF ctambahfotomtddev
-	l1		lfotomtdtac	REPLACE_IF ctambahfotomtdtac
-	l1		ljmlmtddev	REPLACE_IF cjikadevceklis
-	l1		ljmlmtdtac	REPLACE_IF cjikatacceklis
+	l1		lfotobawaandev	REPLACE_IF ckondfotobawaandev
+	l1		lfotobawaantac	REPLACE_IF ckondfotobawaantac
+	l1		ljmldevceklis	REPLACE_IF ckondceklisdev
+	l1		ljmltacceklis	REPLACE_IF ckondceklistac
 DBCALCS(djoinuplfototambahan)
 	DBC_COMMAND	SCANSCAN
 	DBC_TARGET	mtdbukurtidx	mtsnobuk
@@ -258,7 +260,7 @@ CALCS()
 cdjoindetailceklis	djoindetailceklis == 1
 cdjoindetailblmapprove	djoindetailblmapprove == 0
 cdjoindetailblmapprove2	djoindetailblmapprove2 == 0
-cdjoinuplfototambahan	djoinuplfototambahan >= 0 && djoinuplfototambahan2 >= 0 && lfototlddev >= ljmlmtddev && lfototldtac >= ljmlmtdtac/*((lfotomtddev == 0 && lfototlddev >= ljmlmtddev) || (lfotomtddev > 0) || (ljmlmtddev == 0)) && ((lfotomtdtac == 0 && lfototldtac >= ljmlmtdtac) || (lfotomtdtac > 0) || (ljmlmtdtac == 0))*/
+cdjoinuplfototambahan	djoinuplfototambahan >= 0 && djoinuplfototambahan2 >= 0 && ((lfotobawaandev + lfototambahandev) >= ljmldevceklis) && ((lfotobawaantac + lfototambahantac) >= ljmltacceklis)
 cdjoinproposal		djoinproposal == 1
 cdjoinapproveproposal	djoinapproveproposal == 1
 cdjoin3dupl		djoin3dupl == 1
@@ -335,28 +337,28 @@ cgyok			djoinpsi == 1 &&
 ckondisi01		lsudahceklis == BLANKS
 ckondisi02		mtssts == "INPG" && ((mtshcex == "APR1" && lsudahapprove == BLANKS) || (mtshcex == "APR2" && lsudahapprove2 == BLANKS))
 ckondisi03		mtshcex == "AKTIVITAS" && lsudahuplproposal == BLANKS && mtsplg != "INDACO" && mtsplg != "DAM" && mtsplg != "CAPELA"
-ckondisi03a		mtshcex == "AKTIVITAS" && luplkirimklaim == BLANKS && (mtsplg == "INDACO" || mtsplg == "DAM" || mtsplg == "CAPELA")
-ckondisi04		mtshcex == "PROPOSAL" && lproses3dke == 1 && lsudahapproveproposal == BLANKS
-ckondisi05		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsudahinfoproposal == BLANKS
-ckondisi06		lsudahuplfototambahan == BLANKS
-ckondisi07		mtssts == "CLSD"
-ckondisi08		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == BLANKS
-ckondisi09		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == BLANKS
-ckondisi10		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == "OK" && luplkirimklaim == BLANKS
-ckondisi11		mtshcex == "KLAIM" && lproses3dke3 == 1 && lapprovalkirimaju == BLANKS
-ckondisi12		mtshcex == "KLAIM" && lproses3dke3 == 2 && ldanacair == BLANKS
-ckondisi13		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ldanacair == "SUDAH" && lupldanacair == BLANKS 
-ckondisi14		lsaldoklaimdev != mtstothrg
-ckondisi15		lsaldoklaimtac != mtsperdis
-ckondisi16		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtstotdis > 0)
-ckondisi17		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtsperdisd > 0)
+ckondisi04		mtshcex == "AKTIVITAS" && luplkirimklaim == BLANKS && (mtsplg == "INDACO" || mtsplg == "DAM" || mtsplg == "CAPELA")
+ckondisi05		mtshcex == "PROPOSAL" && lproses3dke == 1 && lsudahapproveproposal == BLANKS
+ckondisi06		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsudahinfoproposal == BLANKS
+ckondisi07		lsudahuplfototambahan == BLANKS
+ckondisi08		mtssts == "CLSD"
+ckondisi09		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == BLANKS
+ckondisi10		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == BLANKS
+ckondisi11		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == "OK" && luplkirimklaim == BLANKS
+ckondisi12		mtshcex == "KLAIM" && lproses3dke3 == 1 && lapprovalkirimaju == BLANKS
+ckondisi13		mtshcex == "KLAIM" && lproses3dke3 == 2 && ldanacair == BLANKS
+ckondisi14		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ldanacair == "SUDAH" && lupldanacair == BLANKS 
+ckondisi15		lsaldoklaimdev != mtstothrg
+ckondisi16		lsaldoklaimtac != mtsperdis
+ckondisi17		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtstotdis > 0)
+ckondisi18		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtsperdisd > 0)
 cMtOPENRINP		mtssts == "OPEN" || mtssts == "RINP"
 cMtxOPENRINP		mtssts != "OPEN" && mtssts != "RINP"
 cMtINPG			mtssts == "INPG"
-cMtINPG_ALASAN1		mtssts == "INPG" && mtstotdis <= 0 || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS)
-cMtINPG_ALASAN2		mtssts == "INPG" && mtsperdisd <= 0 || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS)
-cMtINPG_MAND_ALASAN1	mtssts == "INPG" && mtshcex == BLANKS && mtstotdis > 0 && djoinpsi == 1 && lsaldoklaimdev == mtstothrg
-cMtINPG_MAND_ALASAN2	mtssts == "INPG" && mtshcex == BLANKS && mtsperdisd > 0 && djoinpsi == 1 && lsaldoklaimtac == mtsperdis
+cMtINPG_ALASAN1		(mtssts == "INPG" && mtstotdis <= 0) || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS && mtshcex != "APR1" && mtshcex != "APR2")
+cMtINPG_ALASAN2		(mtssts == "INPG" && mtsperdisd <= 0) || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS && mtshcex != "APR1" && mtshcex != "APR2")
+cMtINPG_MAND_ALASAN1	mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "APR1" || mtshcex == "APR2") && mtstotdis > 0 && djoinpsi == 1 && lsaldoklaimdev == mtstothrg
+cMtINPG_MAND_ALASAN2	mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "APR1" || mtshcex == "APR2") && mtsperdisd > 0 && djoinpsi == 1 && lsaldoklaimtac == mtsperdis
 cMtINPG_APR1		mtssts == "INPG" && mtshcex == "APR1"
 cMtINPG_APR1ACC		mtssts == "INPG" && mtshcex == "APR1" && (mtdplg == "ACC" || mtdplg == BLANKS)
 cMtINPG_APR1ACCADD	mtssts == "INPG" && mtshcex == "APR1" && (mtdplg == "ACC" || mtdplg == BLANKS || mtdsat != BLANKS)
@@ -666,8 +668,29 @@ MAP(mhapusnominal)
 MAP(minittglestimasi)
 	chplus7		mtstgl1		DO_CALC
 
+CALCS()
+cpanjangdev		DO_LIB ap_strln(ketisi_1,&lpanjangdev);
+cpanjangtac		DO_LIB ap_strln(ketisi2_1,&lpanjangtac);
+cpanjangdevsesuai	lpanjangdev >= 10 || mtssts == "OPEN" || mtssts == "RINP" || (mtssts == "INPG" && mtstotdis <= 0) || mtssts != "INPG"
+cpanjangtacsesuai	lpanjangtac >= 10 || mtssts == "OPEN" || mtssts == "RINP" || (mtssts == "INPG" && mtstotdis <= 0) || mtssts != "INPG"
+
+MAP(mcekpanjangdev)
+	cpanjangdev	lpanjangdev	DO_CALC
+
+MAP(mcekpanjangtac)
+	cpanjangtac	lpanjangtac	DO_CALC
 
 HOOKS(master)
+AFTER_INPUT		cur_field=ketisi_1	DO_MAP SHOW mcekpanjangdev
+AFTER_INPUT		cur_field=ketisi2_1	DO_MAP SHOW mcekpanjangtac
+AFTER_INPUT		cur_field=ketisi_1	DO_MAP SHOW
+						IF cpanjangdevsesuai	mdum
+						ELSE HKCURSOR STAY
+                                                HKMSG t.AlasanSisaKurangPanjang
+AFTER_INPUT             cur_field=ketisi2_1     DO_MAP SHOW 
+                                                IF cpanjangtacsesuai    mdum
+                                                ELSE HKCURSOR STAY
+                                                HKMSG t.AlasanSisaKurangPanjang
 AFTER_INPUT		cur_field=mtsdvs	DO_MAP SHOW IF cblmadanom minittglestimasi
 BEFORE_INPUT		cur_field=mtstgl1	DO_SKIP_IF csdhterimaclaim
 BEFORE_INPUT		cur_field=mtsjml	DO_SKIP_IF cblmterimaclaim
