@@ -321,12 +321,12 @@ cubahceklistac		mtdkat == "TAC" && mtssts == "INPG" && (mtshcex == BLANKS || mts
 cubahceklistaca		mtdkat == "TAC" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2
 cnominalsdhada		mtsdvs == "SUDAH" && g_curcmd == 0
 c0			0
-cgyok			djoinpsi == 1 &&
+cgyok			djoinpsi == 1 && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis &&
 			(
 				((mtssts == "OPEN" || mtssts == "RINP") && (mtsdvs == "SUDAH" || mtsdvs == "BELUM")) || 
-				(mtssts == "INPG" && mtshcex == BLANKS && lsudahceklis == "OK" && lsudahuplfototambahan == "OK" && (mtstotal == 0 || (mtstotal > 0 && mtstotdis <= 0 && mtsperdisd <= 0)) && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis) ||
-				(mtssts == "INPG" && mtshcex == "APR1" && lsudahapprove == "OK" && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis) ||
-				(mtssts == "INPG" && mtshcex == "APR2" && lsudahapprove2 == "OK" && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis) ||
+				(mtssts == "INPG" && mtshcex == BLANKS && lsudahceklis == "OK" && lsudahuplfototambahan == "OK" && (mtstotal == 0 || (mtstotal > 0 && mtstotdis <= 0 && mtsperdisd <= 0))) ||
+				(mtssts == "INPG" && mtshcex == "APR1" && lsudahapprove == "OK") ||
+				(mtssts == "INPG" && mtshcex == "APR2" && lsudahapprove2 == "OK") ||
 				(mtssts == "INPG" && mtshcex == "RVS" && lsudahceklis == "OK" && lsudahuplfototambahan == "OK") ||
 				(mtssts == "INPG" && mtshcex == "PROPOSAL" && lsudahapproveproposal == "OK" && lproses3dke == 1) ||
 				(mtssts == "INPG" && mtshcex == "PROPOSAL" && lsudahinfoproposal == "OK" && lproses3dke == 2 && (lsdhinfo == "BELUM" || (lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == "OK" && (lproses3dke2 == 1 || luplkirimklaim == "OK")))) ||
