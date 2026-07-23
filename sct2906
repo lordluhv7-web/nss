@@ -433,6 +433,7 @@ lEVENT                  STRING  21
 lnobuk                  STRING  21
 lcabnama                STRING  21
 ltgmkeev                INT2    2
+lminggike               STRING  3
 ltglkunciev             DATE    4
 ltglevent               DATE    4
 lnipmktev               STRING  21
@@ -501,6 +502,8 @@ lJAM_GMB                TIME    4
 /* ---------- AKHIR LOCAL TRANS SCRAPING_G --------- */
 
 /* LOCAL TRANSG43 */
+lYA			STRING	21
+lTIDAK			STRING	21
 ltahuncbd		STRING	5
 ltglqawal               DATE    4
 ltglqakhir              DATE    4
@@ -559,6 +562,21 @@ ldsbjml2                DFLOAT  8
 ldsbjml3                DFLOAT  8
 ldsbjml4                DFLOAT  8
 ldsbjml5                DFLOAT  8
+
+
+lKOMPRATING             STRING  11
+lKOMPRATING21           STRING  21
+lspknoasal_KOMPRATING   STRING  21
+lAPIMASKOMP             STRING  11
+l5104                   INT2    2
+lm5104			STRING	21
+lurl                    STRING  351
+lURLKOMPRATING          STRING  21
+lURL                    STRING  21
+lAPIKEY                 STRING  21
+lHEADER                 STRING  21
+lheader                 STRING  300
+lapi_key                STRING  300
 
 /*============================== JOIN DAN SCAN ============================*/
 CALCS()
@@ -798,11 +816,44 @@ DBCALCS(djoinabdkapos129)
 
 DBCALCS(djointlm1060)
         DBC_COMMAND     JOIN
-	DBC_TARGET	tlmcabnoidx cabkode lthbl11 lTDEPAN
+	DBC_TARGET	tlmcabnoidx     cabkode lthbl11 lTDEPAN
 
 DBCALCS(djoinabk1060)
         DBC_COMMAND     JOIN
-        DBC_TARGET      abkdatbukidx lkunciabsen tlmnobuk
+        DBC_TARGET      abkdatbukidx    lkunciabsen tlmnobuk
+
+MAP(mspkKOMPRATING)
+spknoasal               lspknoasal_KOMPRATING    REPLACE
+
+DBCALCS(djoinspkKOMPRATING)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	spkdatbuktyp    lKOMPRATING lKOMPRATING21 lAPIMASKOMP
+        DBC_MAP         mspkKOMPRATING
+
+MAP(murlKOMPRATING)
+tbdket                  lurl                    REPLACE
+
+DBCALCS(djoinurlKOMPRATING)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddatkodidx    gv_dttabel lCUSTOMEREXPERIENCE lURLKOMPRATING lURL
+        DBC_MAP         murlKOMPRATING   
+
+MAP(mheaderKOMPRATING)
+tbdket                  lheader                 REPLACE
+
+DBCALCS(djoinheaderKOMPRATING)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddatkodidx    gv_dttabel lCUSTOMEREXPERIENCE lURLKOMPRATING lHEADER
+        DBC_MAP         mheaderKOMPRATING
+
+MAP(mapiKOMPRATING)
+tbdket                  lapi_key                REPLACE
+
+DBCALCS(djoinapiKOMPRATING)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddatkodidx    gv_dttabel lCUSTOMEREXPERIENCE lURLKOMPRATING lAPIKEY
+        DBC_MAP         mapiKOMPRATING
+
 /*============================== START MASTER ============================*/
 
 IMAGE(master) {BASE_ROW=1} {FRSFLD_BACKUP} {LSTFLD_ADVANCE}
@@ -844,6 +895,11 @@ cpil7                   lpil == 7
 cpil8                   lpil == 8
 cpil10                  lpil == 10
 cpil11                  lpil == 11
+cpil55                  lpil == 55
+cspkKOMPRATING          lpil == 55 && djoinspkKOMPRATING == 1
+curlKOMPRATING          lpil == 55 && djoinurlKOMPRATING == 1
+cheaderKOMPRATING       lpil == 55 && djoinheaderKOMPRATING == 1
+capiKOMPRATING          lpil == 55 && djoinapiKOMPRATING == 1
 
 csystime		SYSTIME
 cBLANKS			BLANKS
@@ -928,6 +984,8 @@ lpil            	DFALT_SCAN      	BLANKS
                                                 52 "PROSES 1063 MASTER DAN DETAIL"
                                                 53 "PROSES UPDATE ACT KOSONG M4W"
                                                 54 "PROSES UPDATE DSB KPI"
+                                                55 "PROSES API KOMPOSISI RATING"
+                                                56 "PROSES HAPUS DSB"
 
 lhminjtp		DFALT_SCAN		7
 						14
@@ -977,7 +1035,7 @@ lindikatorsitusweb      INIT			"SITUS WEB"
 lindikatortotulasan	INIT			"ULASAN"
 lindikatortotbalasan	INIT			"BALASAN"
 lindikatorratinggmb	INIT			"RATING"
-lversi			INIT			2607-09v3
+lversi			INIT			23072026_V1
 lstandarisasigmb        INIT                    "STANDARISASI GMB"
 lACTBNSDLR		INIT			"ACTBNSDLR"
 lTGTBNSDLR		INIT			"TGTBNSDLR"
@@ -1188,6 +1246,8 @@ l21                     INIT                    21
 /* -------- AHKIR DEFAULTS SCRAPING_G -------- */
 
 /* -------- AWAL DEFAULTS TRANSG43 -------- */
+lYA			INIT			"YA"
+lTIDAK			INIT			"TIDAK"
 lCLAIMBD                INIT                    "CLAIMBD"
 lCLAIMDEV               INIT                    "CLAIMDEVELOPMENT"
 lCLAIMTAC               INIT                    "CLAIMTACTICAL"
@@ -1221,6 +1281,17 @@ lAMHMC                  INIT                    "AMHMC"
 l1063                   INIT                    "1063"
 lISISTDSOSMEDIG         INIT                    "ISI STD SOSMED IG"
 
+
+lKOMPRATING             INIT                    KOMPRATING
+lKOMPRATING21           INIT                    KOMPRATING
+lAPIMASKOMP             INIT                    APIMASKOMP
+l5104                   INIT                    5104
+lm5104		        INIT			"m5104"
+
+lURLKOMPRATING          INIT                    URLKOMPRATING
+lURL                    INIT                    URL
+lAPIKEY                 INIT                    APIKEY
+lHEADER                 INIT                    HEADER
 
 EDITS(master)
 
@@ -1269,6 +1340,15 @@ cquartilakhir           ltglqakhir              DO_CALC
 cthblqawal              lthblsqawal             DO_CALC
 cthblqakhir             lthblsqakhir            DO_CALC
 ctahuncbd		ltahuncbd		DO_CALC
+
+cBLANKS                 lnorekppm               DO_CALC_IF cpil55
+lspknoasal_KOMPRATING   lnorekppm               REPLACE_IF cspkKOMPRATING       
+
+ctglawlblnmin1          ltglawlblnmin1          DO_CALC_IF cpil55
+ltglawlblnmin1          ltgl4                   REPLACE_IF cpil55
+lurl                    lurl                    REPLACE_IF curlKOMPRATING
+lheader                 lheader                 REPLACE_IF cheaderKOMPRATING
+lapi_key                lapi_key                REPLACE_IF capiKOMPRATING
 
 MAP(mtgl)
 cBLANKS                 ltglqawal               DO_CALC
@@ -3783,6 +3863,59 @@ SFL_SELECT		chanyaind
 SFL_TARGET		dsbtgdattyp	ltgl2 lDTKPI lthbl lnorekppm lnorekjrn
 
 /*========== Akhir Trans Pilihan 51 Proses Kunci PRN 985 JKHPJ =========*/
+
+/* ---------------- AWAL TRANS API KOMPOSISI RATING ---------------- */
+
+IMAGE(transg52)
+|_________|_________|_________|_______________________________|_________________|_________________|
+
+FIELD(transg52)
+ltgl4                   NOCHANGE        {DD-MM-YY}      INPUTRI 1
+ltgl2                   NOCHANGE        {DD-MM-YY}      INPUTRI 2
+lnorekppm               NOCHANGE                        INPUTRI 3
+lurl                    NOCHANGE                        INPUTRI 4
+lheader                 NOCHANGE                        INPUTRI 5
+lapi_key                NOCHANGE                        INPUTRI 6
+
+MAP(m5104)
+ltgl4                   r_date1                 REPLACE
+ltgl2                   r_date2                 REPLACE
+lurl                    r_string1               REPLACE
+lnorekppm               r_string3               REPLACE
+lheader                 r_string4               REPLACE
+/*
+lapi_key                r_string5               REPLACE
+*/
+
+SUBFILE(transg52)
+SFL_COND                cpil55
+SFL_LINES(1)
+SFL_TARGET
+        stskodidx       lY
+
+/* ---------------- AKHIR TRANS API KOMPOSISI RATING --------------- */
+IMAGE(transg53t)
+/----------t-----------t------------\
+|t.Tanggal |t.dvs      |t.indikator |
+\----------t-----------t------------/
+IMAGE(transg53)
+ __________ ___________ ____________
+
+FIELDS(transg53)
+dsbtgl1                 PROTECT          NOLIMIT         {DD-MM-YYY}     INPUTRI 1
+dsbtype2                PROTECT                                         INPUTRI 2
+dsbket1                 ALLCAPS                                         INPUTRI 3
+
+CALCS()
+cpil56		lpil ==  56
+
+SUBFILE(transg53)
+SFL_LINES(5)
+SFL_TITLE(transg53t)
+SFL_COND                cpil56
+SFL_TARGET              dsbtgdattyp     ltgl2 lDTKPI lthbl lnorekppm lnorekjrn
+
+
 
 /*================================ END TRANS =============================*/
 /*================================ START MAP =============================*/
@@ -6696,9 +6829,10 @@ DBCALCS(djoincabcadev)
 
 MAP(mdjointgmev)
 tgmke                   ltgmkeev                REPLACE        
+tgmminggu               lminggike               REPLACE
 DBCALCS(djointgmev)
         DBC_COMMAND     JOIN
-        DBC_TARGET      tgmdattglidx    lTGL g_tgltrn
+        DBC_TARGET      tgmdattglidx    lTGL ltgl2
         DBC_MAP         mdjointgmev
 
 MAP(mjoinsgmmkt)
@@ -6718,8 +6852,8 @@ DBCALCS(djoibmev)
         DBC_MAP         mjoinsgmbm
 
 CALCS()
-cselectm2               tgmminggu == 2 && tgmke == 6 && tgmtgl >= g_tgltrn
-cselectm3               tgmminggu == 3 && tgmke == 4 && tgmtgl >= g_tgltrn   
+cselectm2               tgmminggu == 2 && tgmke == 6 && tgmtgl >= ltgl2
+cselectm3               tgmminggu == 3 && tgmke == 4 && tgmtgl >= ltgl2   
 
 MAP(mdjointgm2)
 tgmtgl                  ltglkunciev             REPLACE
@@ -6755,15 +6889,18 @@ DBCALCS(djointgm3a)
 
     
 CALCS()
-cnobukEventGP           "GPR"+cadkdcab+THBLS(ltgl2)
+cnobukEventGP           "GPR"+cadkdcab+THBLS(ltgl2)+STRIP(lminggike)
 cnobukEventGM           "MTR"+cadkdcab+THBLS(ltgl2)+"001"
 cnobukEventPP           "PAP"+cadkdcab+THBLS(ltgl2)+"001"
 
 cgrebekpasar            tmpkode == "GREBEKPASAR"
 cgatheringmitra         tmpkode == "GATHERINGMITRA"
 cpameranpasar           tmpkode == "PAMERANPASAR"
-cnobukevblmada          ltglkunciev != BLANKS && djointlmev821 == 0 && (tmpkode == "PAMERANPASAR" || tmpkode == "GATHERINGMITRA") && lnobuk != BLANKS
-cnobukevblmadagp        ltglkunciev != BLANKS && djointlmev821 == 0 && tmpkode == "GREBEKPASAR" && tlmnobuk != BLANKS
+cnobukevblmada          ltglkunciev != BLANKS && djointlmev821 == 0 && (tmpkode == "PAMERANPASAR" || tmpkode == "GATHERINGMITRA" || tmpkode == "GREBEKPASAR") && lnobuk != BLANKS
+
+/*
+cnobukevblmadagp        ltglkunciev != BLANKS && djointlmev821 == 0 && tmpkode == "GREBEKPASAR" && (ltgmkeev == 1)
+*/
 cjkadanipdevent         (ltglkunciev != BLANKS && (lnipmktev != BLANKS || lnipbmev != BLANKS) && ((djointlmev821 == 1 || djointlmev821a == 1 ) && djoinabkev == 0 && djoinabkev2 == 0 && djoinabkev3 == 0 && djoinabkev4 == 0 && djoinabkev5 == 0))
 candir                  "ANDIR"
 cBTL                    "BTL"
@@ -6772,12 +6909,12 @@ cMTR                    "MTR"
 cPAP                    "PAP"
 cjoincabcadev           djoincabcadev == 1
 cdjointgmev             djointgmev == 1
-cTglKunci1gp            g_tgltrn + 1    /* Senin  → Selasa minggu ini  */
-cTglKunci2gp            g_tgltrn + 0    /* Selasa → Selasa minggu ini  */
-cTglKunci3gp            g_tgltrn + 6    /* Rabu   → Selasa minggu depan */
-cTglKunci4gp            g_tgltrn + 5    /* Kamis  → Selasa minggu depan */
-cTglKunci5gp            g_tgltrn + 4    /* Jumat  → Selasa minggu depan */
-cTglKunci6gp            g_tgltrn + 3    /* Sabtu  → Selasa minggu depan */
+cTglKunci1gp            ltgl2 + 1    /* Senin  → Selasa minggu ini  */
+cTglKunci2gp            ltgl2 + 0    /* Selasa → Selasa minggu ini  */
+cTglKunci3gp            ltgl2 + 6    /* Rabu   → Selasa minggu depan */
+cTglKunci4gp            ltgl2 + 5    /* Kamis  → Selasa minggu depan */
+cTglKunci5gp            ltgl2 + 4    /* Jumat  → Selasa minggu depan */
+cTglKunci6gp            ltgl2 + 3    /* Sabtu  → Selasa minggu depan */
 
 
 /*
@@ -6917,7 +7054,7 @@ lnobuk                  tlmnobuk                REPLACE_IF cpameranpasar
 ltglevent               tlmtgl                  REPLACE  
 lnipbmev       	        tlmkode                 REPLACE_IF cnipmktnull
 lnipmktev     	        tlmkode                 REPLACE_IF cnipmktada                       
-g_tgltrn                tlmtgl2                 REPLACE
+ltgl2                   tlmtgl2                 REPLACE
 DEBUG   ldum            ldum                    REPLACE
 
 MAP(maddabkev821)
@@ -7185,6 +7322,7 @@ cpiccbd1	lkodemd == "ASPER" || lkodemd == "TRIO" || lkodemd == "SINSEN"
 cpiccbd2	lkodemd == "DAW" || lkodemd == "WAHANA" || lkodemd == "INDACO"
 cpiccbd3	lkodemd == "HSO" || lkodemd == "MPM" || lkodemd == "CAPELA" || lkodemd == "DAM"
 cpiccbd4	lkodemd == "TDM"
+ctidakbisatac	lkodemd == "WAHANA" || lkodemd == "INDACO" || lkodemd == "SINSEN"
 
 MAP(maddmastercbd)
 	g_tgltrn	mtstgl		REPLACE				/* tgl master */
@@ -7193,6 +7331,8 @@ MAP(maddmastercbd)
 	lqcbd		mtsnoasal	REPLACE				/* quartil */
 	cabkode		mtscab		REPLACE				/* kode cabang */
 	lkodemd		mtsplg		REPLACE				/* main dealer */
+	lYA		mtstype1	REPLACE				/* bisa klaim tac */
+	lTIDAK		mtstype1	REPLACE_IF ctidakbisatac	/* tidak bisa klaim tac */
 	cCAB2MD		mtsgrup		DO_CALC
 	cHO2MD		mtsgrup		DO_CALC_IF cygHO2MD
 	lNipAm		mtsgrup2	REPLACE_IF cpiccbd1
@@ -7972,7 +8112,9 @@ DO_LIB_IF cspkdesainada         ap_dbclc(DNAME daddabkspkdesain,DCOMMAND ADD,DFI
 SPCALCS(sptrans2g17)
 DO_LIB_IF cpil38		ap_dbclc(DNAME dmap33,DCOMMAND MAPMAP,DMAP mmapmap33);
 DO_LIB_IF cpil49		ap_dbclc(DNAME dmap46,DCOMMAND MAPMAP,DMAP mmapmap46);
-DO_LIB_IF cnobukevblmadagp      ap_dbclc(DNAME daddtlmevent821, DCOMMAND ADD,DFILE tlm,DLTARGET tlmbukidx tlmnobuk, DLLEN {stspjbuk},DMAP maddtlmevent821);
+/*
+DO_LIB_IF cnobukevblmadagp      ap_dbclc(DNAME daddtlmevent821, DCOMMAND ADD,DFILE tlm,DMAP maddtlmevent821);
+*/
 DO_LIB				ap_dbclc(DNAME dmap34,DCOMMAND MAPMAP,DMAP mmapmap34);
 DO_LIB_IF cnobukevblmada        ap_dbclc(DNAME daddtlmevent821a, DCOMMAND ADD,DFILE tlm,DMAP maddtlmevent821);
 DO_LIB_IF cjkadanipdevent       ap_dbclc(DNAME daddabkev821, DCOMMAND ADD, DFILE abk, DMAP maddabkev821);
@@ -8432,6 +8574,12 @@ DO_LIB_IF cdsbact0 ap_dbclc(DNAME dupddsbkpi,DCOMMAND UPDATE,DTARGET dsbprmidx  
 SPCALCS(sptransg51)
 DO_LIB 				ap_dbclc(DNAME dupddsbkpi2,DCOMMAND UPDATE,DTARGET dsbprmidx   dsbprm,DMAP mupddsbkpi2);
 
+SPCALCS(sptransg52)
+DO_LIB         	 		ap_nxpst(l5104, lm5104);
+
+SPCALCS(sptransg53)
+DO_LIB 				ap_dbclc(DNAME deldsbkpi,DCOMMAND DELETE,DTARGET dsbtgdattyp     ltgl2 lDTKPI lthbl lnorekppm lnorekjrn,DMAP mupddsbkpi2);
+
 /*============================== START POSTING ============================*/
 
 POSTING(trans)
@@ -8592,6 +8740,12 @@ PST_COMMAND             sptransg50
 
 POSTING(transg51)
 PST_COMMAND             sptransg51
+
+POSTING(transg52)
+PST_COMMAND             sptransg52
+
+POSTING(transg53)
+PST_COMMAND             sptransg53
 /**********************************/
 
 POSTING(trans2g1)
