@@ -34,6 +34,10 @@ SCR_NXT_MSG             IF              ckondisi01              t.BelumCeklisDet
                         IF              ckondisi18              t.MohonMelengkapiAktivitasTac
                         IF              ckondisi19              t.MohonIsiNominalCair
 			IF		ckondisi20		t.FieldApakahAktivitasDisetujuiHarusAdaYangTidak
+			IF		ckondisi21		t.MohonPilihAktivitasTactical
+			IF		ckondisi22		t.MohonPilihAktivitasDevelopment
+			IF		ckondisi23		t.TidakBolehAdaSisaSaldoDev
+			IF		ckondisi24		t.TidakBOlehAdaSisaSaldoTac
 
 LOCAL
 PGM_FIELDS
@@ -345,12 +349,12 @@ cubahceklistac		mtdkat == "TAC" && mtssts == "INPG" && (mtshcex == BLANKS || mts
 cubahceklistaca		mtdkat == "TAC" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2
 cnominalsdhada		mtsdvs == "SUDAH" && g_curcmd == 0
 c0			0
-cgyok			djoinpsi == 1 && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis &&
+cgyok			djoinpsi == 1 && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis && ((mtstype1 == "TIDAK" && mtstothrg > 0 && mtstotdis <= 0) || (mtstype1 == "YA" && mtstothrg > 0 && mtsperdis > 0 && mtsperdisd <= 0 && mtstotdis <= 0)) &&
 			(
 				((mtssts == "OPEN" || mtssts == "RINP") && (mtsdvs == "SUDAH" || mtsdvs == "BELUM")) || 
 				(mtssts == "INPG" && mtshcex == BLANKS && lsudahceklis == "OK" && lsudahuplfototambahan == "OK" && (mtstotal == 0 || (mtstotal > 0 && mtstotdis <= 0 && mtsperdisd <= 0)) && (dcekdetail1 == 1 && ((dcekdetail2 == 1 && dcekdetail2tidak == 1) || dcekdetail2 == 0))) ||
-				(mtssts == "INPG" && mtshcex == "APR1" && lsudahapprove == "OK") ||
-				(mtssts == "INPG" && mtshcex == "APR2" && lsudahapprove2 == "OK") ||
+				(mtssts == "INPG" && mtshcex == "APR1" && lsudahapprove == "OK" && lsudahuplfototambahan == "OK") ||
+				(mtssts == "INPG" && mtshcex == "APR2" && lsudahapprove2 == "OK" && lsudahuplfototambahan == "OK") ||
 				(mtssts == "INPG" && mtshcex == "RVS" && lsudahceklis == "OK" && lsudahuplfototambahan == "OK") ||
 				(mtssts == "INPG" && mtshcex == "PROPOSAL" && lsudahapproveproposal == "OK" && lproses3dke == 1) ||
 				(mtssts == "INPG" && mtshcex == "PROPOSAL" && lsudahinfoproposal == "OK" && lproses3dke == 2 && (lsdhinfo == "BELUM" || (lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == "OK" && (lproses3dke2 == 1 || luplkirimklaim == "OK")))) ||
@@ -363,10 +367,10 @@ cgyok			djoinpsi == 1 && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsper
 ckondisi01		lsudahceklis == BLANKS
 ckondisi02		mtssts == "INPG" && ((mtshcex == "APR1" && lsudahapprove == BLANKS) || (mtshcex == "APR2" && lsudahapprove2 == BLANKS))
 ckondisi03		mtshcex == "AKTIVITAS" && lsudahuplproposal == BLANKS && mtsplg != "INDACO" && mtsplg != "DAM" && mtsplg != "CAPELA"
-ckondisi04		mtshcex == "AKTIVITAS" && luplkirimklaim == BLANKS && (mtsplg == "INDACO" || mtsplg == "DAM" || mtsplg == "CAPELA")
+ckondisi04		(mtshcex == "AKTIVITAS" || (mtshcex == "KLAIM" && mtsplg == "TRIO")) && luplkirimklaim == BLANKS && (mtsplg == "INDACO" || mtsplg == "DAM" || mtsplg == "CAPELA" || mtsplg == "TRIO")
 ckondisi05		mtshcex == "PROPOSAL" && lproses3dke == 1 && lsudahapproveproposal == BLANKS
 ckondisi06		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsudahinfoproposal == BLANKS
-ckondisi07		mtshcex == BLANKS && lsudahuplfototambahan == BLANKS
+ckondisi07		(mtshcex == BLANKS || mtshcex == "APR1" || mtshcex == "APR2") && lsudahuplfototambahan == BLANKS
 ckondisi08		mtssts == "CLSD"
 ckondisi09		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == BLANKS
 ckondisi10		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == BLANKS
@@ -380,6 +384,10 @@ ckondisi17		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtstotdis 
 ckondisi18		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtsperdisd > 0)
 ckondisi19		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ldanacair == "SUDAH" && lupldanacair != BLANKS && (ketdf1_1 <= 0 || ketdf2_1 <= 0)
 ckondisi20		mtssts == "INPG" && mtshcex == BLANKS && dcekdetail2 == 1 && dcekdetail2tidak == 0
+ckondisi21		mtssts == "INPG" && mtshcex == BLANKS && mtstype1 == "YA" && mtsperdis <= 0
+ckondisi22		mtssts == "INPG" && mtshcex == BLANKS && mtstothrg <= 0
+ckondisi23		mtstype1 == "TIDAK" && mtstotdis > 0
+ckondisi24		mtstype1 == "YA" && mtsperdisd > 0
 cMtOPENRINP		mtssts == "OPEN" || mtssts == "RINP"
 cMtxOPENRINP		mtssts != "OPEN" && mtssts != "RINP"
 cMtINPG			mtssts == "INPG"
@@ -411,7 +419,8 @@ cMtINPG_KLAIM2		mtssts == "INPG" && ((mtshcex == "KLAIM" && spkjrk2 == 2) || mts
 cMtINPG_KLAIM2xREVISI	mtssts == "INPG" && ((mtshcex == "KLAIM" && spkjrk2 == 2) || mtshcex == "CAIR") && spkkode5 != "REVISI"
 cMtINPG_KLAIM2REVISI	mtssts == "INPG" && ((mtshcex == "KLAIM" && spkjrk2 == 2) || mtshcex == "CAIR") && spkkode5 == "REVISI"
 cMtINPG_KLAIM2REVISILAINNYA mtssts == "INPG" && ((mtshcex == "KLAIM" && spkjrk2 == 2) || mtshcex == "CAIR") && spkkode5 == "REVISI" && spknama2 == "LAINNYA"
-cMtINPG_KLAIM2REVISIxLAINNYA mtssts == "INPG" && ((mtshcex == "KLAIM" && spkjrk2 == 2) || mtshcex == "CAIR") && spkkode5 == "REVISI" && spknama2 != "LAINNYA"
+cMtINPG_KLAIM2REVISIBUKTI mtssts == "INPG" && ((mtshcex == "KLAIM" && spkjrk2 == 2) || mtshcex == "CAIR") && spkkode5 == "REVISI" && spknama2 == "PERBAIKAN_BUKTI_AKTIVITAS"
+cMtINPG_KLAIM2REVISIxLAINNYA mtssts == "INPG" && ((mtshcex == "KLAIM" && spkjrk2 == 2) || mtshcex == "CAIR") && spkkode5 == "REVISI" && spknama2 == "AKTIVITAS_DITOLAK"
 
 IMAGE(master)
 /-----------------------------------------------------------------\
@@ -428,7 +437,6 @@ IMAGE(master)
 |\---------------------------------------------------------------/|
 |								  |
 |/---------------------------------------------------------------\|
-|| t.BisaKlaimTac	:		     ___________________ ||
 || t.AdaNominalDevTac	:	 	     __________________	 ||
 || t.TglEstTerimaNom	:	 	     ___________________ ||
 || t.NomDevelopment	:	 	     ___________________ ||
@@ -437,6 +445,7 @@ IMAGE(master)
 || t.AlasanSisDev	:	 	     __________________ _||
 || t.NomDevCair		:	 	     ___________________ ||
 || t.NomTactical	:	 	     ___________________ ||
+|| t.BisaKlaimTac	:		     ___________________ ||
 || t.SalTacKlaim   	:	 	     ___________________ ||
 || t.SalSisTac     	:	 	     ___________________ ||
 || t.AlasanSisTac	:	 	     __________________ _||
@@ -480,7 +489,6 @@ lnipkawil		PROTECT		INPUTRI		13	/* kawil */
 lnamakawil		PROTECT		INPUTRI		14	/* nama kawil */
 ljabkawil		PROTECT		INPUTRI		14	/* jabatan kawil */
 
-mtstype1		PROTECT		INPUTRI		15	/* bisa klaim tactical atau tidak */
 mtsdvs			NOCHANGE	INPUTRI		15	/* apakah sdh ada nominal dev tac */
 mtstgl1			NOLIMIT {DD-MM-YY} INPUTRI	16	/* tgl estimasi info terima nom */
 
@@ -492,6 +500,7 @@ lblanks			NOCHANGE	INPUTRI		20	/* biar tetep keskip */
 ketdf1_1		NUMERIC		INPUTRI		21	/* nominal dev cair */
 
 mtsjml2			NUMERIC		INPUTRI		22	/* nominal tactical */
+mtstype1		PROTECT		INPUTRI		15	/* bisa klaim tactical atau tidak */
 mtsperdis		PROTECT		INPUTRI		23	/* saldo tac yg diklaim */
 mtsperdisd		PROTECT		INPUTRI		24	/* sisa saldo tac */
 ketisi2_1		TEXTAREA 2	INPUTRI		25	/* alasan sisa saldo tac */
@@ -549,7 +558,7 @@ lHK			INIT		"HK"
 ltypeatl                INIT            "TYPEATL"
 ltipeaktivitas          INIT            TIPEAKTIVITAS
 lY			INIT		"Y"
-lversi			INIT		"08072026v1"
+lversi			INIT		"24072026v7"
 mtsdata                 INIT_QUERY_F11	"mtsdata=="CLAIMBD""
 
 mtsgrup			DFALT_SCAN	HO_TO_MD	CABANG_TO_MD
@@ -1066,17 +1075,19 @@ DBCALCS(dupd1)
         DBC_MAP         mupd1
 
 CALCS()
-cmasukdetail		mtsdvs == "SUDAH" && mtssts != "OPEN" && mtssts != "RINP"
-cmasukdetailtac		mtsdvs == "SUDAH" && mtssts != "OPEN" && mtssts != "RINP" && mtstype1 == "YA"
+cmasukdetail		(mtsdvs == "SUDAH" && mtssts != "OPEN" && mtssts != "RINP") || g_grpnam == "RI" || g_grpnam == "IT"
+cmasukdetailtac		(mtsdvs == "SUDAH" && mtssts != "OPEN" && mtssts != "RINP" && mtstype1 == "YA") || g_grpnam == "RI" || g_grpnam == "IT"
 
 SUBFILE(trans)
 SFL_LINES(1)
 SFL_TITLE(transt)
 SFL_COND		cmasukdetail
-SFL_UPL_DIRFLD		mtdtglfak
+SFL_UPL_DIRFLD		mtdtgl2
+SFL_UPL_DIRFLD2		mtstgl
 SFL_UPLFLD              mtdnoll
 SFL_UPLFLD2             mtdnobuk mtdoto
 SFL_UPLFLD2_DBCALCS	dupd1
+SFL_UPL_DELCOND		c0
 SFL_UPL_READONLY
 SFL_TARGET
 mtdbukbrglok    mtsnobuk lCLAIMDEVELOPMENT
@@ -1310,7 +1321,8 @@ SUBFILE(transa)
 SFL_LINES(1)
 SFL_TITLE(transat)
 SFL_COND		cmasukdetailtac
-SFL_UPL_DIRFLD          mtdtglfak
+SFL_UPL_DIRFLD          mtdtgl2
+SFL_UPL_DIRFLD2         mtstgl
 SFL_UPLFLD              mtdnoll mtdnorangka
 SFL_UPLFLD2             mtdnoll mtdnomesin
 SFL_UPLFLD3		mtdnoll lFOTOH3
@@ -1318,6 +1330,7 @@ SFL_UPLFLD4		mtdnobuk mtdoto
 SFL_UPL_READONLY
 SFL_UPL_READONLY2
 SFL_UPL_READONLY3
+SFL_UPL_DELCOND		c0
 SFL_UPLFLD4_DBCALCS     dupd1
 SFL_TARGET
 mtdbukbrglok    mtsnobuk lCLAIMTACTICAL
@@ -1602,6 +1615,8 @@ BEFORE_INPUT    cur_field=spkreview     DO_SKIP_IF cMtINPG_KLAIM2xREVISI
 BEFORE_INPUT    cur_field=spktglft6     DO_SKIP_IF cMtINPG_KLAIM2
 BEFORE_INPUT    cur_field=spkkode       DO_SKIP_IF cMtINPG_KLAIM2
 BEFORE_INPUT    cur_field=spkket2       DO_SKIP_IF cMtINPG_KLAIM2REVISILAINNYA
+BEFORE_INPUT    cur_field=spkket2       DO_SKIP_IF cMtINPG_KLAIM2REVISIBUKTI
+BEFORE_INPUT    cur_field=spkreview     DO_SKIP_IF cMtINPG_KLAIM2REVISIBUKTI
 BEFORE_INPUT    cur_field=spkreview     DO_SKIP_IF cMtINPG_KLAIM2REVISIxLAINNYA
 /* ================================================================= */
 
@@ -1763,7 +1778,7 @@ CALCS()
 ctambahdetail		mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS" || mtshcex == "APR1" || mtshcex == "APR2")
 cupdatedetail		((mtssts == "INPG" && mtshcex != "AKTIVITAS" && mtshcex != "PROPOSAL" && mtshcex != "KLAIM" && mtshcex != "CAIR") || (mtssts == "INPG" && lspkjrk3 > 0)) && mtdperdis1 != 1
 cupdatedetail3d		mtssts == "INPG" && (mtshcex == "AKTIVITAS" || (mtshcex == "PROPOSAL" && spkjrk != 2) || mtshcex == "KLAIM" || mtshcex == "CAIR")
-cupdatemaster		mtssts == "OPEN" || mtssts == "RINP" || (mtssts == "INPG" && mtshcex == BLANKS && (mtstotdis > 0 || mtsperdisd > 0))
+cupdatemaster		mtssts == "OPEN" || mtssts == "RINP" || (mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "KLAIM" || mtshcex == "CAIR") && (mtstotdis > 0 || mtsperdisd > 0 || (mtshcex == "KLAIM" || mtshcex == "CAIR")))
 cthbl			THBLS(mtstgl)
 
 PERMIT(master)
