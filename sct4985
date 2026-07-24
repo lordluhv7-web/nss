@@ -300,7 +300,7 @@ cMtINPG_KLAIMCAIRREVISI1INDACO_ABK lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || 
 
 cMtINPG_KLAIMCAIRREVISI2	lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK"
 cMtINPG_KLAIMCAIRREVISI2SEMUA		lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK" && lspkket2 == "SEMUA_AKTIVITAS" && mtddk != BLANKS
-cMtINPG_KLAIMCAIRREVISI2BEBERAPA	lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK" && lspkket == "BEBERAPA_AKTIVITAS" && mtddk != BLANKS
+cMtINPG_KLAIMCAIRREVISI2BEBERAPA	lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK" && lspkket2 == "BEBERAPA_AKTIVITAS" && mtddk != BLANKS
 cMtINPG_KLAIMCAIRREVISI2_ABK lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && (abksts == "RINP" || abksts == "INPG") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK"
 
 cMtINPG_APR2RVSINDACO		lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || lSTATUS2 == "RVS") && lMD == "INDACO"
