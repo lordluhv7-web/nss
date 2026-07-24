@@ -33,6 +33,7 @@ SCR_NXT_MSG             IF              ckondisi01              t.BelumCeklisDet
                         IF              ckondisi17              t.MohonMelengkapiAktivitasDev
                         IF              ckondisi18              t.MohonMelengkapiAktivitasTac
                         IF              ckondisi19              t.MohonIsiNominalCair
+			IF		ckondisi20		t.FieldApakahAktivitasDisetujuiHarusAdaYangTidak
 
 LOCAL
 PGM_FIELDS
@@ -109,6 +110,7 @@ lsaldo1			DFLOAT		20
 lsaldo2			DFLOAT		20
 lsaldoklaimdev		DFLOAT		20
 lsaldoklaimtac		DFLOAT		20
+lY			STRING		2
 lversi			STRING		21
 lmtstgl			STRING		11
 lurl			STRING		51
@@ -245,6 +247,25 @@ DBCALCS(dcekalasanrevisi)
 	DBC_TARGET	spkdatbuktyp	mtsdata	mtsnobuk lPROGCLAIM
 	DBC_MAP		mcekalasanrevisi
 
+
+CALCS()
+cpenandadetail1		mtdperdis1 == 1 || mtdperdis1 == 0
+cpenandadetail2		mtdperdis1 == 2
+cpenandadetail2tidak	mtdperdis1 == 2 && mtdnobbm == "TIDAK"
+
+DBCALCS(dcekdetail1)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      mtdbukurtidx    mtsnobuk
+	DBC_SELECT	cpenandadetail1
+DBCALCS(dcekdetail2)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      mtdbukurtidx    mtsnobuk
+        DBC_SELECT      cpenandadetail2
+DBCALCS(dcekdetail2tidak)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      mtdbukurtidx    mtsnobuk
+        DBC_SELECT      cpenandadetail2tidak
+
 CALCS()
 cklaimdev		mtdkat == "DEV" && mtddk != BLANKS
 cklaimtac		mtdkat == "TAC" && mtddk != BLANKS
@@ -327,7 +348,7 @@ c0			0
 cgyok			djoinpsi == 1 && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis &&
 			(
 				((mtssts == "OPEN" || mtssts == "RINP") && (mtsdvs == "SUDAH" || mtsdvs == "BELUM")) || 
-				(mtssts == "INPG" && mtshcex == BLANKS && lsudahceklis == "OK" && lsudahuplfototambahan == "OK" && (mtstotal == 0 || (mtstotal > 0 && mtstotdis <= 0 && mtsperdisd <= 0))) ||
+				(mtssts == "INPG" && mtshcex == BLANKS && lsudahceklis == "OK" && lsudahuplfototambahan == "OK" && (mtstotal == 0 || (mtstotal > 0 && mtstotdis <= 0 && mtsperdisd <= 0)) && (dcekdetail1 == 1 && ((dcekdetail2 == 1 && dcekdetail2tidak == 1) || dcekdetail2 == 0))) ||
 				(mtssts == "INPG" && mtshcex == "APR1" && lsudahapprove == "OK") ||
 				(mtssts == "INPG" && mtshcex == "APR2" && lsudahapprove2 == "OK") ||
 				(mtssts == "INPG" && mtshcex == "RVS" && lsudahceklis == "OK" && lsudahuplfototambahan == "OK") ||
@@ -345,7 +366,7 @@ ckondisi03		mtshcex == "AKTIVITAS" && lsudahuplproposal == BLANKS && mtsplg != "
 ckondisi04		mtshcex == "AKTIVITAS" && luplkirimklaim == BLANKS && (mtsplg == "INDACO" || mtsplg == "DAM" || mtsplg == "CAPELA")
 ckondisi05		mtshcex == "PROPOSAL" && lproses3dke == 1 && lsudahapproveproposal == BLANKS
 ckondisi06		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsudahinfoproposal == BLANKS
-ckondisi07		lsudahuplfototambahan == BLANKS
+ckondisi07		mtshcex == BLANKS && lsudahuplfototambahan == BLANKS
 ckondisi08		mtssts == "CLSD"
 ckondisi09		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == BLANKS
 ckondisi10		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == BLANKS
@@ -358,6 +379,7 @@ ckondisi16		lsaldoklaimtac != mtsperdis
 ckondisi17		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtstotdis > 0)
 ckondisi18		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtsperdisd > 0)
 ckondisi19		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ldanacair == "SUDAH" && lupldanacair != BLANKS && (ketdf1_1 <= 0 || ketdf2_1 <= 0)
+ckondisi20		mtssts == "INPG" && mtshcex == BLANKS && dcekdetail2 == 1 && dcekdetail2tidak == 0
 cMtOPENRINP		mtssts == "OPEN" || mtssts == "RINP"
 cMtxOPENRINP		mtssts != "OPEN" && mtssts != "RINP"
 cMtINPG			mtssts == "INPG"
@@ -379,8 +401,9 @@ cMtINPG_PROPOSAL2a	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && 
 cMtINPG_PROPOSAL2ACC	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && spkkode3 != "TACC"
 cMtINPG_PROPOSAL2SUDAH	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && spkkode2 == "SUDAH"
 cMtINPG_PROPOSAL2TACC	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && spkkode2 == "SUDAH" && spkkode3 == "TACC"
-cMtINPG_PROPOSAL2TACCa	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && spkkode2 == "SUDAH" && spkkode3 == "TACC" && spknama != "LAINNYA"
+cMtINPG_PROPOSAL2TACCa	mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && spkkode2 == "SUDAH" && spkkode3 == "TACC" && spknama == "AKTIVITAS_DITOLAK"
 cMtINPG_PROPOSAL2LAINNYA mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && spkkode2 == "SUDAH" && spkkode3 == "TACC" && spknama == "LAINNYA"
+cMtINPG_PROPOSAL2BUKTI mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && spkkode2 == "SUDAH" && spkkode3 == "TACC" && spknama == "PERBAIKAN_BUKTI_AKTIVITAS"
 cMtINPG_PROPOSAL2xLAINNYA mtssts == "INPG" && mtshcex == "PROPOSAL" && spkgaji == 2 && spkkode2 == "SUDAH" && spkkode3 == "TACC" && spknama != "LAINNYA"
 cSkipTglAkt		mtssts != "INPG" || (mtssts == "INPG" && mtstotdis <= 0 && mtsperdisd <= 0) || (mtssts == "INPG" && mtshcex != BLANKS)
 cMtINPG_KLAIM		mtssts == "INPG" && mtshcex == "KLAIM" && spkjrk2 == 1
@@ -525,6 +548,7 @@ ltglawalbulandepan	INIT		{ctglawalbulandepan}
 lHK			INIT		"HK"
 ltypeatl                INIT            "TYPEATL"
 ltipeaktivitas          INIT            TIPEAKTIVITAS
+lY			INIT		"Y"
 lversi			INIT		"08072026v1"
 mtsdata                 INIT_QUERY_F11	"mtsdata=="CLAIMBD""
 
@@ -698,7 +722,11 @@ MAP(mcekpanjangdev)
 MAP(mcekpanjangtac)
 	cpanjangtac	lpanjangtac	DO_CALC
 
+MAP(mhapustglest)
+	lblanks		mtstgl1		REPLACE
+
 HOOKS(master)
+AFTER_INPUT		cur_field=mtsdvs	DO_MAP SHOW mhapustglest
 AFTER_INPUT		cur_field=ketisi_1	DO_MAP SHOW mcekpanjangdev
 AFTER_INPUT		cur_field=ketisi2_1	DO_MAP SHOW mcekpanjangtac
 AFTER_INPUT		cur_field=ketisi_1	DO_MAP SHOW
@@ -851,7 +879,7 @@ mtddk			NOCHANGE	INPUTRI	11		/* checklist */
 mtdplg          	NOCHANGE        INPUTRI 12             	/* approval am */
 
 mtdukrwrn          	NOCHANGE        INPUTRI 13             	/* approval cx ho */
-mtdnobbm		NOCHANGE	INPUTRI	14		/* apakah aktivitas disetujui */
+mtdnobbm		NOCHANGE	INPUTRI	1		/* apakah aktivitas disetujui */
 /*ltomfototambahan1	TOMBOL		INPUTRI	14*/		/* tombol foto tambahan */
 lblanks         	NOCHANGE        INPUTRI 15              /* enter */
 
@@ -965,14 +993,33 @@ MAP(mupdtldceklis)
 SPCALCS(standaceklistld)
 DO_LIB		ap_dbclc(DNAME dupdtldceklis,DCOMMAND UPDATE_RANGE,DTARGET tldbukurtidx mtdnobuk mtdnourt,DMAP mupdtldceklis);
 
-
 CALCS()
 cskipaktdisetujui	mtssts != "INPG" || (mtssts == "INPG" && dcekalasanrevisi == 1 && lspkket != "BEBERAPA_AKTIVITAS" && lspkket2 != "BEBERAPA_AKTIVITAS" && lspkjrk3 == 0) || dcekalasanrevisi == 0 || (mtssts == "INPG" && mtshcex != BLANKS)
 ctidakbisaubah		mtdnobbm == "TIDAK"
+cproposalblmtacc	mtdperdis1 == 0
+cproposaltacc		mtdperdis1 == 2 && (mtdnobbm == "TIDAK")
+
+MAP(mubahceklis)
+	
+	lblanks		mtddk		REPLACE_IF ctidakbisaubah
+
 
 HOOKS(transt)
+AFTER_INPUT	cur_field=mtdnobbm	DO_MAP SHOW mubahceklis
+BEFORE_INPUT	cur_field=mtdkat	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdsat	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdnoll	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdlok	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdlok2	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdcab	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdbisnis	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdket	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cproposalblmtacc
+
 BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF ctidakbisaubah
-BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF ctidakbisaubah
 BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF ctidakbisaubah
 BEFORE_INPUT	cur_field=mtdket	DO_MAP SHOW IF ctambahdev mnourut1
 BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF ctambahdev
@@ -1136,7 +1183,7 @@ mtdjasbrg		PROTECT		INPUTRI	22		/* tanda upl */
 mtddk                   NOCHANGE        INPUTRI 14              /* checklist */
 mtdplg                  NOCHANGE        INPUTRI 15              /* approval am */
 mtdukrwrn               NOCHANGE        INPUTRI 16              /* approval cx ho */
-mtdnobbm                NOCHANGE        INPUTRI 17              /* apakah aktivitas disetujui */
+mtdnobbm                NOCHANGE        INPUTRI 1               /* apakah aktivitas disetujui */
 /*ltomfototambahan2       TOMBOL          INPUTRI 18*/              /* tombol foto tambahan */
 lblanks                 NOCHANGE        INPUTRI 19              /* enter */
 
@@ -1186,8 +1233,23 @@ MAP(mnourut2)
 	g_usrkode	mtdppdoto	REPLACE
 
 HOOKS(transat)
+AFTER_INPUT     cur_field=mtdnobbm      DO_MAP SHOW mubahceklis
+BEFORE_INPUT    cur_field=mtdkat        DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdsat        DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdnoll       DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdtgl2       DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdcab        DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdlok2       DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdlok        DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdbisnis     DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdgrup2      DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdtgl3       DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdtgl4       DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdjml        DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtdperdis     DO_SKIP_IF cproposaltacc
+BEFORE_INPUT    cur_field=mtddk     	DO_SKIP_IF cproposaltacc
+
 BEFORE_INPUT    cur_field=mtddk         DO_SKIP_IF ctidakbisaubah
-BEFORE_INPUT    cur_field=mtdplg        DO_SKIP_IF ctidakbisaubah
 BEFORE_INPUT    cur_field=mtdukrwrn     DO_SKIP_IF ctidakbisaubah
 BEFORE_INPUT	cur_field=mtdgrup2	DO_MAP SHOW IF ctambahtac mnourut2
 BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF ctambahtac
@@ -1508,6 +1570,7 @@ BEFORE_INPUT    cur_field=spktglft6     DO_SKIP_IF cMtINPG_PROPOSAL2
 BEFORE_INPUT    cur_field=spkkode     	DO_SKIP_IF cMtINPG_PROPOSAL2
 /* ================================================================= */
 BEFORE_INPUT    cur_field=spkket     	DO_SKIP_IF cMtINPG_PROPOSAL2LAINNYA
+BEFORE_INPUT    cur_field=spkket     	DO_SKIP_IF cMtINPG_PROPOSAL2BUKTI
 BEFORE_INPUT    cur_field=spkket3     	DO_SKIP_IF cMtINPG_PROPOSAL2xLAINNYA
 
 /* ================================================================= */
@@ -1698,7 +1761,7 @@ tldbukurtidx            mtdnobuk mtdnourt
 
 CALCS()
 ctambahdetail		mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS" || mtshcex == "APR1" || mtshcex == "APR2")
-cupdatedetail		(mtssts == "INPG" && mtshcex != "AKTIVITAS" && mtshcex != "PROPOSAL" && mtshcex != "KLAIM" && mtshcex != "CAIR") || (mtssts == "INPG" && lspkjrk3 > 0)
+cupdatedetail		((mtssts == "INPG" && mtshcex != "AKTIVITAS" && mtshcex != "PROPOSAL" && mtshcex != "KLAIM" && mtshcex != "CAIR") || (mtssts == "INPG" && lspkjrk3 > 0)) && mtdperdis1 != 1
 cupdatedetail3d		mtssts == "INPG" && (mtshcex == "AKTIVITAS" || (mtshcex == "PROPOSAL" && spkjrk != 2) || mtshcex == "KLAIM" || mtshcex == "CAIR")
 cupdatemaster		mtssts == "OPEN" || mtssts == "RINP" || (mtssts == "INPG" && mtshcex == BLANKS && (mtstotdis > 0 || mtsperdisd > 0))
 cthbl			THBLS(mtstgl)
