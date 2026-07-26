@@ -349,7 +349,7 @@ cubahceklistac		mtdkat == "TAC" && mtssts == "INPG" && (mtshcex == BLANKS || mts
 cubahceklistaca		mtdkat == "TAC" && mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "RVS") && g_curcmd == 2
 cnominalsdhada		mtsdvs == "SUDAH" && g_curcmd == 0
 c0			0
-cgyok			djoinpsi == 1 && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis && ((mtstype1 == "TIDAK" && mtstothrg > 0 && mtstotdis <= 0) || (mtstype1 == "YA" && mtstothrg > 0 && mtsperdis > 0 && mtsperdisd <= 0 && mtstotdis <= 0)) &&
+cgyok			djoinpsi == 1 && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis && ((mtstype1 == "TIDAK" && (mtstothrg > 0 || mtssts != "INPG") && (mtstotdis <= 0 || mtstotpph == 0)) || (mtstype1 == "YA" && (mtstothrg > 0 || mtssts != "INPG") && (mtsperdis > 0 || mtssts != "INPG") && ((mtsperdisd <= 0 && mtstotdis <= 0) || mtstotpph == 0))) &&
 			(
 				((mtssts == "OPEN" || mtssts == "RINP") && (mtsdvs == "SUDAH" || mtsdvs == "BELUM")) || 
 				(mtssts == "INPG" && mtshcex == BLANKS && lsudahceklis == "OK" && lsudahuplfototambahan == "OK" && (mtstotal == 0 || (mtstotal > 0 && mtstotdis <= 0 && mtsperdisd <= 0)) && (dcekdetail1 == 1 && ((dcekdetail2 == 1 && dcekdetail2tidak == 1) || dcekdetail2 == 0))) ||
@@ -377,7 +377,7 @@ ckondisi10		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && 
 ckondisi11		mtshcex == "PROPOSAL" && lproses3dke == 2 && lsdhinfo == "SUDAH" && luplinfo == "OK" && luplaccpro == "OK" && luplkirimklaim == BLANKS
 ckondisi12		mtshcex == "KLAIM" && lproses3dke3 == 1 && lapprovalkirimaju == BLANKS
 ckondisi13		mtshcex == "KLAIM" && lproses3dke3 == 2 && ldanacair == BLANKS
-ckondisi14		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ldanacair == "SUDAH" && lupldanacair == BLANKS && ketdf1_1 > 0 && ketdf2_1 > 0
+ckondisi14		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ldanacair == "SUDAH" && lupldanacair == BLANKS
 ckondisi15		lsaldoklaimdev != mtstothrg
 ckondisi16		lsaldoklaimtac != mtsperdis
 ckondisi17		mtssts == "INPG" && mtshcex == BLANKS && mtstotal > 0 && (mtstotdis > 0)
@@ -386,16 +386,16 @@ ckondisi19		(mtshcex == "KLAIM" || mtshcex == "CAIR") && lproses3dke3 == 2 && ld
 ckondisi20		mtssts == "INPG" && mtshcex == BLANKS && dcekdetail2 == 1 && dcekdetail2tidak == 0
 ckondisi21		mtssts == "INPG" && mtshcex == BLANKS && mtstype1 == "YA" && mtsperdis <= 0
 ckondisi22		mtssts == "INPG" && mtshcex == BLANKS && mtstothrg <= 0
-ckondisi23		mtstype1 == "TIDAK" && mtstotdis > 0
-ckondisi24		mtstype1 == "YA" && mtsperdisd > 0
+ckondisi23		mtstype1 == "TIDAK" && mtstotdis > 0 && mtstotpph > 0
+ckondisi24		mtstype1 == "YA" && mtsperdisd > 0 && mtstotpph > 0
 cMtOPENRINP		mtssts == "OPEN" || mtssts == "RINP"
 cMtxOPENRINP		mtssts != "OPEN" && mtssts != "RINP"
 cMtINPG			mtssts == "INPG"
 cMtINPG_NOMCAIR		mtssts == "INPG" && djoinpsi == 1 && ldanacair != "SUDAH"
 cMtINPG_ALASAN1		(mtssts == "INPG" && mtstotdis <= 0) || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS && mtshcex != "APR1" && mtshcex != "APR2")
 cMtINPG_ALASAN2		(mtssts == "INPG" && mtsperdisd <= 0) || mtssts != "INPG" || (mtssts == "INPG" && mtshcex != BLANKS && mtshcex != "APR1" && mtshcex != "APR2")
-cMtINPG_MAND_ALASAN1	mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "APR1" || mtshcex == "APR2") && mtstotdis > 0 && djoinpsi == 1 && lsaldoklaimdev == mtstothrg
-cMtINPG_MAND_ALASAN2	mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "APR1" || mtshcex == "APR2") && mtsperdisd > 0 && djoinpsi == 1 && lsaldoklaimtac == mtsperdis
+cMtINPG_MAND_ALASAN1	mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "APR1" || mtshcex == "APR2") && mtstotdis > 0 && djoinpsi == 1 && lsaldoklaimdev == mtstothrg && mtstotpph == 0
+cMtINPG_MAND_ALASAN2	mtssts == "INPG" && (mtshcex == BLANKS || mtshcex == "APR1" || mtshcex == "APR2") && mtsperdisd > 0 && djoinpsi == 1 && lsaldoklaimtac == mtsperdis && mtstotpph == 0
 cMtINPG_APR1		mtssts == "INPG" && mtshcex == "APR1" && g_curcmd == 2
 cMtINPG_APR1ACC		mtssts == "INPG" && mtshcex == "APR1" && (mtdplg == "ACC" || mtdplg == BLANKS) && g_curcmd == 2
 cMtINPG_APR1ACCADD	mtssts == "INPG" && mtshcex == "APR1" && (mtdplg == "ACC" || mtdplg == BLANKS || mtdsat != BLANKS) && g_curcmd == 2
@@ -624,6 +624,7 @@ DBCALCS(dscannourt)
 CALCS()
 cdscannourt		dscannourt >= 0
 csdhterimaclaim		mtsdvs == "SUDAH"
+csdhterimaclaimtac	mtsdvs == "SUDAH" && mtstype1 == "YA"
 cblmterimaclaim		mtsdvs == "BELUM"
 cthblterbentuk		THBLS(g_tgltrn) /*THBLS(mtstgl)*/
 cdjoinam		djoinam == 1
@@ -638,7 +639,7 @@ e.ValidateCab		mtscab		VALIDATE		cabkodidx	mcab	0
 e.MandatoryProsesClaim	mtsgrup		MANDATORY
 e.MandatoryAdaNominal	mtsdvs		MANDATORY
 e.MandatoryNomDev	mtsjml		MANDATORY_IF csdhterimaclaim
-e.MandatoryNomTac	mtsjml2		MANDATORY_IF csdhterimaclaim
+e.MandatoryNomTac	mtsjml2		MANDATORY_IF csdhterimaclaimtac
 e.MandatoryTglTerima	mtstgl1		MANDATORY_IF cblmterimaclaim
 e.WajibUplBukNominal	mtstypbrg	MANDATORY_IF cnominalsdhada
 e.IsiAlasanSisaSaldoDev	ketisi_1	MANDATORY_IF cMtINPG_MAND_ALASAN1
@@ -911,6 +912,9 @@ e.MandatoryTgl		mtdtgl2		MANDATORY_IF ctambahdev
 
 CALCS()
 ctambahnourut1	lnourut + 1
+cACC		"ACC"
+cAPR1		mtshcex == "APR1"
+cAPR2		mtshcex == "APR2"
 /*capproveacc	mtdplg == "ACC"*/
 /*cceklisblanks	mtddk == BLANKS*/
 
@@ -923,6 +927,8 @@ MAP(mnourut1)
 	ctambahnourut1	lnourut		DO_CALC
 	lnourut		mtdnourt	REPLACE
 	g_usrkode	mtdppdoto	REPLACE
+	cACC		mtdplg		DO_CALC_IF cAPR1
+	cACC		mtdukrwrn	DO_CALC_IF cAPR2
 /*
 MAP(mhapusalasantacc)
 	lblanks		mtdket		REPLACE_IF capproveacc
@@ -986,8 +992,8 @@ MAP(mhitung2)
         lsaldo1         lsaldo1         REPLACE_IF cdscansaldo1b        /* saldo ceklis */
         lsaldo2         lsaldo2         REPLACE_IF cdscansaldo2b        /* saldo tacc */
 
-        csaldodiklaim   mtsperdis          DO_CALC
-        csaldosisa2     mtsperdisd       DO_CALC
+        csaldodiklaim   mtsperdis       DO_CALC
+        csaldosisa2     mtsperdisd      DO_CALC
 	
 SPCALCS(shitung)
 DO_LIB		ap_dbclc(DNAME dhitung,DCOMMAND UPDATE,DTARGET mtsbukidx mtsnobuk,DMAP mhitung);
@@ -1007,13 +1013,19 @@ cskipaktdisetujui	mtssts != "INPG" || (mtssts == "INPG" && dcekalasanrevisi == 1
 ctidakbisaubah		mtdnobbm == "TIDAK"
 cproposalblmtacc	mtdperdis1 == 0
 cproposaltacc		mtdperdis1 == 2 && (mtdnobbm == "TIDAK")
+ctglvalidaktdev		mtdtgl2 <= g_tgltrn
+ctglvalidakttac1	mtdtgl3 <= g_tgltrn
+ctglvalidakttac2	mtdtgl4 <= g_tgltrn && mtdtgl4 >= mtdtgl3
 
 MAP(mubahceklis)
-	
 	lblanks		mtddk		REPLACE_IF ctidakbisaubah
 
 
 HOOKS(transt)
+AFTER_INPUT	cur_field=mtdtgl2	DO_MAP SHOW
+                IF ctglvalidaktdev	mdum
+                ELSE HKCURSOR STAY
+                HKMSG Tanggal aktivitas tidak boleh lebih dari hari ini
 AFTER_INPUT	cur_field=mtdnobbm	DO_MAP SHOW mubahceklis
 BEFORE_INPUT	cur_field=mtdkat	DO_SKIP_IF cproposaltacc
 BEFORE_INPUT	cur_field=mtdsat	DO_SKIP_IF cproposaltacc
@@ -1244,8 +1256,18 @@ MAP(mnourut2)
 	ctambahnourut2  lnourut2        DO_CALC
 	lnourut2        mtdnourt        REPLACE
 	g_usrkode	mtdppdoto	REPLACE
+	cACC            mtdplg          DO_CALC_IF cAPR1
+        cACC            mtdukrwrn       DO_CALC_IF cAPR2
 
 HOOKS(transat)
+AFTER_INPUT     cur_field=mtdtgl3       DO_MAP SHOW
+                IF ctglvalidakttac1     mdum
+                ELSE HKCURSOR STAY
+                HKMSG Tanggal aktivitas tidak boleh lebih dari hari ini
+AFTER_INPUT     cur_field=mtdtgl4       DO_MAP SHOW
+                IF ctglvalidakttac2     mdum
+                ELSE HKCURSOR STAY
+                HKMSG Tanggal aktivitas tidak boleh lebih dari hari ini dan tidak boleh lebih kecil dari tgl mulai
 AFTER_INPUT     cur_field=mtdnobbm      DO_MAP SHOW mubahceklis
 BEFORE_INPUT    cur_field=mtdkat        DO_SKIP_IF cproposaltacc
 BEFORE_INPUT    cur_field=mtdsat        DO_SKIP_IF cproposaltacc
