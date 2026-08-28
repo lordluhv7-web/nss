@@ -6541,7 +6541,7 @@ cM5             abktype         DO_CALC
 DEBUG ldum      ldum            REPLACE
 
 CALCS()
-cabkactibd1     lNIPACTBD != BLANKS && dhariefektifm1 >= 0 && dtglakhirm1 == 1 && dcekabkminggu1 == 0 && dcekabkminggu1RINP == 0
+cabkactibd1     lNIPACTBD != BLANKS && dhariefektifm1 >= 0 && dtglakhirm1 == 1 && dcekabkminggu1 == 0 && dcekabkminggu1RINP == 0 //nip isi, ambil hari efektif max di minggu itu, ambil tglnya, cek kuncian di tgl itu
 cabkactibd2     lNIPACTBD != BLANKS && dhariefektifm2 >= 0 && dtglakhirm2 > 0 && dcekabkminggu2 == 0 && dcekabkminggu2RINP == 0
 cabkactibd3     lNIPACTBD != BLANKS && dhariefektifm3 >= 0 && dtglakhirm3 > 0 && dcekabkminggu3 == 0 && dcekabkminggu3RINP == 0
 cabkactibd4     lNIPACTBD != BLANKS && dhariefektifm4 >= 0 && dtglakhirm4 > 0 && dcekabkminggu4 == 0 && dcekabkminggu4RINP == 0
@@ -6608,7 +6608,7 @@ DBC_TARGET              tldstsbrgukr    ltlmdata2
 DBC_SELECT              cselectdetailfinal
 
 CALCS()
-cdetailminggu1          dgetminggu1 == 1 && dgettld == 0
+cdetailminggu1          dgetminggu1 == 1 && dgettld == 0 //ambil minggu, cek tld di minggu itu udah kebentuk atau belum
 cdetailminggu2          dgetminggu2 == 1 && dgettld == 0
 cdetailminggu3          dgetminggu3 == 1 && dgettld == 0
 cdetailminggu4          dgetminggu4 == 1 && dgettld == 0
@@ -6674,7 +6674,7 @@ ltldhrg                 tldhrg          REPLACE
 ltldstr4                tldstr4         REPLACE
 ltldtotdis              tldtotdis       REPLACE
 lweek                   tldsatbsr       REPLACE
-l4                   tldsatbsr       REPLACE
+l4                   	tldsatbsr       REPLACE
 l4                   	tldperdis7      REPLACE
 ltldstr5                tldstr5         REPLACE
 lTGTAkumM4              tldtmp1         REPLACE
@@ -6688,7 +6688,7 @@ ltldth                  tldth           REPLACE
 ltldhrg                 tldhrg          REPLACE
 ltldstr4                tldstr4         REPLACE
 ltldtotdis              tldtotdis       REPLACE
-l5                     tldsatbsr       REPLACE
+l5                     	tldsatbsr       REPLACE
 l31                     tldperdis7       REPLACE
 ltldstr5                tldstr5         REPLACE
 lTGTAkumM5              tldtmp1         REPLACE

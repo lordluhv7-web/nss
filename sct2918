@@ -727,6 +727,7 @@ lthblibd		STRING	5
 ltgl25			DATE	8
 ltgl1                   DATE    8
 lTGTBNSDLR		STRING	11
+lBNSDLR		        STRING	11
 lnobuktld		STRING	21
 ltldnourtbd		INT2	7
 ltldstr4bd		STRING	21
@@ -2060,6 +2061,7 @@ lPRIORITAS7             INIT    "PRIOR KE-7"
 lPRIORITAS8             INIT    "PRIOR KE-8"
 lPRIORITAS9             INIT    "PRIOR KE-9"
 lTGTBNSDLR              INIT	"TGTBNSDLR"
+lBNSDLR                 INIT	"BNSDLR"
 lMASTERSOP		INIT	"MASTERSOP"
 lMASTERHERO		INIT	"MASTERHERO"
 
@@ -7915,7 +7917,8 @@ ltldnourtbd	tldnourt	REPLACE
 cabkode		tldcab		REPLACE
 ltldstr4bd	tldstr4		REPLACE
 ltldhrgbd	tldjml		REPLACE
-DEBUG	ltldbrgbd	tldbrg		REPLACE
+lBNSDLR         tldbrg          REPLACE
+DEBUG	        ltldbrgbd	tldbrg		REPLACE
 
 /* -------------- END TRANSG59 & TRANS2G24 ---------------- */
 

@@ -260,14 +260,14 @@ DBCALCS(dloginhocxnetwork)
 	DBC_SELECT	chocxnetwork
 
 CALCS()
-cselectHOHMC		sgmtype == "DCAOPR" && sgmstr5 == g_usrkode && (sgmstr2 == tlmthbl || sgmstr2 == tlmtype2 || sgmthbl == lTHBL)
+cselectHOHMC		sgmtype == "DCAOPR" && sgmstr5 == g_usrkode /* && (sgmstr2 == tlmthbl || sgmstr2 == tlmtype2 || sgmthbl == lTHBL)*/
 
 MAP(mnipHOHMC)
 	sgmstr5		lnipHOHMC	REPLACE
 
 DBCALCS(dloginhohmc)
 	DBC_COMMAND     JOIN
-        DBC_TARGET      sgmdatplgth    	lsgmdata lsgmplg tlmcab
+        DBC_TARGET      sgmdatplgth    	lsgmdata lsgmplg tlmcab tlmtype2
         DBC_SELECT      cselectHOHMC
         DBC_MAP         mnipHOHMC
 
@@ -1346,8 +1346,8 @@ CALCS()
 ctgtblm				tldsat == "BELUM"
 
 EDITS(trans)
-/*e.PerubahanTgtHrsDiisi  tldstr5                  MANDATORY_IF     ctgttdksesuai*/
-e.ValidateKet        	tldstr4  VALIDATE        tbddatkodidx     mketPerformance                     {PlDTTABEL}        {PlCUSTOMEREXPERIENCE}	{PlINDIKATORBD}
+/*e.PerubahanTgtHrsDiisi  	tldstr5         MANDATORY_IF     ctgttdksesuai*/
+e.ValidateKet        		tldstr4  	VALIDATE        tbddatkodidx     mketPerformance                     {PlDTTABEL}        {PlCUSTOMEREXPERIENCE}	{PlINDIKATORBD}
 e.WajibMengisiTGLEstimasi	tldtgl2		MANDATORY_IF	ctgtblm
 
 MAP(mketPerformance)
@@ -1358,9 +1358,22 @@ DBCALCS(dceknobukdetail)
 DBC_COMMAND	JOIN
 DBC_SELECT	cselectnobukdperformance
 DBC_TARGET	tldbukbrgoto	tlmnobuk
-
+*/
 
 CALCS()
+csellihatdetail		tbdkettype == g_usrkode
+DBCALCS(dlihatdetail)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddatkodidx lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD tldstr4
+	DBC_SELECT	csellihatdetail
+
+CALCS()
+cseltrans	(
+			(g_usrkode == tlmplg || g_usrkode == tlmdari || g_grpnam == "IT"|| g_grpnam == "RI" || tlmsts == "OPEN" || tlmsts == "CLSD") ||
+			(dloginhohmc == 1 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D" || tldstr4 == "3")) ||
+			(dlihatdetail == 1)
+		)	
+/*
 cnobukdetailtdkketemu	dceknobukdetail == 0
 cnobukdetailketemu	dceknobukdetail == 1
 */
@@ -1369,7 +1382,7 @@ cnobukdetailketemu	dceknobukdetail == 1
 SUBFILE(trans)
 SFL_TITLE(transt)
 SFL_LINES(18)
-/*SFL_SELECT	cselectperformance*/
+SFL_SELECT	cseltrans
 SFL_TARGET_IF ctlmnoasalblank
 tldbukurtidx    tlmnobuk
 SFL_TARGET_IF ctlmnoasalisi
