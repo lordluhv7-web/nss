@@ -78,7 +78,7 @@ lPERFORMANCE    	STRING          	21
 lPOTENTIAL    		STRING          	21
 lACTPERFORMANCE    	STRING          	21
 lACTPOTENTIAL    	STRING          	21
-lnipHeadHMC    		STRING  		21
+/*lnipHeadHMC    		STRING  		21*/
 /*ltldjml             	INT4                	4*/
 lDEALERWING             STRING  		21
 lweek			INT2			2
@@ -134,7 +134,7 @@ cstsdealerwing  		"WING"
 cTHBLnow			THBLS(g_tgltrn)
 cLagiUpdate			g_curcmd == 2
 cLagiTambah			g_curcmd == 1
-ccekdetail			g_usrkode == tbdkettype
+/*ccekdetail			g_usrkode == tbdkettype*/
 cdetailact1			tldbrg == "PERFORMANCE" && tldjml3 != BLANKS && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
 cdetailact2			tldbrg == "POTENTIAL" && tldjml3 != BLANKS && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
 cachmin				tlmperppn / 4 * 100
@@ -174,7 +174,7 @@ DBC_COMMAND             JOIN
 DBC_SELECT              cdetailact2
 DBC_TARGET              tldstsbrgukr    tlmdata
 
-
+/*
 DBCALCS(dcekdetail1)
 DBC_COMMAND     JOIN
 DBC_SELECT      ccekdetail
@@ -184,6 +184,7 @@ DBCALCS(dcekdetail2)
 DBC_COMMAND     JOIN
 DBC_SELECT      ccekdetail
 DBC_TARGET      tbddatkodidx lDTTABEL lCUSTOMEREXPERIENCE lKODEMATRIKSIBDB
+*/
 
 DBCALCS(dcekkuncian)
 DBC_COMMAND	JOIN
@@ -202,7 +203,7 @@ DBC_COMMAND	JOIN
 DBC_SELECT	cCekKuncianAct
 DBC_TARGET	abkdatbukidx	lKUNCIABSEN	tlmnobuk
 
-
+/*
 DBCALCS(dloginhocx)
 DBC_COMMAND	JOIN
 DBC_TARGET	tbddatkodidx	lDTTABEL 	lCUSTOMEREXPERIENCE	lHOCX 	g_usrkode
@@ -210,7 +211,7 @@ DBC_TARGET	tbddatkodidx	lDTTABEL 	lCUSTOMEREXPERIENCE	lHOCX 	g_usrkode
 DBCALCS(dloginhohmc)
 DBC_COMMAND	JOIN
 DBC_TARGET	tbddatkodidx	lDTTABEL 	lCUSTOMEREXPERIENCE	lHOHMC 	g_usrkode
-
+*/
 /**************************** TAMBAHAN ACT *********************************************/
 /*
 MAP(mdjointldperfomance)
@@ -230,9 +231,9 @@ cactmshblm			tlmuntuk == "BELUM" && g_tgltrn >= tlmtgljtp
 cblmterkunci			dcekkuncianact == 0
 cdjoinachkrg			djoinachkrg == 1 && tlmperdis == 1 && tlmsts2 != "CLSD" && dcekkuncianact == 1 && tlmuntuk != "BELUM"
 cdetailactmshksg		(djoindetailact1 == 0 || djoindetailact2 == 0) && tlmperdis == 1 && dcekkuncianact == 1 && tlmuntuk != "BELUM"
-cselectHeadHMC          	sgmtype == "HEADHMC" && sgmbrg == tlmcab && (sgmstr2 == tlmthbl || sgmstr2 == tlmtype2) && sgmplg == "H1"
+/*cselectHeadHMC          	sgmtype == "HEADHMC" && sgmbrg == tlmcab && (sgmstr2 == tlmthbl || sgmstr2 == tlmtype2) && sgmplg == "H1"*/
 /*cakhirbulan			DO_LIB ap_akhbl(g_tgltrn,&kettgl1_1);*/
-
+/*
 MAP(mnipHeadHMC)
 sgmstr5                 lnipHeadHMC               REPLACE
 
@@ -241,6 +242,7 @@ DBCALCS(djoinHeadHMC)
         DBC_TARGET              sgmdabrplgtb    lsgmdata
         DBC_SELECT              cselectHeadHMC
         DBC_MAP                 mnipHeadHMC
+*/
 /*
 CALCS()
 
@@ -960,8 +962,81 @@ cpanjang                lpanjang                DO_CALC
 
 /*============================== CALCS DETAIL=========================================*/
 
+IMAGE(transt)
+/------t----------------t-----t---------t-----t--------t----------t---------t------t------t--------t-----t------t-------t---\
+|t.Kode|t.IBDPerformance|t.Tgt|t.TGTAkum|t.act|t.AccAM |t.AccKawil|t.AccDO  |t.PAct|t.%Ach|t.%ACHmd|t.BBT|t.Point|t.Pica|___
+\------.----------------.-----.---------.-----.--------.----------.---------.------.------.--------.-----.------.-------.---/
+IMAGE(trans)
+|______|________________|__.__|______.__|__.__|________|__________|_________|______|______|________|__.__|____.__|______|___|
+
+FIELDS(transt)
+ltomsdhact	TOMBOL				INPUTRI	1
+
+FIELDS(trans)
+/*tldth         PROTECT NOCHANGE                INPUTRI 1*/       /* THBL */
+/*tldsatbsr     PROTECT                         INPUTRI 2*/       /* WEEK */
+tldstr4         PROTECT                         INPUTRI 1       /* INDIKATOR */
+lket         	TEXTAREA PROTECT                INPUTRI 2       /* INDIKATOR */
+tldhrg         	PROTECT                         INPUTRI 3       /* TGT */
+tldtmp1         PROTECT                         INPUTRI 4       /* TGT AKUM */
+tldukrwrn       NUMERIC                        	INPUTRI 5       /* ACT */
+tldgrup         PROTECT                		INPUTRI 6       /* ACC AM */
+tldgrup2        PROTECT                		INPUTRI 7       /* ACC KAWIL */
+tldlok	        PROTECT                		INPUTRI 8       /* ACC DCAOPR */
+tldperdism	NUMERIC				INPUTRI	9	/* ACT BARU */
+tldsubtot       PROTECT NOCHANGE                INPUTRI 10      /* % ACH */
+tldhrgnet       PROTECT NOCHANGE                INPUTRI 11      /* % ACH MD */
+tldtotdis       PROTECT NOCHANGE                INPUTRI 12      /* BOBOT */
+tldperdis       PROTECT NOCHANGE                INPUTRI 13      /* POINT */
+tldket		TEXTAREA			INPUTRI 14
+lenter    	NOCHANGE                	INPUTRI 15      /* TOMBOL ENTER */
+
+DEFAULTS(trans)
+tldstr3		INIT_UPDATE	{g_usrkode}
+tldgrup		DFALT_SCAN	BLANKS
+				TIDAK_SESUAI
+tldgrup2	DFALT_SCAN	BLANKS
+				TIDAK_SESUAI
+tldlok		DFALT_SCAN	BLANKS
+				TIDAK_SESUAI
+
+EDITS(trans)
+e.ValidateKet           tldstr4  VALIDATE        tbddatkodidx     mketactPerformance                     {PlDTTABEL}        {PlCUSTOMEREXPERIENCE} {PlKODEMATRIKSIBDA}
+e.PicaWajibDiisi	tldket			 MANDATORY_IF cachkrg
 
 
+HOOKS(trans)
+AFTER_INPUT		cur_field=tldukrwrn		DO_MAP SHOW mhitung
+AFTER_INPUT		cur_field=tldperdism		DO_MAP SHOW mhitung
+AFTER_INPUT		cur_field=tldperdism		DO_MAP SHOW mACC
+BEFORE_INPUT		cur_field=tldket		DO_SKIP_IF cachlbh
+BEFORE_INPUT		cur_field=tldukrwrn		DO_SKIP_IF cskipact
+AFTER_INPUT		cur_field=tldket		DO_MAP SHOW mcekpanjang
+AFTER_INPUT		cur_field=tldket		DO_MAP SHOW 
+			IF cpanjangcukup		mdum
+			ELSE HKCURSOR STAY
+			HKMSG Isi PICA kurang
+/*AFTER_INPUT		cur_keybd=EN			DO_SPCALCS sLastUser*/
+
+BEFORE_INPUT		cur_field=tldgrup		DO_SKIP_IF cskipacc
+BEFORE_INPUT		cur_field=tldgrup2		DO_SKIP_IF cskipacc
+BEFORE_INPUT		cur_field=tldperdism		DO_SKIP_IF cskipacc
+BEFORE_INPUT		cur_field=tldlok		DO_SKIP_IF cskipacc
+
+HOOKS(transt)
+CLICKED                 cur_field=ltomsdhact    	DO_SPCALCS  ssdhisiact
+
+SUBFILE(trans)
+SFL_LINES(18)
+SFL_SORT_BY_FIELD tldstr4
+SFL_TITLE(transt)
+SFL_SELECT 	cselectactperformance
+SFL_TARGET
+tldbukbrglok		tlmnobuk	lPERFORMANCE
+
+
+
+/*
 IMAGE(transt)
 /-----------------t----------------------------\
 |t.Detail         |i.Keterangan                |
@@ -998,6 +1073,68 @@ cselecttemplate		(tlmperdis == 0 &&
 			  )
 			)
 
+
+
+cactsdhada		((tlmuntuk == "SUDAH" && dcekthbl == 0) || dcekthbl == 1)
+cactsdhada		((tlmuntuk != "BELUM" && tlmperppn == 5) || tlmperppn != 5)
+
+
+SUBFILE(trans)
+SFL_LINES(4)
+SFL_TITLE(transt)
+SFL_TRANS2_FIELD tmpisistr1
+SFL_TRANS2_FIELD2 tmpisistr2
+SFL_SELECT	cselecttemplate
+SFL_COND	cactsdhada
+SFL_TARGET
+        tmpdatkodurt    gv_dttemplate lACTBONUSDEALER
+*/
+/*
+SUBFILE(trans2)
+SFL_TEMPLATE(tmp_ibdperformanceactm1)
+
+SUBFILE(trans2g1)
+SFL_TEMPLATE(tmp_ibdpotentialactm1)
+
+
+SUBFILE(trans2g2)
+SFL_TEMPLATE(tmp_ibdperformanceactm2)
+
+SUBFILE(trans2g3)
+SFL_TEMPLATE(tmp_ibdpotentialactm2)
+
+
+SUBFILE(trans2g4)
+SFL_TEMPLATE(tmp_ibdperformanceactm3)
+
+SUBFILE(trans2g5)
+SFL_TEMPLATE(tmp_ibdpotentialactm3)
+
+
+SUBFILE(trans2g6)
+SFL_TEMPLATE(tmp_ibdperformanceactm4)
+
+SUBFILE(trans2g7)
+SFL_TEMPLATE(tmp_ibdpotentialactm4)
+
+
+SUBFILE(trans2g8)
+SFL_TEMPLATE(tmp_ibdperformanceactfinal)
+SUBFILE(trans2g9)
+SFL_TEMPLATE(tmp_ibdpotentialactfinal)
+*/
+IMAGE(transat)
+/-t-------------------------------\
+|i.Keterangan                     |
+\---------------------------------/
+
+IMAGE(transa)
+|_________________________________|
+
+FIELDS(transa)
+tmpket                  PROTECT SCROLL          INPUTRI 1
+
+CALCS()
 cselectinformasi        (tlmperdis == 1 &&
                           (
                                 (
@@ -1011,66 +1148,6 @@ cselectinformasi        (tlmperdis == 1 &&
                                 )
                           )
                         )
-
-/*cactsdhada		((tlmuntuk == "SUDAH" && dcekthbl == 0) || dcekthbl == 1)*/
-cactsdhada		((tlmuntuk != "BELUM" && tlmperppn == 5) || tlmperppn != 5)
-
-
-SUBFILE(trans)
-SFL_LINES(4)
-SFL_TITLE(transt)
-SFL_TRANS2_FIELD tmpisistr1
-SFL_TRANS2_FIELD2 tmpisistr2
-SFL_SELECT	cselecttemplate
-SFL_COND	cactsdhada
-SFL_TARGET
-        tmpdatkodurt    gv_dttemplate lACTBONUSDEALER
-
-/******************** ACTPERFORMANCE M1 **********************/
-SUBFILE(trans2)
-SFL_TEMPLATE(tmp_ibdperformanceactm1)
-/******************** ACTPOTENTIAL M1 ************************/
-SUBFILE(trans2g1)
-SFL_TEMPLATE(tmp_ibdpotentialactm1)
-
-/******************** ACTPERFORMANCE M2 **********************/
-SUBFILE(trans2g2)
-SFL_TEMPLATE(tmp_ibdperformanceactm2)
-/******************** ACTPOTENTIAL M2 ************************/
-SUBFILE(trans2g3)
-SFL_TEMPLATE(tmp_ibdpotentialactm2)
-
-/******************** ACTPERFORMANCE M3 **********************/
-SUBFILE(trans2g4)
-SFL_TEMPLATE(tmp_ibdperformanceactm3)
-/******************** ACTPOTENTIAL M3 ************************/
-SUBFILE(trans2g5)
-SFL_TEMPLATE(tmp_ibdpotentialactm3)
-
-/******************** ACTPERFORMANCE M4 **********************/
-SUBFILE(trans2g6)
-SFL_TEMPLATE(tmp_ibdperformanceactm4)
-/******************** ACTPOTENTIAL M4 ************************/
-SUBFILE(trans2g7)
-SFL_TEMPLATE(tmp_ibdpotentialactm4)
-
-/******************** ACTPERFORMANCE FINAL **********************/
-SUBFILE(trans2g8)
-SFL_TEMPLATE(tmp_ibdperformanceactfinal)
-/******************** ACTPOTENTIAL FINAL ************************/
-SUBFILE(trans2g9)
-SFL_TEMPLATE(tmp_ibdpotentialactfinal)
-
-IMAGE(transat)
-/-t-------------------------------\
-|i.Keterangan                     |
-\---------------------------------/
-
-IMAGE(transa)
-|_________________________________|
-
-FIELDS(transa)
-tmpket                  PROTECT SCROLL          INPUTRI 1
 
 SUBFILE(transa)
 SFL_LINES(10)
@@ -1135,9 +1212,9 @@ DO_LIB		ap_dbclc(DNAME dUpdLastUser,DCOMMAND UPDATE,DTARGET tldotoidx tldoto,DMA
 */
 CALCS()
 cUpdateMaster		(dcekkuncian == 1 && (tlmsts == "OPEN" || tlmsts == "RINP") && tlmperdis == 1) || g_grpnam == "RI" || g_grpnam == "IT"
-cUpdateAct		(tlmsts != "CLSD" && tlmperdis == 1 && dcekkuncianact == 1 && (tlmperppn == tldsatbsr || (tlmperppn == 5 && tldsatbsr == 31))/* && g_usrkode != tlmplg && g_usrkode != tlmdari*/) || g_grpnam == "RI" || g_grpnam == "IT"
-cUpdateActPengecualian	((tlmsts != "CLSD" && tlmperdis == 1 && dcekkuncianact == 1 && (tlmperppn == tldsatbsr || (tlmperppn == 5 && tldsatbsr == 31))/* && g_usrkode != tlmplg && g_usrkode != tlmdari*/))
-			|| dloginhocxhead == 1 || g_grpnam == "RI" || g_grpnam == "IT"
+/*cUpdateAct		(tlmsts != "CLSD" && tlmperdis == 1 && dcekkuncianact == 1 && (tlmperppn == tldsatbsr || (tlmperppn == 5 && tldsatbsr == 31))*//* && g_usrkode != tlmplg && g_usrkode != tlmdari*//*) || g_grpnam == "RI" || g_grpnam == "IT"*/
+/*cUpdateActPengecualian	((tlmsts != "CLSD" && tlmperdis == 1 && dcekkuncianact == 1 && (tlmperppn == tldsatbsr || (tlmperppn == 5 && tldsatbsr == 31))*//* && g_usrkode != tlmplg && g_usrkode != tlmdari*//*))
+			|| dloginhocxhead == 1 || g_grpnam == "RI" || g_grpnam == "IT"*/
 cPengecualianCXHead	dloginhocxhead == 1 || g_grpnam == "RI" || g_grpnam == "IT"
 
 PERMIT(master)
@@ -1158,10 +1235,12 @@ PERMIT(transa)
         PMT_UPDALL_COND c0
         PMT_DEL_COND    c0
 
+/*
 PERMIT(trans2)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND cUpdateAct
         PMT_DEL_COND    c0
+
 PERMIT(trans2g1)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND cUpdateAct
@@ -1198,7 +1277,7 @@ PERMIT(trans2g9)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND cUpdateActPengecualian
         PMT_DEL_COND    c0
-
+*/
 PERMIT(transa2)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND c0
