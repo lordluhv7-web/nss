@@ -42,6 +42,7 @@ SCR_NXT_MSG             IF              ckondisi01              t.BelumCeklisDet
 
 LOCAL
 PGM_FIELDS
+ldum                    STRING          11
 lpanjangdev		INT2		7
 lpanjangtac		INT2		7
 ltipeaktivitas          STRING          21
@@ -132,6 +133,8 @@ lspkket2		STRING		251
 lspkjrk3		INT2		7
 lCLAIMBD                STRING          11
 lnamacabang		STRING		251
+lmtsjml                 DFLOAT          10
+lmtsjml2                DFLOAT          10
 
 MAP(muplok)
 	gv_ok		mtstypbrg	REPLACE
@@ -311,7 +314,7 @@ MAP(mjoinpsi)
 	lblanks		ldanacair		REPLACE
 	lblanks		lcekaccaktivitas	REPLACE
 
-	lsaldoklaimdev	lsaldoklaimdev		REPLACE_IF cdscansaldosisa
+        lsaldoklaimdev	lsaldoklaimdev		REPLACE_IF cdscansaldosisa
 	lsaldoklaimtac	lsaldoklaimtac		REPLACE_IF cdscansaldosisa
 
 	lproses3dke	lproses3dke		REPLACE_IF cdjoin3dupl
@@ -332,6 +335,16 @@ DBCALCS(djoinpsi)
 	DBC_COMMAND	JOIN
 	DBC_TARGET	psikodidx	g_usrkode
 	DBC_MAP		mjoinpsi
+
+MAP(msumnom)
+        mtdjml  lmtsjml   REPLACE
+DEBUG   mtdhrg  lmtsjml2   REPLACE
+
+DBCALCS(djoinsumnom)
+DBC_COMMAND     SCANSCAN
+DBC_TARGET      mtdbukurtidx mtsnobuk
+DBC_SUM_MAP     msumnom
+
 
 MAP(mnext)
 mtsnobuk                r_string1       REPLACE
@@ -429,7 +442,7 @@ IMAGE(master)
 |/---------------------------------------------------------------\|
 || t.NoBuk	 : ______________ t.Status ______ ______________ _||
 || t.Quartal	 : ______________                                ||
-|| t.MainDealer	 : ______________ t.ProsesClaim________________  ||
+|| t.MainDealer	 : ______________ t.ProsesClaim________________ _ ||
 ||spasi								 ||
 |\---------------------------------------------------------------/|
 |/---------------------------------------------------------------\|
@@ -473,18 +486,21 @@ lblanks			NOCHANGE	INPUTRI		4	/* biar pas balik ke atas ttp skip */
 mtsnoasal		PROTECT		INPUTRI		5	/* quartal */
 mtsplg			PROTECT		INPUTRI		8	/* main dealer */
 mtsgrup			PROTECT		INPUTRI		9	/* proses claim */
+mtstgl			PROTECT		UNSEEN  INPUTRI	10	/* tanggal */
+
 
 mtsdvs			NOCHANGE	INPUTRI		19	/* apakah sdh ada nominal dev tac */
 mtstgl1			NOLIMIT {DD-MM-YY} INPUTRI	20	/* tgl estimasi info terima nom */
 
-mtsjml			NUMERIC		INPUTRI		21	/* nominal development */
+
+lmtsjml			NUMERIC		INPUTRI		21	/* nominal development */
 mtstothrg		PROTECT		INPUTRI		22	/* saldo dev yg diklaim */
 mtstotdis		PROTECT		INPUTRI		23	/* sisa saldo dev */
 ketisi_1		TEXTAREA 2	INPUTRI		24	/* alasan sisa saldo dev */
 lblanks			NOCHANGE	INPUTRI		25	/* biar tetep keskip */
 ketdf1_1		NUMERIC		INPUTRI		26	/* nominal dev cair */
 
-mtsjml2			NUMERIC		INPUTRI		27	/* nominal tactical */
+lmtsjml2		NUMERIC		INPUTRI		27	/* nominal tactical */
 mtstype1		PROTECT		INPUTRI		28	/* bisa klaim tactical atau tidak */
 mtsperdis		PROTECT		INPUTRI		29	/* saldo tac yg diklaim */
 mtsperdisd		PROTECT		INPUTRI		30	/* sisa saldo tac */
@@ -509,6 +525,7 @@ CALCS()
 ctglakhirbulan		DO_LIB ap_akhbl(g_tgltrn,&ltglakhirbulan);
 ctglawalbulandepan	DO_LIB ap_tambl (g_tgltrn,l1,&ltglawalbulandepan);
 cthblblndpn		THBLS(ltglawalbulandepan)
+cdjoinsumnom            (djoinsumnom == 0 || djoinsumnom == 1)
 
 DEFAULT(master)
 ltom1d                  INIT		"1d. Nominal Per Dealer"
@@ -576,13 +593,19 @@ cMandatoryTglAkt	mtssts == "INPG" && mtshcex == BLANKS && (mtstotdis > 0 || mtsp
 EDIT(master)
 e.MandatoryProsesClaim	mtsgrup		MANDATORY
 e.MandatoryAdaNominal	mtsdvs		MANDATORY
-e.MandatoryNomDev	mtsjml		MANDATORY_IF csdhterimaclaim
-e.MandatoryNomTac	mtsjml2		MANDATORY_IF csdhterimaclaimtac
+e.MandatoryNomDev	lmtsjml		MANDATORY_IF csdhterimaclaim
+e.MandatoryNomTac	lmtsjml2		MANDATORY_IF csdhterimaclaimtac
 e.MandatoryTglTerima	mtstgl1		MANDATORY_IF cblmterimaclaim
 e.WajibUplBukNominal	mtstypbrg	MANDATORY_IF cnominalsdhada
 e.IsiAlasanSisaSaldoDev	ketisi_1	MANDATORY_IF cMtINPG_MAND_ALASAN1
 e.IsiAlasanSisaSaldoTac	ketisi2_1	MANDATORY_IF cMtINPG_MAND_ALASAN2
 e.MandatoryTglAktivitas	mtstgljtp	MANDATORY_IF cMandatoryTglAkt
+e.Validate              mtsnobuk        VALIDATE mtsbukidx msum 0 
+
+MAP(msum)
+        lmtsjml  lmtsjml        REPLACE_IF cdjoinsumnom
+        lmtsjml2 lmtsjml2       REPLACE_IF cdjoinsumnom
+DEBUG   ldum      ldum          REPLACE
 
 MAP(mhapustandaposting)
 	lblanks		mtsstspst	REPLACE
@@ -636,8 +659,8 @@ MAP(mdum)
 	lversi		lversi		REPLACE
 
 MAP(mhapusnominal)
-	lblanks		mtsjml		REPLACE_IF cblmterimaclaim
-	lblanks		mtsjml2		REPLACE_IF cblmterimaclaim
+	lblanks		lmtsjml		REPLACE_IF cblmterimaclaim
+	lblanks		lmtsjml2		REPLACE_IF cblmterimaclaim
 
 MAP(minittglestimasi)
 	chplus7		mtstgl1		DO_CALC
@@ -674,11 +697,11 @@ AFTER_INPUT             cur_field=ketisi2_1     DO_MAP SHOW
                                                 HKMSG t.AlasanSisaKurangPanjang
 AFTER_INPUT		cur_field=mtsdvs	DO_MAP SHOW IF cblmadanom minittglestimasi
 BEFORE_INPUT		cur_field=mtstgl1	DO_SKIP_IF csdhterimaclaim
-BEFORE_INPUT		cur_field=mtsjml	DO_SKIP_IF cblmterimaclaim
-BEFORE_INPUT		cur_field=mtsjml2	DO_SKIP_IF cblmterimaclaim
+BEFORE_INPUT		cur_field=lmtsjml	DO_SKIP_IF cblmterimaclaim
+BEFORE_INPUT		cur_field=lmtsjml2	DO_SKIP_IF cblmterimaclaim
 BEFORE_INPUT		cur_field=mtstgl1	DO_SKIP_IF cMtxOPENRINP
-BEFORE_INPUT		cur_field=mtsjml	DO_SKIP_IF cMtxOPENRINP
-BEFORE_INPUT		cur_field=mtsjml2	DO_SKIP_IF cMtxOPENRINP
+BEFORE_INPUT		cur_field=lmtsjml	DO_SKIP_IF cMtxOPENRINP
+BEFORE_INPUT		cur_field=lmtsjml2	DO_SKIP_IF cMtxOPENRINP
 BEFORE_INPUT    	cur_field=ketisi_1      DO_SKIP_IF cMtOPENRINP
 BEFORE_INPUT    	cur_field=ketdf1_1      DO_SKIP_IF cMtOPENRINP
 BEFORE_INPUT    	cur_field=ketisi2_1     DO_SKIP_IF cMtOPENRINP
@@ -709,7 +732,6 @@ IMAGE(master2)
 || t.NoBuk       : __________________________                    ||
 || t.Status      : ___________ ______________                    ||
 || t.Quartal     : __________________________                    ||
-|| t.Dealer      : __________________________                    ||
 || t.MainDealer  : __________________________                    ||
 || t.ProsesClaim : __________________________                    ||
 || t.TglEstTerimaNom  	:       ___________________              ||
@@ -727,15 +749,14 @@ mtsnobuk                PROTECT         INPUTRI         1       /* nobuk */
 mtssts                  PROTECT         INPUTRI         2       /* status */
 mtshcex                 PROTECT         INPUTRI         2       /* status */
 mtsnoasal               PROTECT         INPUTRI         3       /* quartal */
-mtscab                  PROTECT         UNSEEN        INPUTRI         4       /* dealer */
 mtsplg                  PROTECT         INPUTRI         5       /* main dealer */
 mtsgrup                 PROTECT         INPUTRI         6       /* proses claim */
 
 mtstgl1                 PROTECT NOLIMIT {DD-MM-YY} INPUTRI      7      /* tgl terima claim */
-mtsjml                  PROTECT         INPUTRI         8      /* nominal development */
+lmtsjml                 PROTECT         INPUTRI         8      /* nominal development */
 mtstothrg               PROTECT         INPUTRI         8      /* saldo dev yg diklaim */
 mtstotdis               PROTECT         INPUTRI         8      /* saldo sisa dev */
-mtsjml2                 NUMERIC         INPUTRI         9      /* nominal tactical */
+lmtsjml2                NUMERIC         INPUTRI         9      /* nominal tactical */
 mtsperdis               PROTECT         INPUTRI         9      /* saldo dev yg diklaim */
 mtsperdisd              PROTECT         INPUTRI         9      /* saldo sisa tac */
 
@@ -749,13 +770,13 @@ IMAGE(trans)
 |_________|___________|__________________|_______________|
 
 FIELD(trans)
-mtscab          	PROTECT         INPUTRI 1               /* cabang */
+mtdcab          	PROTECT         INPUTRI 1               /* cabang */
 lnamacabang          	PROTECT         INPUTRI 2               /* nama cabang */
-mtsjml			NUMERIC		INPUTRI	3	        /* nominal development */
-mtsjml2			NUMERIC		INPUTRI	4	        /* nominal tactical */
+mtdjml			NUMERIC		INPUTRI	3	        /* nominal development */
+mtdhrg			NUMERIC		INPUTRI	4	        /* nominal tactical */
 
 EDIT(trans)
-e.ValidateCab		mtscab		VALIDATE		cabkodidx	mcab	0
+e.ValidateCab		mtdcab		VALIDATE		cabkodidx	mcab	0
 
 MAP(mcab)
 cabnama		lnamacabang	REPLACE
@@ -763,10 +784,10 @@ cabnama		lnamacabang	REPLACE
 SUBFILE(trans)
 SFL_LINES(10)
 SFL_TITLE(transt)
-SFL_SORT_BY_FIELD       mtscab
+SFL_SORT_BY_FIELD       mtdcab
 SFL_SORT_UPDOWN         DOWN
 SFL_TARGET
-mtsdatplgtgl    lCLAIMBD mtsplg mtstgl
+mtdbukurtidx    mtsnobuk
 
 
 IMAGE(transat)
@@ -923,8 +944,8 @@ DBCALCS(dscansaldo2b)
 
 CALCS()
 csaldodiklaim		lsaldo1 - lsaldo2
-csaldosisa		mtsjml - (lsaldo1 - lsaldo2)
-csaldosisa2		mtsjml2 - (lsaldo1 - lsaldo2)
+csaldosisa		lmtsjml - (lsaldo1 - lsaldo2)
+csaldosisa2		lmtsjml2 - (lsaldo1 - lsaldo2)
 cdscansaldo1		dscansaldo1 >= 0
 cdscansaldo2		dscansaldo2 >= 0
 cdscansaldo1b		dscansaldo1b >= 0
@@ -1804,7 +1825,21 @@ PERMIT(transa2)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND c0
         PMT_DEL_COND    c0
+
+MAP(maddmtdnom)
+        mtdnobuk        mtdnobuk        REPLACE
+        mtdjml          mtsjml          REPLACE
+        mtdhrg          mtsjml2         REPLACE     
+
+SPCALCS(sptrans)
+DO_LIB          ap_dbclc(DNAME daddtlmnom,DCOMMAND UPDATE_BUF3,DTARGET mtsbukidx mtdkat,DMAP maddmtdnom);
+
+POSTING(trans)
+	PST_UPDCMD	sptrans
+
 /*
+
+
 MAP(maddtlddev)
 	lCLAIMBD        tlddata         REPLACE
         lCLAIMDEVELOPMENT tldbrg        REPLACE
@@ -1830,9 +1865,9 @@ SPCALCS(sptransb)
 DO_LIB		ap_dbclc(DNAME daddtldtac,DCOMMAND ADD,DFILE tld,DMAP maddtldtac);
 
 POSTING(transa)
-	PST_ADDCMD	sptrans
+	PST_ADDCMD	sptransa
 
 POSTING(transb)
-	PST_ADDCMD	sptransa
+	PST_ADDCMD	sptransb
 */
 END_SCREEN
