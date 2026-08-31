@@ -588,7 +588,9 @@ cdscannourt		dscannourt >= 0
 csdhterimaclaim		mtsdvs == "SUDAH"
 csdhterimaclaimtac	mtsdvs == "SUDAH"/* && mtstype1 == "YA"*/
 cblmterimaclaim		mtsdvs == "BELUM"
+csdhblmterimaclaim	mtsdvs == "BELUM" || mtsdvs == "SUDAH" 
 cMandatoryTglAkt	mtssts == "INPG" && mtshcex == BLANKS && (mtstotdis > 0 || mtsperdisd > 0) && djoinpsi == 1 && lsaldoklaimdev == mtstothrg && lsaldoklaimtac == mtsperdis && mtstotpph == 0
+cTdkNgapa2in            g_curcmd == 0
 
 EDIT(master)
 e.MandatoryProsesClaim	mtsgrup		MANDATORY
@@ -600,7 +602,7 @@ e.WajibUplBukNominal	mtstypbrg	MANDATORY_IF cnominalsdhada
 e.IsiAlasanSisaSaldoDev	ketisi_1	MANDATORY_IF cMtINPG_MAND_ALASAN1
 e.IsiAlasanSisaSaldoTac	ketisi2_1	MANDATORY_IF cMtINPG_MAND_ALASAN2
 e.MandatoryTglAktivitas	mtstgljtp	MANDATORY_IF cMandatoryTglAkt
-e.Validate              mtsnobuk        VALIDATE mtsbukidx msum 0 
+e.Validate              mtsnobuk        VALIDATE_IF cTdkNgapa2in mtsbukidx msum 0 
 
 MAP(msum)
         lmtsjml  lmtsjml        REPLACE_IF cdjoinsumnom
@@ -697,8 +699,8 @@ AFTER_INPUT             cur_field=ketisi2_1     DO_MAP SHOW
                                                 HKMSG t.AlasanSisaKurangPanjang
 AFTER_INPUT		cur_field=mtsdvs	DO_MAP SHOW IF cblmadanom minittglestimasi
 BEFORE_INPUT		cur_field=mtstgl1	DO_SKIP_IF csdhterimaclaim
-BEFORE_INPUT		cur_field=lmtsjml	DO_SKIP_IF cblmterimaclaim
-BEFORE_INPUT		cur_field=lmtsjml2	DO_SKIP_IF cblmterimaclaim
+BEFORE_INPUT		cur_field=lmtsjml	DO_SKIP_IF csdhblmterimaclaim
+BEFORE_INPUT		cur_field=lmtsjml2	DO_SKIP_IF csdhblmterimaclaim
 BEFORE_INPUT		cur_field=mtstgl1	DO_SKIP_IF cMtxOPENRINP
 BEFORE_INPUT		cur_field=lmtsjml	DO_SKIP_IF cMtxOPENRINP
 BEFORE_INPUT		cur_field=lmtsjml2	DO_SKIP_IF cMtxOPENRINP
@@ -784,6 +786,7 @@ cabnama		lnamacabang	REPLACE
 SUBFILE(trans)
 SFL_LINES(10)
 SFL_TITLE(transt)
+SFL_COND                csdhterimaclaim
 SFL_SORT_BY_FIELD       mtdcab
 SFL_SORT_UPDOWN         DOWN
 SFL_TARGET
