@@ -23,7 +23,7 @@ SCR_NXT_MSG     	IF		cblmPRN			t.DataBlmPRN/Sesuai
 			IF		csesuaisemua   		t.DetailHrsAdaYgTdkSesuai
 			IF		cbknAM   		t.TidakBolehPostingBknAM
 			/*IF		cbknKawil   		t.TidakBolehPosting*/
-			IF		cdetail1blm   		t.CekDetailPerformance
+			IF		cdetail1blm   		t.CekDetail
 			/*IF		cdetail2blm   		t.CekDetailPotential*/
 			IF		cdetailblm22nya  	t.AdaDetailBlmDilihat
 			IF		cdetailactmshksg	t.AdaDetailACTblmDiisi
@@ -116,16 +116,18 @@ cplus17khusus				lblndpn + 15
 cplus10					lblndpn + 10
 cjikaapril				tlmtype2 == "2606"
 cjikabknapril				tlmtype2 != "2606"
+/*
 cselectchecktgt1			tldcab == tlmcab && tldbrg == lPERFORMANCE && tlddata == tlmdata && tldth == tlmtype2
 cselectchecktgt2			tldcab == tlmcab && tldbrg == lPOTENTIAL && tlddata == tlmdata && tldth == tlmtype2
+*/
 cy					"Y"
 ct					"T"
-cperformancetdksesuai			tldbrg == "PERFORMANCE" && tldstr1 == "TIDAK_SESUAI" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
-cpotentialtdksesuai			tldbrg == "POTENTIAL" && tldstr1 == "TIDAK_SESUAI" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
-cperformancetdksesuaiKawil		tldbrg == "PERFORMANCE" && tldstr2 == "T" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
-cpotentialtdksesuaiKawil		tldbrg == "POTENTIAL" && tldstr2 == "T" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
-cperformancetdksesuaiHOHMC		tldbrg == "PERFORMANCE" && tldstr3 == "T" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
-cpotentialtdksesuaiHOHMC		tldbrg == "POTENTIAL" && tldstr3 == "T" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
+cperformancetdksesuai			/*tldbrg == "PERFORMANCE" && */tldstr1 == "TIDAK_SESUAI" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
+cpotentialtdksesuai			/*tldbrg == "POTENTIAL" && */tldstr1 == "TIDAK_SESUAI" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
+cperformancetdksesuaiKawil		/*tldbrg == "PERFORMANCE" && */tldstr2 == "T" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
+cpotentialtdksesuaiKawil		/*tldbrg == "POTENTIAL" && */tldstr2 == "T" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
+cperformancetdksesuaiHOHMC		/*tldbrg == "PERFORMANCE" && */tldstr3 == "T" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
+cpotentialtdksesuaiHOHMC		/*tldbrg == "POTENTIAL" && */tldstr3 == "T" && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
 cCekKuncian				abkkym == g_usrkode && (abksts == "INPG" || abksts == "RINP") /*abknobuk == tlmnobuk*/
 cCekKuncianAct				abkkym == g_usrkode && (abksts == "INPG" || abksts == "RINP") /*abknobuk == tlmnobuk*/
 cSESUAI					"SESUAI"
@@ -139,23 +141,23 @@ cstsdealerwing  			"WING"
 cTHBLnow				THBLS(g_tgltrn)
 cLagiUpdate				g_curcmd == 2
 cLagiTambah				g_curcmd == 1
-ccek2detail        			g_usrkode == tbdkettype && (tbdtblkode == "MATRIKSPOTENTIAL" || tbdtblkode == "MATRIKSPERFORMANCE")
+ccek2detail        			g_usrkode == tbdkettype /* && (tbdtblkode == "MATRIKSPOTENTIAL" || tbdtblkode == "MATRIKSPERFORMANCE")*/
 ccekdetail				g_usrkode == tbdkettype
-cdetailact1				tldbrg == "PERFORMANCE" && tldjml3 != BLANKS && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
-cdetailact2				tldbrg == "POTENTIAL" && tldjml3 != BLANKS && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
+cdetailact1				/*tldbrg == "PERFORMANCE" && */tldjml3 != BLANKS && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
+cdetailact2				/*tldbrg == "POTENTIAL" && */tldjml3 != BLANKS && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
 cachmin					tlmperppn / 4 * 100
 cdetailachkrg				(tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL") && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata && (tldsubtot < tlmperpph) && tldket == BLANKS && tldsatbsr == ltlmjml
 
 DBCALCS(dchecktgt1)
 	DBC_COMMAND	JOIN
-	DBC_SELECT      cselectchecktgt1
-	DBC_TARGET      tldstsbrgukr	tlmdata
-
+	DBC_TARGET      tldbukurtidx	tlmnobuk
+	/*DBC_SELECT      cselectchecktgt1*/
+/*
 DBCALCS(dchecktgt2)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cselectchecktgt2
 	DBC_TARGET      tldstsbrgukr    tlmdata
-
+*/
 DBCALCS(djoinachkrg)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cdetailachkrg
@@ -164,17 +166,18 @@ DBCALCS(djoinachkrg)
 DBCALCS(djoindetailact1)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cdetailact1
-	DBC_TARGET      tldstsbrgukr    tlmdata
+	DBC_TARGET      tldbukurtidx	tlmnobuk
 
 DBCALCS(djoindetailact2)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cdetailact2
-	DBC_TARGET      tldstsbrgukr    tlmdata
+	DBC_TARGET      tldbukurtidx	tlmnobuk
 
 DBCALCS(dcek2detail)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      ccek2detail
-	DBC_TARGET      tbddatkodidx 	lDTTABEL lCUSTOMEREXPERIENCE
+	DBC_TARGET	tbddatkodidx lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD
+	/*DBC_TARGET      tbddatkodidx 	lDTTABEL lCUSTOMEREXPERIENCE*/
 
 DBCALCS(dcekdetail1)
 	DBC_COMMAND     JOIN
@@ -189,43 +192,43 @@ DBCALCS(dcekdetail2)
 DBCALCS(djoinpotentialtdksesuai)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cpotentialtdksesuai
-	DBC_TARGET      tldstsbrgukr    tlmdata
+	DBC_TARGET      tldbukurtidx    tlmnobuk
 
 DBCALCS(djoinperformancetdksesuai)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cperformancetdksesuai
-	DBC_TARGET      tldstsbrgukr    tlmdata
+	DBC_TARGET      tldbukurtidx    tlmnobuk
 
 DBCALCS(djoinpotentialtdksesuaiKawil)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cpotentialtdksesuaiKawil
-	DBC_TARGET      tldstsbrgukr    tlmdata
+	DBC_TARGET      tldbukurtidx    tlmnobuk
 
 DBCALCS(djoinperformancetdksesuaiKawil)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cperformancetdksesuaiKawil
-	DBC_TARGET      tldstsbrgukr    tlmdata
+	DBC_TARGET      tldbukurtidx    tlmnobuk
 
 DBCALCS(djoinpotentialtdksesuaiHOHMC)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cpotentialtdksesuaiHOHMC
-	DBC_TARGET      tldstsbrgukr    tlmdata
+	DBC_TARGET      tldbukurtidx    tlmnobuk
 
 DBCALCS(djoinperformancetdksesuaiHOHMC)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cperformancetdksesuaiHOHMC
-	DBC_TARGET      tldstsbrgukr    tlmdata
+	DBC_TARGET      tldbukurtidx    tlmnobuk
 
 /*
 DBCALCS(djoinpotentialtdksesuaiHOCX)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cpotentialtdksesuaiHOHMC
-	DBC_TARGET      tldstsbrgukr    tlmdata
+	DBC_TARGET      tldbukurtidx    tlmnobuk
 
 DBCALCS(djoinperformancetdksesuaiHOCX)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cperformancetdksesuaiHOHMC
-	DBC_TARGET      tldstsbrgukr    tlmdata
+	DBC_TARGET      tldbukurtidx    tlmnobuk
 */
 
 
@@ -413,7 +416,7 @@ csesuaisemua		( (djoinpotentialtdksesuai == 0 && djoinperformancetdksesuai == 0)
 
 /*cblmuplevidence		tlmsts == "OPEN" && tlmgrup == "TIDAK_SESUAI" && tlmtype1 == BLANKS*/
 
-cblmPRN			dchecktgt1 == 0 || dchecktgt2 == 0
+cblmPRN			dchecktgt1 == 0/* || dchecktgt2 == 0*/
 cblmaccAM		tlmsts == "OPEN" && tlmgrup == BLANKS && tlmperdis != 1					/*KONDISI AM BELUM MENGISI ACC*/
 cblmaccKawil		tlmsts == "INPG" && tlmdari == g_usrkode && tlmgrup2 == BLANKS && tlmperdis != 1
 cdetail1blm		tlmytppn == BLANKS
@@ -530,7 +533,7 @@ lposting		TOMBOL				INPUTRI	39		/* HAPUS TANDA POSTING */
 DEFAULTS(master)
 tlmdata			INIT_QUERY_F11		"tlmdata=="TGTBNSDLR"/* || tlmdata=="ACTBNSDLR"*/"
 tlmdata			INIT_ADD		"ACTBNSDLR"
-lversi			INIT			"26082026_v1"
+lversi			INIT			"31082026_v1"
 lupdate			INIT			"Perubahan cek hohmc menggunakan thbl hari ini"
 ltomdet1		INIT			"1d. Detail Input TGT"
 /*ltomdet2		INIT			"2d. PRN"*/
@@ -999,9 +1002,9 @@ cdetail1			tlmytppn == "Y" && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginho
 /*cdetail2			tlmdvs == "Y" && dloginhocx == 1*/
 
 /* RUBAH ACC AM */
-cdetailsesuaiam                 (ddetail1AM == 0 && ddetail2AM == 0 && dchecktgt1 == 1 && dchecktgt2 == 1 && tlmsts2 != "TGT" && tlmsts2 != "TGT2" && tlmplg == g_usrkode && tlmsts2 == BLANKS && tlmnoasal == BLANKS) ||
+cdetailsesuaiam                 (ddetail1AM == 0 && ddetail2AM == 0 && dchecktgt1 == 1/* && dchecktgt2 == 1 */&& tlmsts2 != "TGT" && tlmsts2 != "TGT2" && tlmplg == g_usrkode && tlmsts2 == BLANKS && tlmnoasal == BLANKS) ||
 				(tlmnoasal != BLANKS && damAnak == 0)
-cdetailtdksesuaiam             	((ddetail1AM == 1 || ddetail2AM == 1) && dchecktgt1 == 1 && dchecktgt2 == 1 && (tlmsts2 != "TGT" && tlmsts2 != "TGT2") && tlmplg == g_usrkode && tlmsts2 == BLANKS && tlmnoasal == BLANKS) ||
+cdetailtdksesuaiam             	((ddetail1AM == 1 || ddetail2AM == 1) && dchecktgt1 == 1/* && dchecktgt2 == 1 */&& (tlmsts2 != "TGT" && tlmsts2 != "TGT2") && tlmplg == g_usrkode && tlmsts2 == BLANKS && tlmnoasal == BLANKS) ||
 				(tlmnoasal != BLANKS && damAnak == 1)
 
 cdetailsesuaikawil              (ddetail1KAWIL == 0 && ddetail2KAWIL == 0 && tlmdari == g_usrkode && tlmnoasal == BLANKS) ||
@@ -1147,7 +1150,7 @@ cUpdateDetail		((
 
 IMAGE(transt)
 /------t---------------------------t------t--------------t------------t----------t-------t--------t---------t----\
-|t.Kode|  t.IBDPerformance	   | t.Tgt| t.SesuaiTidak| t.PubahTgt |t.AccKawil|t.AccHO|t.SdhBlm|t.Jtp    | __ |
+|t.Kode|  t.IBD			   | t.Tgt| t.SesuaiTidak| t.PubahTgt |t.AccKawil|t.AccHO|t.SdhBlm|t.Jtp    | __ |
 \------.---------------------------.------.--------------.------------.----------.-------.--------.---------.----/
 IMAGE(trans)
 |______|___________________________|___.__|______________|_________.__|__________|_______|________|_________|____|
@@ -1270,7 +1273,7 @@ cBLANKS					tldstr3		DO_CALC_IF ctldstr5blankho
 cBLANKS					tldstr3		DO_CALC_IF ctldstr5blankho2
 
 CALCS()
-cblhy			dchecktgt1 == 1 && dchecktgt2 == 1 && (tlmsts2 != "TGT" && tlmsts2 != "TGT2")
+cblhy			dchecktgt1 == 1/* && dchecktgt2 == 1*/ && (tlmsts2 != "TGT" && tlmsts2 != "TGT2")
 /*cTGTblm			tldsat == "BELUM"*/
 cTGTsdh			tldsat == BLANKS
 cTGTsdhada		tldjml != ~tldjml
@@ -1291,6 +1294,7 @@ cstsctgt2		(tlmsts == "OPEN" && ketstr3_1 == "CTGT" && tlmplg == g_usrkode) || (
 cstsctgt3		(tlmsts == "OPEN" && ketstr3_1 == "CTGT" && tldsat == BLANKS) || (tlmsts != "OPEN" && tldstr5 != BLANKS) || tldjml != ~tldjml || g_usrkode != tlmplg || tldstr5 != BLANKS || tldsat == BLANKS
 MAP(mtandabaca)
 cy				tlmytppn		DO_CALC_IF cblhy
+cy				tlmdvs			DO_CALC_IF cblhy
 
 MAP(mblanktgl)
 cBLANKS			tldsat				DO_CALC_IF cTGTsdhada
