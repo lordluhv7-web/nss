@@ -146,7 +146,7 @@ ccekdetail				g_usrkode == tbdkettype
 cdetailact1				/*tldbrg == "PERFORMANCE" && */tldjml3 != BLANKS && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
 cdetailact2				/*tldbrg == "POTENTIAL" && */tldjml3 != BLANKS && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata
 cachmin					tlmperppn / 4 * 100
-cdetailachkrg				(tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL") && tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata && (tldsubtot < tlmperpph) && tldket == BLANKS && tldsatbsr == ltlmjml
+cdetailachkrg				/*(tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL") && */tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata && (tldsubtot < tlmperpph) && tldket == BLANKS && tldsatbsr == ltlmjml
 
 DBCALCS(dchecktgt1)
 	DBC_COMMAND	JOIN
@@ -161,7 +161,7 @@ DBCALCS(dchecktgt2)
 DBCALCS(djoinachkrg)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cdetailachkrg
-	DBC_TARGET      tldstsbrgukr    tlmdata
+	DBC_TARGET      tldbukurtidx	tlmnobuk
 
 DBCALCS(djoindetailact1)
 	DBC_COMMAND     JOIN
@@ -182,12 +182,12 @@ DBCALCS(dcek2detail)
 DBCALCS(dcekdetail1)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      ccekdetail
-	DBC_TARGET      tbddatkodidx 	lDTTABEL lCUSTOMEREXPERIENCE lKODEMATRIKSIBDA
+	DBC_TARGET      tbddatkodidx 	lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD /*lKODEMATRIKSIBDA*/
 
 DBCALCS(dcekdetail2)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      ccekdetail
-	DBC_TARGET      tbddatkodidx 	lDTTABEL lCUSTOMEREXPERIENCE lKODEMATRIKSIBDB
+	DBC_TARGET      tbddatkodidx 	lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD /*lKODEMATRIKSIBDB*/
 
 DBCALCS(djoinpotentialtdksesuai)
 	DBC_COMMAND     JOIN
@@ -305,8 +305,8 @@ cdetailactmshksg	(djoindetailact1 == 0 || djoindetailact2 == 0) && tlmperdis == 
 cselectHeadHMC         	sgmtype == "HEADHMC" && sgmbrg == tlmcab && (sgmstr2 == tlmthbl || sgmstr2 == tlmtype2 || sgmthbl == lTHBL)
 cakhirbulan		DO_LIB ap_akhbl(g_tgltrn,&kettgl1_1);
 /* CEK APAKAH DETAIL BOLEH DIUBAH */
-ccekkode		g_usrkode == tbdkettype && tldstr4 == tbdkode && (tbdtblkode == "MATRIKSPOTENTIAL" || tbdtblkode == "MATRIKSPERFORMANCE")
-ccekkode2		tldstr4 == tbdkode && (tbdtblkode == "MATRIKSPOTENTIAL" || tbdtblkode == "MATRIKSPERFORMANCE") && tbdkettype == BLANKS
+ccekkode		g_usrkode == tbdkettype && tldstr4 == tbdkode/* && (tbdtblkode == "MATRIKSPOTENTIAL" || tbdtblkode == "MATRIKSPERFORMANCE")*/
+ccekkode2		tldstr4 == tbdkode /*&& (tbdtblkode == "MATRIKSPOTENTIAL" || tbdtblkode == "MATRIKSPERFORMANCE")*/ && tbdkettype == BLANKS
 
 MAP(mnipHeadHMC)
 	sgmstr5		lnipHeadHMC	REPLACE
@@ -331,12 +331,12 @@ DBCALCS(dcekkuncianact)
 DBCALCS(dcekkode)
 	DBC_COMMAND	JOIN
 	DBC_SELECT	ccekkode
-	DBC_TARGET	tbddatkodidx	lDTTABEL lCUSTOMEREXPERIENCE /*lKODEMATRIKSIBDA*/
+	DBC_TARGET	tbddatkodidx	lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD /*lKODEMATRIKSIBDA*/
 
 DBCALCS(dcekkode2)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      ccekkode2
-	DBC_TARGET      tbddatkodidx 	lDTTABEL lCUSTOMEREXPERIENCE /*lKODEMATRIKSIBDA*/
+	DBC_TARGET      tbddatkodidx 	lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD /*lKODEMATRIKSIBDA*/
 
 CALCS()
 cYangLoginHO		dcekkuncian == 1 && 
@@ -879,34 +879,34 @@ CLICKED			cur_field=lposting	DO_SPCALCS	shapustandaposting
 
 
 CALCS()
-cselectdetailhocx	(tbdtblkode == "MATRIKSPERFORMANCE" || tbdtblkode == "MATRIKSPOTENTIAL") && tbdkode == tldstr4 && tbdkettype == g_usrkode
-cselectdetailhohmc	tbdtblkode == "MATRIKSPERFORMANCE" && tbdkode == tldstr4 && tbdkettype == BLANKS
+cselectdetailhocx	/*(tbdtblkode == "MATRIKSPERFORMANCE" || tbdtblkode == "MATRIKSPOTENTIAL") && */tbdkode == tldstr4 && tbdkettype == g_usrkode
+cselectdetailhohmc	/*tbdtblkode == "MATRIKSPERFORMANCE" && */tbdkode == tldstr4 && tbdkettype == BLANKS
 
 DBCALCS(dcekdetailhocx)
 	DBC_COMMAND	JOIN
-	DBC_TARGET	tbddatkodidx	lDTTABEL lCUSTOMEREXPERIENCE
+	DBC_TARGET	tbddatkodidx	lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD
 	DBC_SELECT	cselectdetailhocx
 
 DBCALCS(dcekdetailhohmc)
 	DBC_COMMAND     JOIN
-	DBC_TARGET      tbddatkodidx    lDTTABEL lCUSTOMEREXPERIENCE
+	DBC_TARGET      tbddatkodidx    lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD
 	DBC_SELECT      cselectdetailhohmc
 
 
 CALCS()
 cinpgrvs1		tlmsts == "INPG" && tlmsts2 == "RVS1"
 /*cselecttemplate	(dloginhocx == 1 && tmpkode == "POTENTIAL") || ((dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) && tmpkode == "PERFORMANCE") || (dloginhocx == 0 && dloginhohmc == 0 && djoinHeadHMC == 0 && (tmpkode == "PERFORMANCE" || tmpkode == "POTENTIAL") )*/
-cperformancexsesuaiam   tldcab == tlmcab && tldbrg == lPERFORMANCE && tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr1 == "TIDAK_SESUAI"
-cperformancexsesuaiam2  tldcab == tlmcab && tldbrg == lPOTENTIAL && tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr1 == "TIDAK_SESUAI"
-cdetailtgtblm   	tldcab == tlmcab && (tldbrg == lPOTENTIAL || tldbrg == lPERFORMANCE) && tlddata == tlmdata && tldth == tlmtype2 && tldsat == "BELUM"
-cdetailtgtblm2   	tldcab == tlmcab && (tldbrg == lPOTENTIAL || tldbrg == lPERFORMANCE) && tlddata == tlmdata && tldth == tlmtype2 && tldsat == "BELUM" && tldbisnis == tlmnobuk
+cperformancexsesuaiam   tldcab == tlmcab /* && tldbrg == lPERFORMANCE */&& tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr1 == "TIDAK_SESUAI"
+cperformancexsesuaiam2  tldcab == tlmcab /* && tldbrg == lPOTENTIAL */&& tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr1 == "TIDAK_SESUAI"
+cdetailtgtblm   	tldcab == tlmcab /* && (tldbrg == lPOTENTIAL || tldbrg == lPERFORMANCE) */&& tlddata == tlmdata && tldth == tlmtype2 && tldsat == "BELUM"
+cdetailtgtblm2   	tldcab == tlmcab/* && (tldbrg == lPOTENTIAL || tldbrg == lPERFORMANCE) */&& tlddata == tlmdata && tldth == tlmtype2 && tldsat == "BELUM" && tldbisnis == tlmnobuk
 
-cperformancexsesuaikawil tldcab == tlmcab && tldbrg == lPERFORMANCE && tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr2 == "T"
-cperformancexsesuaikawil2 tldcab == tlmcab && tldbrg == lPOTENTIAL && tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr2 == "T"
+cperformancexsesuaikawil tldcab == tlmcab /* && tldbrg == lPERFORMANCE */&& tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr2 == "T"
+cperformancexsesuaikawil2 tldcab == tlmcab /* && tldbrg == lPOTENTIAL */&& tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr2 == "T"
 
-cxsesuaihocx   		tldcab == tlmcab && (tldbrg == lPOTENTIAL || tldbrg == lPERFORMANCE) && tlddata == tlmdata && tldth == tlmtype2 && tldstr3 == "T" && dcekdetailhocx == 1
+cxsesuaihocx   		tldcab == tlmcab /* && (tldbrg == lPOTENTIAL || tldbrg == lPERFORMANCE) */&& tlddata == tlmdata && tldth == tlmtype2 && tldstr3 == "T" && dcekdetailhocx == 1
 
-cperformancexsesuaihohmc tldcab == tlmcab && tldbrg == lPERFORMANCE && tlddata == tlmdata && tldth == tlmtype2 && tldstr3 == "T" && dcekdetailhohmc == 1
+cperformancexsesuaihohmc tldcab == tlmcab /* && tldbrg == lPERFORMANCE */&& tlddata == tlmdata && tldth == tlmtype2 && tldstr3 == "T" && dcekdetailhohmc == 1
 
 MAP(mjumlahdetailhocx)
 	l1		ljumlahdetailhocx	REPLACE_IF cxsesuaihocx	
@@ -965,10 +965,10 @@ DBCALCS(dtldhocxtdksesuai)
 */
 
 CALCS()
-camAnak   		tldcab == tlmcab && (tldbrg == lPERFORMANCE || tldbrg == lPOTENTIAL) && tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr1 == "TIDAK_SESUAI" && tldbisnis == tlmnobuk && tldsat == BLANKS
-ckawilAnak   		tldcab == tlmcab && (tldbrg == lPERFORMANCE || tldbrg == lPOTENTIAL) && tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr2 == "T" && tldbisnis == tlmnobuk
-cxsesuaihocxAnak   	tldcab == tlmcab && (tldbrg == lPOTENTIAL || tldbrg == lPERFORMANCE) && tlddata == tlmdata && tldth == tlmtype2 && tldstr3 == "T" && dcekdetailhocx == 1 && tldbisnis == tlmnobuk
-cperformancexsesuaihohmcAnak tldcab == tlmcab && tldbrg == lPERFORMANCE && tlddata == tlmdata && tldth == tlmtype2 && tldstr3 == "T" && dcekdetailhohmc == 1 && tldbisnis == tlmnobuk
+camAnak   		tldcab == tlmcab/* && (tldbrg == lPERFORMANCE || tldbrg == lPOTENTIAL) */&& tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr1 == "TIDAK_SESUAI" && tldbisnis == tlmnobuk && tldsat == BLANKS
+ckawilAnak   		tldcab == tlmcab/* && (tldbrg == lPERFORMANCE || tldbrg == lPOTENTIAL) */&& tlddata == tlmdata && (tldthbl == tlmtype2 || tldth == tlmtype2) && tldstr2 == "T" && tldbisnis == tlmnobuk
+cxsesuaihocxAnak   	tldcab == tlmcab/* && (tldbrg == lPOTENTIAL || tldbrg == lPERFORMANCE) */&& tlddata == tlmdata && tldth == tlmtype2 && tldstr3 == "T" && dcekdetailhocx == 1 && tldbisnis == tlmnobuk
+cperformancexsesuaihohmcAnak tldcab == tlmcab/* && tldbrg == lPERFORMANCE */&& tlddata == tlmdata && tldth == tlmtype2 && tldstr3 == "T" && dcekdetailhohmc == 1 && tldbisnis == tlmnobuk
 
 DBCALCS(damAnak)
 	DBC_COMMAND	JOIN
@@ -1143,7 +1143,7 @@ CALCS()
 c0			0
 cUpdateMaster		dcekkuncian == 1 && tlmsts != "CLSD" && tlmperdis != 1
 cUpdateDetail		((
-				(dcekkuncian == 1 && tlmsts == "INPG" && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) && tldbrg == "PERFORMANCE" && dcekkode2 == 1) ||
+				(dcekkuncian == 1 && tlmsts == "INPG" && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) /* && tldbrg == "PERFORMANCE" */&& dcekkode2 == 1) ||
 				(dcekkuncian == 1 && tlmsts == "INPG" && dloginhocx == 1 && dcekkode == 1) ||
 				(dcekkuncian == 1 && (tlmsts == "OPEN" || tlmsts == "INPG") && tlmsts2 != "ACHO" && dloginhocx == 0 && dloginhohmc == 0 && djoinHeadHMC == 0 && dloginhohmc2 == 0)
 			) && tlmsts != "CLSD" && ((tldsat != "BELUM" && g_usrkode != tlmplg) || g_usrkode == tlmplg) && tlmsts2 != "FNL") || ((g_grpnam=="RI" || g_grpnam =="IT") && tlmsts != "CLSD")
@@ -1195,12 +1195,12 @@ cekdbaruada	tldsat == BLANKS && tldnoll != BLANKS
 DBCALCS(dperformancehohmc)
 DBC_COMMAND     JOIN
 DBC_SELECT      cslct
-DBC_TARGET      tbddatkodidx lDTTABEL lCUSTOMEREXPERIENCE lKODEMATRIKSIBDA
+DBC_TARGET      tbddatkodidx lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD /*lKODEMATRIKSIBDA*/
 
 DBCALCS(dperformancehocx)
 DBC_COMMAND     JOIN
 DBC_SELECT      cslcta
-DBC_TARGET      tbddatkodidx lDTTABEL lCUSTOMEREXPERIENCE lKODEMATRIKSIBDA
+DBC_TARGET      tbddatkodidx lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD /*lKODEMATRIKSIBDA*/
 
 DBCALCS(dcekdetailygbarusudah)
 DBC_COMMAND	JOIN
@@ -1399,7 +1399,7 @@ tldstsbrgukr    tlmdata
 SFL_MAP
 tlmdata		tlddata			/*PEMBEDA REKORD TLM DENGAN TLM LAIN (TGTBNSDLR) */
 tlmnobuk	tldnobuk		/*SESUAI DENGAN NOBUK MASTER*/
-lPERFORMANCE	tldbrg			/*PEMBEDA ANTARA PERFORMANCE DENGAN POTENTIAL*/
+/*lPERFORMANCE	tldbrg*/		/*PEMBEDA ANTARA PERFORMANCE DENGAN POTENTIAL*/
 tlmcab		tldcab			/*PEMBEDA TGT BONUS DEALER CABANG 1 DENGAN CABANG LAINNYA*/
 tlmtype2	tldthbl			/*PEMBEDA TGT BONUS DEALER CABANG 1 DENGAN CABANG LAINNYA*/
 tlmtype2	tldth			/*PEMBEDA TGT BONUS DEALER CABANG 1 DENGAN CABANG LAINNYA*/
