@@ -773,9 +773,9 @@ cselectactperformance  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tldda
 cskipacc		tlmkode == g_usrkode || tlmsts == "OPEN"
 cachlbh                 tldjml3 >= tldtmp1/* || tlmplg == g_usrkode || tlmdari == g_usrkode*/
 cachkrg                 tldjml3 < tldtmp1 && tlmsts == "OPEN"
-cselectactperformancem2  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 2
-cselectactperformancem3  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 3
-cselectactperformancem4  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 4
+cselectactperformance2  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 2
+cselectactperformance3  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 3
+cselectactperformance4  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 4
 cselectactperformancefinal  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 31
 cMSmin1			tldcab == tlmcab && tldth == lthblms1s && tldstr4 == "3"
 cMSmin2			tldcab == tlmcab && tldth == lthblms2s && tldstr4 == "3"
@@ -920,19 +920,20 @@ CALCS()
 cskipact                tlmsts == "INPG" && (tlmsts2 == "AM" || tlmsts2 == "KWL" || tlmsts2 == "DCA") && tlmperdis == 1
 
 /******************** POTENTIAL **************************/
+/*
 CALCS()
 cselectactpotential  tldcab == tlmcab && tldbrg == lPOTENTIAL && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 1
 cselectactpotentialm2  tldcab == tlmcab && tldbrg == lPOTENTIAL && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 2
 cselectactpotentialm3  tldcab == tlmcab && tldbrg == lPOTENTIAL && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 3
 cselectactpotentialm4  tldcab == tlmcab && tldbrg == lPOTENTIAL && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 4
 cselectactpotentialfinal  tldcab == tlmcab && tldbrg == lPOTENTIAL && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == 31
+*/
 
-
-
+/*
 MAP(mketactPotential)
 tbdket                  lket            REPLACE
 
-/*
+
 MAP(mhitungactpotential)
 tldukrwrn               tldjml3                 REPLACE
 cach                    tldsubtot               DO_CALC
@@ -946,14 +947,14 @@ c100                    tldhrgnet               DO_CALC_IF cachmd7
 cpoint                  tldperdis               DO_CALC
 cpoint                  tldtmp2               	DO_CALC
 */
-
+/*
 MAP(mceklisact2)
 cy                      tlmdvs                DO_CALC
 
 SPCALCS(ssdhisiact2)
 DO_LIB_IF cadakuncianact	ap_dbclc(DNAME dceklisact2, DCOMMAND UPDATE, DTARGET tlmprmidx tlmprm, DMAP mceklisact2);
 DO_LIB_IF chitungmaster 	ap_nxpst(l4664,lmnexthitungmaster);
-
+*/
 /*
 SPCALCS(shitung2)
 DO_LIB                  ap_dbclc(DNAME dhitung2,DCOMMAND UPDATE,DTARGET tldprmidx tldprm,DMAP mhitungactpotential);
@@ -1135,69 +1136,102 @@ IMAGE(transa)
 
 FIELDS(transa)
 tmpket                  PROTECT SCROLL          INPUTRI 1
-/*
+
 CALCS()
 cselectinformasi        (tlmperdis == 1 &&
                           (
                                 (
+                                        /*
                                         tmpkode == "ACTPERFORMANCE1" || tmpkode == "ACTPOTENTIAL1" ||
                                         tmpkode == "ACTPERFORMANCE2" || tmpkode == "ACTPOTENTIAL2" ||
                                         tmpkode == "ACTPERFORMANCE3" || tmpkode == "ACTPOTENTIAL3" ||
                                         tmpkode == "ACTPERFORMANCE4" || tmpkode == "ACTPOTENTIAL4" ||
                                         tmpkode == "ACTPERFORMANCE5" || tmpkode == "ACTPOTENTIAL5"
-
+                                        */
+                                        tmpkode == "ACTBD1" ||
+                                        tmpkode == "ACTBD2" ||
+                                        tmpkode == "ACTBD3" ||
+                                        tmpkode == "ACTBD4" ||
+                                        tmpkode == "ACTBD5"
 
                                 )
                           )
                         )
-*/
+
 SUBFILE(transa)
-SFL_LINES(10)
+SFL_LINES(5)
 SFL_TITLE(transat)
 SFL_TRANS2_FIELD tmpisistr1
 SFL_TRANS2_FIELD2 tmpisistr2
-/*SFL_SELECT      cselectinformasi*/
+SFL_SELECT      cselectinformasi
 SFL_TARGET
         tmpdatkodurt    gv_dttemplate lACTBONUSDEALER
 
-/******************** ACTPERFORMANCE M1 **********************/
+
 SUBFILE(transa2)
-SFL_TEMPLATE(tmp_ibdperformanceactm1)
+SFL_TEMPLATE(tmp_ibdactm1)
+SUBFILE(transa2g1)
+SFL_TEMPLATE(tmp_ibdactm2)
+SUBFILE(transa2g2)
+SFL_TEMPLATE(tmp_ibdactm3)
+SUBFILE(transa2g3)
+SFL_TEMPLATE(tmp_ibdactm4)
+SUBFILE(transa2g4)
+SFL_TEMPLATE(tmp_ibdactm5)
+/******************** ACTPERFORMANCE M1 **********************/
+
 /******************** ACTPOTENTIAL M1 ************************/
+/*
 SUBFILE(transa2g1)
 SFL_TEMPLATE(tmp_ibdpotentialactm1)
-
+*/
 /******************** ACTPERFORMANCE M2 **********************/
+/*
 SUBFILE(transa2g2)
 SFL_TEMPLATE(tmp_ibdperformanceactm2)
+*/
 /******************** ACTPOTENTIAL M2 ************************/
+/*
 SUBFILE(transa2g3)
-SFL_TEMPLATE(tmp_ibdpotentialactm2)
+SFL_TEMPLATE(tmp_ibdperformanceactm2)
+*/
 
 /******************** ACTPERFORMANCE M3 **********************/
+/*
 SUBFILE(transa2g4)
-SFL_TEMPLATE(tmp_ibdperformanceactm3)
+SFL_TEMPLATE(tmp_ibdperformanceactm2)
+*/
 /******************** ACTPOTENTIAL M3 ************************/
+/*
 SUBFILE(transa2g5)
-SFL_TEMPLATE(tmp_ibdpotentialactm3)
+SFL_TEMPLATE(tmp_ibdperformanceactm2)
+*/
 
 /******************** ACTPERFORMANCE M4 **********************/
+/*
 SUBFILE(transa2g6)
-SFL_TEMPLATE(tmp_ibdperformanceactm4)
+SFL_TEMPLATE(tmp_ibdperformanceactm2)
+*/
 /******************** ACTPOTENTIAL M4 ************************/
+/*
 SUBFILE(transa2g7)
-SFL_TEMPLATE(tmp_ibdpotentialactm4)
+SFL_TEMPLATE(tmp_ibdperformanceactm2)
+*/
 
 /******************** ACTPERFORMANCE FINAL **********************/
+/*
 SUBFILE(transa2g8)
-SFL_TEMPLATE(tmp_ibdperformanceactfinal)
+SFL_TEMPLATE(tmp_ibdperformanceactm2)
+*/
 /******************** ACTPOTENTIAL FINAL ************************/
+/*
 SUBFILE(transa2g9)
-SFL_TEMPLATE(tmp_ibdpotentialactfinal)
+SFL_TEMPLATE(tmp_ibdperformanceactm2)
+*/
 
 SUBFILE(transb)
 SFL_TEMPLATE(tmp_prnibd)
-
+/*
 CALCS()
 cCXHead		tbdkettype == "CXDIVHEAD"
 
@@ -1205,6 +1239,7 @@ DBCALCS(dloginhocxhead)
 DBC_COMMAND     JOIN
 DBC_TARGET      tbddatkodidx    lDTTABEL        lCUSTOMEREXPERIENCE     lHOCX   g_usrkode
 DBC_SELECT	cCXHead
+*/
 /*
 MAP(mLastUser)
 g_usrkode		tldstr3		REPLACE
@@ -1217,7 +1252,7 @@ cUpdateMaster		(dcekkuncian == 1 && (tlmsts == "OPEN" || tlmsts == "RINP") && tl
 /*cUpdateAct		(tlmsts != "CLSD" && tlmperdis == 1 && dcekkuncianact == 1 && (tlmperppn == tldsatbsr || (tlmperppn == 5 && tldsatbsr == 31))*//* && g_usrkode != tlmplg && g_usrkode != tlmdari*//*) || g_grpnam == "RI" || g_grpnam == "IT"*/
 /*cUpdateActPengecualian	((tlmsts != "CLSD" && tlmperdis == 1 && dcekkuncianact == 1 && (tlmperppn == tldsatbsr || (tlmperppn == 5 && tldsatbsr == 31))*//* && g_usrkode != tlmplg && g_usrkode != tlmdari*//*))
 			|| dloginhocxhead == 1 || g_grpnam == "RI" || g_grpnam == "IT"*/
-cPengecualianCXHead	dloginhocxhead == 1 || g_grpnam == "RI" || g_grpnam == "IT"
+/*cPengecualianCXHead	dloginhocxhead == 1 || g_grpnam == "RI" || g_grpnam == "IT"*/
 
 PERMIT(master)
         PMT_ADD_COND    c0
@@ -1284,6 +1319,7 @@ PERMIT(transa2)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND c0
         PMT_DEL_COND    c0
+/*
 PERMIT(transa2g1)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND c0
@@ -1320,7 +1356,7 @@ PERMIT(transa2g9)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND cPengecualianCXHead
         PMT_DEL_COND    c0
-
+*/
 /******************************* NOBUK SAAT TAMBAH *****************************************/
 
 MAP(maddsub)
