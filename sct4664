@@ -74,6 +74,7 @@ lblndpn		        DATE	8
 labkawl		        STRING	21
 lKODEMATRIKSIBDA        STRING  21
 lKODEMATRIKSIBDB        STRING  21
+lINDIKATORBD            STRING  21
 lJMLINDIKATOR           INT2    4
 lDEALERWING		STRING  21
 lWeekString             STRING  21
@@ -224,7 +225,8 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
-lversi			INIT		        "220626v1"				/* VERSI APLIKASI */
+lINDIKATORBD            INIT                    "INDIKATORBD"
+lversi			INIT		        "010926v1"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -341,17 +343,17 @@ cslcta                  tbdkode == tldstr4 && tbdkettype == tbtkode && tbdkode2 
 DBCALCS(dperformancehohmc)
         DBC_COMMAND     JOIN
         DBC_SELECT      cslct
-        DBC_TARGET      tbddatkodidx    lDTTABEL lCUSTOMEREXPERIENCE lKODEMATRIKSIBDA
+        DBC_TARGET      tbddatkodidx    lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD
 
 DBCALCS(dperformancehocx)
         DBC_COMMAND     JOIN
         DBC_SELECT      cslcta
-        DBC_TARGET      tbddatkodidx    lDTTABEL lCUSTOMEREXPERIENCE lKODEMATRIKSIBDA
+        DBC_TARGET      tbddatkodidx    lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD
 
 DBCALCS(dperformancehocx2)
         DBC_COMMAND     JOIN
         DBC_SELECT      cslcta
-        DBC_TARGET      tbddatkodidx    lDTTABEL lCUSTOMEREXPERIENCE lKODEMATRIKSIBDB
+        DBC_TARGET      tbddatkodidx    lDTTABEL lCUSTOMEREXPERIENCE lINDIKATORBD
 
 CALCS()
 cekdbaruadahmc          /*tldsat == BLANKS && tldnoll != BLANKS*/ tldbisnis == lnobuk && dperformancehohmc == 1
@@ -662,7 +664,7 @@ tldstr4                 NOCHANGE                INPUTRI 2
 tldsat		        NOCHANGE	        INPUTRI	3
 
 CALCS()
-cselecttgt              tldcab == lcab && (tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL") && tlddata == ldata && tldth == ltlmtype2
+cselecttgt              tldcab == lcab /*&& (tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL")*/ && tlddata == ldata && tldth == ltlmtype2
 ctransg8      	        lsts == "OPEN" && (lsts3 == "CEK" || lsts3 == "CTGT") && lisAdd == 0 && tlmnoasal == BLANKS
 
 SUBFILE(transg10)
@@ -681,7 +683,7 @@ tldstr4                 NOCHANGE                INPUTRI 2
 tldsat                  NOCHANGE                INPUTRI 3
 
 CALCS()
-cselecttgtg11           tldcab == lcab && (tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL") && tlddata == ldata && tldth == ltlmtype2 && tldbisnis == lnobuk
+cselecttgtg11           tldcab == lcab /*&& (tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL")*/ && tlddata == ldata && tldth == ltlmtype2 && tldbisnis == lnobuk
 ctransg11               lsts == "OPEN" && (lsts3 == "CEK" || lsts3 == "CTGT") && lisAdd == 0 && tlmnoasal != BLANKS
 
 SUBFILE(transg11)
@@ -718,7 +720,7 @@ tldsatbsr               NOCHANGE                INPUTRI 2
 
 CALCS()
 ctranshitung      	lisAdd == 1 && (lsdhadaact == BLANKS || lsdhadaact == "SUDAH") && lpenandaProses == "HITUNGDETAIL"
-cselecthitung		tldsatbsr == lWEEK && (tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL")
+cselecthitung		tldsatbsr == lWEEK /*&& (tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL")*/
 
 SUBFILE(transg13)
 SFL_LINES(5)
@@ -1325,7 +1327,7 @@ csalahsatuhosdhacc	lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS
 csalahsatuhosdhaccpsd0	dcekpsdg6 == 0 && lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
 csalahsatuhosdhaccam	dcekabkduaho == 0 && lsts2 == "ACHO" && lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && dcekabkfinal == 0
 csalahsatuhosdhacckawil	dcekabkduaho == 0 && lsts2 == "ACHO" && lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && dcekabkfinal2 == 0
-cselectupdatetld	tldcab == tlmcab && (tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL") && tlddata == tlmdata && tldth == tlmtype2
+cselectupdatetld	tldcab == tlmcab /*&& (tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL")*/ && tlddata == tlmdata && tldth == tlmtype2
 cstsc			lsts3 == "CEK"
 cabk8			abkkym == lnipAM && abktgl == g_tgltrn /* && abkkym2 == "ISI TGT BD"*/
 
@@ -1748,7 +1750,7 @@ tbdlv3                  ljabperfome             REPLACE
 
 DBCALCS(djoinperfom)
         DBC_COMMAND     JOIN
-        DBC_TARGET      tbddatkodidx    gv_dttabel lCUSTOMEREXPERIENCE lKODEMATRIKSIBDA tldstr4
+        DBC_TARGET      tbddatkodidx    gv_dttabel lCUSTOMEREXPERIENCE lINDIKATORBD tldstr4
         DBC_MAP         m1051performe
 
 MAP(m1051potential)
@@ -1756,7 +1758,7 @@ tbdlv3                  ljabpotential           REPLACE
 
 DBCALCS(djoindptnl)
         DBC_COMMAND     JOIN
-        DBC_TARGET      tbddatkodidx    gv_dttabel lCUSTOMEREXPERIENCE lKODEMATRIKSIBDB tldstr4
+        DBC_TARGET      tbddatkodidx    gv_dttabel lCUSTOMEREXPERIENCE lINDIKATORBD tldstr4
         DBC_MAP         m1051potential
 
 MAP(mcxdivhead)
