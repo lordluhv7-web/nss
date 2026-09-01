@@ -1633,9 +1633,9 @@ DO_LIB_IF cactinpg3_2	        ap_dbclc(DNAME dupdACTCLSD2,DCOMMAND UPDATE,DTARGE
 dupdtlmtandabaca
 
 CALCS()
-cACT1			tldbrg == "PERFORMANCE" && tldperdis != 0 && tldperdis != BLANKS && tldsatbsr == lWEEK				/* KONDISI ACT PERFORMANCE */
-cACT2			tldbrg == "POTENTIAL" && tldperdis != 0 && tldperdis != BLANKS && tldsatbsr == lWEEK				/* KONDISI ACT POTENTIAL */
-ccondTotBonus		(tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C") && tldbrg == "PERFORMANCE" && tldsatbsr == lWEEK	/* KONDISI TOTAL BONUS */
+cACT1			/*tldbrg == "PERFORMANCE" && */tldperdis != 0 && tldperdis != BLANKS && tldsatbsr == lWEEK			/* KONDISI ACT PERFORMANCE */
+cACT2			/*tldbrg == "POTENTIAL" && */tldperdis != 0 && tldperdis != BLANKS && tldsatbsr == lWEEK			/* KONDISI ACT POTENTIAL */
+ccondTotBonus		(tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C") /*&& tldbrg == "PERFORMANCE"*/ && tldsatbsr == lWEEK	/* KONDISI TOTAL BONUS */
 ccondfinalpoint		tldsatbsr == lWEEK												/* KONDISI FINAL POINT */
 cpersentflgsgtdknol	lesttrflgsg != 0 && lesttrflgsg != BLANKS									/* KONDISI TRANSFER LANGSUNG TIDAK NOL */
 cpersentflgsgnol	lesttrflgsg == 0 || lesttrflgsg == BLANKS									/* KONDISI TRANSFER LANGSUNG NOL */
