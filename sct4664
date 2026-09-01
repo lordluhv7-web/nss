@@ -226,7 +226,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "010926v1"				/* VERSI APLIKASI */
+lversi			INIT		        "010926v2"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -1823,14 +1823,14 @@ ckondisireview_V4	lWeekString == "5" && djoinreview_V4 == 0 && tldsatbsr == 5 &&
 ckondisireview_V5	lWeekString == "5" && djoinreview_V5 == 0 && tldsatbsr == 5 && (dscandetail1051 == 0 || dscandetail1051 != 0) && lpenghitungdetail == ltotaldetail && ltotalcxpeople > 0 && (lpersentflgsg < 75 || tlmtotal < 100)
 ckondisiabkreview	lWeekString == "5" && tldsatbsr == 5 && (dscandetail1051 == 0 || dscandetail1051 != 0) && lpenghitungdetail == ltotaldetail && lpersentflgsg < 75
 ckondisireview2		lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS))
-ckondisireview2_DCA	lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "DCAMKT" && tldbrg == "PERFORMANCE") || (djoindptnl == 1 && ljabpotential == "DCAMKT" && tldbrg == "POTENTIAL"))
-ckondisireview2_HO	lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome != "DCAMKT" && tldbrg == "PERFORMANCE") || (djoindptnl == 1 && ljabpotential != "DCAMKT" && tldbrg == "POTENTIAL"))
+ckondisireview2_DCA	lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "DCAMKT" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "DCAMKT" && tldbrg == "POTENTIAL"))
+ckondisireview2_HO	lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome != "DCAMKT" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential != "DCAMKT" && tldbrg == "POTENTIAL"))
 
-ckondisireview4		djoinabk2ddca == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "DCAMKT" && tldbrg == "PERFORMANCE") || (djoindptnl == 1 && ljabpotential == "DCAMKT" && tldbrg == "POTENTIAL"))
-ckondisireview5		djoinabk2dmkt == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "DCAMKT" && tldbrg == "PERFORMANCE") || (djoindptnl == 1 && ljabpotential == "DCAMKT" && tldbrg == "POTENTIAL"))
-ckondisireview6		djoinabk2dcxcrm == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "CXCRM" && tldbrg == "PERFORMANCE") || (djoindptnl == 1 && ljabpotential == "CXCRM" && tldbrg == "POTENTIAL"))
-ckondisireview7		djoinabk2dnetwork == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "CXNETWORK" && tldbrg == "PERFORMANCE") || (djoindptnl == 1 && ljabpotential == "CXNETWORK" && tldbrg == "POTENTIAL"))
-ckondisireview8		djoinabk2dpeople == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "CXPEOPLE" && tldbrg == "PERFORMANCE") || (djoindptnl == 1 && ljabpotential == "CXPEOPLE" && tldbrg == "POTENTIAL"))
+ckondisireview4		djoinabk2ddca == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "DCAMKT" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "DCAMKT" && tldbrg == "POTENTIAL"))
+ckondisireview5		djoinabk2dmkt == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "DCAMKT" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "DCAMKT" && tldbrg == "POTENTIAL"))
+ckondisireview6		djoinabk2dcxcrm == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "CXCRM" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "CXCRM" && tldbrg == "POTENTIAL"))
+ckondisireview7		djoinabk2dnetwork == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "CXNETWORK" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "CXNETWORK" && tldbrg == "POTENTIAL"))
+ckondisireview8		djoinabk2dpeople == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "CXPEOPLE" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "CXPEOPLE" && tldbrg == "POTENTIAL"))
 /*ckondisireview3	djointldmaster == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS))*/
 creviewhohmc		djoinHOHMC2 == 1
 cdjoinabk2ddca          djoinabk2ddca == 1
@@ -1849,13 +1849,13 @@ cpenghitungdco	        ltotaldcaopr + 1
 cpenghitungcrm	        ltotalcxcrm + 1
 cpenghitungpeople	ltotalcxpeople + 1
 cpenghitungnetwork	ltotalcxnetwork + 1
-cjoindcaopr             (djoindptnl == 1 || djoinperfom == 1) && ((ltldbrg == "PERFORMANCE" && ljabperfome == "DCAMKT") || (ltldbrg == "POTENTIAL" && ljabpotential == "DCAMKT")) && tldsatbsr == 5 && tldsubtot < 100    
-cjoincxcrm              (djoindptnl == 1 || djoinperfom == 1) && ((ltldbrg == "PERFORMANCE" && ljabperfome == "CXCRM") ||  (ltldbrg == "POTENTIAL" && ljabpotential == "CXCRM")) && tldsatbsr == 5 && tldsubtot < 100    
-cjoincxpeople           (djoindptnl == 1 || djoinperfom == 1) && ((ltldbrg == "PERFORMANCE" && ljabperfome == "CXPEOPLE") || (ltldbrg == "POTENTIAL" && ljabpotential == "CXPEOPLE")) && tldsatbsr == 5 && tldsubtot < 100    
-cjoincxnetwork          (djoindptnl == 1 || djoinperfom == 1) && ((ltldbrg == "PERFORMANCE" && ljabperfome == "CXNETWORK") || (ltldbrg == "POTENTIAL" && ljabpotential == "CXNETWORK")) && tldsatbsr == 5 && tldsubtot < 100    
-cdjoincxhocrm           (tldbrg == "PERFORMANCE" && djoinperfom == 1 && ljabperfome == "CXCRM") || (tldbrg == "POTENTIAL" && djoindptnl == 1 && ljabpotential == "CXCRM")
-cdjoincxhopeople        (tldbrg == "PERFORMANCE" && djoinperfom == 1 && ljabperfome == "CXNETWORK") || (tldbrg == "POTENTIAL" && djoindptnl == 1 && ljabpotential == "CXNETWORK")  
-cdjoincxhonetwork       (tldbrg == "PERFORMANCE" && djoinperfom == 1 && ljabperfome == "CXPEOPLE") || (tldbrg == "POTENTIAL" && djoindptnl == 1 && ljabpotential == "CXPEOPLE")  
+cjoindcaopr             (djoindptnl == 1 || djoinperfom == 1) && ((/*ltldbrg == "PERFORMANCE" &&*/ ljabperfome == "DCAMKT") || (ltldbrg == "POTENTIAL" && ljabpotential == "DCAMKT")) && tldsatbsr == 5 && tldsubtot < 100    
+cjoincxcrm              (djoindptnl == 1 || djoinperfom == 1) && ((/*ltldbrg == "PERFORMANCE" &&*/ ljabperfome == "CXCRM") ||  (ltldbrg == "POTENTIAL" && ljabpotential == "CXCRM")) && tldsatbsr == 5 && tldsubtot < 100    
+cjoincxpeople           (djoindptnl == 1 || djoinperfom == 1) && ((/*ltldbrg == "PERFORMANCE" &&*/ ljabperfome == "CXPEOPLE") || (ltldbrg == "POTENTIAL" && ljabpotential == "CXPEOPLE")) && tldsatbsr == 5 && tldsubtot < 100    
+cjoincxnetwork          (djoindptnl == 1 || djoinperfom == 1) && ((/*ltldbrg == "PERFORMANCE" &&*/ ljabperfome == "CXNETWORK") || (ltldbrg == "POTENTIAL" && ljabpotential == "CXNETWORK")) && tldsatbsr == 5 && tldsubtot < 100    
+cdjoincxhocrm           (/*tldbrg == "PERFORMANCE" &&*/ djoinperfom == 1 && ljabperfome == "CXCRM") || (/*tldbrg == "POTENTIAL" &&*/ djoindptnl == 1 && ljabpotential == "CXCRM")
+cdjoincxhopeople        (/*tldbrg == "PERFORMANCE" &&*/ djoinperfom == 1 && ljabperfome == "CXNETWORK") || (/*tldbrg == "POTENTIAL" &&*/ djoindptnl == 1 && ljabpotential == "CXNETWORK")  
+cdjoincxhonetwork       (/*tldbrg == "PERFORMANCE" &&*/ djoinperfom == 1 && ljabperfome == "CXPEOPLE") || (/*tldbrg == "POTENTIAL" &&*/ djoindptnl == 1 && ljabpotential == "CXPEOPLE")  
 
 
 MAP(mmap2g3)
@@ -2455,7 +2455,7 @@ tldsubtot               lhasilms1               REPLACE
 
 DBCALCS(dMSmin1)
         DBC_COMMAND     JOIN
-        DBC_TARGET      tldstsbrgukr    lACTBNSDLR lBLANKS5 lPERFORMANCE
+        DBC_TARGET      tldstsbrgukr    lACTBNSDLR /*lBLANKS5 lPERFORMANCE*/
         DBC_SELECT      cMSmin1
         DBC_MAP         mMSmin1
 
@@ -2465,11 +2465,11 @@ tldsubtot               lhasilms2               REPLACE
 
 DBCALCS(dMSmin2)
         DBC_COMMAND     JOIN
-        DBC_TARGET      tldstsbrgukr    lACTBNSDLR lBLANKS5 lPERFORMANCE
+        DBC_TARGET      tldstsbrgukr    lACTBNSDLR /*lBLANKS5 lPERFORMANCE*/
         DBC_SELECT      cMSmin2
         DBC_MAP         mMSmin2
 
-
+/*
 CALCS()
 c50                     50
 c75                     75
@@ -2503,9 +2503,9 @@ cMS2                    tldbrg == "PERFORMANCE" && tldstr4 == "3" && dMSmin2 == 
 cMS3                    tldbrg == "PERFORMANCE" && tldstr4 == "3" && dMSmin1 == 1 && dMSmin2 == 1 && tldsubtot >= lhasilms2 && tldsubtot < lhasilms1
 cMS4                    tldbrg == "PERFORMANCE" && tldstr4 == "3" && dMSmin1 == 1 && tldsubtot >= lhasilms1 && tldsubtot < tldhrg
 cMS5                    tldbrg == "PERFORMANCE" && tldstr4 == "3" && dMSmin1 == 1 && tldsubtot >= lhasilms1 && tldsubtot > tldhrg
-
+*/
 /*cblhhitungnxt         tlmplg != g_usrkode && tlmdari != g_usrkode && dcekkuncian == 1*/
-
+/*
 MAP(mhitung)
 tldukrwrn               tldjml3                 REPLACE
 cach                    tldsubtot               DO_CALC
@@ -2540,6 +2540,87 @@ cpoint                  tldperdis               DO_CALC
 cpoint                  tldtmp2                 DO_CALC
 
 DEBUG	ldum	        ldum	                REPLACE
+*/
+
+CALCS()
+c50                     50
+c75                     75
+c90                     90
+c95                     95
+c100                    100
+
+cach                    tldjml3 / tldtmp1 * 100
+cachmd1                 tldsubtot >= 0 && tldsubtot < 70 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D")/* && tldbrg == "PERFORMANCE" */
+cachmd2                 tldsubtot >= 70 && tldsubtot < 80 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D") /* && tldbrg == "PERFORMANCE"*/
+cachmd3                 tldsubtot >= 80 && tldsubtot < 90 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D") /*&& tldbrg == "PERFORMANCE"*/
+cachmd4                 tldsubtot >= 90 && tldsubtot < 100 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D") /*&& tldbrg == "PERFORMANCE"*/
+cachmd5                 tldsubtot >= 100 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D") /*&& tldbrg == "PERFORMANCE"*/
+cachmd6                 ((tldstr4 != "1A" && tldstr4 != "1B" && tldstr4 != "1C" && tldstr4 != "2A" && tldstr4 != "2B" && tldstr4 != "2C" && tldstr4 != "2D") /* || tldbrg == "POTENTIAL"*/) /*&& tldsubtot <= 100*/
+/*cachmd7                 ((tldstr4 != "1A" && tldstr4 != "1B" && tldstr4 != "1C" && tldstr4 != "2A" && tldstr4 != "2B" && tldstr4 != "2C" && tldstr4 != "2D") || tldbrg == "POTENTIAL") && tldsubtot > 100*/
+
+cpoint			tldhrgnet * tldtotdis / 100
+cachmdlbh100            tldhrgnet > 100
+
+/*
+cPO			tldbrg == "PERFORMANCE" && (tldstr4 == "1D" || tldstr4 == "1E") && tldjml3 > tldhrg
+cPO2			tldbrg == "PERFORMANCE" && (tldstr4 == "1D" || tldstr4 == "1E") && tldjml3 <= tldhrg
+
+cUnitRT			tldbrg == "POTENTIAL" && tldstr4 == "2B" && tldjml3 >= tldhrg
+cUnitRT2		tldbrg == "POTENTIAL" && tldstr4 == "2B" && tldjml3 < tldhrg
+
+cShowroom1		tldbrg == "POTENTIAL" && tldstr4 == "2A" && tldsubtot < 70
+cShowroom2		tldbrg == "POTENTIAL" && tldstr4 == "2A" && tldsubtot >= 70 && tldsubtot <= 74
+cShowroom3		tldbrg == "POTENTIAL" && tldstr4 == "2A" && tldsubtot >= 75 && tldsubtot <= 89
+cShowroom4		tldbrg == "POTENTIAL" && tldstr4 == "2A" && tldsubtot >= 90
+*/
+
+cMS1			tldstr4 == "3" && dMSmin1 == 1 && tldsubtot == lhasilms1 /*tldbrg == "PERFORMANCE" && */
+cMS2			tldstr4 == "3" && dMSmin2 == 1 && (tldsubtot < lhasilms2 || (dMSmin1 == 1 && tldsubtot >= lhasilms1)) /*tldbrg == "PERFORMANCE" && */
+cMS3			tldstr4 == "3" && dMSmin1 == 1 && dMSmin2 == 1 && tldsubtot >= lhasilms2 && tldsubtot < lhasilms1 /*tldbrg == "PERFORMANCE" && */
+cMS4			tldstr4 == "3" && dMSmin1 == 1 && tldsubtot >= lhasilms1 && tldsubtot < tldhrg /*tldbrg == "PERFORMANCE" && */
+cMS5			tldstr4 == "3" && dMSmin1 == 1 && tldsubtot >= lhasilms1 && tldsubtot > tldhrg /*tldbrg == "PERFORMANCE" && */
+cActBaruIsi		tldperdism != BLANKS
+
+
+/*cblhhitungnxt           tlmplg != g_usrkode && tlmdari != g_usrkode && dcekkuncian == 1*/
+
+MAP(mhitung)
+tldukrwrn               tldjml3                 REPLACE
+tldperdism		tldjml3			REPLACE_IF cActBaruIsi
+cach                    tldsubtot               DO_CALC
+c0                      tldhrgnet               DO_CALC_IF cachmd1
+c50                     tldhrgnet               DO_CALC_IF cachmd2
+c75                     tldhrgnet               DO_CALC_IF cachmd3
+c90                     tldhrgnet               DO_CALC_IF cachmd4
+c100                    tldhrgnet               DO_CALC_IF cachmd5
+tldsubtot               tldhrgnet               REPLACE_IF cachmd6
+/*c100                    tldhrgnet               DO_CALC_IF cachmd7*/
+
+/*
+c100			tldsubtot		DO_CALC_IF cPO2
+c100			tldhrgnet		DO_CALC_IF cPO2
+c0			tldsubtot		DO_CALC_IF cPO
+c0			tldhrgnet		DO_CALC_IF cPO
+
+c100			tldhrgnet		DO_CALC_IF cUnitRT
+c0			tldhrgnet		DO_CALC_IF cUnitRT2
+
+c0			tldhrgnet		DO_CALC_IF cShowroom1
+c50                     tldhrgnet               DO_CALC_IF cShowroom2
+c75                     tldhrgnet               DO_CALC_IF cShowroom3
+c100                    tldhrgnet               DO_CALC_IF cShowroom4
+
+*/
+c0			tldhrgnet		DO_CALC_IF cMS1
+c75			tldhrgnet		DO_CALC_IF cMS2
+c90			tldhrgnet		DO_CALC_IF cMS3
+c95			tldhrgnet		DO_CALC_IF cMS4
+c100			tldhrgnet		DO_CALC_IF cMS5
+cpoint                  tldperdis               DO_CALC
+cpoint                  tldtmp2               	DO_CALC
+tldtotdis               tldperdis               REPLACE_IF cachmdlbh100
+tldtotdis               tldtmp2                 REPLACE_IF cachmdlbh100
+
 
 CALCS()
 cthblms1                DO_LIB ap_tambl(ltlmtgl,lmin1,&lthblms1);
