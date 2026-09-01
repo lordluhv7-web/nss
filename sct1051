@@ -813,32 +813,34 @@ c95                     95
 c100                    100
 
 cach                    tldjml3 / tldtmp1 * 100
-cachmd1                 tldsubtot >= 0 && tldsubtot < 70 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C")/* && tldbrg == "PERFORMANCE" */
-cachmd2                 tldsubtot >= 70 && tldsubtot < 80 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C") /* && tldbrg == "PERFORMANCE"*/
-cachmd3                 tldsubtot >= 80 && tldsubtot < 90 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C") /*&& tldbrg == "PERFORMANCE"*/
-cachmd4                 tldsubtot >= 90 && tldsubtot < 100 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C") /*&& tldbrg == "PERFORMANCE"*/
-cachmd5                 tldsubtot >= 100 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C") /*&& tldbrg == "PERFORMANCE"*/
-cachmd6                 ((tldstr4 != "1A" && tldstr4 != "1B" && tldstr4 != "1C" && tldstr4 != "2A" && tldstr4 != "2B" && tldstr4 != "2C") /* || tldbrg == "POTENTIAL"*/) && tldsubtot <= 100
-cachmd7                 ((tldstr4 != "1A" && tldstr4 != "1B" && tldstr4 != "1C" && tldstr4 != "2A" && tldstr4 != "2B" && tldstr4 != "2C") /*|| tldbrg == "POTENTIAL"*/) && tldsubtot > 100
+cachmd1                 tldsubtot >= 0 && tldsubtot < 70 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D")/* && tldbrg == "PERFORMANCE" */
+cachmd2                 tldsubtot >= 70 && tldsubtot < 80 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D") /* && tldbrg == "PERFORMANCE"*/
+cachmd3                 tldsubtot >= 80 && tldsubtot < 90 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D") /*&& tldbrg == "PERFORMANCE"*/
+cachmd4                 tldsubtot >= 90 && tldsubtot < 100 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D") /*&& tldbrg == "PERFORMANCE"*/
+cachmd5                 tldsubtot >= 100 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D") /*&& tldbrg == "PERFORMANCE"*/
+cachmd6                 ((tldstr4 != "1A" && tldstr4 != "1B" && tldstr4 != "1C" && tldstr4 != "2A" && tldstr4 != "2B" && tldstr4 != "2C" && tldstr4 != "2D") /* || tldbrg == "POTENTIAL"*/) && tldsubtot <= 100
+cachmd7                 ((tldstr4 != "1A" && tldstr4 != "1B" && tldstr4 != "1C" && tldstr4 != "2A" && tldstr4 != "2B" && tldstr4 != "2C" && tldstr4 != "2D") /*|| tldbrg == "POTENTIAL"*/) && tldsubtot > 100
 
 cpoint			tldhrgnet * tldtotdis / 100
-cPO			/*tldbrg == "PERFORMANCE" && */(tldstr4 == "1D" || tldstr4 == "1E") && tldjml3 > tldhrg
-cPO2			/*tldbrg == "PERFORMANCE" && */(tldstr4 == "1D" || tldstr4 == "1E") && tldjml3 <= tldhrg
 
-cUnitRT			/*tldbrg == "POTENTIAL" && */tldstr4 == "2B" && tldjml3 >= tldhrg
-cUnitRT2		/*tldbrg == "POTENTIAL" && */tldstr4 == "2B" && tldjml3 < tldhrg
+/*
+cPO			tldbrg == "PERFORMANCE" && (tldstr4 == "1D" || tldstr4 == "1E") && tldjml3 > tldhrg
+cPO2			tldbrg == "PERFORMANCE" && (tldstr4 == "1D" || tldstr4 == "1E") && tldjml3 <= tldhrg
 
-cShowroom1		/*tldbrg == "POTENTIAL" && */tldstr4 == "2A" && tldsubtot < 70
-cShowroom2		/*tldbrg == "POTENTIAL" && */tldstr4 == "2A" && tldsubtot >= 70 && tldsubtot <= 74
-cShowroom3		/*tldbrg == "POTENTIAL" && */tldstr4 == "2A" && tldsubtot >= 75 && tldsubtot <= 89
-cShowroom4		/*tldbrg == "POTENTIAL" && */tldstr4 == "2A" && tldsubtot >= 90
+cUnitRT			tldbrg == "POTENTIAL" && tldstr4 == "2B" && tldjml3 >= tldhrg
+cUnitRT2		tldbrg == "POTENTIAL" && tldstr4 == "2B" && tldjml3 < tldhrg
 
-cMS1			/*tldbrg == "PERFORMANCE" && */tldstr4 == "3" && dMSmin1 == 1 && tldsubtot == lhasilms1
-cMS2			/*tldbrg == "PERFORMANCE" && */tldstr4 == "3" && dMSmin2 == 1 && (tldsubtot < lhasilms2 || (dMSmin1 == 1 && tldsubtot >= lhasilms1))
-cMS3			/*tldbrg == "PERFORMANCE" && */tldstr4 == "3" && dMSmin1 == 1 && dMSmin2 == 1 && tldsubtot >= lhasilms2 && tldsubtot < lhasilms1
-cMS4			/*tldbrg == "PERFORMANCE" && */tldstr4 == "3" && dMSmin1 == 1 && tldsubtot >= lhasilms1 && tldsubtot < tldhrg
-cMS5			/*tldbrg == "PERFORMANCE" && */tldstr4 == "3" && dMSmin1 == 1 && tldsubtot >= lhasilms1 && tldsubtot > tldhrg
+cShowroom1		tldbrg == "POTENTIAL" && tldstr4 == "2A" && tldsubtot < 70
+cShowroom2		tldbrg == "POTENTIAL" && tldstr4 == "2A" && tldsubtot >= 70 && tldsubtot <= 74
+cShowroom3		tldbrg == "POTENTIAL" && tldstr4 == "2A" && tldsubtot >= 75 && tldsubtot <= 89
+cShowroom4		tldbrg == "POTENTIAL" && tldstr4 == "2A" && tldsubtot >= 90
+*/
 
+cMS1			tldstr4 == "3" && dMSmin1 == 1 && tldsubtot == lhasilms1 /*tldbrg == "PERFORMANCE" && */
+cMS2			tldstr4 == "3" && dMSmin2 == 1 && (tldsubtot < lhasilms2 || (dMSmin1 == 1 && tldsubtot >= lhasilms1)) /*tldbrg == "PERFORMANCE" && */
+cMS3			tldstr4 == "3" && dMSmin1 == 1 && dMSmin2 == 1 && tldsubtot >= lhasilms2 && tldsubtot < lhasilms1 /*tldbrg == "PERFORMANCE" && */
+cMS4			tldstr4 == "3" && dMSmin1 == 1 && tldsubtot >= lhasilms1 && tldsubtot < tldhrg /*tldbrg == "PERFORMANCE" && */
+cMS5			tldstr4 == "3" && dMSmin1 == 1 && tldsubtot >= lhasilms1 && tldsubtot > tldhrg /*tldbrg == "PERFORMANCE" && */
 cActBaruIsi		tldperdism != BLANKS
 
 
@@ -873,6 +875,7 @@ c100                    tldhrgnet               DO_CALC_IF cachmd5
 tldsubtot               tldhrgnet               REPLACE_IF cachmd6
 c100                    tldhrgnet               DO_CALC_IF cachmd7
 
+/*
 c100			tldsubtot		DO_CALC_IF cPO2
 c100			tldhrgnet		DO_CALC_IF cPO2
 c0			tldsubtot		DO_CALC_IF cPO
@@ -886,12 +889,12 @@ c50                     tldhrgnet               DO_CALC_IF cShowroom2
 c75                     tldhrgnet               DO_CALC_IF cShowroom3
 c100                    tldhrgnet               DO_CALC_IF cShowroom4
 
+*/
 c0			tldhrgnet		DO_CALC_IF cMS1
 c75			tldhrgnet		DO_CALC_IF cMS2
 c90			tldhrgnet		DO_CALC_IF cMS3
 c95			tldhrgnet		DO_CALC_IF cMS4
 c100			tldhrgnet		DO_CALC_IF cMS5
-
 cpoint                  tldperdis               DO_CALC
 cpoint                  tldtmp2               	DO_CALC
 /*
@@ -1249,6 +1252,7 @@ DO_LIB		ap_dbclc(DNAME dUpdLastUser,DCOMMAND UPDATE,DTARGET tldotoidx tldoto,DMA
 */
 CALCS()
 cUpdateMaster		(dcekkuncian == 1 && (tlmsts == "OPEN" || tlmsts == "RINP") && tlmperdis == 1) || g_grpnam == "RI" || g_grpnam == "IT"
+cUpdateDetail           g_grpnam == "RI" || g_grpnam == "IT"
 /*cUpdateAct		(tlmsts != "CLSD" && tlmperdis == 1 && dcekkuncianact == 1 && (tlmperppn == tldsatbsr || (tlmperppn == 5 && tldsatbsr == 31))*//* && g_usrkode != tlmplg && g_usrkode != tlmdari*//*) || g_grpnam == "RI" || g_grpnam == "IT"*/
 /*cUpdateActPengecualian	((tlmsts != "CLSD" && tlmperdis == 1 && dcekkuncianact == 1 && (tlmperppn == tldsatbsr || (tlmperppn == 5 && tldsatbsr == 31))*//* && g_usrkode != tlmplg && g_usrkode != tlmdari*//*))
 			|| dloginhocxhead == 1 || g_grpnam == "RI" || g_grpnam == "IT"*/
@@ -1260,7 +1264,7 @@ PERMIT(master)
         PMT_DEL_COND    c0
 PERMIT(trans)                   /*TMP 3013 = TGTBONUSDEALER*/
         PMT_ADD_COND    c0
-        PMT_UPDALL_COND c0
+        PMT_UPDALL_COND cUpdateDetail
         PMT_DEL_COND    c0
 PERMIT(transb)             
         PMT_ADD_COND    c0
