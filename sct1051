@@ -818,10 +818,11 @@ cachmd2                 tldsubtot >= 70 && tldsubtot < 80 && (tldstr4 == "1A" ||
 cachmd3                 tldsubtot >= 80 && tldsubtot < 90 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D") /*&& tldbrg == "PERFORMANCE"*/
 cachmd4                 tldsubtot >= 90 && tldsubtot < 100 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D") /*&& tldbrg == "PERFORMANCE"*/
 cachmd5                 tldsubtot >= 100 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D") /*&& tldbrg == "PERFORMANCE"*/
-cachmd6                 ((tldstr4 != "1A" && tldstr4 != "1B" && tldstr4 != "1C" && tldstr4 != "2A" && tldstr4 != "2B" && tldstr4 != "2C" && tldstr4 != "2D") /* || tldbrg == "POTENTIAL"*/) && tldsubtot <= 100
-cachmd7                 ((tldstr4 != "1A" && tldstr4 != "1B" && tldstr4 != "1C" && tldstr4 != "2A" && tldstr4 != "2B" && tldstr4 != "2C" && tldstr4 != "2D") /*|| tldbrg == "POTENTIAL"*/) && tldsubtot > 100
+cachmd6                 ((tldstr4 != "1A" && tldstr4 != "1B" && tldstr4 != "1C" && tldstr4 != "2A" && tldstr4 != "2B" && tldstr4 != "2C" && tldstr4 != "2D") /* || tldbrg == "POTENTIAL"*/) /*&& tldsubtot <= 100*/
+/*cachmd7                 ((tldstr4 != "1A" && tldstr4 != "1B" && tldstr4 != "1C" && tldstr4 != "2A" && tldstr4 != "2B" && tldstr4 != "2C" && tldstr4 != "2D") || tldbrg == "POTENTIAL") && tldsubtot > 100*/
 
 cpoint			tldhrgnet * tldtotdis / 100
+cachmdlbh100            tldhrgnet > 100
 
 /*
 cPO			tldbrg == "PERFORMANCE" && (tldstr4 == "1D" || tldstr4 == "1E") && tldjml3 > tldhrg
@@ -873,7 +874,7 @@ c75                     tldhrgnet               DO_CALC_IF cachmd3
 c90                     tldhrgnet               DO_CALC_IF cachmd4
 c100                    tldhrgnet               DO_CALC_IF cachmd5
 tldsubtot               tldhrgnet               REPLACE_IF cachmd6
-c100                    tldhrgnet               DO_CALC_IF cachmd7
+/*c100                    tldhrgnet               DO_CALC_IF cachmd7*/
 
 /*
 c100			tldsubtot		DO_CALC_IF cPO2
@@ -897,6 +898,8 @@ c95			tldhrgnet		DO_CALC_IF cMS4
 c100			tldhrgnet		DO_CALC_IF cMS5
 cpoint                  tldperdis               DO_CALC
 cpoint                  tldtmp2               	DO_CALC
+tldtotdis               tldperdis               REPLACE_IF cachmdlbh100
+tldtotdis               tldtmp2                 REPLACE_IF cachmdlbh100
 /*
 SPCALCS(shitung)
 DO_LIB                  ap_dbclc(DNAME dhitung,DCOMMAND UPDATE,DTARGET tldprmidx tldprm,DMAP mhitung);
