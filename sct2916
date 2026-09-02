@@ -1259,7 +1259,7 @@ lTGL		INIT	TGL
 ltgl_awl        INIT    {g_tgltrn}
 ltgl_akh        INIT    {g_tgltrn}
 lINPG           INIT    INPG
-lversi		INIT	260829
+lversi		INIT	260831
 ldtmangkir	INIT	DTMANGKIR
 lajusubs	INIT	AJUSUBS
 lcasb		INIT	CASB
@@ -4401,7 +4401,7 @@ tldbrg          NOCHANGE        INPUTRI 4
 tldhrg          NOCHANGE        INPUTRI 5
 
 CALCS()
-cselACT1        lNIPACTBD != BLANKS && tldcab == cabkode && (tldbrg == "POTENTIAL" || tldbrg == "PERFORMANCE") && tlddata == ltlmdata && tldth == lthblibdact
+cselACT1        lNIPACTBD != BLANKS && tldcab == cabkode /*&& (tldbrg == "POTENTIAL" || tldbrg == "PERFORMANCE")*/ && tlddata == ltlmdata && tldth == lthblibdact
 
 SUBFILE(trans2g11)
 SFL_LINES(10)
