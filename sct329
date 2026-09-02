@@ -17,7 +17,7 @@ SCR_JOIN_FILE1		ketdatbukkod	gt_extra	tlmnobuk
 SCR_NXT_POSTING         4664
 
 SCR_NXT_COND            cgyok
-SCR_NXT_MSG     	IF		cblmPRN			t.DataBlmPRN/Sesuai
+SCR_NXT_MSG     	/*IF		cblmPRN			t.DataBlmPRN/Sesuai*/
 			IF      	cblmaccAM		t.AmBlmMengisiACC
      			IF      	cblmaccKawil		t.KawilBlmMengisiACC
 			IF		csesuaisemua   		t.DetailHrsAdaYgTdkSesuai
@@ -148,11 +148,11 @@ cdetailact2				/*tldbrg == "POTENTIAL" && */tldjml3 != BLANKS && tldth == tlmtyp
 cachmin					tlmperppn / 4 * 100
 cdetailachkrg				/*(tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL") && */tldth == tlmtype2 && tldcab == tlmcab && tlddata == tlmdata && (tldsubtot < tlmperpph) && tldket == BLANKS && tldsatbsr == ltlmjml
 
+/*
 DBCALCS(dchecktgt1)
 	DBC_COMMAND	JOIN
 	DBC_TARGET      tldbukurtidx	tlmnobuk
-	/*DBC_SELECT      cselectchecktgt1*/
-/*
+	DBC_SELECT      cselectchecktgt1
 DBCALCS(dchecktgt2)
 	DBC_COMMAND     JOIN
 	DBC_SELECT      cselectchecktgt2
@@ -401,7 +401,7 @@ cgyok 			((		(tlmsts == "OPEN" && (tlmsts2 == "CEK" || tlmsts2 == "CTGT")) ||
 					(tlmsts == "INPG" && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1)&& tlmbisnis == "TACC" && (djoinpotentialtdksesuaiHOHMC == 1 || djoinperformancetdksesuaiHOHMC == 1)) ||
 					(tlmsts == "INPG" && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1)&& tlmbisnis == "ACC")
 			) && dcekkuncian == 1 && tlmsts != "CLSD" && tlmperdis == 0 && ( (dcek2detail == 0 && tlmytppn == "Y" && tlmdvs == "Y" && dloginhohmc == 0 && djoinHeadHMC == 0) || (dcekdetail1 == 1 && dcekdetail2 == 1 && tlmytppn == "Y" && tlmdvs == "Y") || (dcekdetail1 == 1 && dcekdetail2 == 0 && tlmytppn == "Y") || (dcekdetail1 == 0 && dcekdetail2 == 1 && tlmdvs == "Y") || ((dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) && tlmytppn == "Y") )) ||
-			((tlmytppn == "Y" || tlmdvs == "Y") && tlmplg != g_usrkode && tlmdari != g_usrkode && dcekkuncian == 1 && tlmnoasal != BLANKS) ||
+			((tlmytppn == "Y" || tlmdvs == "Y") /*&& tlmplg != g_usrkode && tlmdari != g_usrkode*/ && dcekkuncian == 1 && tlmnoasal != BLANKS) ||
 			(tlmperdis == 1 && dcekkuncianact == 1 &&
 				(
 					(tlmsts == "OPEN" && tlmytppn == "Y" && tlmdvs == "Y" && djoindetailact1 == 1 && djoindetailact2 == 1) ||
@@ -412,11 +412,11 @@ cgyok 			((		(tlmsts == "OPEN" && (tlmsts2 == "CEK" || tlmsts2 == "CTGT")) ||
 
 csesuaisemua		( (djoinpotentialtdksesuai == 0 && djoinperformancetdksesuai == 0) || 
 			(djoinpotentialtdksesuaiKawil == 0 && djoinperformancetdksesuaiKawil == 0) ) &&
-			( tlmgrup == "TIDAK_SESUAI" || tlmgrup2 == "TACC" )
+			( tlmgrup == "TIDAK_SESUAI" || tlmgrup2 == "TACC" ) && tlmnoasal == BLANKS
 
 /*cblmuplevidence		tlmsts == "OPEN" && tlmgrup == "TIDAK_SESUAI" && tlmtype1 == BLANKS*/
 
-cblmPRN			dchecktgt1 == 0/* || dchecktgt2 == 0*/
+/*cblmPRN		dchecktgt1 == 0 || dchecktgt2 == 0*/
 cblmaccAM		tlmsts == "OPEN" && tlmgrup == BLANKS && tlmperdis != 1					/*KONDISI AM BELUM MENGISI ACC*/
 cblmaccKawil		tlmsts == "INPG" && tlmdari == g_usrkode && tlmgrup2 == BLANKS && tlmperdis != 1
 cdetail1blm		tlmytppn == BLANKS
@@ -533,7 +533,7 @@ lposting		TOMBOL				INPUTRI	39		/* HAPUS TANDA POSTING */
 DEFAULTS(master)
 tlmdata			INIT_QUERY_F11		"tlmdata=="TGTBNSDLR"/* || tlmdata=="ACTBNSDLR"*/"
 tlmdata			INIT_ADD		"ACTBNSDLR"
-lversi			INIT			"31082026_v1"
+lversi			INIT			"02092026_v6"
 lupdate			INIT			"Perubahan cek hohmc menggunakan thbl hari ini"
 ltomdet1		INIT			"1d. Detail Input TGT"
 /*ltomdet2		INIT			"2d. PRN"*/
@@ -1002,9 +1002,9 @@ cdetail1			tlmytppn == "Y" && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginho
 /*cdetail2			tlmdvs == "Y" && dloginhocx == 1*/
 
 /* RUBAH ACC AM */
-cdetailsesuaiam                 (ddetail1AM == 0 && ddetail2AM == 0 && dchecktgt1 == 1/* && dchecktgt2 == 1 */&& tlmsts2 != "TGT" && tlmsts2 != "TGT2" && tlmplg == g_usrkode && tlmsts2 == BLANKS && tlmnoasal == BLANKS) ||
+cdetailsesuaiam                 (ddetail1AM == 0 && ddetail2AM == 0 /*&& dchecktgt1 == 1 && dchecktgt2 == 1 */&& tlmsts2 != "TGT" && tlmsts2 != "TGT2" && tlmplg == g_usrkode && tlmsts2 == BLANKS && tlmnoasal == BLANKS) ||
 				(tlmnoasal != BLANKS && damAnak == 0)
-cdetailtdksesuaiam             	((ddetail1AM == 1 || ddetail2AM == 1) && dchecktgt1 == 1/* && dchecktgt2 == 1 */&& (tlmsts2 != "TGT" && tlmsts2 != "TGT2") && tlmplg == g_usrkode && tlmsts2 == BLANKS && tlmnoasal == BLANKS) ||
+cdetailtdksesuaiam             	((ddetail1AM == 1 || ddetail2AM == 1) /*&& dchecktgt1 == 1 && dchecktgt2 == 1 */&& (tlmsts2 != "TGT" && tlmsts2 != "TGT2") && tlmplg == g_usrkode && tlmsts2 == BLANKS && tlmnoasal == BLANKS) ||
 				(tlmnoasal != BLANKS && damAnak == 1)
 
 cdetailsesuaikawil              (ddetail1KAWIL == 0 && ddetail2KAWIL == 0 && tlmdari == g_usrkode && tlmnoasal == BLANKS) ||
@@ -1273,7 +1273,7 @@ cBLANKS					tldstr3		DO_CALC_IF ctldstr5blankho
 cBLANKS					tldstr3		DO_CALC_IF ctldstr5blankho2
 
 CALCS()
-cblhy			dchecktgt1 == 1/* && dchecktgt2 == 1*/ && (tlmsts2 != "TGT" && tlmsts2 != "TGT2")
+cblhy			/*dchecktgt1 == 1 && dchecktgt2 == 1 && */(tlmsts2 != "TGT" && tlmsts2 != "TGT2")
 /*cTGTblm			tldsat == "BELUM"*/
 cTGTsdh			tldsat == BLANKS
 cTGTsdhada		tldjml != ~tldjml
@@ -1372,11 +1372,16 @@ DBCALCS(dlihatdetail)
 	DBC_SELECT	csellihatdetail
 
 CALCS()
-cseltrans	(
+cseltrans	((
 			(g_usrkode == tlmplg || g_usrkode == tlmdari || g_grpnam == "IT"|| g_grpnam == "RI" || tlmsts == "OPEN" || tlmsts == "CLSD") ||
 			(dloginhohmc == 1 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D" || tldstr4 == "3")) ||
 			(dlihatdetail == 1)
-		)	
+		) && tlmnoasal == BLANKS) ||
+		((
+			(g_usrkode == tlmplg || g_usrkode == tlmdari || g_grpnam == "IT"|| g_grpnam == "RI" || tlmsts == "OPEN" || tlmsts == "CLSD") ||
+			(dloginhohmc == 1 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D" || tldstr4 == "3")) ||
+			(dlihatdetail == 1)
+		) && tlmnoasal != BLANKS && tldbisnis == tlmnobuk)
 /*
 cnobukdetailtdkketemu	dceknobukdetail == 0
 cnobukdetailketemu	dceknobukdetail == 1

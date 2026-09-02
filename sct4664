@@ -226,7 +226,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "010926v2"				/* VERSI APLIKASI */
+lversi			INIT		        "020926v1"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -1334,9 +1334,10 @@ cabk8			abkkym == lnipAM && abktgl == g_tgltrn /* && abkkym2 == "ISI TGT BD"*/
 csdhfnlam		((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0)) && dcekabkfinal == 0 && dcekstsfnl == 1
 csdhfnlkawil		((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0)) && dcekabkfinal2 == 0 && dcekstsfnl == 1
 /*canakan		ltlmnoasal != BLANKS*/
-
+/*
 MAP(mupdnobuktld)
 tlmnobuk		tldnobuk	        REPLACE_IF cselectupdatetld
+*/
 /*ltlmnoasal		tldnobuk	        REPLACE_IF canakan*/
 
 MAP(mupdctgt)
@@ -1358,13 +1359,13 @@ DBCALCS(dupdtld)
         DBC_SELECT	cselectupdatetld
         DBC_TARGET	tldstsbrgukr    tlmdata
         DBC_MAP         mupdtld
-
+/*
 DBCALCS(dupdnobuktld)
         DBC_COMMAND     UPDATE_RANGE
         DBC_SELECT      cselectupdatetld
         DBC_TARGET      tldstsbrgukr    tlmdata
         DBC_MAP         mupdnobuktld
-
+*/
 CALCS()
 cekdbaruada             tldsat == BLANKS && tldnoll != BLANKS
 
@@ -1384,7 +1385,7 @@ DO_LIB			        ap_dbclc(DNAME dkunciabkKawil, DCOMMAND ADD, DFILE abk,DMAP mad
 DO_LIB                          ap_dbclc(DNAME dupdtlmtandabaca,DCOMMAND UPDATE,DTARGET tlmbukidx lnobuk,DMAP mupdtlmtandabaca); /*RUBAH TANDA BACA DETAIL*/
 DO_LIB_IF cstsc                 ap_dbclc(DNAME dupdctgt,DCOMMAND UPDATE_RANGE, DTARGET ketdatbukkod gt_extra lnobuk,DMAP mupdctgt);
 DO_LIB                          ap_dbclc(DNAME dupdabk8,DCOMMAND UPDATE,DTARGET abkdatbukidx lKUNCIABSEN tlmnobuk,DMAP mupdabk8); /* INI MENGGUNAKAN G_TGLTRN KARNA KUNCIAN PERTAMA*/
-dupdnobuktld
+/*dupdnobuktld*/
 
 SPCALCS(sptransg9)
 DO_LIB_IF ccekdetailygbarusudah ap_dbclc(DNAME dupdtlmOPENlagi,DCOMMAND UPDATE,DTARGET tlmbukidx lnobuk,DMAP mupdtlmOPENlagi); /*RUBAH STATUS MASTER JADI OPEN LAGI*/
@@ -2405,7 +2406,7 @@ DO_LIB_IF cblmadaabkKawilawal   ap_dbclc(DNAME dkunciabkKawilbaru, DCOMMAND ADD,
 dupdtlmtandabaca
 dupdctgt
 dupdabk8
-dupdnobuktld
+/*dupdnobuktld*/
 DO_LIB_IF ctldsatblm 	        ap_dbclc(DNAME dmapmapg10,DCOMMAND MAPMAP,DMAP mapmapg10);
 DO_LIB_IF ctldsatblm 	        ap_dbclc(DNAME daddtlmbonusdealer,DCOMMAND ADD,DFILE tlm,DLTARGET tlmbukidx tlmnobuk,DLLEN {stspjbuk},DMAP maddtlmbonusdealer);
 DO_LIB_IF ctldsatblm2 	        ap_dbclc(DNAME daddabkAMbaru,DCOMMAND ADD,DFILE abk,DMAP maddabkAMbaru);
