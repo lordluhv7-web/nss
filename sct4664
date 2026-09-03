@@ -226,7 +226,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "030926v4"				/* VERSI APLIKASI */
+lversi			INIT		        "030926v5"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -368,7 +368,7 @@ l1		        lJMLINDIKATOR		REPLACE_IF cekdbaruadacx
 
 DBCALCS(dcekdetailygbarusudahhmc)
         DBC_COMMAND     SCANSCAN
-        DBC_TARGET      tldbukbrgoto    lnobuk
+        DBC_TARGET      tldbukbrgoto    ltlmnoasal
         DBC_SUM_MAP	mhitungkodehmc
 
 DBCALCS(dcekdetailygbarusudahcx)
