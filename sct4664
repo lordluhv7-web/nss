@@ -226,7 +226,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "030926v5"				/* VERSI APLIKASI */
+lversi			INIT		        "030926v7"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -1323,11 +1323,13 @@ DBCALCS(dcekpsdg6)
 
 CALCS()
 ckawilcekrevisi		(lsts == "INPG" && lsts2 == "RVS1" && lcurrentnip == lnipKawil)
-csalahsatuhosdhacc	lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
+/*csalahsatuhosdhacc	lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))*/
+csalahsatuhosdhacc1	ltlmnoasal == BLANKS && lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
+csalahsatuhosdhacc2	ltlmnoasal != BLANKS && lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
 csalahsatuhosdhaccpsd0	dcekpsdg6 == 0 && lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
 csalahsatuhosdhaccam	dcekabkduaho == 0 && lsts2 == "ACHO" && lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && dcekabkfinal == 0
 csalahsatuhosdhacckawil	dcekabkduaho == 0 && lsts2 == "ACHO" && lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && dcekabkfinal2 == 0
-cselectupdatetld	tldcab == tlmcab /*&& (tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL")*/ && tlddata == tlmdata && tldth == tlmtype2
+/*cselectupdatetld	tldcab == tlmcab && (tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL") && tlddata == tlmdata && tldth == tlmtype2*/
 cstsc			lsts3 == "CEK"
 cabk8			abkkym == lnipAM && abktgl == g_tgltrn /* && abkkym2 == "ISI TGT BD"*/
 
@@ -1353,13 +1355,13 @@ lcab                    psdtype                 REPLACE
 lTHBL                   psdstr1                 REPLACE
 lnobuk                  psdpsmkode              REPLACE
 
+/*
 DBCALCS(dupdtld)
         DBC_COMMAND     UPDATE_RANGE
         DBC_COND 	csalahsatuhosdhacc
         DBC_SELECT	cselectupdatetld
         DBC_TARGET	tldstsbrgukr    tlmdata
         DBC_MAP         mupdtld
-/*
 DBCALCS(dupdnobuktld)
         DBC_COMMAND     UPDATE_RANGE
         DBC_SELECT      cselectupdatetld
@@ -1453,24 +1455,26 @@ DO_LIB_IF csalahsatuhosdhacckawil ap_dbclc(DNAME dkunciabkKawilFinal3, DCOMMAND 
 DO_LIB_IF csalahsatuhosdhaccam  ap_dbclc(DNAME dkunciabkAMFinal3, DCOMMAND ADD, DFILE abk,DMAP maddabkAMFinal); /* KUNCI AM FINAL*/
 DO_LIB_IF csdhfnlkawil          ap_dbclc(DNAME dkunciabkKawilFnl3, DCOMMAND ADD, DFILE abk,DMAP maddabkKawilFinal); /* KUNCI KAWIL FINAL*/
 DO_LIB_IF csdhfnlam             ap_dbclc(DNAME dkunciabkAMFnl3, DCOMMAND ADD, DFILE abk,DMAP maddabkAMFinal); /* KUNCI AM FINAL*/
-
+/*
 CALCS()
 canakan		        tlmnoasal != BLANKS && lsts2 == "FNL"
 ctldfnl		        tldbisnis == lnobuk && lsts2 == "FNL"
 
 MAP(mtldnobukfnl)
 tlmnoasal	        tldnobuk                REPLACE_IF ctldfnl
-
+*/
 SPCALCS(sptransg6) /* FINAL */
 dlepasabkAM
 dlepasabkAMRINP
 dlepasabkKawil
 dlepasabkKawilRINP
-dupdtld
+/*dupdtld*/
+DO_LIB_IF csalahsatuhosdhacc1   ap_dbclc(DNAME dupdtld1,DCOMMAND UPDATE_RANGE,DTARGET tldbukurtidx lnobuk,DMAP mupdtld);
+DO_LIB_IF csalahsatuhosdhacc2   ap_dbclc(DNAME dupdtld2,DCOMMAND UPDATE_RANGE,DTARGET tldbukurtidx ltlmnoasal,DMAP mupdtld);
 DO_LIB_IF csalahsatuhosdhaccpsd0 ap_dbclc(DNAME daddpsdg6, DCOMMAND ADD, DFILE psd,DMAP maddpsdg6); /* ADD PSD*/
 DO_LIB                          ap_dbclc(DNAME dupdtlmCLSD,DCOMMAND UPDATE,DTARGET tlmbukidx lnobuk,DMAP mupdtlmCLSD); /*RUBAH STATUS MASTER JADI CLSD*/
 dupdtlmtandabaca
-DO_LIB_IF canakan	        ap_dbclc(DNAME dupdnobukfnl,DCOMMAND UPDATE_RANGE,DTARGET tldstsbrgukr tlmdata,DMAP mtldnobukfnl);
+/*DO_LIB_IF canakan	        ap_dbclc(DNAME dupdnobukfnl,DCOMMAND UPDATE_RANGE,DTARGET tldstsbrgukr tlmdata,DMAP mtldnobukfnl);*/
 
 /* SPCALCS ACT */
 MAP(mdebugmasteract)
