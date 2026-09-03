@@ -533,7 +533,7 @@ lposting		TOMBOL				INPUTRI	39		/* HAPUS TANDA POSTING */
 DEFAULTS(master)
 tlmdata			INIT_QUERY_F11		"tlmdata=="TGTBNSDLR"/* || tlmdata=="ACTBNSDLR"*/"
 tlmdata			INIT_ADD		"ACTBNSDLR"
-lversi			INIT			"02092026_v6"
+lversi			INIT			"03092026_v3"
 lupdate			INIT			"Perubahan cek hohmc menggunakan thbl hari ini"
 ltomdet1		INIT			"1d. Detail Input TGT"
 /*ltomdet2		INIT			"2d. PRN"*/
@@ -988,7 +988,7 @@ MAP(mjumlahdetailhohmcAnak)
 
 DBCALCS(dhocxAnak)
 	DBC_COMMAND     SCANSCAN
-	DBC_TARGET      tldbukurtidx   	tlmnobuk
+	DBC_TARGET      tldbukurtidx   	tlmnoasal
 	DBC_SUM_MAP     mjumlahdetailhocxAnak
 
 DBCALCS(dhohmcAnak)
@@ -1376,12 +1376,10 @@ cseltrans	((
 			(g_usrkode == tlmplg || g_usrkode == tlmdari || g_grpnam == "IT"|| g_grpnam == "RI" || tlmsts == "OPEN" || tlmsts == "CLSD") ||
 			(dloginhohmc == 1 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D" || tldstr4 == "3")) ||
 			(dlihatdetail == 1)
-		) && tlmnoasal == BLANKS) ||
-		((
-			(g_usrkode == tlmplg || g_usrkode == tlmdari || g_grpnam == "IT"|| g_grpnam == "RI" || tlmsts == "OPEN" || tlmsts == "CLSD") ||
-			(dloginhohmc == 1 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D" || tldstr4 == "3")) ||
-			(dlihatdetail == 1)
-		) && tlmnoasal != BLANKS && tldbisnis == tlmnobuk)
+		) && tlmnoasal == BLANKS && (tldbisnis == BLANKS || tlmsts == "CLSD")) ||
+		(
+			tlmnoasal != BLANKS && tldbisnis == tlmnobuk
+		)
 /*
 cnobukdetailtdkketemu	dceknobukdetail == 0
 cnobukdetailketemu	dceknobukdetail == 1
@@ -1403,7 +1401,7 @@ tldstsbrgukr    tlmdata
 
 SFL_MAP
 tlmdata		tlddata			/*PEMBEDA REKORD TLM DENGAN TLM LAIN (TGTBNSDLR) */
-tlmnobuk	tldnobuk		/*SESUAI DENGAN NOBUK MASTER*/
+/*tlmnobuk	tldnobuk*/		/*SESUAI DENGAN NOBUK MASTER*/
 /*lPERFORMANCE	tldbrg*/		/*PEMBEDA ANTARA PERFORMANCE DENGAN POTENTIAL*/
 tlmcab		tldcab			/*PEMBEDA TGT BONUS DEALER CABANG 1 DENGAN CABANG LAINNYA*/
 tlmtype2	tldthbl			/*PEMBEDA TGT BONUS DEALER CABANG 1 DENGAN CABANG LAINNYA*/

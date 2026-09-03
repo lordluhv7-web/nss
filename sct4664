@@ -226,7 +226,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "020926v1"				/* VERSI APLIKASI */
+lversi			INIT		        "030926v4"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -336,8 +336,8 @@ DBCALCS(djoinHeadHMC)
 
 /************************ KUNCIAN HO HANYA BAGI YANG KODENYA ADA ****************************************/
 CALCS()
-cslct                   tbdkode == tldstr4 && tbdkettype == BLANKS && tbdkode2 == tldbrg
-cslcta                  tbdkode == tldstr4 && tbdkettype == tbtkode && tbdkode2 == tldbrg
+cslct                   tbdkode == tldstr4 && tbdkettype == BLANKS/* && tbdkode2 == tldbrg*/
+cslcta                  tbdkode == tldstr4 && tbdkettype == tbtkode/* && tbdkode2 == tldbrg*/
 
 
 DBCALCS(dperformancehohmc)
@@ -373,7 +373,7 @@ DBCALCS(dcekdetailygbarusudahhmc)
 
 DBCALCS(dcekdetailygbarusudahcx)
         DBC_COMMAND     SCANSCAN
-        DBC_TARGET      tldbukbrgoto    lnobuk
+        DBC_TARGET      tldbukbrgoto    ltlmnoasal
         DBC_SUM_MAP     mhitungkodecx
 /*
 DBCALCS(dcekdetailygbarusudah2)
@@ -1455,8 +1455,8 @@ DO_LIB_IF csdhfnlkawil          ap_dbclc(DNAME dkunciabkKawilFnl3, DCOMMAND ADD,
 DO_LIB_IF csdhfnlam             ap_dbclc(DNAME dkunciabkAMFnl3, DCOMMAND ADD, DFILE abk,DMAP maddabkAMFinal); /* KUNCI AM FINAL*/
 
 CALCS()
-canakan		        tlmnoasal != BLANKS
-ctldfnl		        tldbisnis == lnobuk
+canakan		        tlmnoasal != BLANKS && lsts2 == "FNL"
+ctldfnl		        tldbisnis == lnobuk && lsts2 == "FNL"
 
 MAP(mtldnobukfnl)
 tlmnoasal	        tldnobuk                REPLACE_IF ctldfnl
