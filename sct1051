@@ -416,7 +416,7 @@ IMAGE(master)
 | |	t.NipKawil	____________	____________	               	          | |
 | |	t.NipDCAOPR	____________	____________	               	          | |
 | \-------------------------------------------------------------------------------/ |
-| 	t.SdhAdaACT	____________				                    |
+| /*	t.SdhAdaACT	____________	*/			                    |
 | /-------------------------------------------------------------------------------\ |
 /*
 | |	t.TgtPerformance _________ t.ActPerformance _________                     | |
@@ -452,7 +452,7 @@ lnamaKawil		PROTECT			INPUTRI	17		/*NAMA KAWIL*/
 tlmkodeapr		PROTECT			INPUTRI	17		/*NIP DCAOOPR*/
 lnamaDCAOPR		PROTECT			INPUTRI	18		/*NAMA DCAOPR*/
 
-tlmuntuk		NOCHANGE		INPUTRI	19		/*SUDAH ADA ACT?*/
+/*tlmuntuk		NOCHANGE		INPUTRI	19	*/	/*SUDAH ADA ACT?*/
 
 /*
 tlmjml			PROTECT			INPUTRI	20		TGT PERFORMANCE
@@ -501,7 +501,7 @@ lmnexthitungmaster	INIT			"mnexthitungmaster"
 tlmdata			INIT_QUERY_F11		"tlmdata=="ACTBNSDLR""
 tlmdata			INIT_ADD		"ACTBNSDLR"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT			"04092026"
+lversi			INIT			"04092026v2"
 ltomdet1		INIT			"1d. Detail Input ACT"
 ltomdet2		INIT			"2d. Informasi"
 lACTBONUSDEALER		INIT			"ACTBONUSDEALER"	/*UNTUK TEMPLATE*/
@@ -542,10 +542,11 @@ tlmgrup			DFALT_SCAN_BLANKS	BLANKS
 tlmgrup2		DFALT_SCAN_BLANKS	BLANKS
 						ACC		""
 						TACC		""
-*/
+
 tlmuntuk		DFALT_SCAN		BLANKS
 						BELUM
 						SUDAH
+*/
 IMAGE(master2)
 /----------------------------------------------------------------\
 | /------------------------------------------------------------\ |
@@ -724,7 +725,7 @@ DBC_TARGET	tlmdatstsbuk	tlmdata
 CALCS()
 cblmada		djoinsdhada == 0
 /*cblmblndpn	dcekthbl == 1*/
-cblmblndpn	tlmperppn != 5
+/*cblmblndpn	tlmperppn != 5*/
 cBLANKS		BLANKS
 
 MAP(mtandaposting)
@@ -760,8 +761,8 @@ BEFORE_INPUT		cur_field=tlmgrup2	DO_SKIP_IF	cYangLoginHOCX
 
 BEFORE_INPUT            cur_field=tlmgrup       DO_SKIP_IF      c1
 BEFORE_INPUT            cur_field=tlmgrup2      DO_SKIP_IF      c1
-*/
 BEFORE_INPUT		cur_field=tlmuntuk	DO_SKIP_IF	cblmblndpn
+*/
 CLICKED			cur_field=ltomtandapst	DO_SPCALCS	standaposting
 
 
