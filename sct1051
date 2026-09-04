@@ -501,7 +501,7 @@ lmnexthitungmaster	INIT			"mnexthitungmaster"
 tlmdata			INIT_QUERY_F11		"tlmdata=="ACTBNSDLR""
 tlmdata			INIT_ADD		"ACTBNSDLR"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT			"02092026"
+lversi			INIT			"04092026"
 ltomdet1		INIT			"1d. Detail Input ACT"
 ltomdet2		INIT			"2d. Informasi"
 lACTBONUSDEALER		INIT			"ACTBONUSDEALER"	/*UNTUK TEMPLATE*/
@@ -1256,8 +1256,8 @@ DO_LIB		ap_dbclc(DNAME dUpdLastUser,DCOMMAND UPDATE,DTARGET tldotoidx tldoto,DMA
 */
 CALCS()
 cUpdateMaster		(dcekkuncian == 1 && (tlmsts == "OPEN" || tlmsts == "RINP") && tlmperdis == 1) || g_grpnam == "RI" || g_grpnam == "IT"
-cUpdateDetail           g_grpnam == "RI" || g_grpnam == "IT"
-/*cUpdateAct		(tlmsts != "CLSD" && tlmperdis == 1 && dcekkuncianact == 1 && (tlmperppn == tldsatbsr || (tlmperppn == 5 && tldsatbsr == 31))*//* && g_usrkode != tlmplg && g_usrkode != tlmdari*//*) || g_grpnam == "RI" || g_grpnam == "IT"*/
+/*cUpdateDetail           g_grpnam == "RI" || g_grpnam == "IT"*/
+cUpdateAct		(tlmsts != "CLSD" && tlmperdis == 1 && dcekkuncianact == 1 && (tlmperppn == tldsatbsr || (tlmperppn == 5 && tldsatbsr == 31))/* && g_usrkode != tlmplg && g_usrkode != tlmdari*/) || g_grpnam == "RI" || g_grpnam == "IT"
 /*cUpdateActPengecualian	((tlmsts != "CLSD" && tlmperdis == 1 && dcekkuncianact == 1 && (tlmperppn == tldsatbsr || (tlmperppn == 5 && tldsatbsr == 31))*//* && g_usrkode != tlmplg && g_usrkode != tlmdari*//*))
 			|| dloginhocxhead == 1 || g_grpnam == "RI" || g_grpnam == "IT"*/
 /*cPengecualianCXHead	dloginhocxhead == 1 || g_grpnam == "RI" || g_grpnam == "IT"*/
@@ -1268,7 +1268,7 @@ PERMIT(master)
         PMT_DEL_COND    c0
 PERMIT(trans)                   /*TMP 3013 = TGTBONUSDEALER*/
         PMT_ADD_COND    c0
-        PMT_UPDALL_COND cUpdateDetail
+        PMT_UPDALL_COND cUpdateAct
         PMT_DEL_COND    c0
 PERMIT(transb)             
         PMT_ADD_COND    c0
@@ -1327,7 +1327,6 @@ PERMIT(transa2)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND c0
         PMT_DEL_COND    c0
-/*
 PERMIT(transa2g1)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND c0
@@ -1344,6 +1343,8 @@ PERMIT(transa2g4)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND c0
         PMT_DEL_COND    c0
+/*
+
 PERMIT(transa2g5)
         PMT_ADD_COND    c0
         PMT_UPDALL_COND c0
