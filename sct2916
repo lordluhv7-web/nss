@@ -1260,7 +1260,7 @@ lTGL		INIT	TGL
 ltgl_awl        INIT    {g_tgltrn}
 ltgl_akh        INIT    {g_tgltrn}
 lINPG           INIT    INPG
-lversi		INIT	030926
+lversi		INIT	040926
 ldtmangkir	INIT	DTMANGKIR
 lajusubs	INIT	AJUSUBS
 lcasb		INIT	CASB
@@ -6463,6 +6463,7 @@ cnilaitgtperformance    tlmjml  DO_CALC
 cnilaitgtpotential      tlmtotpph       DO_CALC
 */
 lakhirbulanact  tlmtgljtp       REPLACE
+DEBUG	cthblnact	tlmnoasal	DO_CALC
 
 DBCALCS(dgetminggu1a)
 DBC_COMMAND             JOIN
