@@ -533,7 +533,7 @@ lposting		TOMBOL				INPUTRI	39		/* HAPUS TANDA POSTING */
 DEFAULTS(master)
 tlmdata			INIT_QUERY_F11		"tlmdata=="TGTBNSDLR"/* || tlmdata=="ACTBNSDLR"*/"
 tlmdata			INIT_ADD		"ACTBNSDLR"
-lversi			INIT			"04092026_v1"
+lversi			INIT			"04092026_v2"
 lupdate			INIT			"Perubahan cek hohmc menggunakan thbl hari ini"
 ltomdet1		INIT			"1d. Detail Input TGT"
 /*ltomdet2		INIT			"2d. PRN"*/
@@ -1377,7 +1377,11 @@ cseltrans	((
 			(g_usrkode == tlmplg || g_usrkode == tlmdari || g_grpnam == "IT"|| g_grpnam == "RI" || tlmsts == "OPEN" || tlmsts == "CLSD") ||
 			(dloginhohmc == 1 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D" || tldstr4 == "3")) ||
 			(dlihatdetail == 1)
-		) && tlmnoasal == BLANKS && (tldbisnis == BLANKS || tlmsts == "CLSD")) ||
+		) && tlmnoasal == BLANKS && (tldbisnis == BLANKS || tlmsts == "CLSD") && 
+		(
+			((tldstr4 == "4A" || tldstr4 == "4B" || tldstr4 == "4C" || tldstr4 == "7A" || tldstr4 == "7B" || tldstr4 == "8B" || tldstr4 == "9A") && tldjml != tldjml2) ||
+			(tldstr4 != "4A" && tldstr4 != "4B" && tldstr4 != "4C" && tldstr4 != "7A" && tldstr4 != "7B" && tldstr4 != "8B" && tldstr4 != "9A")
+		)) ||
 		(
 			tlmnoasal != BLANKS && tldbisnis == tlmnobuk
 		)
