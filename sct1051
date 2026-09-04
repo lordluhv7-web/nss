@@ -501,7 +501,7 @@ lmnexthitungmaster	INIT			"mnexthitungmaster"
 tlmdata			INIT_QUERY_F11		"tlmdata=="ACTBNSDLR""
 tlmdata			INIT_ADD		"ACTBNSDLR"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT			"31082026"
+lversi			INIT			"02092026"
 ltomdet1		INIT			"1d. Detail Input ACT"
 ltomdet2		INIT			"2d. Informasi"
 lACTBONUSDEALER		INIT			"ACTBONUSDEALER"	/*UNTUK TEMPLATE*/
@@ -907,6 +907,7 @@ DO_LIB                  ap_dbclc(DNAME dhitung,DCOMMAND UPDATE,DTARGET tldprmidx
 
 MAP(mceklisact1)
 cy                      tlmytppn                DO_CALC
+cy                      tlmdvs                  DO_CALC
 
 CALCS()
 chitungmaster		/*tlmsts == "OPEN" && */tlmytppn == "Y" && tlmdvs == "Y"
