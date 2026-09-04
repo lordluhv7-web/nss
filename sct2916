@@ -578,6 +578,7 @@ lT11		STRING		11
 lthbl1a		STRING		21
 lspvkliknss	STRING		11
 lINDIKATORBD	STRING		21
+lnobuktgtbd	STRING		21
 
 
 CALCS()
@@ -1259,7 +1260,7 @@ lTGL		INIT	TGL
 ltgl_awl        INIT    {g_tgltrn}
 ltgl_akh        INIT    {g_tgltrn}
 lINPG           INIT    INPG
-lversi		INIT	260831
+lversi		INIT	030926
 ldtmangkir	INIT	DTMANGKIR
 lajusubs	INIT	AJUSUBS
 lcasb		INIT	CASB
@@ -1346,7 +1347,7 @@ lsgmstr1ibdNSOHEAD      INIT    "NSOHEAD"
 lsgmstr1ibdNSOH         INIT    "NSOH"
 lsgmstr1ibdAM           INIT    "HMCAM"
 lsgmstr1ibdKawil        INIT    "KAWIL"
-lsgmstr1ibdDcaopr				INIT		"DCAOPR"
+lsgmstr1ibdDcaopr	INIT	"DCAOPR"
 lsgmstr2ibd             INIT    {cthblnact}
 lHK                     INIT    "HK"
 lketactibd1             INIT    {cketactibd1}
@@ -4408,7 +4409,7 @@ SFL_LINES(10)
 SFL_COND cpil22
 SFL_SELECT cselACT1
 SFL_TARGET
-tldstsbrgukr    ltlmdata
+tldbukbrglok    lnobuktgtbd
 
 IMAGE(transg18)
 | _________ | _______ | _______ | ________ |
@@ -6394,16 +6395,29 @@ DBC_COMMAND     JOIN
 DBC_TARGET      tgmdattglidx    gv_TGL          g_tgltrn
 DBC_MAP         mmapminggu
 */
-CALCS()
-cgetnobukact    dgetnobukact == 1
-cgetnipAM       dgetnipAM == 1
-cgetnipNSOH	dgetnipNSOH == 1
-/*cgetnipDCAOPR	dgetnipDCAOPR == 1*/
-cgetnipKawil    dgetnipKawil == 1
-/*cgetminggu    dgetminggu == 1*/
-cakhirbulanact     DO_LIB ap_akhbl(g_tgltrn,&lakhirbulanact);
-cplus7          lakhirbulanact + 7
 
+MAP(mjoinnobuktgtbd)
+tlmnobuk	lnobuktgtbd	REPLACE
+CALCS()
+cseljoinnobuktgtbd	tlmnoasal == BLANKS && tlmcab == cabkode && tlmtype2 == ltahun
+
+DBCALCS(djoinnobuktgtbd)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tlmdatstsasl	ltlmdata
+	DBC_SELECT	cseljoinnobuktgtbd
+	DBC_MAP		mjoinnobuktgtbd
+
+
+CALCS()
+cgetnobukact    	dgetnobukact == 1
+cgetnipAM       	dgetnipAM == 1
+cgetnipNSOH		dgetnipNSOH == 1
+/*cgetnipDCAOPR		dgetnipDCAOPR == 1*/
+cgetnipKawil    	dgetnipKawil == 1
+/*cgetminggu    	dgetminggu == 1*/
+cakhirbulanact     	DO_LIB ap_akhbl(g_tgltrn,&lakhirbulanact);
+cplus7          	lakhirbulanact + 7
+cdjoinnobuktgtbd	djoinnobuktgtbd == 1
 
 MAP(mapCariAMNSOH)
 cBLANKS         lNIPACTBD       DO_CALC
@@ -6411,6 +6425,7 @@ lNipDcaopr	lNIPACTBD	REPLACE_IF cdjoinsgmDcaopr
 lNipKawil       lNIPACTBD       REPLACE_IF cdjoinsgmKawil
 lNipAm          lNIPACTBD       REPLACE_IF cdjoinsgmAM
 lNipNsoh        lNIPACTBD       REPLACE_IF cdjoinsgmnsoh
+lnobuktgtbd	lnobuktgtbd	REPLACE_IF cdjoinnobuktgtbd
 
 /*======= NOBUK =======*/
 MAP(mapmap)
