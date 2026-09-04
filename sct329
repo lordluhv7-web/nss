@@ -533,7 +533,7 @@ lposting		TOMBOL				INPUTRI	39		/* HAPUS TANDA POSTING */
 DEFAULTS(master)
 tlmdata			INIT_QUERY_F11		"tlmdata=="TGTBNSDLR"/* || tlmdata=="ACTBNSDLR"*/"
 tlmdata			INIT_ADD		"ACTBNSDLR"
-lversi			INIT			"03092026_v3"
+lversi			INIT			"04092026_v1"
 lupdate			INIT			"Perubahan cek hohmc menggunakan thbl hari ini"
 ltomdet1		INIT			"1d. Detail Input TGT"
 /*ltomdet2		INIT			"2d. PRN"*/
@@ -1316,6 +1316,7 @@ cBLANKS			tldsat				DO_CALC_IF chpsblm
 cBLANKS			tldtgl2				DO_CALC_IF chpsblm
 
 HOOKS(trans)
+BEFORE_INPUT			cur_field=tldtgl2	DO_SKIP_IF	ctlmnoasalisi
 BEFORE_INPUT			cur_field=tldsat	DO_SKIP_IF	ctlmnoasalisi
 BEFORE_INPUT			cur_field=tldsat	DO_SKIP_IF	cstsctgt2
 BEFORE_INPUT			cur_field=tldjml	DO_SKIP_IF	cstsctgt
