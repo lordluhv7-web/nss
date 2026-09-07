@@ -563,7 +563,7 @@ lposting		TOMBOL				INPUTRI	45		/* HAPUS TANDA POSTING */
 DEFAULTS(master)
 tlmdata			INIT_QUERY_F11		"tlmdata=="TGTBNSDLR"/* || tlmdata=="ACTBNSDLR"*/"
 tlmdata			INIT_ADD		"ACTBNSDLR"
-lversi			INIT			"07092026_v2"
+lversi			INIT			"07092026_v3"
 lupdate			INIT			"Perubahan cek hohmc menggunakan thbl hari ini"
 ltomdet1		INIT			"1d. Detail Input TGT"
 /*ltomdet2		INIT			"2d. PRN"*/
@@ -1065,10 +1065,10 @@ cdetailsesuaihocxpeople         (tlmnoasal == BLANKS && ddetail1HOCX >= 0 && lju
 cdetailtdksesuaihocxpeople      (tlmnoasal == BLANKS && (ddetail1HOCX >= 0 && dloginhocxpeople == 1) && ljumlahdetailhocx > 0) ||
 				(tlmnoasal != BLANKS && dhocxAnak >= 0 && ljumlahdetailhocx > 0 && dloginhocxpeople == 1)
 
-cdetailsesuaihocxnetwork        (tlmnoasal == BLANKS && ddetail1HOCX >= 0 && ljumlahdetailhocx == 0/* && dloginhocxnetwork == 1*/) ||
-				(tlmnoasal != BLANKS && dhocxAnak >= 0 && ljumlahdetailhocx == 0/* && dloginhocxnetwork == 1*/)
-cdetailtdksesuaihocxnetwork     (tlmnoasal == BLANKS && (ddetail1HOCX >= 0/* && dloginhocxnetwork == 1*/) && ljumlahdetailhocx > 0) ||
-				(tlmnoasal != BLANKS && dhocxAnak >= 0 && ljumlahdetailhocx > 0/* && dloginhocxnetwork == 1*/)
+cdetailsesuaihocxnetwork        (tlmnoasal == BLANKS && ddetail1HOCX >= 0 && ljumlahdetailhocx == 0 && dloginhocxnetwork == 1) ||
+				(tlmnoasal != BLANKS && dhocxAnak >= 0 && ljumlahdetailhocx == 0 && dloginhocxnetwork == 1)
+cdetailtdksesuaihocxnetwork     (tlmnoasal == BLANKS && (ddetail1HOCX >= 0 && dloginhocxnetwork == 1) && ljumlahdetailhocx > 0) ||
+				(tlmnoasal != BLANKS && dhocxAnak >= 0 && ljumlahdetailhocx > 0 && dloginhocxnetwork == 1)
 
 cdetailsesuaihohmc              (tlmnoasal == BLANKS && ddetail1HOHMC >= 0 && ljumlahdetailhohmc == 0 && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1)) ||
 				(tlmnoasal != BLANKS && dhohmcAnak >= 0 && ljumlahdetailhohmc == 0 && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1))
