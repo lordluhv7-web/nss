@@ -1805,7 +1805,7 @@ ctdkadanobuk    lnorekppm == BLANKS
 cadanobuk       lnorekppm != BLANKS
 
 DEFAULTS(master)
-lversi                  INIT    2608-27v1
+lversi                  INIT    2609-08
 langka1                 INIT    1          
 langka1df               INIT    1
 langka2                 INIT    2          
@@ -5190,7 +5190,7 @@ cabkode    NOCHANGE        INPUTRI 1
 cabnama    PROTECT         INPUTRI 2
 
 CALCS()
-ctgl5		THBLS_DD(g_tgltrn) == "05"
+ctgl5		THBLS_DD(ltgl) == "05"
 cdealer		cabusaha == "DEALER" && cabsts == "INPG" && cablevel3 == "DEALER" && cabkode != "MMS11" && cabkode != "SBT11" && cabkode != "TID11" /* HANYA CABANG DEALER INDUK */
 chanyabnsdlr    tlmdata == "TGTBNSDLR" && tlmnoasal == BLANKS
 cgetnobuk	tlmcab == cabkode && tlmtype2 == lTHBLblnini
@@ -5241,10 +5241,10 @@ DBC_COMMAND     JOIN
 DBC_TARGET      tbddatkodidx gv_dttabel lCUSTOMEREXPERIENCE lDEALERWING cabkode
 
 CALCS()
-cdjoinbnsdlr	djoinbnsdlr == 0 && THBLS_DD(g_tgltrn) == "05"
-cdgetnobuk	djoinAM == 1 && djoingetnobuk == 1 && dcekabkbnsdlr == 0 && djoinKawil == 1 && THBLS_DD(g_tgltrn) == "05"
+cdjoinbnsdlr	djoinbnsdlr == 0 && THBLS_DD(ltgl) == "05"
+cdgetnobuk	djoinAM == 1 && djoingetnobuk == 1 && dcekabkbnsdlr == 0 && djoinKawil == 1 && THBLS_DD(ltgl) == "05"
 /*cdgetnobukdetail	djoingetnobuk == 1 && dcekabkbnsdlr == 0*/
-clnipisi	lnipAM != BLANKS && lnipKawil != BLANKS && THBLS_DD(g_tgltrn) == "05"
+clnipisi	lnipAM != BLANKS && lnipKawil != BLANKS && THBLS_DD(ltgl) == "05"
 cdealerwing	djoindealerwing == 1
 cjkAMkosong     djoinKawil == 1 && djoinAM == 0 && lnipAM == BLANKS
 cJoinAM		djoinAM == 1
@@ -7908,10 +7908,15 @@ cBLANKS		ltldbrgbd	DO_CALC
 tbdkode		ltldstr4bd	REPLACE
 DEBUG ltldhrgbd	ltldhrgbd	REPLACE_IF ctldhrgbd
 
+CALCS()
+cnobukbdada     djoingetnobuk == 1 && lnobukbnsdlr != BLANKS
+cnobukbdxada    (djoingetnobuk == 1 && lnobukbnsdlr == BLANKS) || djoingetnobuk == 0
+
 
 MAP(maddtldbonusdealer)
 lTGTBNSDLR	tlddata		REPLACE
-tlmnobuk	tldnobuk	REPLACE
+tlmnobuk        tldnobuk        REPLACE_IF cnobukbdxada
+lnobukbnsdlr    tldnobuk        REPLACE_IF cnobukbdada
 lTHBLblnini	tldth		REPLACE
 ltldnourtbd	tldnourt	REPLACE
 cabkode		tldcab		REPLACE
