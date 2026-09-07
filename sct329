@@ -527,30 +527,30 @@ lnamaKawil		PROTECT				INPUTRI	14		/*NAMA KAWIL*/
 tlmgrup			ALLCAPS 	NOCHANGE	INPUTRI	15		/*ACC AM*/
 tlmjml2			PROTECT				INPUTRI	16		/*JUMLAH REVISI*/
 tlmgrup2		ALLCAPS 	NOCHANGE	INPUTRI	17		/*ACC KAWIL*/
-tlmket			TEXTAREA			INPUTRI	18		/*KETERANGAN*/
+tlmket			TEXTAREA 2			INPUTRI	18		/*KETERANGAN*/
 lenter			NOCHANGE			INPUTRI	19		/*TOMBOL ENTER*/
 tlmbisnis		ALLCAPS		NOCHANGE	INPUTRI	20		/*ACC HO (HMC)*/
-ketstr1_1		TEXTAREA			INPUTRI	21		/*KETERANGAN*/
+ketstr1_1		TEXTAREA 2			INPUTRI	21		/*KETERANGAN*/
 lenter			NOCHANGE			INPUTRI	22		/*TOMBOL ENTER*/
 tlmkode			ALLCAPS		NOCHANGE	INPUTRI	23		/*ACC HO (CX DIVHEAD)*/ /* yang blm dipake: tlmnobbm, tlmusrapr, tlmbrdoto */
-ketstr2_1		TEXTAREA			INPUTRI	24		/*KETERANGAN*/
+ketstr2_1		TEXTAREA 2			INPUTRI	24		/*KETERANGAN*/
 lenter                  NOCHANGE                	INPUTRI 25              /*TOMBOL ENTER*/
 tlmnobbm		PROTECT				INPUTRI	26		/*ACC HO (CX PEOPLE)*/
-ketkode_1		TEXTAREA			INPUTRI	27		/*KETERANGAN*/
+ketkode_1		TEXTAREA 2			INPUTRI	27		/*KETERANGAN*/
 lenter                  NOCHANGE                	INPUTRI 28              /*TOMBOL ENTER*/
 tlmusrapr		PROTECT				INPUTRI	29		/*ACC HO (CX NETWORK)*/
-ketisi2_1		TEXTAREA			INPUTRI	30		/*KETERANGAN*/
+ketisi2_1		TEXTAREA 2			INPUTRI	30		/*KETERANGAN*/
 lenter                  NOCHANGE                	INPUTRI 31              /*TOMBOL ENTER*/
 tlmbrdoto		PROTECT				INPUTRI	32		/*ACC HO (CX CRM)*/
-ketstr4_1		TEXTAREA			INPUTRI	33		/*KETERANGAN*/
+ketstr4_1		TEXTAREA 2			INPUTRI	33		/*KETERANGAN*/
 lenter                  NOCHANGE                	INPUTRI 34              /*TOMBOL ENTER*/
 
 spkkat_2		PROTECT				INPUTRI	35		/*ACC HO (CX PROMOTION)*/
-spkket_2		TEXTAREA			INPUTRI	36		/*KETERANGAN*/
+spkket_2		TEXTAREA 2			INPUTRI	36		/*KETERANGAN*/
 lenter                  NOCHANGE                	INPUTRI 37              /*TOMBOL ENTER*/
 
 spkkat2_2		PROTECT				INPUTRI	38		/*ACC HO (CX CUSTOMER VOICE)*/
-spkket2_2		TEXTAREA			INPUTRI	39		/*KETERANGAN*/
+spkket2_2		TEXTAREA 2			INPUTRI	39		/*KETERANGAN*/
 lenter                  NOCHANGE                	INPUTRI 40              /*TOMBOL ENTER*/
 
 ltomdet1		TOMBOL				INPUTRI	41		/*TOMBOL 1D*/
@@ -563,7 +563,7 @@ lposting		TOMBOL				INPUTRI	45		/* HAPUS TANDA POSTING */
 DEFAULTS(master)
 tlmdata			INIT_QUERY_F11		"tlmdata=="TGTBNSDLR"/* || tlmdata=="ACTBNSDLR"*/"
 tlmdata			INIT_ADD		"ACTBNSDLR"
-lversi			INIT			"07092026_v1"
+lversi			INIT			"07092026_v2"
 lupdate			INIT			"Perubahan cek hohmc menggunakan thbl hari ini"
 ltomdet1		INIT			"1d. Detail Input TGT"
 /*ltomdet2		INIT			"2d. PRN"*/
