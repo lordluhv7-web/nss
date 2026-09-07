@@ -579,6 +579,7 @@ lthbl1a		STRING		21
 lspvkliknss	STRING		11
 lINDIKATORBD	STRING		21
 lnobuktgtbd	STRING		21
+lststgtbd	STRING		5
 
 
 CALCS()
@@ -1260,7 +1261,7 @@ lTGL		INIT	TGL
 ltgl_awl        INIT    {g_tgltrn}
 ltgl_akh        INIT    {g_tgltrn}
 lINPG           INIT    INPG
-lversi		INIT	040926
+lversi		INIT	070926
 ldtmangkir	INIT	DTMANGKIR
 lajusubs	INIT	AJUSUBS
 lcasb		INIT	CASB
@@ -6398,6 +6399,7 @@ DBC_MAP         mmapminggu
 
 MAP(mjoinnobuktgtbd)
 tlmnobuk	lnobuktgtbd	REPLACE
+tlmsts		lststgtbd	REPLACE
 CALCS()
 cseljoinnobuktgtbd	tlmnoasal == BLANKS && tlmcab == cabkode && tlmtype2 == ltahun
 
@@ -6742,9 +6744,10 @@ DBC_TARGET      tbddatkodidx gv_dttabel lCUSTOMEREXPERIENCE
 CALCS()
 cjoinbobot              djoinbobot == 1
 ctldstr5blanks          tldstr5 == BLANKS
-cTGTAkum                lhariefektifibd1 / lhariefektifibdakhir * tldhrg
+cTGTAkum                lhariefektifibd1 / lhariefektifibdakhir * ltldhrg
 ctglakblact             DO_LIB ap_akhbl(ltglactibd1,&ltglakhirbulanact);
 cdcekakum               dcekakum == 1
+cstsblmclsd		lststgtbd != "CLSD"
 
 MAP(mmapmapactcpy)
 cBLANKS                 ltldcab         DO_CALC
@@ -6758,20 +6761,21 @@ tldcab                  ltldcab         REPLACE                 /* CABANG */
 tldbrg                  ltldbrg         REPLACE                 /* PERFORMANCE / POTENTIAL */
 tldth                   ltldth          REPLACE                 /* THBL */
 tldhrg                  ltldhrg         REPLACE                 /* TARGET */
+tldjml                  ltldhrg         REPLACE_IF cstsblmclsd  /* TARGET YANG DICOPY ADALAH BULAN LALU */
 tldstr4                 ltldstr4        REPLACE                 /* KODE INDIKATOR */
 ltldtotdis              ltldtotdis      REPLACE_IF cjoinbobot   /* BOBOT */
 tldstr5                 ltldstr5        REPLACE
-tldhrg                  ltldstr5        REPLACE_IF ctldstr5blanks
+ltldhrg                 ltldstr5        REPLACE_IF ctldstr5blanks
 ctglakblact             ltglakhirbulanact       DO_CALC
 cTGTAkum                lTGTAkumM1      DO_CALC_IF cdetailminggu1hitung
 cTGTAkum                lTGTAkumM2      DO_CALC_IF cdetailminggu2hitung
 cTGTAkum                lTGTAkumM3      DO_CALC_IF cdetailminggu3hitung
 cTGTAkum                lTGTAkumM4      DO_CALC_IF cdetailminggufinal
-tldhrg                  lTGTAkumM1      REPLACE_IF cdcekakum
-tldhrg                  lTGTAkumM2      REPLACE_IF cdcekakum
-tldhrg                  lTGTAkumM3      REPLACE_IF cdcekakum
-tldhrg                  lTGTAkumM4      REPLACE_IF cdcekakum
-tldhrg                  lTGTAkumM5      REPLACE
+ltldhrg                 lTGTAkumM1      REPLACE_IF cdcekakum
+ltldhrg                 lTGTAkumM2      REPLACE_IF cdcekakum
+ltldhrg                 lTGTAkumM3      REPLACE_IF cdcekakum
+ltldhrg                 lTGTAkumM4      REPLACE_IF cdcekakum
+ltldhrg                 lTGTAkumM5      REPLACE
 DEBUG ldum              ldum            REPLACE
 
 SPCALCS(sptrans2g11)

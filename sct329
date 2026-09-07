@@ -13,6 +13,7 @@ SCR_DOCUPLFLD_DBCALCS	duplok
 */
 
 SCR_JOIN_FILE1		ketdatbukkod	gt_extra	tlmnobuk
+SCR_JOIN_FILE2		spkdatbuktyp	gt_extra	tlmnobuk
 
 SCR_NXT_POSTING         4664
 
@@ -111,9 +112,9 @@ lJmlket3D		INT2 		2
 
 CALCS()
 cthbl					THBLS(g_tgltrn)
-ctambl          			DO_LIB ap_akhbl(tlmtgl,&lblndpn);
+ctambl          			DO_LIB ap_awlbl(tlmtgl,&lblndpn);
 cplus17khusus				lblndpn + 15
-cplus10					lblndpn + 10
+cplus9					lblndpn + 9
 cjikaapril				tlmtype2 == "2606"
 cjikabknapril				tlmtype2 != "2606"
 /*
@@ -237,6 +238,8 @@ chocxdivhead		tbdkettype == "CXDIVHEAD"
 chocxcrm		tbdkettype == "CXCRM"
 chocxpeople		tbdkettype == "CXPEOPLE"
 chocxnetwork		tbdkettype == "CXNETWORK"
+chocxpro		tbdkettype == "CXPROMOTION"
+chocxcv			tbdkettype == "CUSTOMERVOICE"
 
 DBCALCS(dloginhocx)
 	DBC_COMMAND	JOIN
@@ -261,6 +264,16 @@ DBCALCS(dloginhocxnetwork)
 	DBC_COMMAND     JOIN
 	DBC_TARGET      tbddatkodidx    lDTTABEL lCUSTOMEREXPERIENCE lHOCX g_usrkode
 	DBC_SELECT	chocxnetwork
+
+DBCALCS(dloginhocxpro)
+	DBC_COMMAND     JOIN
+	DBC_TARGET      tbddatkodidx    lDTTABEL lCUSTOMEREXPERIENCE lHOCX g_usrkode
+	DBC_SELECT	chocxpro
+
+DBCALCS(dloginhocxcv)
+	DBC_COMMAND     JOIN
+	DBC_TARGET      tbddatkodidx    lDTTABEL lCUSTOMEREXPERIENCE lHOCX g_usrkode
+	DBC_SELECT	chocxcv
 
 CALCS()
 cselectHOHMC		sgmtype == "DCAOPR" && sgmstr5 == g_usrkode /* && (sgmstr2 == tlmthbl || sgmstr2 == tlmtype2 || sgmthbl == lTHBL)*/
@@ -350,10 +363,14 @@ cYangLoginHOCXdivhead	dloginhocxdivhead == 1
 cYangLoginHOCXcrm	dloginhocxcrm == 1
 cYangLoginHOCXpeople	dloginhocxpeople == 1
 cYangLoginHOCXnetwork	dloginhocxnetwork == 1
+cYangLoginHOCXpro	dloginhocxpro == 1
+cYangLoginHOCXcv	dloginhocxcv == 1
 cYangLoginxHOCXdivhead	dloginhocxdivhead == 0
 cYangLoginxHOCXcrm	dloginhocxcrm == 0
 cYangLoginxHOCXpeople	dloginhocxpeople == 0
 cYangLoginxHOCXnetwork	dloginhocxnetwork == 0
+cYangLoginxHOCXpro	dloginhocxpro == 0
+cYangLoginxHOCXcv	dloginhocxcv == 0
 
 cYangLoginHOHMC		(dloginhohmc == 1 || /*tlmnoasal == g_usrkode || */djoinHeadHMC == 1 || dloginhohmc2 == 1)
 cYangLoginHOCXMandatTGTdivhead  dloginhocxdivhead == 1 && (g_curcmd == 2 || tlmperdis == 0) && tlmperdis != 1
@@ -483,6 +500,10 @@ IMAGE(master)
 | |	t.Ket		________________________  _______      | |
 | | 	t.AccHOCXcrm	________________		       | |
 | |	t.Ket		________________________  _______      | |
+| | 	t.AccHOCXpro	________________		       | |
+| |	t.Ket		________________________  _______      | |
+| | 	t.AccHOCXcv	________________		       | |
+| |	t.Ket		________________________  _______      | |
 | | 							       | |
 | \------------------------------------------------------------/ |
 |  ______________			t.StsDetail  _ _ _ ____  |
@@ -523,17 +544,26 @@ lenter                  NOCHANGE                	INPUTRI 31              /*TOMBO
 tlmbrdoto		PROTECT				INPUTRI	32		/*ACC HO (CX CRM)*/
 ketstr4_1		TEXTAREA			INPUTRI	33		/*KETERANGAN*/
 lenter                  NOCHANGE                	INPUTRI 34              /*TOMBOL ENTER*/
-ltomdet1		TOMBOL				INPUTRI	35		/*TOMBOL 1D*/
+
+spkkat_2		PROTECT				INPUTRI	35		/*ACC HO (CX PROMOTION)*/
+spkket_2		TEXTAREA			INPUTRI	36		/*KETERANGAN*/
+lenter                  NOCHANGE                	INPUTRI 37              /*TOMBOL ENTER*/
+
+spkkat2_2		PROTECT				INPUTRI	38		/*ACC HO (CX CUSTOMER VOICE)*/
+spkket2_2		TEXTAREA			INPUTRI	39		/*KETERANGAN*/
+lenter                  NOCHANGE                	INPUTRI 40              /*TOMBOL ENTER*/
+
+ltomdet1		TOMBOL				INPUTRI	41		/*TOMBOL 1D*/
 /*ltomdet2		TOMBOL				INPUTRI	40*/		/*TOMBOL 2D*/
-tlmytppn		PROTECT				INPUTRI	36		/* TANDA BACA */
-tlmdvs			PROTECT				INPUTRI	37		/* TANDA BACA */
-ketstr3_1		PROTECT				INPUTRI	38		/* TANDA SDH ADA TGT ATAU BLM*/
-lposting		TOMBOL				INPUTRI	39		/* HAPUS TANDA POSTING */
+tlmytppn		PROTECT				INPUTRI	42		/* TANDA BACA */
+tlmdvs			PROTECT				INPUTRI	43		/* TANDA BACA */
+ketstr3_1		PROTECT				INPUTRI	44		/* TANDA SDH ADA TGT ATAU BLM*/
+lposting		TOMBOL				INPUTRI	45		/* HAPUS TANDA POSTING */
 
 DEFAULTS(master)
 tlmdata			INIT_QUERY_F11		"tlmdata=="TGTBNSDLR"/* || tlmdata=="ACTBNSDLR"*/"
 tlmdata			INIT_ADD		"ACTBNSDLR"
-lversi			INIT			"04092026_v2"
+lversi			INIT			"07092026_v1"
 lupdate			INIT			"Perubahan cek hohmc menggunakan thbl hari ini"
 ltomdet1		INIT			"1d. Detail Input TGT"
 /*ltomdet2		INIT			"2d. PRN"*/
@@ -593,10 +623,12 @@ IMAGE(master2)
 | |	t.AccAM		____________			       | |
 | |	t.AccKawil	____________			       | |
 | |	t.AccHOHMC	____________			       | |
-| |	t.AccHOCX1	____________			       | |
-| |	t.AccHOCX2	____________			       | |
-| |	t.AccHOCX3	____________			       | |
-| |	t.AccHOCX4	____________			       | |
+| |	t.AccHOCXdivh	____________			       | |
+| |	t.AccHOCXppl	____________			       | |
+| |	t.AccHOCXntw	____________			       | |
+| |	t.AccHOCXcrm	____________			       | |
+| |	t.AccHOCXpro	____________			       | |
+| |	t.AccHOCXcv	____________			       | |
 | \------------------------------------------------------------/ |
 \----------------------------------------------------------------/
 
@@ -621,6 +653,8 @@ tlmkode			PROTECT			INPUTRI	17		/*ACC HO CX DIV HEAD*/
 tlmnobbm		PROTECT			INPUTRI	18		/*ACC HO CX PEOPLE*/
 tlmusrapr 		PROTECT			INPUTRI	19		/*ACC HO CX NETWORK*/
 tlmbrdoto		PROTECT			INPUTRI	20		/*ACC HO CX CRM*/
+spkkat_2		PROTECT			INPUTRI	20		/*ACC HO CX PROMOTION*/
+spkkat2_2		PROTECT			INPUTRI	20		/*ACC HO CX CV*/
 
 /*MAP(mnipKawil)*/							/*REPLACE NIP KE LOKAL KARNA TIDAK BISA LANGSUNG KE FIELD, REPLACE KE FIELD DI HOOKS*/
 	/*sgmstr5	lnipKawil	REPLACE*/
@@ -698,6 +732,8 @@ e.WajibDiisiKetHOCX    	ketstr2_1      	MANDATORY_IF		cYangLoginHOCXdivhead			/*
 e.WajibDiisiKetHOCX    	ketstr4_1      	MANDATORY_IF		cYangLoginHOCXcrm			/*WAJIB ISI KETERANGAN ACC HO CX*/
 e.WajibDiisiKetHOCX    	ketkode_1      	MANDATORY_IF		cYangLoginHOCXpeople			/*WAJIB ISI KETERANGAN ACC HO CX*/
 e.WajibDiisiKetHOCX    	ketisi2_1      	MANDATORY_IF		cYangLoginHOCXnetwork			/*WAJIB ISI KETERANGAN ACC HO CX*/
+e.WajibDiisiKetHOCX    	spkket_2      	MANDATORY_IF		cYangLoginHOCXpro
+e.WajibDiisiKetHOCX    	spkket2_2      	MANDATORY_IF		cYangLoginHOCXcv
 
 /*e.WajibMengisiSdhBlm	kettype_1	MANDATORY_IF		cSdhAdaDataBlm*/
 
@@ -713,7 +749,7 @@ MAP(mnamaKawil)								/*MAP UNTUK REPLACE NAMA KAWIL*/
 	l0		ltlmjml		REPLACE_IF cweektdkberjalan
 	cakhirbulan	kettgl1_1	DO_CALC
 	ctambl		lblndpn		DO_CALC
-	cplus10		lblndpn		DO_CALC_IF cjikabknapril
+	cplus9		lblndpn		DO_CALC_IF cjikabknapril
 	cplus17khusus	lblndpn		DO_CALC_IF cjikaapril
 
 /*MAP(mnipKawilreplaceField)*/						/*MAP UNTUK REPLACE NIP KAWIL*/
@@ -869,6 +905,8 @@ BEFORE_INPUT		cur_field=ketstr2_1	DO_SKIP_IF	cYangLoginxHOCXdivhead
 BEFORE_INPUT		cur_field=ketkode_1	DO_SKIP_IF	cYangLoginxHOCXpeople
 BEFORE_INPUT		cur_field=ketisi2_1	DO_SKIP_IF	cYangLoginxHOCXnetwork
 BEFORE_INPUT		cur_field=ketstr4_1	DO_SKIP_IF	cYangLoginxHOCXcrm
+BEFORE_INPUT		cur_field=spkket_2	DO_SKIP_IF	cYangLoginxHOCXpro
+BEFORE_INPUT		cur_field=spkket2_2	DO_SKIP_IF	cYangLoginxHOCXcv
 
 BEFORE_INPUT            cur_field=tlmgrup       DO_SKIP_IF      c1
 BEFORE_INPUT            cur_field=tlmgrup2      DO_SKIP_IF      c1
@@ -1037,6 +1075,16 @@ cdetailsesuaihohmc              (tlmnoasal == BLANKS && ddetail1HOHMC >= 0 && lj
 cdetailtdksesuaihohmc          	(tlmnoasal == BLANKS && ddetail1HOHMC >= 1 && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) && ljumlahdetailhohmc > 0) ||
 				(tlmnoasal != BLANKS && dhohmcAnak >= 0 && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) && ljumlahdetailhohmc > 0)
 
+cdetailsesuaihocxpro         	(tlmnoasal == BLANKS && ddetail1HOCX >= 0 && ljumlahdetailhocx == 0 && dloginhocxpro == 1) ||
+				(tlmnoasal != BLANKS && dhocxAnak >= 0 && ljumlahdetailhocx == 0 && dloginhocxpro == 1)
+cdetailtdksesuaihocxpro      	(tlmnoasal == BLANKS && (ddetail1HOCX >= 0 && dloginhocxpro == 1) && ljumlahdetailhocx > 0) ||
+				(tlmnoasal != BLANKS && dhocxAnak >= 0 && ljumlahdetailhocx > 0 && dloginhocxpro == 1)
+
+cdetailsesuaihocxcv         	(tlmnoasal == BLANKS && ddetail1HOCX >= 0 && ljumlahdetailhocx == 0 && dloginhocxcv == 1) ||
+				(tlmnoasal != BLANKS && dhocxAnak >= 0 && ljumlahdetailhocx == 0 && dloginhocxcv == 1)
+cdetailtdksesuaihocxcv      	(tlmnoasal == BLANKS && (ddetail1HOCX >= 0 && dloginhocxcv == 1) && ljumlahdetailhocx > 0) ||
+				(tlmnoasal != BLANKS && dhocxAnak >= 0 && ljumlahdetailhocx > 0 && dloginhocxcv == 1)
+
 cTGTberubah             	(
 					(((~tldjml2 != tldjml2) || (~tldstr5 != tldstr5)) && tlmsts == "OPEN" && tlmplg == g_usrkode) ||
 					(((~tldjml2 != tldjml2) || (~tldstr5 != tldstr5)) && tlmsts == "INPG" && tlmplg != g_usrkode)
@@ -1084,6 +1132,15 @@ MAP(mupdaccam)
 /* UPDATE ACC HO CX NETWORK*/
 	cACC		tlmbrdoto	DO_CALC_IF cdetailsesuaihocxcrm
 	cTACC		tlmbrdoto	DO_CALC_IF cdetailtdksesuaihocxcrm
+
+MAP(mupdaccamspk)
+/* UPDATE ACC HO CX PROMOTION*/
+	cACC		spkkat_2	DO_CALC_IF cdetailsesuaihocxpro
+	cTACC		spkkat_2	DO_CALC_IF cdetailtdksesuaihocxpro
+
+/* UPDATE ACC HO CX CUSTOMER VOICE*/
+	cACC		spkkat2_2	DO_CALC_IF cdetailsesuaihocxcv
+	cTACC		spkkat2_2	DO_CALC_IF cdetailtdksesuaihocxcv
 
 /*
 IMAGE(transt)
@@ -1303,8 +1360,10 @@ cBLANKS			tldtgl2				DO_CALC_IF cTGTsdh
 SPCALCS(standabaca)
 DO_LIB_IF cDcekKuncian		ap_dbclc(DNAME dtandabaca, DCOMMAND UPDATE, DTARGET tlmprmidx tlmprm, DMAP mtandabaca);
 DO_LIB_IF cduadetail		ap_dbclc(DNAME dUpdACCam, DCOMMAND UPDATE, DTARGET tlmprmidx tlmprm, DMAP mupdaccam);
+DO_LIB_IF cduadetail		ap_dbclc(DNAME dUpdACCamspk, DCOMMAND UPDATE_RANGE, DTARGET spkdatbuktyp gt_extra tlmnobuk, DMAP mupdaccamspk);
 DO_LIB_IF cduadetail		ap_dbclc(DNAME dUpdACCama, DCOMMAND UPDATE_RANGE, DTARGET ketdatbukkod gt_extra tlmnobuk, DMAP mupdaccama);
 DO_LIB_IF cdetail1		ap_dbclc(DNAME dUpdACCHOHMC, DCOMMAND UPDATE, DTARGET tlmprmidx tlmprm, DMAP mupdaccam);
+DO_LIB_IF cdetail1		ap_dbclc(DNAME dUpdACCHOHMCspk, DCOMMAND UPDATE_RANGE, DTARGET spkdatbuktyp gt_extra tlmnobuk, DMAP mupdaccamspk);
 
 CALCS()
 chpsblm			tldstr5 != BLANKS
@@ -1340,7 +1399,7 @@ AFTER_INPUT			cur_field=tldstr5	DO_MAP		SHOW mhpsblm
 AFTER_INPUT			cur_field=tldtgl2	DO_MAP SHOW
 				IF ckrgtgl10		mdum
 				ELSE HKCURSOR STAY
-				HKMSG Tanggal input minimal tanggal 27 bulan sesuai THBL atau maksimal tanggal 10 bulan depannya
+				HKMSG Tanggal input minimal tanggal 6 bulan sesuai THBL atau maksimal tanggal 10 bulan sesuai THBL
 AFTER_INPUT			cur_field=tldsat	DO_MAP SHOW	mblanktgl
 AFTER_INPUT			cur_field=tldjml	DO_MAP SHOW	mblanktgl
 BEFORE_INPUT			cur_field=tldtgl2	DO_SKIP_IF	cstsctgt3
