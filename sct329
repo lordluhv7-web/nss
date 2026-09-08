@@ -393,6 +393,8 @@ MAP(mnext)
 	tlmnobbm	r_string19	REPLACE 	/* ACC HO CX PEOPLE*/
 	tlmusrapr	r_string20	REPLACE 	/* ACC HO CX NETWORK*/
 	tlmbrdoto	r_string21	REPLACE 	/* ACC HO CX CRM*/
+	spkkat_2	r_string28	REPLACE		/* ACC HO CX PROMOTION */
+	spkkat2_2	r_string29	REPLACE		/* ACC HO CX CV */
 
 	tlmsts2		r_string16	REPLACE 	/* STATUS 2 */
 	/*tlmnoasal	r_string17	REPLACE*/ 	/* NIP HO HMC */
@@ -406,26 +408,60 @@ MAP(mnext)
 
 
 CALCS()
-cgyok 			((		(tlmsts == "OPEN" && (tlmsts2 == "CEK" || tlmsts2 == "CTGT")) ||
-					(tlmsts == "OPEN" && tlmplg == g_usrkode && tlmgrup == "SESUAI") || /* JIKA OPEN DAN AM MEMILIH SESUAI */
-					(tlmsts == "OPEN" && tlmplg == g_usrkode && tlmgrup == "TIDAK_SESUAI" && (djoinpotentialtdksesuai == 1 || djoinperformancetdksesuai == 1) ) || /* JIKA OPEN DAN AM MEMILIH TIDAK SESUAI, DETAIL AM HARUS ADA YANG TIDAK SESUAI */
-					(tlmsts == "INPG" && tlmdari == g_usrkode && tlmgrup2 == "ACC") || /* JIKA INPG DAN KAWIL MEMILIH ACC */
-					(tlmsts == "INPG" && tlmdari == g_usrkode && tlmgrup2 == "TACC" && (djoinpotentialtdksesuaiKawil == 1 || djoinperformancetdksesuaiKawil == 1) &&  tlmjml2 < 1 ) || /* JIKA INPG, BELUM ADA REVISI, DAN KAWIL MEMILIH TACC MAKA DETAIL KAWIL HARUS ADA YANG TIDAK SESUAI */
-					(tlmsts == "INPG" && tlmdari == g_usrkode && tlmgrup2 == "TACC" && tlmjml2 >= 1) || /* JIKA INPG DAN KAWIL TACC, DAN SUDAH PERNAH REVISI, JIKA MASIH ADA REVISI, KAWIL INTERVENSI */
-					(tlmsts == "INPG" && tlmplg == g_usrkode && tlmgrup2 == "TACC" && tlmjml2 >= 1) || /* JIKA AM MAU REVISI PERTAMA */
-					(tlmsts == "INPG" && (tlmplg == g_usrkode || tlmdari == g_usrkode) && (tlmsts2 == "ACHO" || tlmsts2 == "FNL" || tlmsts2 == "RCLS")) || /* JIKA AM MAU REVISI PERTAMA */
-					(tlmsts == "INPG" && tlmplg != g_usrkode && tlmdari != g_usrkode && dcekkuncian == 1 && dloginhohmc == 0 && djoinHeadHMC == 0 /*&& (tlmkode == "ACC" || (tlmkode == "TACC" && (djoinpotentialtdksesuaiHOCX == 1 || djoinperformancetdksesuaiHOCX == 1)))*/) || /* JIKA BUKAN AM DAN KAWIL, TAPI KUNCIAN ADA BERARTI HO CX */
-					(tlmsts == "INPG" && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1)&& tlmbisnis == "TACC" && (djoinpotentialtdksesuaiHOHMC == 1 || djoinperformancetdksesuaiHOHMC == 1)) ||
-					(tlmsts == "INPG" && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1)&& tlmbisnis == "ACC")
-			) && dcekkuncian == 1 && tlmsts != "CLSD" && tlmperdis == 0 && ( (dcek2detail == 0 && tlmytppn == "Y" && tlmdvs == "Y" && dloginhohmc == 0 && djoinHeadHMC == 0) || (dcekdetail1 == 1 && dcekdetail2 == 1 && tlmytppn == "Y" && tlmdvs == "Y") || (dcekdetail1 == 1 && dcekdetail2 == 0 && tlmytppn == "Y") || (dcekdetail1 == 0 && dcekdetail2 == 1 && tlmdvs == "Y") || ((dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) && tlmytppn == "Y") )) ||
-			((tlmytppn == "Y" || tlmdvs == "Y") /*&& tlmplg != g_usrkode && tlmdari != g_usrkode*/ && dcekkuncian == 1 && tlmnoasal != BLANKS) ||
-			(tlmperdis == 1 && dcekkuncianact == 1 &&
-				(
-					(tlmsts == "OPEN" && tlmytppn == "Y" && tlmdvs == "Y" && djoindetailact1 == 1 && djoindetailact2 == 1) ||
-					(tlmsts == "INPG" && tlmsts2 == "AM" && tlmytppn == "Y" && tlmdvs == "Y" && djoinachkrg == 0) ||
-					(tlmsts == "INPG" && tlmsts2 == "KWL" && tlmytppn == "Y" && tlmdvs == "Y")
-				)
-			)
+cgyok (
+	(
+		(tlmsts == "OPEN" && (
+		tlmsts2 == "CEK" || tlmsts2 == "CTGT" ||
+		(tlmplg == g_usrkode && tlmgrup == "SESUAI") ||
+		(tlmplg == g_usrkode && tlmgrup == "TIDAK_SESUAI" &&
+		(djoinpotentialtdksesuai == 1 || djoinperformancetdksesuai == 1))
+		))
+		||
+		(tlmsts == "INPG" && (
+		(tlmdari == g_usrkode && tlmgrup2 == "ACC") ||
+		(tlmdari == g_usrkode && tlmgrup2 == "TACC" &&
+		(tlmjml2 < 1 && (djoinpotentialtdksesuaiKawil == 1 || djoinperformancetdksesuaiKawil == 1) ||
+		tlmjml2 >= 1)) ||
+		(tlmplg == g_usrkode && tlmgrup2 == "TACC" && tlmjml2 >= 1) ||
+		((tlmplg == g_usrkode || tlmdari == g_usrkode) &&
+		(tlmsts2 == "ACHO" || tlmsts2 == "FNL" || tlmsts2 == "RCLS")) ||
+		(tlmplg != g_usrkode && tlmdari != g_usrkode &&
+		dcekkuncian == 1 && dloginhohmc == 0 && djoinHeadHMC == 0) ||
+		((dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) &&
+		tlmbisnis == "TACC" &&
+		(djoinpotentialtdksesuaiHOHMC == 1 || djoinperformancetdksesuaiHOHMC == 1)) ||
+		((dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) &&
+		tlmbisnis == "ACC")
+		))
+	)
+	&&
+	dcekkuncian == 1 && tlmsts != "CLSD" && tlmperdis == 0 &&
+	(
+		(dcek2detail == 0 && tlmytppn == "Y" && tlmdvs == "Y" &&
+		dloginhohmc == 0 && djoinHeadHMC == 0) ||
+		(dcekdetail1 == 1 && dcekdetail2 == 1 && tlmytppn == "Y" && tlmdvs == "Y") ||
+		(dcekdetail1 == 1 && dcekdetail2 == 0 && tlmytppn == "Y") ||
+		(dcekdetail1 == 0 && dcekdetail2 == 1 && tlmdvs == "Y") ||
+		((dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) && tlmytppn == "Y")
+	)
+	)
+	||
+	(
+	(tlmytppn == "Y" || tlmdvs == "Y") &&
+	dcekkuncian == 1 && tlmnoasal != BLANKS
+	)
+	||
+	(
+	tlmperdis == 1 && dcekkuncianact == 1 &&
+	(
+		(tlmsts == "OPEN" && tlmytppn == "Y" && tlmdvs == "Y" &&
+		djoindetailact1 == 1 && djoindetailact2 == 1) ||
+		(tlmsts == "INPG" && tlmsts2 == "AM" && tlmytppn == "Y" &&
+		tlmdvs == "Y" && djoinachkrg == 0) ||
+		(tlmsts == "INPG" && tlmsts2 == "KWL" &&
+		tlmytppn == "Y" && tlmdvs == "Y")
+	)
+)
 
 csesuaisemua		( (djoinpotentialtdksesuai == 0 && djoinperformancetdksesuai == 0) || 
 			(djoinpotentialtdksesuaiKawil == 0 && djoinperformancetdksesuaiKawil == 0) ) &&
@@ -473,7 +509,7 @@ IMAGE(master)
 | |	t.StsDealer	____________			       | |
 | |	t.TglInput	____________			       | |
 | |	t.Thbl		____________			       | |
-| |	t.Week		____________			       | |
+/*| |	t.Week		____________			       | |*/
 | |	t.NamaDealer	____________	____________	       | |
 | |	t.NipPic	____________	____________	       | |
 | |	t.NipKawil	____________	____________	       | |
@@ -517,7 +553,7 @@ tlmsts2			PROTECT				INPUTRI	4		/*STATUS 2*/
 tlmtype1		PROTECT				INPUTRI	5		/*STATUS DEALER WING/TDK*/
 tlmtgl			PROTECT				INPUTRI	6		/*TANGGAL INPUT*/
 tlmtype2		PROTECT				INPUTRI	7		/*THBL*/
-ltlmjml			PROTECT				INPUTRI	8		/*WEEK*/
+/*ltlmjml		PROTECT				INPUTRI	8*/		/*WEEK*/
 tlmcab			ALLCAPS				INPUTRI	9		/*KODE CABANG*/
 lnamadealer		PROTECT				INPUTRI	10		/*NAMA DEALER*/
 tlmplg			PROTECT				INPUTRI	11		/*NIP AM*/
@@ -563,7 +599,7 @@ lposting		TOMBOL				INPUTRI	45		/* HAPUS TANDA POSTING */
 DEFAULTS(master)
 tlmdata			INIT_QUERY_F11		"tlmdata=="TGTBNSDLR"/* || tlmdata=="ACTBNSDLR"*/"
 tlmdata			INIT_ADD		"ACTBNSDLR"
-lversi			INIT			"07092026_v5"
+lversi			INIT			"08092026_v2"
 lupdate			INIT			"Perubahan cek hohmc menggunakan thbl hari ini"
 ltomdet1		INIT			"1d. Detail Input TGT"
 /*ltomdet2		INIT			"2d. PRN"*/
@@ -595,6 +631,7 @@ l1			INIT			1
 l329			INIT			329
 lUBAHNIP		INIT 			UBAHNIP
 lTHBL			INIT			{cthbl}
+/*
 tlmgrup			DFALT_SCAN_BLANKS	BLANKS
 						SESUAI		""
 						TIDAK_SESUAI	""
@@ -607,7 +644,7 @@ tlmbisnis		DFALT_SCAN_BLANKS	BLANKS
 tlmkode			DFALT_SCAN_BLANKS	BLANKS
 						ACC		""
 						TACC		""
-
+*/
 IMAGE(master2)
 /----------------------------------------------------------------\
 | /------------------------------------------------------------\ |
@@ -1203,7 +1240,8 @@ cUpdateDetail		((
 				(dcekkuncian == 1 && tlmsts == "INPG" && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) /* && tldbrg == "PERFORMANCE" */&& dcekkode2 == 1) ||
 				(dcekkuncian == 1 && tlmsts == "INPG" && dloginhocx == 1 && dcekkode == 1) ||
 				(dcekkuncian == 1 && (tlmsts == "OPEN" || tlmsts == "INPG") && tlmsts2 != "ACHO" && dloginhocx == 0 && dloginhohmc == 0 && djoinHeadHMC == 0 && dloginhohmc2 == 0)
-			) && tlmsts != "CLSD" && ((tldsat != "BELUM" && g_usrkode != tlmplg) || g_usrkode == tlmplg) && tlmsts2 != "FNL") || ((g_grpnam=="RI" || g_grpnam =="IT") && tlmsts != "CLSD")
+			) && tlmsts != "CLSD" && ((tldsat != "BELUM" && g_usrkode != tlmplg) || g_usrkode == tlmplg) && tlmsts2 != "FNL" && (tlmtype1 == "WING" || tldstr4 != "5B")) || 
+			((g_grpnam=="RI" || g_grpnam =="IT") && tlmsts != "CLSD")
 
 IMAGE(transt)
 /------t---------------------------t------t--------------t------------t----------t-------t--------t---------t----\
@@ -1440,7 +1478,7 @@ cseltrans	((
 		(
 			((tldstr4 == "4A" || tldstr4 == "4B" || tldstr4 == "4C" || tldstr4 == "7A" || tldstr4 == "7B" || tldstr4 == "8B" || tldstr4 == "9A") && tldjml != tldjml2) ||
 			(tldstr4 != "4A" && tldstr4 != "4B" && tldstr4 != "4C" && tldstr4 != "7A" && tldstr4 != "7B" && tldstr4 != "8B" && tldstr4 != "9A") ||
-			g_usrkode == tlmplg || g_usrkode == tlmdari
+			g_usrkode == tlmplg || g_usrkode == tlmdari || tlmsts == "OPEN" || g_grpnam == "IT" || g_grpnam == "RI"
 		)) ||
 		(
 			tlmnoasal != BLANKS && tldbisnis == tlmnobuk

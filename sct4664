@@ -48,6 +48,8 @@ lACCHOCX	        STRING  21
 lACCHOCX2	        STRING  21
 lACCHOCX3	        STRING  21
 lACCHOCX4	        STRING  21
+lACCHOCXpro	        STRING  21
+lACCHOCXcv	        STRING  21
 ljumlahrevisi	        DFLOAT  8
 lDTTABEL		STRING	11
 lCUSTOMEREXPERIENCE	STRING	21
@@ -226,7 +228,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "030926v7"				/* VERSI APLIKASI */
+lversi			INIT		        "080926v1"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -245,6 +247,8 @@ lACCHOCX		INIT		        {r_string15}				/* VALUE ACC HO CX */
 lACCHOCX2		INIT		        {r_string19}				/* VALUE ACC HO CX */
 lACCHOCX3		INIT		        {r_string20}				/* VALUE ACC HO CX */
 lACCHOCX4		INIT		        {r_string21}				/* VALUE ACC HO CX */
+lACCHOCXpro		INIT		        {r_string28}				/* VALUE ACC HO CX PROMOTION*/
+lACCHOCXcv		INIT		        {r_string29}				/* VALUE ACC HO CX CUSTOMER VOICE*/
 lcurrentnip		INIT		        {r_string6}				/* NIP YANG GY */
 ljumlahrevisi		INIT		        {r_string7}				/* NIP YANG GY */
 lisAdd			INIT		        {r_double1}				/* PENANDA DITAMBAH(1) ATAU TIDAK(0) */
@@ -579,7 +583,7 @@ tlmtype2	        NOCHANGE	        INPUTRI	3
 tlmgrup		        NOCHANGE	        INPUTRI	4
 
 CALCS()
-cstsfinal	        lsts == "INPG" && (lsts2 == "ACHO" || lsts2 == "FNL") && (lcurrentnip == lnipKawil || lcurrentnip == lnipAM) && lisAdd == 0 && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
+cstsfinal	        lsts == "INPG" && (lsts2 == "ACHO" || lsts2 == "FNL") && (lcurrentnip == lnipKawil || lcurrentnip == lnipAM) && lisAdd == 0 && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && lACCHOCXpro != BLANKS && lACCHOCXcv != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
 
 SUBFILE(transg6)
 SFL_LINES(10)
@@ -1262,10 +1266,10 @@ cBLANKS			tlmsts2 		DO_CALC
 
 
 CALCS()
-csalahsatuperwakilanho	((lACCHOHMC != BLANKS || (lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS)) ||
+csalahsatuperwakilanho	((lACCHOHMC != BLANKS || (lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && lACCHOCXpro != BLANKS && lACCHOCXcv != BLANKS)) ||
 			(ltlmnoasal != BLANKS && dcekabkhofinal == 0)
 			)
-cduahosdhacc		((dcekabkduaho == 0 && lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS/* && dcekabkfinal == 1 && dcekabkfinal2 == 1*/) ||
+cduahosdhacc		((dcekabkduaho == 0 && lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && lACCHOCXpro != BLANKS && lACCHOCXcv != BLANKS/* && dcekabkfinal == 1 && dcekabkfinal2 == 1*/) ||
 			(ltlmnoasal != BLANKS && dcekabkhofinal == 0)
 			)
 cFNL			"FNL"
@@ -1323,18 +1327,18 @@ DBCALCS(dcekpsdg6)
 
 CALCS()
 ckawilcekrevisi		(lsts == "INPG" && lsts2 == "RVS1" && lcurrentnip == lnipKawil)
-/*csalahsatuhosdhacc	lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))*/
-csalahsatuhosdhacc1	ltlmnoasal == BLANKS && lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
-csalahsatuhosdhacc2	ltlmnoasal != BLANKS && lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
-csalahsatuhosdhaccpsd0	dcekpsdg6 == 0 && lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
-csalahsatuhosdhaccam	dcekabkduaho == 0 && lsts2 == "ACHO" && lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && dcekabkfinal == 0
-csalahsatuhosdhacckawil	dcekabkduaho == 0 && lsts2 == "ACHO" && lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && dcekabkfinal2 == 0
+/*csalahsatuhosdhacc	lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && lACCHOCXpro != BLANKS && lACCHOCXcv != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))*/
+csalahsatuhosdhacc1	ltlmnoasal == BLANKS && lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && lACCHOCXpro != BLANKS && lACCHOCXcv != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
+csalahsatuhosdhacc2	ltlmnoasal != BLANKS && lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && lACCHOCXpro != BLANKS && lACCHOCXcv != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
+csalahsatuhosdhaccpsd0	dcekpsdg6 == 0 && lsts2 == "FNL" && ((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && lACCHOCXpro != BLANKS && lACCHOCXcv != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0))
+csalahsatuhosdhaccam	dcekabkduaho == 0 && lsts2 == "ACHO" && lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && lACCHOCXpro != BLANKS && lACCHOCXcv != BLANKS && dcekabkfinal == 0
+csalahsatuhosdhacckawil	dcekabkduaho == 0 && lsts2 == "ACHO" && lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && lACCHOCXpro != BLANKS && lACCHOCXcv != BLANKS && dcekabkfinal2 == 0
 /*cselectupdatetld	tldcab == tlmcab && (tldbrg == "PERFORMANCE" || tldbrg == "POTENTIAL") && tlddata == tlmdata && tldth == tlmtype2*/
 cstsc			lsts3 == "CEK"
 cabk8			abkkym == lnipAM && abktgl == g_tgltrn /* && abkkym2 == "ISI TGT BD"*/
 
-csdhfnlam		((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0)) && dcekabkfinal == 0 && dcekstsfnl == 1
-csdhfnlkawil		((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0)) && dcekabkfinal2 == 0 && dcekstsfnl == 1
+csdhfnlam		((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && lACCHOCXpro != BLANKS && lACCHOCXcv != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0)) && dcekabkfinal == 0 && dcekstsfnl == 1
+csdhfnlkawil		((lACCHOHMC != BLANKS && lACCHOCX != BLANKS && lACCHOCX2 != BLANKS && lACCHOCX3 != BLANKS && lACCHOCX4 != BLANKS && lACCHOCXpro != BLANKS && lACCHOCXcv != BLANKS) || (ltlmnoasal != BLANKS && dcekabkhofinal == 0)) && dcekabkfinal2 == 0 && dcekstsfnl == 1
 /*canakan		ltlmnoasal != BLANKS*/
 /*
 MAP(mupdnobuktld)
