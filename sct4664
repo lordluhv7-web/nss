@@ -1655,7 +1655,7 @@ cTotACTPotential	ltotACTPotential + tldperdis 											/* ACT POTENTIAL */
 cTotBonus		ltotbonus + (tldtmp1 * 100000)											/* ESTIMASI TOT BONUS */
 cfinalpoint		lfinalpoint + tldperdis												/* FINAL POINT */
 cTgtTrfLgsg		ltotbonus * 0.9													/* TGT TRF LANGSUNG */
-cesttrflgsg		lfinalpoint / 100 * ltgttrflgsg												/* EST TRF LANGSUNG */
+cesttrflgsg		lfinalpoint / 100 * ltgttrflgsg											/* EST TRF LANGSUNG */
 cestbondev		ltotbonus * 0.1													/* EST BONUS DEV */
 cestbontac		ltotbonus - lestbondev - lesttrflgsg												/* EST BONUS TAC */
 cpersentflgsg		lesttrflgsg / ltotbonus * 100											/* PERSEN TRF LANGSUNG*/
@@ -1663,29 +1663,29 @@ cpersentflgsg		lesttrflgsg / ltotbonus * 100											/* PERSEN TRF LANGSUNG*/
 MAP(mhitungact)
 cTotACTPerformance	ltotACTPerformance	DO_CALC_IF cACT1
 cTotACTPotential	ltotACTPotential	DO_CALC_IF cACT2
-cTotBonus		ltotbonus		DO_CALC_IF ccondTotBonus
-cfinalpoint		lfinalpoint		DO_CALC_IF ccondfinalpoint
-cTgtTrfLgsg		ltgttrflgsg		DO_CALC
-cesttrflgsg		lesttrflgsg		DO_CALC
-cestbondev		lestbondev		DO_CALC
-cestbontac		lestbontac		DO_CALC
-cpersentflgsg		lpersentflgsg		DO_CALC_IF cpersentflgsgtdknol
-cnol			lpersentflgsg		DO_CALC_IF cpersentflgsgnol
+cTotBonus		ltotbonus		DO_CALC_IF ccondTotBonus        /* est tot bonus */
+cfinalpoint		lfinalpoint		DO_CALC_IF ccondfinalpoint      /* final point */
+cTgtTrfLgsg		ltgttrflgsg		DO_CALC                         /* tgt tf langsung */
+cesttrflgsg		lesttrflgsg		DO_CALC                         /* est tf langsung */
+cestbondev		lestbondev		DO_CALC                         /* est bonus dev */
+cestbontac		lestbontac		DO_CALC                         /* est bonus tac */
+cpersentflgsg		lpersentflgsg		DO_CALC_IF cpersentflgsgtdknol  /* % tf langsung */
+cnol			lpersentflgsg		DO_CALC_IF cpersentflgsgnol     /* % tf langsung */
 DEBUG	ldum	        ldum	                REPLACE
 
 MAP(mupdTotACT)
 ltotACTPerformance	tlmtotppn		REPLACE
-ltotbonus		tlmtothrg		REPLACE
-lfinalpoint		tlmtotal		REPLACE
-lestbondev		tlmtotdis		REPLACE
-lestbontac		tlmperdisd		REPLACE
-lpersentflgsg		tlmjml2			REPLACE
+ltotbonus		tlmtothrg		REPLACE         /* est tot bonus */
+lfinalpoint		tlmtotal		REPLACE         /* final point */
+lestbondev		tlmtotdis		REPLACE         /* est bonus dev */
+lestbontac		tlmperdisd		REPLACE         /* est bonus tac */
+lpersentflgsg		tlmjml2			REPLACE         /* % tf langsung */
 DEBUG	ldum	        ldum	                REPLACE
 
 MAP(mupdTotACT2)
 ltotACTPotential	nhmhrgpasar		REPLACE
-ltgttrflgsg		nhmcairpinj		REPLACE	
-lesttrflgsg		nhmmaxcair		REPLACE
+ltgttrflgsg		nhmcairpinj		REPLACE	        /* tgt tf langsung */
+lesttrflgsg		nhmmaxcair		REPLACE         /* est tf langsung */
 
 CALCS()
 cselectcxhead		tbdkettype == "CXDIVHEAD"
