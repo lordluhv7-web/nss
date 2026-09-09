@@ -1261,7 +1261,7 @@ lTGL		INIT	TGL
 ltgl_awl        INIT    {g_tgltrn}
 ltgl_akh        INIT    {g_tgltrn}
 lINPG           INIT    INPG
-lversi		INIT	070926
+lversi		INIT	090926
 ldtmangkir	INIT	DTMANGKIR
 lajusubs	INIT	AJUSUBS
 lcasb		INIT	CASB
@@ -6490,7 +6490,7 @@ DBC_MAP                 mmapminggu
 
 
 CALCS()
-chariiniact     ltglactibd == g_tgltrn
+chariiniact     ltglactibd < g_tgltrn
 cM1             "1"
 cM2             "2"
 cM3             "3"
