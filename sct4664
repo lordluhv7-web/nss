@@ -228,7 +228,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "100926v2"				/* VERSI APLIKASI */
+lversi			INIT		        "100926v5"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -1517,7 +1517,7 @@ cactinpg3		lisAdd == 1 && lsts == "INPG" && (lsts2 == "KWL" || lsts2 == "DCA")
 cactinpg3_2		lisAdd == 1 && tlmsts == "CLSD" && tlmsts2 == "CLSD"
 cactinpg4_2		lisAdd == 1 && tlmsts == "INPG" && tlmsts2 == "DCA" && djoinDCAOPR == 1
 cactinpg4_AM		lisAdd == 1 && tlmsts == "INPG" && tlmsts2 == "AM" && lnipAM == BLANKS && lnipKawil == BLANKS
-cactinpg4_Kawil		lisAdd == 1 && tlmsts == "INPG" && tlmsts2 == "Kawil" && lnipKawil == BLANKS
+cactinpg4_Kawil		lisAdd == 1 && tlmsts == "INPG" && (tlmsts2 == "Kawil" || tlmsts2 == "KWL") && lnipKawil == BLANKS
 cAM			"AM"
 cKAWIL			"KWL"
 cDCAOPR			"DCA"
@@ -2607,7 +2607,7 @@ c0                      tldhrgnet               DO_CALC_IF cachmd1
 c50                     tldhrgnet               DO_CALC_IF cachmd2
 c75                     tldhrgnet               DO_CALC_IF cachmd3
 c90                     tldhrgnet               DO_CALC_IF cachmd4
-c100                    tldhrgnet               DO_CALC_IF cachmd5
+tldsubtot               tldhrgnet               REPLACE_IF cachmd5
 tldsubtot               tldhrgnet               REPLACE_IF cachmd6
 /*c100                    tldhrgnet               DO_CALC_IF cachmd7*/
 

@@ -881,7 +881,7 @@ c0                      tldhrgnet               DO_CALC_IF cachmd1
 c50                     tldhrgnet               DO_CALC_IF cachmd2
 c75                     tldhrgnet               DO_CALC_IF cachmd3
 c90                     tldhrgnet               DO_CALC_IF cachmd4
-c100                    tldhrgnet               DO_CALC_IF cachmd5
+tldsubtot               tldhrgnet               REPLACE_IF cachmd5
 tldsubtot               tldhrgnet               REPLACE_IF cachmd6
 /*c100                    tldhrgnet               DO_CALC_IF cachmd7*/
 
