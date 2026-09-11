@@ -404,17 +404,15 @@ IMAGE(master)
 /-----------------------------------------------------------------------------------\
 | /-------------------------------------------------------------------------------\ |
 | |			________________		                          | |
-| |	t.NoBuk		________________		       	                  | |
-| |	t.Sts		____________ _____________	       	                  | |
-| |	t.StsDealer	____________			                          | |
-| |	t.TglInput	____________			                          | |
-| |	t.Thbl		____________			                          | |
-| |	t.Week		____________	____________	                          | |
-| |	t.NamaDealer	____________	____________	               	          | |
-| |	t.NipNSOH	____________	____________	               	          | |
-| |	t.NipAM		____________	____________	               	          | |
-| |	t.NipKawil	____________	____________	               	          | |
-| |	t.NipDCAOPR	____________	____________	               	          | |
+| |	t.NoBuk		________________           t.Sts           _________ _____| |
+| |	t.StsDealer	____________		   t.StsRev        _______________| |
+| |	t.TglInput	____________		   t.Thbl          _______________| |
+| |	t.Week		____________	                                          | |
+| |	t.NamaDealer	____________	           t.NamaDealer    _______________| |
+| |	t.NipNSOH	____________	           t.NamaNSOH      _______________| |
+| |	t.NipAM		____________	           t.NamaAM        _______________| |
+| |	t.NipKawil	____________	           t.NamaKawil     _______________| |
+| |	t.NipDCAOPR	____________	           t.NamaDCAOPR    _______________| |
 | \-------------------------------------------------------------------------------/ |
 | /*	t.SdhAdaACT	____________	*/			                    |
 | /-------------------------------------------------------------------------------\ |
@@ -437,10 +435,10 @@ tlmnobuk		PROTECT			INPUTRI	2		/*NOBUK*/
 tlmsts			PROTECT			INPUTRI	3		/*STATUS*/
 tlmsts2			PROTECT			INPUTRI	4		/*STATUS 2*/
 tlmtype1		PROTECT			INPUTRI	5		/*STATUS DEALER WING/TDK*/
-tlmtgl			PROTECT			INPUTRI	6		/*TANGGAL INPUT*/
-tlmtype2		PROTECT			INPUTRI	7		/*THBL*/
-tlmperppn		PROTECT			INPUTRI	8		/*WEEK*/
-tlmbisnis		PROTECT			INPUTRI	9		/*STATUS REVIEW*/
+tlmbisnis		PROTECT			INPUTRI	6		/*STATUS REVIEW*/
+tlmtgl			PROTECT			INPUTRI	7		/*TANGGAL INPUT*/
+tlmtype2		PROTECT			INPUTRI	8		/*THBL*/
+tlmperppn		PROTECT			INPUTRI	9		/*WEEK*/
 tlmcab			ALLCAPS			INPUTRI	10		/*KODE CABANG*/
 lnamadealer		PROTECT			INPUTRI	11		/*NAMA DEALER*/
 tlmkode			PROTECT			INPUTRI	12		/*NIP NSOH*/
@@ -501,7 +499,7 @@ lmnexthitungmaster	INIT			"mnexthitungmaster"
 tlmdata			INIT_QUERY_F11		"tlmdata=="ACTBNSDLR""
 tlmdata			INIT_ADD		"ACTBNSDLR"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT			"10092026v3"
+lversi			INIT			"11092026v3"
 ltomdet1		INIT			"1d. Detail Input ACT"
 ltomdet2		INIT			"2d. Informasi"
 lACTBONUSDEALER		INIT			"ACTBONUSDEALER"	/*UNTUK TEMPLATE*/
@@ -1050,7 +1048,7 @@ HOOKS(transt)
 CLICKED                 cur_field=ltomsdhact    	DO_SPCALCS  ssdhisiact
 
 CALCS()
-cseltrans  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tlddata == tlmdata && tldth == tlmtype2 && tldperdis7 == tlmperppn
+cseltrans  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tlddata == tlmdata && tldth == tlmtype2 && (tldperdis7 == tlmperppn || tldperdis7 == 31)
 
 SUBFILE(trans)
 SFL_LINES(18)
