@@ -1261,7 +1261,7 @@ lTGL		INIT	TGL
 ltgl_awl        INIT    {g_tgltrn}
 ltgl_akh        INIT    {g_tgltrn}
 lINPG           INIT    INPG
-lversi		INIT	090926
+lversi		INIT	"110926v2"
 ldtmangkir	INIT	DTMANGKIR
 lajusubs	INIT	AJUSUBS
 lcasb		INIT	CASB
@@ -4378,7 +4378,7 @@ DBC_MAP         msgmdcaopr
 
 CALCS()
 cpil22          lpil == 22
-cselpil22       cablevel3 == "DEALER"
+cselpil22       cablevel3 == "DEALER" && cabkode != "MMS11" && cabkode != "SBT11" && cabkode != "TID11"
 
 cdjoinsgmnsoh   djoinsgmnsoh == 1 || djoinsgmnsohead == 1
 cdjoinsgmKawil  djoinsgmKawil == 1
@@ -6372,9 +6372,13 @@ DBC_MAP         mgetnip
 MAP(mgetnipNSOH)
 sgmstr5		lnipNSOH	REPLACE
 
+CALCS()
+cnipnsoh	sgmtype == "NSOH" || sgmtype == "NSOHEAD"
+
 DBCALCS(dgetnipNSOH)
 DBC_COMMAND	JOIN
-DBC_TARGET	sgmdatplgth   gv_dtpiccab lH1 lcab lthblibdact lNSOH
+DBC_TARGET	sgmdatplgth   gv_dtpiccab lH1 lcab lthblibdact/* lNSOH*/
+DBC_SELECT	cnipnsoh
 DBC_MAP		mgetnipNSOH
 
 /*
