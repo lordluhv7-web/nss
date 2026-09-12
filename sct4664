@@ -187,6 +187,9 @@ ltgmkeh3		STRING	2
 ltglt1			DATE	4
 ltglt2			DATE	4
 ltglt3			DATE	4
+lskipcxnet              STRING  5
+lskipcxcv               STRING  5
+lACC                    STRING  5
 
 
 
@@ -228,7 +231,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "100926v5"				/* VERSI APLIKASI */
+lversi			INIT		        "120926v1"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -290,6 +293,7 @@ ltlmnoasal		INIT	                {r_string25}
 lCXDIVHEAD              INIT                    CXDIVHEAD
 lCXHO                   INIT                    "CXHO"
 lDCAOPR                 INIT                    "DCAOPR_MKTHEAD"
+lACC                    INIT                    "ACC"
 
 /***********************************************************************************************/
 CALCS()
@@ -391,7 +395,7 @@ DBCALCS(dcekdetailygbarusudah2)
 CALCS()
 cdjoinHOHMC             djoinHOHMC == 1 && (ltlmnoasal == BLANKS || (ltlmnoasal != BLANKS && dcekdetailygbarusudahhmc >= 0 && lJMLINDIKATOR > 0))
 cdjoinHeadHMC		djoinHeadHMC == 1 && (ltlmnoasal == BLANKS || (ltlmnoasal != BLANKS && dcekdetailygbarusudahhmc >= 0 && lJMLINDIKATOR > 0))
-cdjoinHOCX		ltlmnoasal == BLANKS || (ltlmnoasal != BLANKS && dcekdetailygbarusudahcx >= 0 && lJMLINDIKATOR > 0)
+cdjoinHOCX		(ltlmnoasal == BLANKS || (ltlmnoasal != BLANKS && dcekdetailygbarusudahcx >= 0 && lJMLINDIKATOR > 0)) && ((tbtket != "CXNETWORK" && tbtket != "CUSTOMERVOICE") || (tbtket == "CXNETWORK" && lskipcxnet == BLANKS) || (tbtket == "CUSTOMERVOICE" && lskipcxcv == BLANKS))
 
 /* TRANS TGT */
 /* KUNCIAN PERTAMA KALI */
@@ -1406,12 +1410,102 @@ DO_LIB                          ap_dbclc(DNAME dlepasabkKawilRINP, DCOMMAND UPDA
 DO_LIB                          ap_dbclc(DNAME dkunciabkAM, DCOMMAND ADD, DFILE abk,DMAP maddabkAM); /* KUNCI AM */
 dupdtlmtandabaca
 
-SPCALCS(sptransg2)              /* SAAT KAWIL LANGSUNG ACC */
-dlepasabkKawil                  /* LEPAS KUNCIAN Kawil */
-dlepasabkKawilRINP              /* LEPAS KUNCIAN Kawil */
-DO_LIB_IF cdjoinHOHMC           ap_dbclc(DNAME dkunciabkHOHMC, DCOMMAND ADD, DFILE abk,DMAP maddabkHOHMC); /* KUNCI HO HMC */
-DO_LIB_IF cdjoinHeadHMC         ap_dbclc(DNAME dkunciabkHeadHMC, DCOMMAND ADD, DFILE abk,DMAP maddabkHeadHMC); /* KUNCI HO HMC */
-DO_LIB_IF ckawilcekrevisi	ap_dbclc(DNAME dupdtlmsts2setelahrevisi,DCOMMAND UPDATE,DTARGET tlmbukidx lnobuk,DMAP mupdtlmstatus2setelahrevisi); /* STATUS 2 DIBUAT BLANK LAGI */
+CALCS()
+cseljointgtnet          tldstr4 == "7A" && (tldjml == tldjml2 || tldjml2 == BLANKS) && tldbisnis == BLANKS
+cseljointgtcv           tldstr4 == "7B" && (tldjml == tldjml2 || tldjml2 == BLANKS) && tldbisnis == BLANKS
+cseljointgtnetanak      tldstr4 == "7A" && (tldjml == tldjml2 || tldjml2 == BLANKS) && tldbisnis == tlmnobuk
+cseljointgtcvanak       tldstr4 == "7B" && (tldjml == tldjml2 || tldjml2 == BLANKS) && tldbisnis == tlmnobuk
+
+DBCALCS(djointgtnet)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tldbukurtidx    tlmnobuk 
+        DBC_SELECT      cseljointgtnet
+
+DBCALCS(djointgtcv)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tldbukurtidx    tlmnobuk 
+        DBC_SELECT      cseljointgtcv
+
+DBCALCS(djointgtnetanak)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tldbukurtidx    tlmnoasal 
+        DBC_SELECT      cseljointgtnetanak
+
+DBCALCS(djointgtcvanak)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tldbukurtidx    tlmnoasal 
+        DBC_SELECT      cseljointgtcvanak
+
+CALCS()
+cdjointgtnet            tlmnoasal == BLANKS && djointgtnet == 1
+cdjointgtcv             tlmnoasal == BLANKS && djointgtcv == 1
+cdjointgtnetanak        tlmnoasal != BLANKS && djointgtnetanak == 1
+cdjointgtcvanak         tlmnoasal != BLANKS && djointgtcvanak == 1
+
+MAP(mapmapg2)
+        gv_ok           lskipcxnet      REPLACE_IF cdjointgtnet
+        gv_ok           lskipcxcv       REPLACE_IF cdjointgtcv
+        gv_ok           lskipcxnet      REPLACE_IF cdjointgtnetanak
+        gv_ok           lskipcxcv       REPLACE_IF cdjointgtcvanak
+DEBUG   ldum            ldum            REPLACE 
+
+CALCS()
+ctlmnoasalisi           tlmnoasal != BLANKS && (lskipcxnet != BLANKS || lskipcxcv != BLANKS)
+cskipcxnet              lskipcxnet != BLANKS 
+cskipcxcv               lskipcxcv != BLANKS
+
+MAP(mupdmaster1) 
+        lACC            tlmusrapr       REPLACE_IF cskipcxnet 
+        cFNL            tlmsts2         DO_CALC_IF ctlmnoasalisi
+DEBUG   ldum            ldum            REPLACE
+
+MAP(mupdspkmaster1) 
+        lACC            spkkat2         REPLACE_IF cskipcxcv 
+DEBUG   ldum            ldum            REPLACE
+
+MAP(maddabkfnl1)
+lKUNCIABSEN             abkdata                 REPLACE
+lscr                    abkscr                  REPLACE
+gv_INPG                 abksts                  REPLACE_IF ckrg16
+cRINP                   abksts                  DO_CALC_IF clbh16
+cRINP                   abksts                  DO_CALC_IF chmin2
+lnobuk                  abknobuk                REPLACE
+tlmdari                 abkkym                  REPLACE
+lCEKTGTFINAL   	        abkkym2                 REPLACE
+cbesok                  abktgl                  DO_CALC_IF clbh16
+g_tgltrn                abktgl                  REPLACE_IF ckrg16
+ctgl1                   lawlblndpn              DO_CALC_IF chmin2
+cawlbln                 lawlblndpn              DO_CALC_IF chmin2
+lawlblndpn              abktgl                  REPLACE_IF chmin2
+DEBUG   ldum            ldum                    REPLACE
+
+MAP(maddabkfnl2)
+lKUNCIABSEN             abkdata                 REPLACE
+lscr                    abkscr                  REPLACE
+gv_INPG                 abksts                  REPLACE_IF ckrg16
+cRINP                   abksts                  DO_CALC_IF clbh16
+cRINP                   abksts                  DO_CALC_IF chmin2
+lnobuk                  abknobuk                REPLACE
+tlmplg                  abkkym                  REPLACE
+lCEKTGTFINAL   	        abkkym2                 REPLACE
+cbesok                  abktgl                  DO_CALC_IF clbh16
+g_tgltrn                abktgl                  REPLACE_IF ckrg16
+ctgl1                   lawlblndpn              DO_CALC_IF chmin2
+cawlbln                 lawlblndpn              DO_CALC_IF chmin2
+lawlblndpn              abktgl                  REPLACE_IF chmin2
+DEBUG   ldum            ldum                    REPLACE
+
+SPCALCS(sptransg2)                                                                                                                                      /* SAAT KAWIL LANGSUNG ACC */
+dlepasabkKawil                                                                                                                                          /* LEPAS KUNCIAN Kawil */
+dlepasabkKawilRINP                                                                                                                                      /* LEPAS KUNCIAN Kawil */
+DO_LIB                          ap_dbclc(DNAME dmapmapg2,DCOMMAND MAPMAP,DMAP mapmapg2);
+DO_LIB_IF ckawilcekrevisi	ap_dbclc(DNAME dupdtlmsts2setelahrevisi,DCOMMAND UPDATE,DTARGET tlmbukidx lnobuk,DMAP mupdtlmstatus2setelahrevisi);     /* STATUS 2 DIBUAT BLANK LAGI */
+DO_LIB                          ap_dbclc(DNAME dupdmaster1,DCOMMAND UPDATE,DTARGET tlmotoidx tlmoto,DMAP mupdmaster1);
+DO_LIB                          ap_dbclc(DNAME dupdspkmaster1,DCOMMAND UPDATE_RANGE,DTARGET spkdatbuktyp gt_extra tlmnobuk,DMAP mupdspkmaster1);
+DO_LIB_IF ctlmnoasalisi         ap_dbclc(DNAME daddabkfnl1,DCOMMAND ADD,DFILE abk,DMAP maddabkfnl1);
+DO_LIB_IF ctlmnoasalisi         ap_dbclc(DNAME daddabkfnl2,DCOMMAND ADD,DFILE abk,DMAP maddabkfnl2);
+DO_LIB_IF cdjoinHOHMC           ap_dbclc(DNAME dkunciabkHOHMC, DCOMMAND ADD, DFILE abk,DMAP maddabkHOHMC);                                              /* KUNCI HO HMC */
+DO_LIB_IF cdjoinHeadHMC         ap_dbclc(DNAME dkunciabkHeadHMC, DCOMMAND ADD, DFILE abk,DMAP maddabkHeadHMC);                                          /* KUNCI HO HMC */
 dupdtlmtandabaca
 
 MAP(mbug)
