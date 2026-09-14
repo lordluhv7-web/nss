@@ -596,8 +596,8 @@ lposting		TOMBOL				INPUTRI	45		/* HAPUS TANDA POSTING */
 DEFAULTS(master)
 tlmdata			INIT_QUERY_F11		"tlmdata=="TGTBNSDLR"/* || tlmdata=="ACTBNSDLR"*/"
 tlmdata			INIT_ADD		"ACTBNSDLR"
-lversi			INIT			"11092026_v2"
-lupdate			INIT			"Perubahan cek hohmc menggunakan thbl hari ini"
+lversi			INIT			"14092026_v5"
+lupdate			INIT			"detail belum tetap ditampilkan tapi permit dibatasi"
 ltomdet1		INIT			"1d. Detail Input TGT"
 /*ltomdet2		INIT			"2d. PRN"*/
 lTGTBONUSDEALER		INIT			"TGTBONUSDEALER"	/*UNTUK TEMPLATE*/
@@ -1232,7 +1232,7 @@ cUpdateDetail		((
 				(dcekkuncian == 1 && tlmsts == "INPG" && (dloginhohmc == 1 || djoinHeadHMC == 1 || dloginhohmc2 == 1) /* && tldbrg == "PERFORMANCE" */&& dcekkode2 == 1) ||
 				(dcekkuncian == 1 && tlmsts == "INPG" && dloginhocx == 1 && dcekkode == 1) ||
 				(dcekkuncian == 1 && (tlmsts == "OPEN" || tlmsts == "INPG") && tlmsts2 != "ACHO" && dloginhocx == 0 && dloginhohmc == 0 && djoinHeadHMC == 0 && dloginhohmc2 == 0)
-			) && tlmsts != "CLSD" && ((tldsat != "BELUM" && g_usrkode != tlmplg) || g_usrkode == tlmplg) && tlmsts2 != "FNL" && (tlmtype1 == "WING" || (tldstr4 != "5B" && tldstr4 != "5B-1" && tldstr4 != "5B-2"))) || 
+			) && tlmsts != "CLSD" && (tldsat != "BELUM" || (tldsat == "BELUM" && tldbisnis == tlmnobuk) || g_usrkode == tlmplg) && tlmsts2 != "FNL" && (tlmtype1 == "WING" || (tldstr4 != "5B" && tldstr4 != "5B-1" && tldstr4 != "5B-2"))) || 
 			((g_grpnam=="RI" || g_grpnam =="IT") && tlmsts != "CLSD")
 
 IMAGE(transt)
@@ -1466,10 +1466,10 @@ cseltrans	((
 			(g_usrkode == tlmplg || g_usrkode == tlmdari || g_grpnam == "IT"|| g_grpnam == "RI" || tlmsts == "OPEN" || tlmsts == "CLSD") ||
 			(dloginhohmc == 1 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D" || tldstr4 == "3")) ||
 			(dlihatdetail == 1)
-		) && tlmnoasal == BLANKS && (tldbisnis == BLANKS || tlmsts == "CLSD") && 
+		) && tlmnoasal == BLANKS && 
 		(
-			((tldstr4 == "4A" || tldstr4 == "4B" || tldstr4 == "4C" || tldstr4 == "7A" || tldstr4 == "7B" || tldstr4 == "8B" || tldstr4 == "9A") && tldjml != tldjml2) ||
-			(tldstr4 != "4A" && tldstr4 != "4B" && tldstr4 != "4C" && tldstr4 != "7A" && tldstr4 != "7B" && tldstr4 != "8B" && tldstr4 != "9A") ||
+			((tldstr4 == "4A" || tldstr4 == "4B" || tldstr4 == "4C" /*|| tldstr4 == "7A" || tldstr4 == "7B" */|| tldstr4 == "8B" || tldstr4 == "9A") && tldjml != tldjml2) ||
+			(tldstr4 != "4A" && tldstr4 != "4B" && tldstr4 != "4C" /*&& tldstr4 != "7A" && tldstr4 != "7B" */&& tldstr4 != "8B" && tldstr4 != "9A") ||
 			g_usrkode == tlmplg || g_usrkode == tlmdari || tlmsts == "OPEN" || g_grpnam == "IT" || g_grpnam == "RI"
 		)) ||
 		(
