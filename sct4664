@@ -189,6 +189,7 @@ ltglt2			DATE	4
 ltglt3			DATE	4
 lskipcxnet              STRING  5
 lskipcxcv               STRING  5
+lskipcxdvh              STRING  5
 lACC                    STRING  5
 
 
@@ -231,7 +232,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "120926v1"				/* VERSI APLIKASI */
+lversi			INIT		        "140926v1"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -395,7 +396,7 @@ DBCALCS(dcekdetailygbarusudah2)
 CALCS()
 cdjoinHOHMC             djoinHOHMC == 1 && (ltlmnoasal == BLANKS || (ltlmnoasal != BLANKS && dcekdetailygbarusudahhmc >= 0 && lJMLINDIKATOR > 0))
 cdjoinHeadHMC		djoinHeadHMC == 1 && (ltlmnoasal == BLANKS || (ltlmnoasal != BLANKS && dcekdetailygbarusudahhmc >= 0 && lJMLINDIKATOR > 0))
-cdjoinHOCX		(ltlmnoasal == BLANKS || (ltlmnoasal != BLANKS && dcekdetailygbarusudahcx >= 0 && lJMLINDIKATOR > 0)) && ((tbtket != "CXNETWORK" && tbtket != "CUSTOMERVOICE") || (tbtket == "CXNETWORK" && lskipcxnet == BLANKS) || (tbtket == "CUSTOMERVOICE" && lskipcxcv == BLANKS))
+cdjoinHOCX		(ltlmnoasal == BLANKS || (ltlmnoasal != BLANKS && dcekdetailygbarusudahcx >= 0 && lJMLINDIKATOR > 0)) && ((tbtket != "CXNETWORK" && tbtket != "CUSTOMERVOICE" && tbtket != "CXDIVHEAD") || (tbtket == "CXNETWORK" && lskipcxnet == BLANKS) || (tbtket == "CUSTOMERVOICE" && lskipcxcv == BLANKS) || (tbtket == "CXDIVHEAD" && lskipcxdvh == BLANKS))
 
 /* TRANS TGT */
 /* KUNCIAN PERTAMA KALI */
@@ -1413,8 +1414,10 @@ dupdtlmtandabaca
 CALCS()
 cseljointgtnet          tldstr4 == "7A" && (tldjml == tldjml2 || tldjml2 == BLANKS) && tldbisnis == BLANKS
 cseljointgtcv           tldstr4 == "7B" && (tldjml == tldjml2 || tldjml2 == BLANKS) && tldbisnis == BLANKS
+cseljointgtdvh          tldstr4 == "9B" && (tldjml == tldjml2 || tldjml2 == BLANKS) && tldbisnis == BLANKS
 cseljointgtnetanak      tldstr4 == "7A" && (tldjml == tldjml2 || tldjml2 == BLANKS) && tldbisnis == tlmnobuk
 cseljointgtcvanak       tldstr4 == "7B" && (tldjml == tldjml2 || tldjml2 == BLANKS) && tldbisnis == tlmnobuk
+cseljointgtdvhanak      tldstr4 == "9B" && (tldjml == tldjml2 || tldjml2 == BLANKS) && tldbisnis == tlmnobuk
 
 DBCALCS(djointgtnet)
         DBC_COMMAND     JOIN
@@ -1436,26 +1439,42 @@ DBCALCS(djointgtcvanak)
         DBC_TARGET      tldbukurtidx    tlmnoasal 
         DBC_SELECT      cseljointgtcvanak
 
+DBCALCS(djointgtdvh)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tldbukurtidx    tlmnobuk 
+        DBC_SELECT      cseljointgtdvh
+
+DBCALCS(djointgtdvhanak)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tldbukurtidx    tlmnoasal 
+        DBC_SELECT      cseljointgtdvhanak
+
 CALCS()
 cdjointgtnet            tlmnoasal == BLANKS && djointgtnet == 1
 cdjointgtcv             tlmnoasal == BLANKS && djointgtcv == 1
+cdjointgtdvh            tlmnoasal == BLANKS && djointgtdvh == 1
 cdjointgtnetanak        tlmnoasal != BLANKS && djointgtnetanak == 1
 cdjointgtcvanak         tlmnoasal != BLANKS && djointgtcvanak == 1
+cdjointgtdvhanak        tlmnoasal != BLANKS && djointgtdvhanak == 1
 
 MAP(mapmapg2)
         gv_ok           lskipcxnet      REPLACE_IF cdjointgtnet
         gv_ok           lskipcxcv       REPLACE_IF cdjointgtcv
         gv_ok           lskipcxnet      REPLACE_IF cdjointgtnetanak
         gv_ok           lskipcxcv       REPLACE_IF cdjointgtcvanak
+        gv_ok           lskipcxdvh      REPLACE_IF cdjointgtdvh
+        gv_ok           lskipcxdvh      REPLACE_IF cdjointgtdvhanak
 DEBUG   ldum            ldum            REPLACE 
 
 CALCS()
-ctlmnoasalisi           tlmnoasal != BLANKS && (lskipcxnet != BLANKS || lskipcxcv != BLANKS)
+ctlmnoasalisi           tlmnoasal != BLANKS && (lskipcxnet != BLANKS || lskipcxcv != BLANKS || lskipcxdvh != BLANKS)
 cskipcxnet              lskipcxnet != BLANKS 
 cskipcxcv               lskipcxcv != BLANKS
+cskipcxdvh              lskipcxdvh != BLANKS
 
 MAP(mupdmaster1) 
-        lACC            tlmusrapr       REPLACE_IF cskipcxnet 
+        lACC            tlmusrapr       REPLACE_IF cskipcxnet
+        lACC            tlmkode         REPLACE_IF cskipcxdvh 
         cFNL            tlmsts2         DO_CALC_IF ctlmnoasalisi
 DEBUG   ldum            ldum            REPLACE
 
