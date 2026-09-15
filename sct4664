@@ -1212,12 +1212,14 @@ DBCALCS(dscanjmlabkHOCX2)
 CALCS()
 clusa                   g_tgltrn + 2
 ckrg16_new1             SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && ljmlHMCINPG < 2 /*30*/
-ckrg16_new2             SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && ljmlHMCINPG >= 2 /*30*/ 
+ckrg16_new2krg          SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && dscanjmlabkHMC2 >= 0 && ljmlHMCINPG >= 2 && ljmlHMCBESOK < 2 /*30*/
+ckrg16_new2lbh          SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && dscanjmlabkHMC2 >= 0 && ljmlHMCINPG >= 2 && ljmlHMCBESOK >= 2 /*30*/
 clbh16_new1             SYSTIME > ljam && dscanjmlabkHMC2 >= 0 && ljmlHMCBESOK < 2 /*30*/
 clbh16_new2             SYSTIME > ljam && dscanjmlabkHMC2 >= 0 && ljmlHMCBESOK >= 2 /*30*/
 
 ckrg16_new1b            SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && ljmlHOCXINPG < 2 /*30*/
-ckrg16_new2b            SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && ljmlHOCXINPG >= 2 /*30*/ 
+ckrg16_new2bkrg         SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && dscanjmlabkHOCX2 >= 0 && ljmlHOCXINPG >= 2 && ljmlHOCXBESOK < 2 /*30*/ 
+ckrg16_new2blbh         SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && dscanjmlabkHOCX2 >= 0 && ljmlHOCXINPG >= 2 && ljmlHOCXBESOK >= 2 /*30*/ 
 clbh16_new1b            SYSTIME > ljam && dscanjmlabkHOCX2 >= 0 && ljmlHOCXBESOK < 2 /*30*/
 clbh16_new2b            SYSTIME > ljam && dscanjmlabkHOCX2 >= 0 && ljmlHOCXBESOK >= 2 /*30*/
 
@@ -1226,7 +1228,8 @@ MAP(maddabkHOHMC)
 lKUNCIABSEN             abkdata                 REPLACE
 lscr                    abkscr                  REPLACE
 gv_INPG                 abksts                  REPLACE_IF ckrg16_new1
-cRINP                   abksts                  DO_CALC_IF ckrg16_new2
+cRINP                   abksts                  DO_CALC_IF ckrg16_new2krg
+cRINP                   abksts                  DO_CALC_IF ckrg16_new2lbh
 cRINP                   abksts                  DO_CALC_IF clbh16_new1
 cRINP                   abksts                  DO_CALC_IF clbh16_new2
 cRINP                   abksts                  DO_CALC_IF chmin2
@@ -1235,7 +1238,8 @@ lnipHOHMC               abkkym                  REPLACE
 ckodeHO   		abkkym2                 DO_CALC
 ckodeHOp   		abkkym2                 DO_CALC_IF cketpending
 g_tgltrn                abktgl                  REPLACE_IF ckrg16_new1
-cbesok                  abktgl                  DO_CALC_IF ckrg16_new2
+cbesok                  abktgl                  DO_CALC_IF ckrg16_new2krg
+clusa                   abktgl                  DO_CALC_IF ckrg16_new2lbh
 cbesok                  abktgl                  DO_CALC_IF clbh16_new1
 clusa                   abktgl                  DO_CALC_IF clbh16_new2
 ctgl1                   lawlblndpn              DO_CALC_IF chmin2
@@ -1247,7 +1251,8 @@ MAP(maddabkHeadHMC)
 lKUNCIABSEN             abkdata                 REPLACE
 lscr                    abkscr                  REPLACE
 gv_INPG                 abksts                  REPLACE_IF ckrg16_new1
-cRINP                   abksts                  DO_CALC_IF ckrg16_new2
+cRINP                   abksts                  DO_CALC_IF ckrg16_new2krg
+cRINP                   abksts                  DO_CALC_IF ckrg16_new2lbh
 cRINP                   abksts                  DO_CALC_IF clbh16_new1
 cRINP                   abksts                  DO_CALC_IF clbh16_new2
 cRINP                   abksts                  DO_CALC_IF chmin2
@@ -1256,7 +1261,8 @@ lnipHeadHMC             abkkym                  REPLACE
 ckodeHO   		abkkym2                 DO_CALC
 ckodeHOp   		abkkym2                 DO_CALC_IF cketpending
 g_tgltrn                abktgl                  REPLACE_IF ckrg16_new1
-cbesok                  abktgl                  DO_CALC_IF ckrg16_new2
+cbesok                  abktgl                  DO_CALC_IF ckrg16_new2krg
+clusa                   abktgl                  DO_CALC_IF ckrg16_new2lbh
 cbesok                  abktgl                  DO_CALC_IF clbh16_new1
 clusa                   abktgl                  DO_CALC_IF clbh16_new2
 ctgl1                   lawlblndpn              DO_CALC_IF chmin2
@@ -1270,7 +1276,8 @@ MAP(maddabkHOCX)
 lKUNCIABSEN             abkdata                 REPLACE
 lscr                    abkscr                  REPLACE
 gv_INPG                 abksts                  REPLACE_IF ckrg16_new1b
-cRINP                   abksts                  DO_CALC_IF ckrg16_new2b
+cRINP                   abksts                  DO_CALC_IF ckrg16_new2bkrg
+cRINP                   abksts                  DO_CALC_IF ckrg16_new2blbh
 cRINP                   abksts                  DO_CALC_IF clbh16_new1b
 cRINP                   abksts                  DO_CALC_IF clbh16_new2b
 cRINP                   abksts                  DO_CALC_IF chmin2
@@ -1279,7 +1286,8 @@ tbtkode        	        abkkym                  REPLACE
 ckodeHO   		abkkym2                 DO_CALC
 ckodeHOp   		abkkym2                 DO_CALC_IF cketpending
 g_tgltrn                abktgl                  REPLACE_IF ckrg16_new1b
-cbesok                  abktgl                  DO_CALC_IF ckrg16_new2b
+cbesok                  abktgl                  DO_CALC_IF ckrg16_new2bkrg
+clusa                   abktgl                  DO_CALC_IF ckrg16_new2blbh
 cbesok                  abktgl                  DO_CALC_IF clbh16_new1b
 clusa                   abktgl                  DO_CALC_IF clbh16_new2b
 ctgl1                   lawlblndpn              DO_CALC_IF chmin2
