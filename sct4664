@@ -191,7 +191,10 @@ lskipcxnet              STRING  5
 lskipcxcv               STRING  5
 lskipcxdvh              STRING  5
 lACC                    STRING  5
-
+ljmlHMCINPG             INT2    7
+ljmlHMCBESOK            INT2    7
+ljmlHOCXINPG            INT2    7
+ljmlHOCXBESOK           INT2    7
 
 
 CALCS()
@@ -232,7 +235,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "140926v1"				/* VERSI APLIKASI */
+lversi			INIT		        "150926v2"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -1171,19 +1174,70 @@ lawlblndpn              abktgl                  REPLACE_IF chmin2
 DEBUG   ldum            ldum                    REPLACE
 
 
+CALCS()
+cabktglbesok            abktgl == (g_tgltrn + 1)
+
+MAP(mscanjmlabkHMC1)
+        l1              ljmlHMCINPG              REPLACE
+
+DBCALCS(dscanjmlabkHMC1)
+        DBC_COMMAND     SCANSCAN
+        DBC_TARGET      abkdatstskym   lKUNCIABSEN gv_INPG lnipHOHMC lscr
+        DBC_SUM_MAP     mscanjmlabkHMC1
+
+MAP(mscanjmlabkHMC2) 
+        l1              ljmlHMCBESOK             REPLACE_IF cabktglbesok
+
+DBCALCS(dscanjmlabkHMC2)
+        DBC_COMMAND     SCANSCAN
+        DBC_TARGET      abkdatstskym   lKUNCIABSEN gt_RINP lnipHOHMC lscr
+        DBC_SUM_MAP     mscanjmlabkHMC2
+
+MAP(mscanjmlabkHOCX1) 
+        l1              ljmlHOCXINPG             REPLACE
+
+DBCALCS(dscanjmlabkHOCX1)
+        DBC_COMMAND     SCANSCAN
+        DBC_TARGET      abkdatstskym   lKUNCIABSEN gv_INPG tbtkode lscr
+        DBC_SUM_MAP     mscanjmlabkHOCX1
+
+MAP(mscanjmlabkHOCX2) 
+        l1              ljmlHOCXBESOK             REPLACE_IF cabktglbesok
+
+DBCALCS(dscanjmlabkHOCX2)
+        DBC_COMMAND     SCANSCAN
+        DBC_TARGET      abkdatstskym   lKUNCIABSEN gt_RINP tbtkode lscr
+        DBC_SUM_MAP     mscanjmlabkHOCX2
+
+CALCS()
+clusa                   g_tgltrn + 2
+ckrg16_new1             SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && ljmlHMCINPG < 2 /*30*/
+ckrg16_new2             SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && ljmlHMCINPG >= 2 /*30*/ 
+clbh16_new1             SYSTIME > ljam && dscanjmlabkHMC2 >= 0 && ljmlHMCBESOK < 2 /*30*/
+clbh16_new2             SYSTIME > ljam && dscanjmlabkHMC2 >= 0 && ljmlHMCBESOK >= 2 /*30*/
+
+ckrg16_new1b            SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && ljmlHOCXINPG < 2 /*30*/
+ckrg16_new2b            SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && ljmlHOCXINPG >= 2 /*30*/ 
+clbh16_new1b            SYSTIME > ljam && dscanjmlabkHOCX2 >= 0 && ljmlHOCXBESOK < 2 /*30*/
+clbh16_new2b            SYSTIME > ljam && dscanjmlabkHOCX2 >= 0 && ljmlHOCXBESOK >= 2 /*30*/
+
 /* KUNCIAN HO HMC*/
 MAP(maddabkHOHMC)
 lKUNCIABSEN             abkdata                 REPLACE
 lscr                    abkscr                  REPLACE
-gv_INPG                 abksts                  REPLACE_IF ckrg16
-cRINP                   abksts                  DO_CALC_IF clbh16
+gv_INPG                 abksts                  REPLACE_IF ckrg16_new1
+cRINP                   abksts                  DO_CALC_IF ckrg16_new2
+cRINP                   abksts                  DO_CALC_IF clbh16_new1
+cRINP                   abksts                  DO_CALC_IF clbh16_new2
 cRINP                   abksts                  DO_CALC_IF chmin2
 lnobuk                  abknobuk                REPLACE
 lnipHOHMC               abkkym                  REPLACE
 ckodeHO   		abkkym2                 DO_CALC
 ckodeHOp   		abkkym2                 DO_CALC_IF cketpending
-cbesok                  abktgl                  DO_CALC_IF clbh16
-g_tgltrn                abktgl                  REPLACE_IF ckrg16
+g_tgltrn                abktgl                  REPLACE_IF ckrg16_new1
+cbesok                  abktgl                  DO_CALC_IF ckrg16_new2
+cbesok                  abktgl                  DO_CALC_IF clbh16_new1
+clusa                   abktgl                  DO_CALC_IF clbh16_new2
 ctgl1                   lawlblndpn              DO_CALC_IF chmin2
 cawlbln                 lawlblndpn              DO_CALC_IF chmin2
 lawlblndpn              abktgl                  REPLACE_IF chmin2
@@ -1192,15 +1246,19 @@ DEBUG   ldum            ldum                    REPLACE
 MAP(maddabkHeadHMC)
 lKUNCIABSEN             abkdata                 REPLACE
 lscr                    abkscr                  REPLACE
-gv_INPG                 abksts                  REPLACE_IF ckrg16
-cRINP                   abksts                  DO_CALC_IF clbh16
+gv_INPG                 abksts                  REPLACE_IF ckrg16_new1
+cRINP                   abksts                  DO_CALC_IF ckrg16_new2
+cRINP                   abksts                  DO_CALC_IF clbh16_new1
+cRINP                   abksts                  DO_CALC_IF clbh16_new2
 cRINP                   abksts                  DO_CALC_IF chmin2
 lnobuk                  abknobuk                REPLACE
 lnipHeadHMC             abkkym                  REPLACE
-ckodeHO                 abkkym2                 DO_CALC
+ckodeHO   		abkkym2                 DO_CALC
 ckodeHOp   		abkkym2                 DO_CALC_IF cketpending
-cbesok                  abktgl                  DO_CALC_IF clbh16
-g_tgltrn                abktgl                  REPLACE_IF ckrg16
+g_tgltrn                abktgl                  REPLACE_IF ckrg16_new1
+cbesok                  abktgl                  DO_CALC_IF ckrg16_new2
+cbesok                  abktgl                  DO_CALC_IF clbh16_new1
+clusa                   abktgl                  DO_CALC_IF clbh16_new2
 ctgl1                   lawlblndpn              DO_CALC_IF chmin2
 cawlbln                 lawlblndpn              DO_CALC_IF chmin2
 lawlblndpn              abktgl                  REPLACE_IF chmin2
@@ -1211,15 +1269,19 @@ DEBUG   ldum            ldum                    REPLACE
 MAP(maddabkHOCX)
 lKUNCIABSEN             abkdata                 REPLACE
 lscr                    abkscr                  REPLACE
-gv_INPG                 abksts                  REPLACE_IF ckrg16
-cRINP                   abksts                  DO_CALC_IF clbh16
+gv_INPG                 abksts                  REPLACE_IF ckrg16_new1b
+cRINP                   abksts                  DO_CALC_IF ckrg16_new2b
+cRINP                   abksts                  DO_CALC_IF clbh16_new1b
+cRINP                   abksts                  DO_CALC_IF clbh16_new2b
 cRINP                   abksts                  DO_CALC_IF chmin2
 lnobuk                  abknobuk                REPLACE
 tbtkode        	        abkkym                  REPLACE
 ckodeHO   		abkkym2                 DO_CALC
 ckodeHOp   		abkkym2                 DO_CALC_IF cketpending
-cbesok                  abktgl                  DO_CALC_IF clbh16
-g_tgltrn                abktgl                  REPLACE_IF ckrg16
+g_tgltrn                abktgl                  REPLACE_IF ckrg16_new1b
+cbesok                  abktgl                  DO_CALC_IF ckrg16_new2b
+cbesok                  abktgl                  DO_CALC_IF clbh16_new1b
+clusa                   abktgl                  DO_CALC_IF clbh16_new2b
 ctgl1                   lawlblndpn              DO_CALC_IF chmin2
 cawlbln                 lawlblndpn              DO_CALC_IF chmin2
 lawlblndpn              abktgl                  REPLACE_IF chmin2
@@ -1513,6 +1575,7 @@ ctgl1                   lawlblndpn              DO_CALC_IF chmin2
 cawlbln                 lawlblndpn              DO_CALC_IF chmin2
 lawlblndpn              abktgl                  REPLACE_IF chmin2
 DEBUG   ldum            ldum                    REPLACE
+
 
 SPCALCS(sptransg2)                                                                                                                                      /* SAAT KAWIL LANGSUNG ACC */
 dlepasabkKawil                                                                                                                                          /* LEPAS KUNCIAN Kawil */
