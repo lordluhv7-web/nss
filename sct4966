@@ -128,6 +128,8 @@ ltkmlok1        STRING          21
 ltkmlok2        STRING          21
 ltkmplg         STRING          21
 ltkmdf1		DFLOAT		8
+ltkmtype	STRING		11
+ltkmtgl		DATE		4
 
 lnipsgmDCOO	STRING		21
 
@@ -354,6 +356,8 @@ tkmlok1         ltkmlok1        REPLACE
 tkmlok2         ltkmlok2        REPLACE
 tkmplg          ltkmplg         REPLACE
 tkmdf1		ltkmdf1		REPLACE
+tkmtype		ltkmtype	REPLACE
+tkmtgl		ltkmtgl		REPLACE
 cplus23		ltanggal2	DO_CALC
 
 CALCS()
@@ -606,6 +610,9 @@ cadapos		lketstr3_cab != BLANKS
 cH30		lftmkode2 == "REMINDKPB" && ltkmdf1 == 30
 cH14		lftmkode2 == "REMINDKPB" && ltkmdf1 == 14
 cH7		lftmkode2 == "REMINDKPB" && ltkmdf1 == 7
+cRKPBAUTO30	lftmkode2 == "REMINDKPB" && ltkmtype == "AUTO" && ltkmtgl == (g_tgltrn + 30)
+cRKPBAUTO14	lftmkode2 == "REMINDKPB" && ltkmtype == "AUTO" && ltkmtgl == (g_tgltrn + 14)
+cRKPBAUTO7	lftmkode2 == "REMINDKPB" && ltkmtype == "AUTO" && ltkmtgl == (g_tgltrn + 7)
 cTdkKPB		lftmkode2 != "REMINDKPB"
 
 MAP(mmapmap)
@@ -780,6 +787,9 @@ MAP(mupdakt_sdhreminder)
 c1		aktjml		DO_CALC_IF cH30
 c1		aktdf4		DO_CALC_IF cH14
 c1		aktdf5		DO_CALC_IF cH7
+c1              aktjml          DO_CALC_IF cRKPBAUTO30
+c1              aktdf4          DO_CALC_IF cRKPBAUTO14
+c1              aktdf5          DO_CALC_IF cRKPBAUTO7
 c1		aktdf6		DO_CALC_IF cTdkKPB
 
 MAP(mupdtkm)
