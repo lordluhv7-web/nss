@@ -9799,6 +9799,7 @@ lSYSTIME		tkmjam			REPLACE
 ctambah7		tkmtgl1			DO_CALC
 ctambah30		tkmtgl2			DO_CALC
 lPKTSERVICEKPB1		tkmplg			REPLACE
+lAUTO			tkmtype			REPLACE
 
 MAP(m4966)
 tkmnobuk		r_string1		REPLACE
