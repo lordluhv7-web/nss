@@ -76,7 +76,7 @@ lmstlabeltransg9        STRING  541
 lmstfieldtransg9        STRING  541
 lmstlabeltransg9a       STRING  51
 lmstfieldtransg9a       STRING  51
-lRatingAhass    STRING          21
+/*lRatingAhass    STRING          21*/
 ldettitle_kpb 	STRING          21
 
 
@@ -119,6 +119,7 @@ lastno2		STRING		21
 lnopol		STRING		21
 lkpb		STRING		21
 ltanggal	DATE		4
+ltanggal2	DATE		4
 
 ltkmnobuk       STRING          21
 ltkmkode        STRING          21
@@ -135,9 +136,14 @@ lthbl		STRING		21
 
 lVERSI		STRING		21
 ldum		STRING		21
+/*
 lbtmsoa		STRING		21
 lbtmiklan	STRING		21
-
+*/
+lapi_key	STRING		100
+lsecret_key	STRING		100
+/*
+*/
 
 MAP(mjoincab)
 cabnama		lcabnama	REPLACE
@@ -284,7 +290,8 @@ ltemplateId_after	INIT	"ac84579a-c538-4bdc-b03e-862c4998b2ff"
 lreturnlabel         	INIT   	""
 lexpectedreturnvalue 	INIT   	""
 lurl			INIT 	"https://api.kliknss.co.id/campaign"
-lurl_kpb		INIT 	"https://api.kliknss.co.id/ahass/kpb"
+/*lurl_kpb		INIT 	"https://api.kliknss.co.id/ahass/kpb"*/
+lurl_kpb		INIT 	"http://172.23.63.186:8000/api/data-masuk"
 
 /*lmsttitle            	INIT   	""*/
 lmstlabels           	INIT   	""
@@ -327,6 +334,10 @@ lmstfieldtransg9	INIT	"aktket+lbrgkat4+aktbrg+lnopol+lkpb+lketnama_cab+lstrakttg
 lreqmstlabels        	INIT   "name+appId+channelId+templateId+parameters"
 lreqmstfields        	INIT   "lname+lappId+lchannelId+ltemplateId+ltext"
 */
+lapi_key		INIT	"dgi-key-live:d872d8b55d2bc71a1def"
+
+CALCS()
+cplus23			ltanggal + 23
 
 MAP(mdum)
 cthbl		lthbl		DO_CALC
@@ -343,6 +354,7 @@ tkmlok1         ltkmlok1        REPLACE
 tkmlok2         ltkmlok2        REPLACE
 tkmplg          ltkmplg         REPLACE
 tkmdf1		ltkmdf1		REPLACE
+cplus23		ltanggal2	DO_CALC
 
 CALCS()
 c1		1
@@ -383,6 +395,7 @@ aktbrg          PROTECT                 INPUTRI 4
 akttgl2         PROTECT {DD-MM-YYYY}    INPUTRI 5
 akttgl          PROTECT {DD-MM-YYYY}    INPUTRI 6
 
+/*
 MAP(mjoinpt)
 btmsoa          lbtmsoa         REPLACE
 btmiklan        lbtmiklan       REPLACE
@@ -392,6 +405,7 @@ DBCALCS(djoinpt)
         DBC_COMMAND     JOIN
         DBC_TARGET      btmbukidx       aktnobuk
         DBC_MAP         mjoinpt
+*/
 
 CALCS()
 cstraktdf1	FLD_TO_STRING(laktdf1)
@@ -404,8 +418,8 @@ cbisareminder   (((ltkmdf1 == 30 && (aktjml < 1 || aktjml == 0)) ||
 		((aktbrg != BLANKS && (ltkmlokjl=="CABANG" && (ltkmlok1 == aktcab || ltkmlok1 == BLANKS))) ||
 		(aktbrg != BLANKS && (ltkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)) ||
                 (aktbrg != BLANKS && (ltkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)) ||
-                (aktbrg != BLANKS && (ltkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)))) &&
-		djoinpt == 1 && lbtmsoa != "GC" && lbtmiklan != "GC"
+                (aktbrg != BLANKS && (ltkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2))))/* &&
+		djoinpt == 1 && lbtmsoa != "GC" && lbtmiklan != "GC"*/
 
 
 ckondRemind2    ltkmplg == BLANKS
@@ -416,10 +430,10 @@ SFL_LINES(10)
 SFL_TITLE(transt)
 SFL_COND cremindkpb
 SFL_SELECT cbisareminder
-SFL_TARGET_IF ckondRemind2
-akttgltypidx    ltanggal lREMINDKPB11
-SFL_TARGET_IF ckondRemind3
-akttgltypidx    ltanggal lREMINDKPB11 ltkmplg
+SFL_TARGET_GTE_IF ckondRemind2
+akttgltypidx    ltanggal lREMINDKPB11 {ltanggal2} {lREMINDKPB11}
+SFL_TARGET_GTE_IF ckondRemind3
+akttgltypidx    ltanggal lREMINDKPB11 ltkmplg {ltanggal2} {lREMINDKPB11} {ltkmplg}
 
 IMAGE(transg1t)
 /--------------------t------------------t--------------t----------------t---------------t---------------\
@@ -771,25 +785,28 @@ c1		aktdf6		DO_CALC_IF cTdkKPB
 MAP(mupdtkm)
 gv_CLSD		tkmsts		REPLACE
 
+/*
 CALCS()
 ctdkkosong	aktket != BLANKS && aktbrg != BLANKS && aktlok != BLANKS && aktdf1 > 0 && akttgl != BLANKS && aktdf3 > 0
-
+*/
 SPCALCS(spmaster)
 DO_LIB ap_dbclc(DNAME dmapdum,DCOMMAND MAPMAP,DMAP mdum);
-
+DO_LIB	ap_dbclc(DNAME dupdtkm,DCOMMAND UPDATE, DTARGET tkmbukidx lNobuk, DMAP mupdtkm);
+/*
 DO_LIB	ap_snjsp(lurl_kpb,lreturnlabel,lexpectedreturnvalue);
 DO_LIB	ap_jsnmt(lrequestreply,lmsttitle,lmstlabeltransg9a,lmstfieldtransg9a);
-
-DO_LIB	ap_dbclc(DNAME dupdtkm,DCOMMAND UPDATE, DTARGET tkmbukidx lNobuk, DMAP mupdtkm);
+*/
 
 
 SPCALCS(sptrans)
 DO_LIB ap_dbclc(DNAME dmapmap,DCOMMAND MAPMAP,DMAP mmapmap);
-
-DO_LIB ap_jsndt(ldettitle_kpb,lmstlabeltransg9,lmstfieldtransg9);
-
-/*DO_LIB ap_rqjsp(lurl,lmsttitle,lreqmstlabels,lreqmstfields,lreturnlabel,lexpectedreturnvalue,lmstlabels,lmstfields,lmstnamamap,ldetlabels,ldetfields,ldetnamamap,lsaveflg,lheaderlabel,lheaderfield);*/
+DO_LIB ap_astra(lapi_key,lsecret_key);
+DO_LIB ap_rqjsp(lurl_kpb,g_strksg,lmstlabeltransg9,lmstfieldtransg9,lreturnlabel,lexpectedreturnvalue);
 DO_LIB ap_dbclc(DNAME dupdakt_sdhreminder1,DCOMMAND UPDATE ,DTARGET aktprmidx aktprm ,DMAP mupdakt_sdhreminder);
+/*
+DO_LIB ap_jsndt(ldettitle_kpb,lmstlabeltransg9,lmstfieldtransg9);
+DO_LIB ap_rqjsp(lurl,lmsttitle,lreqmstlabels,lreqmstfields,lreturnlabel,lexpectedreturnvalue,lmstlabels,lmstfields,lmstnamamap,ldetlabels,ldetfields,ldetnamamap,lsaveflg,lheaderlabel,lheaderfield);
+*/
 
 SPCALCS(sptransg1)
 DO_LIB ap_dbclc(DNAME dmapmap1,DCOMMAND MAPMAP,DMAP mmapmap1);

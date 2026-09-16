@@ -318,6 +318,7 @@ l19                     INT2    2
 
 /* LOCAL TRANSG19 */
 lREMINDKPB		STRING	11
+lREMINDERKPB		STRING	21
 l12			INT2	3
 lmin12			INT2	3
 ltahundepan		DATE	4
@@ -664,6 +665,16 @@ lcablevel3              STRING  21
 lnobuk1065              STRING  21
 
 lspkprm                 INT4    12
+lPROMOSI		STRING	11
+lCABANG			STRING	21	
+l7			INT2	2
+lPKTSERVICEKPB1		STRING	21
+lPKTSERVICEKPB2		STRING	21
+lPKTSERVICEKPB3		STRING	21
+lPKTSERVICEKPB4		STRING	21
+l4966			INT2	5
+lm4966                 	STRING	15
+
 
 /*============================== JOIN DAN SCAN ============================*/
 CALCS()
@@ -1067,6 +1078,7 @@ lpil            	DFALT_SCAN      	BLANKS
 						62 "PROSES UBAH TBD DAN KET"
 						63 "PROSES PRN META ADS RINCI"
 						64 "PROSES 985 PM DVH IT"
+						65 "AUTO REMIND SERVICEKPB1"
 
 lhminjtp		DFALT_SCAN		7
 						14
@@ -1116,7 +1128,7 @@ lindikatorsitusweb      INIT			"SITUS WEB"
 lindikatortotulasan	INIT			"ULASAN"
 lindikatortotbalasan	INIT			"BALASAN"
 lindikatorratinggmb	INIT			"RATING"
-lversi			INIT			2609.15v1
+lversi			INIT			2609.16v1
 lstandarisasigmb        INIT                    "STANDARISASI GMB"
 lACTBNSDLR		INIT			"ACTBNSDLR"
 lTGTBNSDLR		INIT			"TGTBNSDLR"
@@ -1244,6 +1256,7 @@ l19                     INIT                    19
 
 /*TRANSG19*/
 lREMINDKPB		INIT			REMINDKPB
+lREMINDERKPB		INIT			REMINDERKPB
 l12			INIT			12
 lmin12			INIT			-12
 
@@ -1412,6 +1425,17 @@ lMETAADS21              INIT                    METAADS
 lORGANIK                INIT                    ORGANIK
 lPAIDADS                INIT                    PAIDADS
 lREVIEWIT		INIT			REVIEWIT
+
+lPROMOSI                INIT	  		"PROMOSI"
+lCABANG                 INIT	  		"CABANG"
+l7                      INIT			7
+lPKTSERVICEKPB1         INIT			"PKTSERVICEKPB1"
+lPKTSERVICEKPB2         INIT			"PKTSERVICEKPB2"
+lPKTSERVICEKPB3         INIT			"PKTSERVICEKPB3"
+lPKTSERVICEKPB4         INIT			"PKTSERVICEKPB4"
+l4966			INIT			4966
+lm4966                 	INIT		        "m4966"
+
 
 EDITS(master)
 
@@ -4809,6 +4833,26 @@ SFL_TARGET
 tbddatkodidx    gv_dttabel gv_infoumum lPM196
 
 /*----------------- JKHPJ PM DVH IT -----------------*/
+
+/*----------------- AUTO REMIND KPB SERVICE KPB -----------------*/
+
+IMAGE(transg62)
+|_______|_____________________|
+
+FIELD(transg62)
+tgmtype         NOCHANGE        INPUTRI 1
+tgmtgl          NOCHANGE        INPUTRI 2
+
+CALCS()
+cpil65          lpil == 65
+
+SUBFILE(transg62)
+SFL_COND        cpil65
+SFL_LINES(15)
+SFL_TARGET
+tgmdattglidx   gv_TGL g_tgltrn
+
+/*----------------- AUTO REMIND KPB SERVICE KPB -----------------*/
 
 /*================================ END TRANS =============================*/
 
@@ -9735,6 +9779,34 @@ l1063                   abkscr                  REPLACE
 g_tgltrn                abktgl                  REPLACE
 DEBUG lnobuk	        abknobuk                REPLACE
 
+CALCS()
+ctambah7		ltgl2 + 7
+ctambah30		ltgl2 +30
+cnobuk1401		"PMS" + THBLS(g_tgltrn)
+
+MAP(mmapmapg62)
+cnobuk1401		tkmnobuk	DO_CALC
+
+MAP(maddmaster1401)
+lPROMOSI		tkmdata			REPLACE
+tkmnobuk		tkmnobuk		REPLACE
+gv_INPG			tkmsts			REPLACE
+lREMINDERKPB		tkmkode			REPLACE
+ltgl2			tkmtgl			REPLACE
+lCABANG			tkmlokjl		REPLACE
+/*l7			tkmdf1			REPLACE*/
+lSYSTIME		tkmjam			REPLACE
+ctambah7		tkmtgl1			DO_CALC
+ctambah30		tkmtgl2			DO_CALC
+lPKTSERVICEKPB1		tkmplg			REPLACE
+
+MAP(m4966)
+tkmnobuk		r_string1		REPLACE
+ctambah7		r_date2			DO_CALC
+lREMINDKPB		r_string4		REPLACE
+
+
+
 
 SPCALCS(sptransg37)
 DO_LIB_IF ckondnxtpstb		ap_dbclc(DNAME dmapmap37,DCOMMAND MAPMAP,DMAP mmapmap37);
@@ -9899,6 +9971,11 @@ DO_LIB                          ap_dbclc(DNAME dmaptlm985it,DCOMMAND MAPMAP,DMAP
 DO_LIB                          ap_dbclc(DNAME dadd985jkhpjit,DCOMMAND ADD,DFILE tlm,DLTARGET tlmbukidx tlmnobuk,DLLEN 21,DMAP maddtlm985jkhpj);
 DO_LIB                          ap_dbclc(DNAME dmaptlm985xit,DCOMMAND MAPMAP,DMAP mmaptlm985x);
 DO_LIB_IF cjoin985jkhpj1        ap_dbclc(DNAME dupd985jkhpjit,DCOMMAND UPDATE,DTARGET tlmbukidx lnobuk985jkhpj,DMAP mupd985jkhpj);
+
+SPCALCS(sptransg62)
+DO_LIB				ap_dbclc(DNAME dmapmapg62,DCOMMAND MAPMAP,DMAP mmapmapg62);
+DO_LIB				ap_dbclc(DNAME daddmaster1401,DCOMMAND ADD,DFILE tkm,DLTARGET tkmbukidx tkmnobuk,DLLEN {stspjbuk},DMAP maddmaster1401);
+DO_LIB				ap_nxpst(l4966,lm4966);
 
 /*============================== START POSTING ============================*/
 
@@ -10090,6 +10167,9 @@ PST_COMMAND		sptransg15
 
 POSTING(transg61) 
 PST_COMMAND             sptransg61
+
+POSTING(transg62) 
+PST_COMMAND             sptransg62
 
 /**********************************/
 

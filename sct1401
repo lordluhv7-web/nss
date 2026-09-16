@@ -737,8 +737,8 @@ ckondRemind1	(((tkmdf1 == 30 && (aktjml < 1 || aktjml == 0)) ||
 		((tkmlokjl=="CABANG" && (tkmlok1 == aktcab || tkmlok1 == BLANKS)) || 
 		(tkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2) || 
 		(tkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2) ||
-		(tkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2))) && djoinpt == 1 &&
-		lbtmsoa != "GC" && lbtmiklan != "GC"
+		(tkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2)))/* && djoinpt == 1 &&
+		lbtmsoa != "GC" && lbtmiklan != "GC"*/
 
 ckondRemind2	tkmplg == BLANKS
 ckondRemind3	tkmplg != BLANKS
