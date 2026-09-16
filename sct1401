@@ -1,0 +1,1342 @@
+SCREEN 1401 QUERY_TYPE t.WaEmail
+SCR_FILE tkm
+SCR_LOGFLD tkmnobuk
+SCR_UPLFLD tkmnobuk
+SCR_UPL_DIRFLD tkmtgl
+SCR_UPLFLD_DBCALCS dupdtkmfoto
+SCR_NXT_POSTING_IF ctdkREMINDER_AHASS 	4810
+		   cREMINDER_AHASS	4966
+/* SCR_NXT_COND ctkmOPEN */
+SCR_NXT_MAP      mnext
+SCR_NXT_MSG  IF ctkmOPEN1 Status Tidak Open
+             IF ctkmOPEN2 Tanggal Tidak Hari Ini 
+             IF ctkmOPEN3 Detil Belum Ada
+             IF ctkmOPEN4 WA Mitra M4W Loyalti Wajib Upload Foto Program Loyalti
+
+
+
+LOCAL
+PGM_FIELDS
+lAHASS   	STRING		21
+lDCOOAREA    	STRING		21
+lKAWIL		STRING		21
+lBUM        	STRING		21
+lthbl                STRING          21
+lbulan_skrg          STRING          11
+ltgl_skrg          STRING          11
+lbulan_lahir         STRING          11
+ltgl_lahir         STRING          11
+l2                   INT2            2
+l5                   INT2            2
+ldealer         STRING      11
+lY              STRING       2
+ltombol1d	STRING      31
+ltombol2d	STRING      31
+lpsmnama 	STRING      31
+lpsmnama2 	STRING      31
+lto      	STRING      31
+lto2     	STRING      31
+lemail   	STRING      61
+lh2      	STRING      21
+l1       	INT2        2 
+lnourt		INT2	     2
+lgsm		DFLOAT	     8
+ldum		STRING	     3
+lpgmgate	STRING	     21
+lnogsm1		STRING	     21
+lpgmsts		STRING		5
+
+lZ1		STRING	11
+lZ6		STRING	11
+ly		STRING	5
+lKATMITRA       STRING  11
+lM4W		STRING	11
+lktpmitra	STRING	21
+lBLOKIR		STRING	11
+lVERSI		STRING	21
+lKPB1		STRING	21
+lKPB2		STRING	21
+lKPB3		STRING	21
+lKPB4		STRING	21
+lREMINDKPB11	STRING	11
+lREMINDSVC611	STRING	11
+lAFTERSVC11	STRING	11
+lAFTERKPB11	STRING	11
+lREMINDKPB	STRING	21
+l4966		INT2	2
+lm4966		STRING	21
+
+l4887		INT2	2
+lm4887		STRING	21
+
+ltkmtglY  	STRING	21
+ltkmtglM  	STRING	21
+ltkmtglD  	STRING	21
+
+lstrtkmjam	STRING	21
+
+lnamadcoo	STRING	31
+lnamakawil	STRING	31
+lnamaam		STRING	31
+
+ltkmkode	STRING	21
+lH2		STRING	21
+lnipsgmDCOO	STRING	21
+ljamskrng	TIME	4
+lbtmsoa		STRING	21
+lbtmiklan	STRING	21
+lpil            INT2    3
+lxls            STRING  12
+
+CALCS()
+cREMINDERKPB	tkmkode == "REMINDERKPB"
+cREMINDERNONKPB	tkmkode == "REMINDERNONKPB"
+cAFTERSERVICE	tkmkode == "AFTERSERVICE"
+cAFTERKPB	tkmkode == "AFTERKPB"
+cREMINDKPB	"REMINDKPB"
+cREMINDSVC6	"REMINDSVC6"
+cAFTERSVC	"AFTERSVC"
+cAFTERKPB2	"AFTERKPB"
+ctkmtglD	THBLS_DD(tkmtgl)
+ctkmtglM	THBLS_MM(tkmtgl)
+ctkmtglY	THBLS_YYYY(tkmtgl)
+ctkmjam		FLD_TO_STRING(tkmjam)
+
+cstartdate	STRIP(ltkmtglY) + "-" + STRIP(ltkmtglM)+ "-" + STRIP(ltkmtglD) + " " + STRIP(lstrtkmjam)
+
+cRATING		"RATING"
+c1401		"1401"
+
+MAP(mnext)
+tkmnobuk    	r_string1   	REPLACE
+tkmscr      	r_string2   	REPLACE
+tkmkode	   	r_string3	REPLACE
+
+cREMINDKPB	ltkmkode	DO_CALC_IF cREMINDERKPB
+cREMINDSVC6	ltkmkode	DO_CALC_IF cREMINDERNONKPB
+cAFTERSVC	ltkmkode	DO_CALC_IF cAFTERSERVICE
+cAFTERKPB2	ltkmkode	DO_CALC_IF cAFTERKPB
+ltkmkode	r_string4	REPLACE
+tkmtgl1		r_date2		REPLACE
+
+ctkmtglD	ltkmtglD	DO_CALC
+ctkmtglM	ltkmtglM	DO_CALC
+ctkmtglY	ltkmtglY	DO_CALC
+
+ctkmjam		lstrtkmjam	DO_CALC
+cstartdate	r_string5	DO_CALC
+
+DEBUG	ldum	ldum		REPLACE
+
+
+MAP(m4887)
+aktkode		r_string24	REPLACE
+cRATING		r_string4	DO_CALC
+c1401		r_string26	DO_CALC
+
+CALCS()
+c1	1
+
+MAP(mupdtkmfoto)
+c1	tkmjml		DO_CALC
+
+DBCALCS(dupdtkmfoto)
+	DBC_COMMAND	UPDATE
+	DBC_TARGET	tkmbukidx tkmnobuk
+	DBC_MAP		mupdtkmfoto
+
+
+DBCALCS(djointkd)
+DBC_COMMAND	JOIN
+DBC_TARGET	tkdbukidx   tkmnobuk
+
+MAP(mjoinpsm)
+psmnama    lpsmnama   REPLACE
+
+DBCALCS(djoinpsm)
+DBC_COMMAND	JOIN
+DBC_TARGET	psmktpidx   ppmplg
+DBC_MAP         mjoinpsm
+
+MAP(mjoinpsmpik)
+psmnama    lpsmnama2   REPLACE
+
+DBCALCS(djoinpsmpik)
+DBC_COMMAND	JOIN
+DBC_TARGET	psmktpidx   pikplg
+DBC_MAP         mjoinpsmpik
+
+
+CALCS()
+ctelp           condata=="TELP"
+cemail          condata=="EMAIL"
+
+MAP(mjoinconT)
+conhp     	lto     REPLACE
+
+DBCALCS(djoinconT)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	conkodstsidx  ppmplg gv_INPG 
+        DBC_SELECT      ctelp
+	DBC_MAP		mjoinconT
+
+MAP(mjoinconT4w)
+conhp     	lto2    REPLACE
+
+DBCALCS(djoinconT4w)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	conkodstsidx  pikplg gv_INPG 
+        DBC_SELECT      ctelp
+	DBC_MAP		mjoinconT4w
+
+MAP(mjoinconTul)
+conhp     	lto2    REPLACE
+
+DBCALCS(djoinconTul)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	conkodstsidx  psmktp gv_INPG 
+        DBC_SELECT      ctelp
+	DBC_MAP		mjoinconTul
+
+
+
+MAP(mjoinconE)
+conemail  	lemail  REPLACE
+
+DBCALCS(djoinconE)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	conkodstsidx  ppmplg gv_INPG 
+        DBC_SELECT      cemail
+	DBC_MAP		mjoinconE
+
+MAP(misipgm)
+pgmsts		lpgmsts		REPLACE
+
+DBCALCS(djoingsm1)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      pgmgatbukidx    lpgmgate lnogsm1
+	DBC_MAP		misipgm
+
+MAP(mjoinsgmDCOO)
+sgmstr5		lnipsgmDCOO	REPLACE
+
+DBCALCS(djoinsgmDCOO)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	sgmdatstrbrg	gv_dtpiccab	lH2 tkmlokjl lthbl aktcab
+	DBC_MAP		mjoinsgmDCOO
+
+
+CALCS()
+/* 
+ctkmOPEN        tkmsts == "OPEN" && tkmtgl >= g_tgltrn && tkmtgl <= g_tgltrn + 7 && djointkd == 1 && 
+		((tkmkode=="MITRAM4WL" && tkmjml==1) || tkmkode!="MITRAM4WL")
+*/
+
+cREMINDER_AHASS		tkmsts == "OPEN" && (tkmkode == "REMINDERKPB" || tkmkode == "REMINDERNONKPB" || tkmkode == "AFTERKPB")
+ctdkREMINDER_AHASS	tkmsts == "OPEN" && tkmtgl >= g_tgltrn && tkmtgl <= g_tgltrn + 7 && djointkd == 1 && ((tkmkode=="MITRAM4WL" && tkmjml==1) || 
+			(tkmkode != "REMINDERKPB" && tkmkode != "REMINDERNONKPB" && tkmkode != "AFTERKPB" && tkmkode!="MITRAM4WL"))
+
+ctkmOPEN1       tkmsts != "OPEN"
+ctkmOPEN2       tkmtgl < g_tgltrn
+/* ctkmOPEN2       CHKTG(tkmtgl) == 0 */
+ctkmOPEN3       djointkd == 0  
+ctkmOPEN4	tkmkode=="MITRAM4WL" && tkmjml==0
+
+IMAGE(master)
+/-----------------------------------------------------------------\
+|/---------------------------------------------------------------\|
+||i.NoBuk  : ______________________   i.Sts       : ____________ ||_
+||i.Kode   : ________________         t.TglKrmWa  : ____________ ||
+||t.Filter : ______________________   t.H-	  : ___________  ||
+||i.Cab    : ________________         t.JamKrmWa  : ___________	 ||
+||i.TglKrm : ___________ s/d ______________ 			 ||
+||t.KPBKe  : _____________________________		         ||
+||t.DCOO   : ___________  ______________________________________ ||
+||t.KAWIL  : ___________  ______________________________________ ||
+||t.AM     : ___________  ______________________________________ ||
+|\---------------------------------------------------------------/|
+|/-------s.UPLOAD------------------------------------------------\|
+||                                                                |
+||                                                                |
+||                                                                |
+|\---------------------------------------------------------------/|
+| ____________________  ________________                          |
+\-----------------------------------------------------------------/
+
+FIELDS(master)
+tkmnobuk	PROTECT 	   INPUTRI  1 /* Nomor Bukti Daftar Fakur*/
+tkmsts		PROTECT		   INPUTRI  2 /* Status*/
+tkmdata		PROTECT		   INPUTRI  3 /* Type Data*/
+tkmkode		ALLCAPS 	   INPUTRI  4 
+tkmtgl		NONE    {DD-MM-YY} NOLIMIT  INPUTRI  5 /* Tanggal */
+tkmlokjl	ALLCAPS		   INPUTRI  6
+tkmdf1		DIGITS		   INPUTRI  7
+tkmlok1		ALLCAPS	   	   INPUTRI  8
+tkmjam		NUMERIC		   INPUTRI  9 
+
+tkmtgl1		NONE {DD-MM-YY} NOLIMIT   INPUTRI 16 /* Tanggal */
+tkmtgl2		NONE {DD-MM-YY} NOLIMIT   INPUTRI 16 /* Tanggal */
+tkmplg		ALLCAPS		   INPUTRI	17
+tkmlok2		ALLCAPS			INPUTRI	18
+lnamadcoo	PROTECT			INPUTRI	18
+tkmbuk1		ALLCAPS			INPUTRI	18
+lnamakawil	PROTECT			INPUTRI	18
+tkmbuk2		ALLCAPS			INPUTRI	18
+lnamaam		PROTECT			INPUTRI	18
+ltombol1d	TOMBOL			INPUTRI	19	
+ltombol2d	TOMBOL			INPUTRI	19	
+
+CALCS()
+cotY            stsotobukti == "Y"
+cnomer          "PMS" + THBLS(tkmtgl)
+ctypadd         g_curcmd == 1
+cthbl           THBLS(g_tgltrn)
+cREMINDER	(tkmkode == "REMINDERKPB" || tkmkode == "REMINDERNONKPB" || tkmkode == "AFTERSERVICE" || tkmkode == "AFTERKPB")
+cHJTP		tkmkode == "REMINDERKPB" && g_grpnam != "IT"
+
+DEFAULTS(master)
+ljamskrng	INIT		SYSTIME
+tkmsts		INIT_ADD	OPEN
+tkmsts		INIT_QUERY	OPEN
+tkmtgl		INIT_ADD	{g_tgltrn}
+tkmtgl		INIT_QUERY	{g_tgltrn}
+tkmtgl1		INIT_ADD	{g_tgltrn}
+tkmtgl2		INIT_ADD	{g_tgltrn}
+tkmdata		INIT_ADD	PROMOSI
+tkmdata		INIT_QUERY	PROMOSI
+tkmjml		INIT		1
+tkmkode         DFALT_SCAN_BLANKS	PROMOAHASS "PROMO AHASS"
+					FAKTURM4W "FAKTUR M4W"
+					ULANGTAUN "ULANG TAHUN"
+					FAKTURPIUT "FAKTUR PIUTANG"	
+					MITRAM4WL "MITRA M4W LOYALTI"
+					REMINDERKPB "REMINDER KPB AHASS"
+					REMINDERNONKPB "REMINDER NON KPB AHASS"
+					AFTERSERVICE "REMINDER AFTER SERVICE"
+					AFTERKPB "REMINDER AFTER KPB"
+tkmdf1		DFALT_SCAN_BLANKS	7
+					14
+					30
+
+tkmplg		DFALT_SCAN_BLANKS	PKTSERVICEKPB1 "PAKET SERVICE KPB 1"
+					PKTSERVICEKPB2 "PAKET SERVICE KPB 2"
+					PKTSERVICEKPB3 "PAKET SERVICE KPB 3"
+					PKTSERVICEKPB4 "PAKET SERVICE KPB 4"
+tkmlokjl	DFALT_SCAN_BLANKS	CABANG "CABANG"
+					DCOOHMC "DCOOAREA"
+					KAWIL "KAWIL"
+					HMCAM "AM"
+tkmscr          INIT            {g_scrnumstr}
+ldealer         INIT            DEALER
+ltombol1d	INIT		"1d. Faktur"
+ltombol2d	INIT		"2d. Detail Reminder"
+lh2             INIT            H2
+lnourt		INIT		0
+lgsm		INIT		0
+lpgmgate	INIT		GSM
+l1		INIT		1
+l2              INIT            2
+l5              INIT            5
+lZ1		INIT		"Z1"
+lZ6		INIT		"Z6"
+lKATMITRA	INIT		KATMITRA
+lM4W		INIT		M4W
+lH2		INIT		H2
+lBLOKIR		INIT		BLOKIR
+lKPB1		INIT		KPB1
+lKPB2		INIT		KPB2
+lKPB3		INIT		KPB3
+lKPB4		INIT		KPB4
+lREMINDKPB11	INIT		REMINDKPB
+lREMINDSVC611	INIT		REMINDSVC6
+lAFTERSVC11	INIT		AFTERSVC
+lAFTERKPB11	INIT		AFTERKPB
+lREMINDKPB	INIT		REMINDKPB
+lVERSI		INIT		04052026
+l4966		INIT		4966
+lm4966		INIT		"m4966"
+l4887		INIT		4887
+lm4887		INIT		"m4887"
+lthbl           INIT            {cthbl}
+lDCOOAREA	INIT		DCOOAREA
+lKAWIL		INIT		KAWIL
+lBUM 		INIT		BUM   
+lAHASS		INIT		AHASS
+
+EDITS(master)
+e.MandatoryKode	tkmkode	MANDATORY
+e.MandatoryJtp	tkmdf1	MANDATORY_IF cHJTP 
+e.MandatoryFlt tkmlokjl MANDATORY_IF cREMINDER
+e.MandatoryJam tkmjam	MANDATORY_IF cREMINDER
+e.Mandatory	tkmplg	MANDATORY_IF cREMINDERKPB
+e.ValidateCabTidakAda	  tkmlok1	VALIDATE cabkodidx mcab scab
+e.Validate1   	  	  tkmlok2	VALIDATE tbddatkodidx mtbddcoo stbd {Pgv_dttabel} {PlAHASS} {PlDCOOAREA}
+e.Validate2    	  	  tkmbuk1	VALIDATE tbddatkodidx mtbdkawil stbd {Pgv_dttabel} {PlAHASS} {PlKAWIL}       
+e.Validate3   	  	  tkmbuk2	VALIDATE tbddatkodidx mtbdam stbd {Pgv_dttabel} {PlAHASS} {PlBUM}
+
+MAP(mtbddcoo)
+tbdkode		tkmlok2		REPLACE
+tbdket		lnamadcoo	REPLACE
+
+MAP(mtbdkawil)
+tbdkode		tkmbuk1		REPLACE
+tbdket		lnamakawil	REPLACE
+
+MAP(mtbdam)
+tbdkode		tkmbuk2		REPLACE
+tbdket		lnamaam 	REPLACE
+
+
+MAP(mcab)
+cabkode			tkmlok1		REPLACE
+
+CALCS()
+cnogsm1		"GSM1" + FLD_TO_STRING(tkmtgl)
+cbulan_lahir    DO_LIB ap_thbln(psmtgllahir,&lbulan_lahir,l2);
+ctgl_lahir      DO_LIB ap_thbln(psmtgllahir,&ltgl_lahir,l5);
+cbulan_skrg     DO_LIB ap_thbln(g_tgltrn,&lbulan_skrg,l2);
+ctgl_skrg       DO_LIB ap_thbln(g_tgltrn,&ltgl_skrg,l5);
+csamaultah	ltgl_skrg == ltgl_lahir && lbulan_skrg == lbulan_lahir  
+
+
+MAP(mnomer)
+cnomer          tkmnobuk        DO_CALC_IF ctypadd
+
+MAP(mtanggal)
+cnogsm1		lnogsm1		DO_CALC
+
+MAP(mdum)
+DEBUG ldum            ldum            REPLACE
+
+MAP(mtransg3)
+cbulan_skrg     lbulan_skrg     DO_CALC
+ctgl_skrg     ltgl_skrg     DO_CALC    
+cbulan_lahir    lbulan_lahir    DO_CALC
+ctgl_lahir    ltgl_lahir    DO_CALC    
+DEBUG 	ldum	ldum	REPLACE
+
+CALCS()
+ctglKPB		tkmtgl+tkmdf1
+
+MAP(mtglKPB)
+ctglKPB		tkmtgl1		DO_CALC
+
+CALCS()
+/*ctgltdkok	tkmtgl >= g_tgltrn && tkmtgl <= g_tgltrn + 7*/
+cpenuh		djoingsm1 == 0 || (djoingsm1 == 1 && lpgmsts == "OPEN" )
+cfaktur4w	(tkmkode == "FAKTURM4W" || tkmkode == "REMINDERKPB")
+cbknKPB		(tkmkode != "REMINDERKPB")
+cbknREMINDER	(tkmkode != "REMINDERKPB" && tkmkode != "REMINDERNONKPB" && tkmkode != "AFTERSERVICE" && tkmkode != "AFTERKPB")
+
+cbknsgm		(tkmlokjl == "CABANG")
+
+cbknkond1	(tkmlokjl == "KAWIL" || tkmlokjl == "HMCAM")
+cbknkond2	(tkmlokjl == "DCOOHMC" || tkmlokjl == "HMCAM")
+cbknkond3	(tkmlokjl == "DCOOHMC" || tkmlokjl == "KAWIL")
+
+HOOKS(master)
+BEFORE_INPUT    cur_field=tkmnobuk      DO_SKIP_IF cotY
+BEFORE_INPUT    cur_field=tkmtgl1       DO_SKIP_IF cfaktur4w
+BEFORE_INPUT    cur_field=tkmtgl2       DO_SKIP_IF cfaktur4w
+BEFORE_INPUT	cur_field=tkmdf1	DO_SKIP_IF cbknKPB
+BEFORE_INPUT	cur_field=tkmplg	DO_SKIP_IF cbknKPB
+BEFORE_INPUT	cur_field=tkmlokjl	DO_SKIP_IF cbknREMINDER
+BEFORE_INPUT	cur_field=tkmjam	DO_SKIP_IF cbknREMINDER
+
+BEFORE_INPUT    cur_field=tkmlok2       DO_SKIP_IF cbknsgm
+BEFORE_INPUT    cur_field=tkmbuk1       DO_SKIP_IF cbknsgm
+BEFORE_INPUT    cur_field=tkmbuk2       DO_SKIP_IF cbknsgm
+
+BEFORE_INPUT	cur_field=tkmlok2	DO_SKIP_IF cbknREMINDER
+BEFORE_INPUT	cur_field=tkmbuk1	DO_SKIP_IF cbknREMINDER
+BEFORE_INPUT	cur_field=tkmbuk2	DO_SKIP_IF cbknREMINDER
+
+BEFORE_INPUT	cur_field=tkmlok2	DO_SKIP_IF cbknkond1
+BEFORE_INPUT	cur_field=tkmbuk1	DO_SKIP_IF cbknkond2
+BEFORE_INPUT	cur_field=tkmbuk2	DO_SKIP_IF cbknkond3
+
+
+AFTER_INPUT     cur_field=tkmlok1       DO_MAP SHOW IF cotY mnomer
+AFTER_INPUT     cur_field=tkmtgl        DO_MAP SHOW mtanggal
+AFTER_INPUT     cur_field=tkmdf1        DO_MAP SHOW mtglKPB
+
+AFTER_INPUT	cur_field=tkmtgl 	DO_MAP SHOW
+		/*IF ctgltdkok mdum
+		ELSE HKCURSOR STAY
+                     HKMSG tanggal kirim hari ini atau maksimal harini + 7 hari*/
+AFTER_INPUT	cur_field=tkmtgl 	DO_MAP SHOW
+		IF cpenuh mdum
+		ELSE HKCURSOR STAY
+                     HKMSG antrian tanggal kirim sudah penuh
+
+/*** SUBFILE INFORMATION ***/
+IMAGE(transg1t)
+/-----t----------------t-------------t-----------t-----------------------t------t-----\
+|t.No |i.NoBuk         |i.Nama       |i.Telp     |t.Email                |i.Sts |t.Gsm|
+\-----.----------------.-------------.-----------.-----------------------.------.-----/
+
+IMAGE(transg1)
+|_____|________________|_____________|___________|_______________________|______|_____|
+
+FIELD(transg1)
+tkdnourt          NOCHANGE SCROLL		INPUTRI	1  
+tkdnoll           PROTECT  SCROLL		INPUTRI	2
+tkdjwbstr2        PROTECT SCROLL		INPUTRI	2  
+tkdjwbstr1        PROTECT SCROLL		INPUTRI	3  
+lemail            PROTECT SCROLL		INPUTRI	4  
+tkdsts  	  PROTECT SCROLL		INPUTRI	5  
+tkdjml  	  PROTECT SCROLL		INPUTRI	6  
+
+
+EDITS(transg1)
+e.ValidatePpm tkdnoll	VALIDATE ppmbukidx mppm 
+
+CALCS()
+cdjoinpsm       djoinpsm==1
+cdjoinconT      djoinconT==1
+cdjoinconE      djoinconE==1
+
+MAP(mppm)
+ppmnobuk                tkdnoll           REPLACE
+ppmplg                  ppmplg            REPLACE
+lpsmnama                lpsmnama          REPLACE_IF cdjoinpsm
+lto                     lto               REPLACE_IF cdjoinconT
+lemail                  lemail            REPLACE_IF cdjoinconE
+
+CALCS()
+cadatkd		djointkd==1 && tkmkode != "FAKTURM4W" && tkmkode != "ULANGTAUN" && tkmkode != "FAKTURPIUT" && tkmkode != "REMINDERKPB" && tkmkode != "REMINDERNONKPB" && 
+		tkmkode != "AFTERSERVICE" && tkmkode != "AFTERKPB"
+
+SUBFILE(transg1)
+SFL_LINES(9)
+SFL_TITLE(transg1t)
+SFL_COND cadatkd
+SFL_TARGET
+tkdbukidx   tkmnobuk tkmsts 
+/* tkddatbukll   tkmdata tkmnobuk */
+/**********************************************************************/
+IMAGE(transg2t)
+/-----t----------------t-------------t-----------t-----------------------t------t-----\
+|t.No |i.NoBuk         |i.Nama       |i.Telp     |t.Email                |i.Sts |t.Gsm|
+\-----.----------------.-------------.-----------.-----------------------.------.-----/
+
+IMAGE(transg2)
+|_____|________________|_____________|___________|_______________________|______|_____|
+
+FIELD(transg2)
+tkdnourt          PROTECT SCROLL               INPUTRI 1
+tkdnoll           ALLCAPS  SCROLL               INPUTRI 2
+lpsmnama2         PROTECT SCROLL                INPUTRI 2
+lto2              PROTECT SCROLL                INPUTRI 3
+lemail            PROTECT SCROLL                INPUTRI 4
+tkdsts            NOCHANGE SCROLL                INPUTRI 5
+tkdjml            PROTECT SCROLL                INPUTRI 6
+
+DEFAULTS(transg2)
+tkdnourt	INIT	1
+tkdsts 		INIT	OPEN
+
+EDITS(transg2)
+e.Validate    tkdnoll   VALIDATE pikdatbukidx mpik {Pgv_dtpiu}
+
+CALCS()
+cdjoinpsmpik    djoinpsmpik==1
+cdjoinconT4w      djoinconT4w==1
+cdjoinconTul      djoinconTul==1
+
+MAP(mpik)
+piknobuk                tkdnoll           REPLACE
+pikplg			pikplg		  REPLACE
+lpsmnama2               lpsmnama2         REPLACE_IF cdjoinpsmpik
+lto2                    lto2              REPLACE_IF cdjoinconT4w
+lemail                  lemail            REPLACE_IF cdjoinconE
+
+CALCS()
+cdetm4w1	(tkmkode =="FAKTURM4W" || tkmkode=="FAKTURPIUT") && djointkd == 1
+
+SUBFILE(transg2)
+SFL_LINES(10)
+SFL_TITLE(transg2t)
+SFL_COND cdetm4w1
+SFL_TARGET
+tkdbukidx   tkmnobuk tkmsts
+/* tkddatbukll   tkmdata tkmnobuk */
+
+SFL_MAP
+tkmdata		tkddata
+tkmnobuk	tkdnobuk
+tkmsts		tkdsts
+
+
+IMAGE(transg3t)
+/--------------t-------------\
+|i.Type        |i.Kode       | 
+\--------------.-------------/
+
+IMAGE(transg3)
+|______________|_____________|
+
+FIELD(transg3)
+cabusaha        ALLCAPS SCROLL          INPUTRI 1
+cabkode         PROTECT SCROLL          INPUTRI 2
+
+CALCS()
+ctdktkd2     djointkd==0 && tkmkode == "ULANGTAUN"
+
+SUBFILE(transg3)
+SFL_APP_TYPE
+SFL_LINES(9)
+SFL_TITLE(transg3t)
+SFL_COND ctdktkd2
+SFL_TARGET
+cabstskodidx   gv_INPG 
+
+IMAGE(transg4t)
+/-------------t--------------t----t--------t-------------t--------------t-----\
+| i.NoFak     |i.Nama        |t.Us|t.Kol   |t.TglRiil    |t.TglByrAkhir |t.Y  |
+\-------------.--------------.----.--------.-------------.--------------.-----/
+
+IMAGE(transg4)
+|_____________|______________|____|_______|_____________|_______________|_____|_
+
+FIELD(transg4)
+piknobuk        PROTECT         INPUTRI         1
+psmnama         PROTECT         INPUTRI         2
+pikstspiubli    PROTECT         INPUTRI         3
+pikkolek	PROTECT		INPUTRI		4
+piktglriil	PROTECT		INPUTRI		5
+piktglbyrakh	PROTECT		INPUTRI		6
+pikstsfoto	NOCHANGE	INPUTRI		7
+pikplg		PROTECT	UNSEEN	INPUTRI		8
+
+DEFAULTS(transg4)
+pikstsfoto      DFALT_LIST      BLANKS  Y
+
+EDITS(transg4)
+t.ValidatePsm	pikplg		VALIDATE psmktpidx mpsmkons 0
+
+MAP(mpsmkons)
+psmnama		psmnama		REPLACE
+
+CALCS()
+ckodefktm2w	tkmsts=="OPEN" && tkmkode == "FAKTURPIUT" && djointkd == 0 && pikstspiubli != "Z2" && piksts == gv_INPG
+cpilihfktm2w	pikstspiubli != "Z2" && piksts == gv_INPG &&
+		((pikstspiubli == "Z1" && (piktglriil > ststglprjgl && piktglriil <= g_tgltrn && piktglbyrakh <= ststglprjgl)) || 
+		(piktglbyrakh <= ststglprjgl && piktgljtp < g_tgltrn))
+
+SUBFILE(transg4)
+SFL_APP_TYPE
+SFL_LINES(10)
+SFL_TITLE(transg4t)
+SFL_COND	ckodefktm2w
+SFL_SELECT 	cpilihfktm2w
+SFL_TARGET_GTE
+pikcabpiusts tkmlok1 lZ1 {tkmlok1} {lZ6}
+
+DBCALCS(djoin788blokir)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tlmdatstsasl   lBLOKIR gv_INPG piknobuk 
+
+IMAGE(transg5t)
+/----------------t----------\
+|i.Faktur        |i.Sts     |
+\----------------.----------/
+
+IMAGE(transg5)
+|________________|__________|
+
+FIELD(transg5)
+piknobuk        ALLCAPS SCROLL          INPUTRI 1
+piksts          PROTECT SCROLL          INPUTRI 2
+
+CALCS()
+cdetm4w0	tkmkode =="FAKTURM4W" && djointkd == 0
+cdtpiu		pikdata == "DTPIU" && pikdvs == "M4W" && piksts == "INPG" && piktgljtp < g_tgltrn && pikstspiubli >= "Z1" && pikstspiubli <= "Z6" &&
+		pikstspiubli != "Z0" && pikstspiubli != "ZDEN" && djoin788blokir == 0
+		 
+
+SUBFILE(transg5)
+SFL_APP_TYPE
+SFL_LINES(10)
+SFL_TITLE(transg5t)
+SFL_COND cdetm4w0
+SFL_SELECT cdtpiu
+SFL_TARGET
+pikstscabket   gv_INPG	tkmlok1
+
+/****************************WA MITRA M4W******************************/
+MAP(mjoinpsmmitra)
+psmkode		lktpmitra	REPLACE
+
+DBCALCS(djoinpsmmitra)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	psmsupstsktp gv_dtmitra gv_INPG psdpsmkode
+	DBC_MAP		mjoinpsmmitra
+
+IMAGE(transg6t)
+/----------------t----------\
+|i.Ktp           |i.Dvs     |
+\----------------.----------/
+
+IMAGE(transg6)
+|________________|__________|
+
+FIELDS(transg6)
+psdpsmkode	PROTECT		INPUTRI 1
+psdtype		NOCHANGE	INPUTRI 2
+
+CALCS()
+cmitram4w0	tkmkode == "MITRAM4WL" && djointkd==0
+cmitram4w	djoinpsmmitra==1 && ( (psdstr2=="EKSTERNAL" && lktpmitra == psdpsmkode 
+		&& lktpmitra!="3173020209880001" && lktpmitra!="763880242077000" && lktpmitra!="730539103043000") ||
+		(psdstr2=="INTERNALM4W" || psdstr2=="INTERNALGROUP") )
+
+SUBFILE(transg6)
+SFL_LINES(10)
+SFL_TITLE(transg6t)
+SFL_APP_TYPE
+SFL_COND cmitram4w0
+SFL_SELECT cmitram4w
+SFL_TARGET
+psddattypidx  lKATMITRA lM4W
+
+IMAGE(transg7t)
+/--------------------t------------------t--------------t----------------t---------------t---------------t---------------\
+|t.KPBKe             |i.Nosin		| i.NoPol      |   i.Kode       | t.NoTelp	| t.TglKirim	| t.TglKpb	|
+\--------------------.------------------.--------------.----------------.---------------.---------------.---------------/
+
+IMAGE(transg7)
+|____________________|__________________|______________|________________|_______________|_______________|_______________|
+
+
+FIELD(transg7)
+akttype		ALLCAPS SCROLL		INPUTRI	1
+aktkode2	PROTECT			INPUTRI 2 /* No Mesin */
+aktlok		PROTECT			INPUTRI 3 /* No Pol */
+aktket		PROTECT			INPUTRI 4 /* KPB Ke */ 
+aktbrg		PROTECT			INPUTRI 5 /* No Telp */
+akttgl2		PROTECT	{DD-MM-YYYY}	INPUTRI 6 /* Tanggal Kirim */
+akttgl		PROTECT	{DD-MM-YYYY}	INPUTRI 7 /* Tanggal KPB */
+
+MAP(mjoinpt)
+btmsoa		lbtmsoa		REPLACE
+btmiklan	lbtmiklan	REPLACE
+
+
+DBCALCS(djoinpt)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	btmbukidx	aktnobuk
+	DBC_MAP		mjoinpt
+
+CALCS()
+cadaakt1     	tkmkode == "REMINDERKPB"
+ckondRemind1	(((tkmdf1 == 30 && (aktjml < 1 || aktjml == 0)) ||
+		(tkmdf1 == 14 && (aktdf4 < 1 || aktdf4 == 0)) ||
+		(tkmdf1 == 7 && (aktdf5 < 1 || aktdf5 == 0)) || 
+		(tkmdf1 == 0 || tkmdf1 == BLANKS)) &&
+		((tkmlokjl=="CABANG" && (tkmlok1 == aktcab || tkmlok1 == BLANKS)) || 
+		(tkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2) || 
+		(tkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2) ||
+		(tkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2))) && djoinpt == 1 &&
+		lbtmsoa != "GC" && lbtmiklan != "GC"
+
+ckondRemind2	tkmplg == BLANKS
+ckondRemind3	tkmplg != BLANKS
+
+SUBFILE(transg7)
+SFL_LINES(10)
+SFL_TITLE(transg7t)
+SFL_COND cadaakt1
+SFL_SELECT ckondRemind1
+SFL_TARGET_IF ckondRemind2
+akttgltypidx 	tkmtgl1 lREMINDKPB11
+SFL_TARGET_IF ckondRemind3
+akttgltypidx	tkmtgl1	lREMINDKPB11 tkmplg
+
+/**********************************************************************/
+IMAGE(transg8t)
+/--------------------t------------------t--------------t----------------t---------------t---------------t---------------\
+|t.KPBKe             |i.Nosin           | i.NoPol      |   i.Kode       | t.NoTelp      | t.TglKirim    | t.TglKpb      |
+\--------------------.------------------.--------------.----------------.---------------.---------------.---------------/
+
+IMAGE(transg8)
+|____________________|__________________|______________|________________|_______________|_______________|_______________|
+
+
+FIELD(transg8)
+akttype         ALLCAPS SCROLL          INPUTRI 1
+aktkode2        PROTECT                 INPUTRI 2 /* No Mesin */
+aktlok          PROTECT                 INPUTRI 3 /* No Pol */
+aktket          PROTECT                 INPUTRI 4 /* KPB Ke */
+aktbrg          PROTECT                 INPUTRI 5 /* No Telp */
+akttgl2         PROTECT {DD-MM-YYYY}    INPUTRI 6 /* Tanggal Kirim */
+akttgl          PROTECT {DD-MM-YYYY}    INPUTRI 7 /* Tanggal KPB */
+
+CALCS()
+cadaakt2        tkmkode == "REMINDERNONKPB"
+ckondRemind4	(aktjml <= 1 && (aktdf6 == 0 || aktdf6 < 1) && (tkmlokjl=="CABANG" && (tkmlok1 == aktcab || tkmlok1 == BLANKS))) || 
+		(aktjml <= 1 && (aktdf6 == 0 || aktdf6 < 1) && (tkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2)) || 
+		(aktjml <= 1 && (aktdf6 == 0 || aktdf6 < 1) && (tkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2)) ||
+		(aktjml <= 1 && (aktdf6 == 0 || aktdf6 < 1) && (tkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2))
+
+SUBFILE(transg8)
+SFL_APP_TYPE
+SFL_LINES(10)
+SFL_TITLE(transg8t)
+SFL_COND cadaakt2
+SFL_SELECT ckondRemind4
+SFL_TARGET
+akttgltypidx    tkmtgl1 lREMINDSVC611
+/**********************************************************************/
+IMAGE(transg9t)
+/--------------------t------------------t--------------t----------------t---------------t---------------t---------------\
+|t.KPBKe             |i.Nosin           | i.NoPol      |   i.Kode       | t.NoTelp      | t.TglKirim    | t.TglKpb      |
+\--------------------.------------------.--------------.----------------.---------------.---------------.---------------/
+
+IMAGE(transg9)
+|____________________|__________________|______________|________________|_______________|_______________|_______________|
+
+
+FIELD(transg9)
+akttype         ALLCAPS SCROLL          INPUTRI 1
+aktkode2        PROTECT                 INPUTRI 2 /* No Mesin */
+aktlok          PROTECT                 INPUTRI 3 /* No Pol */
+aktket          PROTECT                 INPUTRI 4 /* KPB Ke */
+aktbrg          PROTECT                 INPUTRI 5 /* No Telp */
+akttgl2         PROTECT {DD-MM-YYYY}    INPUTRI 6 /* Tanggal Kirim */
+akttgl          PROTECT {DD-MM-YYYY}    INPUTRI 7 /* Tanggal KPB */
+
+CALCS()
+cadaakt3        tkmkode == "AFTERSERVICE"
+ckondRemind5	((aktdf6 == 0 || aktdf6 < 1) && aktcrtusr != "BELIPART" && aktcrtusr != "SELESAISELISIH" && (tkmlokjl=="CABANG" && (tkmlok1 == aktcab || tkmlok1 == BLANKS))) || 
+		((aktdf6 == 0 || aktdf6 < 1) && aktcrtusr != "BELIPART" && aktcrtusr != "SELESAISELISIH" && (tkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2)) || 
+		((aktdf6 == 0 || aktdf6 < 1) && aktcrtusr != "BELIPART" && aktcrtusr != "SELESAISELISIH" && (tkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2)) ||
+		((aktdf6 == 0 || aktdf6 < 1) && aktcrtusr != "BELIPART" && aktcrtusr != "SELESAISELISIH" && (tkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2))
+
+SUBFILE(transg9)
+SFL_APP_TYPE
+SFL_LINES(10)    
+SFL_TITLE(transg9t)
+SFL_COND cadaakt3
+SFL_SELECT ckondRemind5
+SFL_TARGET
+akttgltypidx    tkmtgl1 lAFTERSVC11
+/**********************************************************************/
+IMAGE(transg10t)
+/--------------------t------------------t--------------t----------------t---------------t---------------t---------------\
+|t.KPBKe             |i.Nosin           | i.NoPol      |   i.Kode       | t.NoTelp      | t.TglKirim    | t.TglKpb      |
+\--------------------.------------------.--------------.----------------.---------------.---------------.---------------/
+
+IMAGE(transg10)
+|____________________|__________________|______________|________________|_______________|_______________|_______________|
+
+
+FIELD(transg10)
+akttype         ALLCAPS SCROLL          INPUTRI 1
+aktkode2        PROTECT                 INPUTRI 2 /* No Mesin */
+aktlok          PROTECT                 INPUTRI 3 /* No Pol */
+aktket          PROTECT                 INPUTRI 4 /* KPB Ke */
+aktbrg          PROTECT                 INPUTRI 5 /* No Telp */
+akttgl2         PROTECT {DD-MM-YYYY}    INPUTRI 6 /* Tanggal Kirim */
+akttgl          PROTECT {DD-MM-YYYY}    INPUTRI 7 /* Tanggal KPB */
+
+CALCS()
+cadaakt4        tkmkode == "AFTERKPB"
+
+SUBFILE(transg10)
+SFL_APP_TYPE
+SFL_LINES(10)
+SFL_TITLE(transg10t)
+SFL_COND cadaakt4
+SFL_SELECT ckondRemind1
+SFL_TARGET
+akttgltypidx    tkmtgl1 lAFTERKPB11
+/**********************************************************************/
+
+IMAGE(trans2g1t)
+/----------------t-------------t-------------t-------------t-----------t------\
+|t.kategori      |tltgllahir   |t.ktp        |i.Nama       |i.Telp     |i.Sts |
+\----------------.-------------.-------------.-------------.-----------.------/
+
+IMAGE(trans2g1)
+|________________|_____________|_____________|______________|__________|______|
+
+FIELD(trans2g1)
+psmstsbill        PROTECT SCROLL                INPUTRI 1
+psmtgllahir       PROTECT {DD-MM-YYYY}          INPUTRI 1
+psmktp            NOCHANGE SCROLL               INPUTRI 2
+psmnama           PROTECT SCROLL                INPUTRI 2
+lto2              PROTECT SCROLL                INPUTRI 3
+psmsts            NOCHANGE SCROLL               INPUTRI 5
+
+EDITS(trans2g1)
+e.Validate    psmktp    VALIDATE psmktpidx  mpik2 0          
+
+MAP(mpik2)
+psmktp                  psmktp            REPLACE
+psmstsbill              psmstsbill        REPLACE
+psmnama                 lpsmnama2          REPLACE
+lto2                    lto2              REPLACE_IF cdjoinconTul
+
+CALCS()
+cdetsel		psmstsbill == "PLATINUM" && psmtgllahir != BLANKS
+
+SUBFILE(trans2g1)
+SFL_APP_TYPE
+SFL_LINES(10)
+SFL_TITLE(trans2g1t)
+SFL_COND ctdktkd2 
+SFL_SELECT cdetsel 
+SFL_TARGET
+psmplgstsktp gv_dtkonsumen gv_INPG  
+
+IMAGE(trans2g2t)
+/--------------t-------------t--------------t------------t---------------\
+|i.Type        |i.Kode       |i.NoBuk2      |i.Tgl       | i.Telp        |
+\--------------.-------------.--------------.------------.---------------/
+
+IMAGE(trans2g2)
+|______________|_____________|______________|____________|_______________|
+
+FIELD(trans2g2)
+ppmdata         NOCHANGE                INPUTRI 1
+ppmcabpos       PROTECT SCROLL          INPUTRI 2
+ppmnobuk        PROTECT                 INPUTRI 3  /* Pilih Y/T    */
+ppmtglkrm       PROTECT {DD-MM-YYYY}    INPUTRI 4  /* Pilih Y/T    */
+ppmplg          NOCHANGE                INPUTRI 5
+
+CALCS()
+cppm614		(ppmsts == "CLSD" || ppmsts == "INPG") && ppmstskrm == "KR" && ppmscr == "614"
+cadatelp	djoinconT == 1
+cadapsm		djoinpsm == 1
+ctdktkd3	g_grpnam == "TUTUP"
+
+EDITS(trans2g2)
+e.Validatecon ppmplg VALIDATE_IF cadatelp conkodstsidx  mcon {Sgv_INPG}
+e.Validatepsm ppmplg VALIDATE_IF cadapsm psmktpidx  mpsm  0
+
+MAP(mcon)
+conhp           conhp           REPLACE
+
+MAP(mpsm)
+psmnama         psmnama         REPLACE
+
+SUBFILE(trans2g2)
+SFL_LINES(9)
+SFL_TITLE(trans2g2t)
+SFL_COND ctdktkd3
+SFL_SELECT cppm614
+SFL_TARGET_GTE
+ppmdtcpostgl   gv_dtpiu cabkode tkmtgl1 {gv_dtpiu} {cabkode} {tkmtgl2}
+
+/**********************************************************************/
+/*** SUBFILE INFORMATION ***/
+IMAGE(transt)
+/--------------t-------------t----\
+|i.Type        |i.Kode       |i.Yt|
+\--------------.-------------.----/
+
+IMAGE(trans)
+|______________|_____________|____| 
+
+FIELD(trans)
+cabusaha 	PROTECT SCROLL		INPUTRI	1  
+cabkode    	PROTECT	SCROLL		INPUTRI	2
+cabtwr  	NOCHANGE          	INPUTRI	7  /* Pilih Y/T    */
+
+/*
+DBCALCS(djoincad)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	cadcabdtidx   cabkode gv_cabbis cabkode lh2 
+*/
+
+DEFAULTS(trans)
+cabtwr		DFALT_SCAN		BLANKS
+					Y
+					T
+CALCS()
+ctdktkd     djointkd==0 && tkmkode != "FAKTURM4W" && tkmkode != "ULANGTAUN" && tkmkode != "FAKTURPIUT" && tkmkode != "MITRAM4WL" &&
+	    tkmkode != "REMINDERKPB" && tkmkode != "REMINDERNONKPB" && tkmkode != "AFTERSERVICE" && tkmkode != "AFTERKPB"
+/*
+cdealer     cablevel3=="DEALER" && djoincad==1
+*/
+
+SUBFILE(trans)
+SFL_APP_TYPE
+SFL_LINES(9)
+SFL_TITLE(transt)
+SFL_COND ctdktkd
+/* SFL_SELECT cdealer */
+
+SFL_TARGET
+cabstskodidx   gv_INPG tkmlok1
+/* cabstsushkod   gv_INPG ldealer  */
+
+/*** SUBFILE INFORMATION ***/
+IMAGE(trans2t)
+/--------------t-------------t--------------t------------t---------------\
+|i.Type        |i.Kode       |i.NoBuk2      |i.Tgl       | i.Telp        |
+\--------------.-------------.--------------.------------.---------------/
+
+IMAGE(trans2)
+|______________|_____________|______________|____________|_______________| 
+
+FIELD(trans2)
+ppmdata  	NOCHANGE           	INPUTRI	1  
+ppmcabpos  	PROTECT	SCROLL		INPUTRI	2
+ppmnobuk        PROTECT                 INPUTRI	3  /* Pilih Y/T    */
+ppmtglkrm       PROTECT {DD-MM-YYYY}    INPUTRI	4  /* Pilih Y/T    */
+ppmplg		NOCHANGE		INPUTRI	5
+
+EDITS(trans2)
+e.Validatecon ppmplg VALIDATE_IF cadatelp conkodstsidx  mcon2 {Sgv_INPG}
+e.Validatepsm ppmplg VALIDATE_IF cadapsm psmktpidx  mpsm2  0
+
+MAP(mcon2)
+conhp		conhp		REPLACE
+
+MAP(mpsm2)
+psmnama		psmnama		REPLACE
+
+SUBFILE(trans2)
+SFL_APP_TYPE
+SFL_LINES(9) 
+SFL_COND ctdktkd
+SFL_TITLE(trans2t)
+SFL_TARGET_GTE
+ppmdtcpostgl   gv_dtpiu cabkode tkmtgl1 {gv_dtpiu} {cabkode} {tkmtgl2}
+
+IMAGE(transat)
+/--------------------t------------------t--------------t----------------t---------------t---------------t---------------\
+|t.KPBKe             |i.Nosin           | i.NoPol      |   i.Kode       | t.NoTelp      | t.TglKirim    | t.TglKpb      |
+\--------------------.------------------.--------------.----------------.---------------.---------------.---------------/
+
+IMAGE(transa)
+|____________________|__________________|______________|________________|_______________|_______________|_______________|
+
+
+FIELD(transa)
+akttype         PROTECT SCROLL          INPUTRI 1
+aktkode2        PROTECT                 INPUTRI 2 /* No Mesin */
+aktlok          PROTECT                 INPUTRI 3 /* No Pol */
+aktket          PROTECT                 INPUTRI 4 /* KPB Ke */
+aktbrg          PROTECT                 INPUTRI 5 /* No Telp */
+akttgl2         PROTECT {DD-MM-YYYY}    INPUTRI 6 /* Tanggal Kirim */
+akttgl          PROTECT {DD-MM-YYYY}    INPUTRI 7 /* Tanggal KPB */
+
+CALCS()
+ckondRemind1a   ((tkmlokjl=="CABANG" && (tkmlok1 == aktcab || tkmlok1 == BLANKS)) ||
+                (tkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2) ||
+                (tkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2) ||
+                (tkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2)) &&
+		djoinpt == 1 && lbtmsoa != "GC" && lbtmiklan != "GC"
+
+SUBFILE(transa)
+SFL_LINES(10)
+SFL_TITLE(transat)
+SFL_COND cadaakt1
+SFL_SELECT ckondRemind1a
+SFL_TARGET_IF ckondRemind2
+akttgltypidx    tkmtgl1 lREMINDKPB11
+SFL_TARGET_IF ckondRemind3
+akttgltypidx    tkmtgl1 lREMINDKPB11 tkmplg
+
+
+IMAGE(transag1t)
+/--------------------t------------------t--------------t----------------t---------------t---------------t---------------\
+|t.KPBKe             |i.Nosin           | i.NoPol      |   i.Kode       | t.NoTelp      | t.TglKirim    | t.TglKpb      |
+\--------------------.------------------.--------------.----------------.---------------.---------------.---------------/
+
+IMAGE(transag1)
+|____________________|__________________|______________|________________|_______________|_______________|_______________|
+
+
+FIELD(transag1)
+akttype         PROTECT SCROLL          INPUTRI 1
+aktkode2        PROTECT                 INPUTRI 2 /* No Mesin */
+aktlok          PROTECT                 INPUTRI 3 /* No Pol */
+aktket          PROTECT                 INPUTRI 4 /* KPB Ke */
+aktbrg          PROTECT                 INPUTRI 5 /* No Telp */
+akttgl2         PROTECT {DD-MM-YYYY}    INPUTRI 6 /* Tanggal Kirim */
+akttgl          PROTECT {DD-MM-YYYY}    INPUTRI 7 /* Tanggal KPB */
+
+CALCS()
+ckondRemind4a   (aktjml <= 1 && tkmlokjl=="CABANG" && (tkmlok1 == aktcab || tkmlok1 == BLANKS)) ||
+                (aktjml <= 1 && tkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2) ||
+                (aktjml <= 1 && tkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2) ||
+                (aktjml <= 1 && tkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2)
+
+SUBFILE(transag1)
+SFL_APP_TYPE
+SFL_LINES(10)
+SFL_TITLE(transag1t)
+SFL_COND cadaakt2
+SFL_SELECT ckondRemind4a
+SFL_TARGET
+akttgltypidx    tkmtgl1 lREMINDSVC611
+
+IMAGE(transag2t)
+/--------------------t------------------t--------------t----------------t---------------t---------------t---------------\
+|t.KPBKe             |i.Nosin           | i.NoPol      |   i.Kode       | t.NoTelp      | t.TglKirim    | t.TglKpb      |
+\--------------------.------------------.--------------.----------------.---------------.---------------.---------------/
+
+IMAGE(transag2)
+|____________________|__________________|______________|________________|_______________|_______________|_______________|
+
+
+FIELD(transag2)
+akttype         PROTECT SCROLL          INPUTRI 1
+aktkode2        PROTECT                 INPUTRI 2 /* No Mesin */
+aktlok          PROTECT                 INPUTRI 3 /* No Pol */
+aktket          PROTECT                 INPUTRI 4 /* KPB Ke */
+aktbrg          PROTECT                 INPUTRI 5 /* No Telp */
+akttgl2         PROTECT {DD-MM-YYYY}    INPUTRI 6 /* Tanggal Kirim */
+akttgl          PROTECT {DD-MM-YYYY}    INPUTRI 7 /* Tanggal KPB */
+
+SUBFILE(transag2)
+SFL_APP_TYPE
+SFL_LINES(10)
+SFL_TITLE(transag2t)
+SFL_COND cadaakt4
+SFL_SELECT ckondRemind1a
+SFL_TARGET
+akttgltypidx    tkmtgl1 lAFTERKPB11
+
+
+IMAGE(report) 
+/--------------Laporan 1401--------------------\
+  spasi
+        i.Pil   : _____
+
+        t.Xls   : _______
+  spasi 
+\----------------------------------------------/
+
+FIELD(report)
+lpil		NUMERIC		INPUTRI 1
+lxls		NOCHANGE	INPUTRI 3
+
+DEFAULTS(report)
+lpil		DFALT_SCAN	1 "FORMAT PRN PROSES REMINDKPB "
+
+lxls		DFALT_LIST	TIDAK YA
+
+CALCS()
+cpil1 		lpil == 1 && g_grpnam == "IT"  
+
+
+RTREE(report)
+RT_COND cpil1
+USES_SCRIPT(scr1401.rptdesign)
+RT_HTML 
+
+RTREE(report2)
+RT_COND cpil1
+USES_SCRIPT(scr1401.rptdesign)
+RT_XLSX
+/*---------------------------------------------------------*/
+CALCS()
+copen	tkmsts=="OPEN" 
+c0	0
+
+MAP(mmapmap)
+lY         	lY		REPLACE
+lto		lto		REPLACE_IF cadatelp
+
+CALCS()
+cnourt		lnourt + 1
+cgsm		lgsm + 1
+ckodemsg	STRIP(tkdnobuk) + FLD_TO_STRING(tkdnourt)
+clebih		lgsm > 2
+cjadi0		0
+cblanks		BLANKS
+cY1		ly=="Y"
+
+ckondKpb1	ppmtglkrm >= 20230215 && ppmtglkrm <= 20230331
+ckondKpb2	ppmtglkrm >= 20221215 && ppmtglkrm <= 20230214
+ckondKpb3	ppmtglkrm >= 20220815 && ppmtglkrm <= 20221214
+ckondKpb4	ppmtglkrm >= 20220415 && ppmtglkrm <= 20220814
+
+MAP(mmapmap2)
+cnourt	       	lnourt		DO_CALC_IF cadatelp
+cgsm		lgsm		DO_CALC_IF cadatelp
+
+
+MAP(mmapmap3)
+cblanks         ly              DO_CALC
+pikstsfoto      ly              REPLACE
+
+MAP(maddtkd)
+tkmdata 	tkddata		REPLACE
+tkmnobuk	tkdnobuk	REPLACE
+ppmnobuk        tkdnoll         REPLACE
+gv_OPEN         tkdsts          REPLACE
+lnourt  	tkdnourt	REPLACE
+ckodemsg	tkdjenis	DO_CALC
+tkmtgl		tkdtgl		REPLACE
+lgsm		tkdjml		REPLACE
+conhp		tkdjwbstr1	REPLACE
+psmnama		tkdjwbstr2	REPLACE
+cjadi0		lgsm		DO_CALC_IF clebih
+
+MAP(maddtkd2)
+tkmdata 	tkddata		REPLACE
+tkmnobuk	tkdnobuk	REPLACE
+psmktp          tkdnoll         REPLACE
+gv_OPEN         tkdsts          REPLACE
+lnourt  	tkdnourt	REPLACE
+ckodemsg	tkdjenis	DO_CALC
+tkmtgl		tkdtgl		REPLACE
+psmtgllahir	tkdtgl2		REPLACE
+lgsm		tkdjml		REPLACE
+conhp		tkdjwbstr1	REPLACE
+psmnama		tkdjwbstr2	REPLACE
+cjadi0		lgsm		DO_CALC_IF clebih
+DEBUG	tkmnobuk tkmnobuk	REPLACE
+
+MAP(maddtkd2w)
+tkmdata		tkddata		REPLACE
+tkmnobuk	tkdnobuk	REPLACE
+piknobuk	tkdnoll		REPLACE
+gv_OPEN		tkdsts		REPLACE
+gv_int1		tkdnourt	REPLACE
+tkmtgl		tkdtgl		REPLACE
+
+MAP(maddtkd4w)
+tkmdata		tkddata		REPLACE
+tkmnobuk	tkdnobuk	REPLACE
+piknobuk	tkdnoll		REPLACE
+gv_OPEN		tkdsts		REPLACE
+DEBUG	ldum	ldum		REPLACE
+
+MAP(maddtkdmitra4w)
+tkmdata		tkddata		REPLACE
+tkmnobuk	tkdnobuk	REPLACE
+psdpsmkode	tkdnoll		REPLACE
+tkmtgl		tkdtgl		REPLACE
+gv_OPEN		tkdsts		REPLACE
+DEBUG	ldum	ldum		REPLACE
+
+MAP(maddtkdReminderKpb)
+tkmdata         tkddata         REPLACE
+tkmnobuk        tkdnobuk        REPLACE
+ppmnobuk        tkdnoll         REPLACE
+gv_OPEN         tkdsts          REPLACE
+lnourt          tkdnourt        REPLACE
+tkmtgl          tkdtgl          REPLACE
+lto             tkdjwbstr1      REPLACE
+psmnama         tkdjwbstr2      REPLACE
+lKPB1		tkdjenis	REPLACE_IF ckondKpb1
+lKPB2		tkdjenis	REPLACE_IF ckondKpb2
+lKPB3		tkdjenis	REPLACE_IF ckondKpb3
+lKPB4		tkdjenis	REPLACE_IF ckondKpb4
+DEBUG	ldum	ldum		REPLACE
+
+MAP(maddsub)
+tkmnobuk   tkmnobuk  REPLACE
+
+SPCALCS(sadd)
+DO_LIB_IF cotY  ap_dbclc(DNAME daddsub,DCOMMAND ADD_SUB,DFILE tkm,DLTARGET tkmbukidx tkmnobuk,DLLEN {stspjbuk},DMAP maddsub);
+
+POSTING(master)
+   PST_SUB_ADDCMD sadd
+
+SPCALCS(sptrans)
+DO_LIB  ap_dbclc(DNAME dmapmap,DCOMMAND MAPMAP,DMAP mmapmap);
+
+SPCALCS(sptrans2)
+DO_LIB  ap_dbclc(DNAME dmapmap2,DCOMMAND MAPMAP,DMAP mmapmap2);
+DO_LIB_IF cadatelp ap_dbclc(DNAME daddtkd,DCOMMAND ADD,DFILE tkd,DMAP maddtkd);
+
+SPCALCS(sptransg3)
+DO_LIB  ap_dbclc(DNAME dmapmap1,DCOMMAND MAPMAP,DMAP mmapmap);
+
+SPCALCS(sptransg4)
+DO_LIB          ap_dbclc(DNAME dmapmap3,DCOMMAND MAPMAP,DMAP mmapmap3);
+DO_LIB_IF cY1	ap_dbclc(DNAME daddtkd2w,DCOMMAND ADD,DFILE tkd,DMAP maddtkd2w);
+
+SPCALCS(sptransg5)
+DO_LIB		ap_dbclc(DNAME daddtkd4w,DCOMMAND ADD,DFILE tkd,DMAP maddtkd4w);
+
+SPCALCS(sptransg6)
+DO_LIB		ap_dbclc(DNAME daddtkdmitra4w,DCOMMAND ADD,DFILE tkd,DMAP maddtkdmitra4w);
+
+SPCALCS(sptrans2g1)
+DO_LIB  ap_dbclc(DNAME dmapmap1x,DCOMMAND MAPMAP,DMAP mtransg3);
+DO_LIB_IF csamaultah  ap_dbclc(DNAME daddtkd2,DCOMMAND ADD,DFILE tkd,DMAP maddtkd2);
+
+SPCALCS(sptrans2g2)
+DO_LIB  ap_dbclc(DNAME dmapmap2g2,DCOMMAND MAPMAP,DMAP mmapmap);
+DO_LIB  ap_dbclc(DNAME dmapmap2g2a,DCOMMAND MAPMAP,DMAP mmapmap2);
+DO_LIB  ap_dbclc(DNAME daddtkdReminderKpb,DCOMMAND ADD,DFILE tkd,DMAP maddtkdReminderKpb);
+DO_LIB  ap_dbclc(DNAME dmapdum2g2,DCOMMAND MAPMAP,DMAP mdum);
+
+
+POSTING(trans)
+PST_COMMAND sptrans
+
+POSTING(trans2)
+PST_COMMAND sptrans2
+
+POSTING(transg3)
+PST_COMMAND sptransg3
+
+POSTING(transg4)
+        PST_COMMAND sptransg4
+
+POSTING(transg5)
+	PST_COMMAND sptransg5
+
+POSTING(transg6)
+	PST_COMMAND sptransg6
+
+POSTING(trans2g1)
+PST_COMMAND sptrans2g1
+
+POSTING(trans2g2)
+PST_COMMAND sptrans2g2
+
+PERMIT(trans)
+        PMT_UPDALL_COND copen
+        PMT_DEL_COND    copen
+
+PERMIT(transg1)
+        PMT_ADD_COND    c0
+        PMT_UPDALL_COND copen
+        PMT_DEL_COND    c0
+
+PERMIT(transg7)
+        PMT_ADD_COND    c0
+        PMT_UPDALL_COND c0
+        PMT_DEL_COND    c0
+
+PERMIT(transg8)
+        PMT_ADD_COND    c0
+        PMT_UPDALL_COND c0
+        PMT_DEL_COND    c0
+
+PERMIT(transg9)
+        PMT_ADD_COND    c0
+        PMT_UPDALL_COND c0
+        PMT_DEL_COND    c0
+
+PERMIT(transg10)
+        PMT_ADD_COND    c0
+        PMT_UPDALL_COND c0
+        PMT_DEL_COND    c0
+
+PERMIT(transa)
+        PMT_ADD_COND    c0
+        PMT_UPDALL_COND c0
+        PMT_DEL_COND    c0
+
+PERMIT(transag1)
+        PMT_ADD_COND    c0
+        PMT_UPDALL_COND c0
+        PMT_DEL_COND    c0
+
+PERMIT(transag2)
+        PMT_ADD_COND    c0
+        PMT_UPDALL_COND c0
+        PMT_DEL_COND    c0
+END_SCREEN

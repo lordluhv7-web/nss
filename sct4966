@@ -1,0 +1,824 @@
+SCREEN 4966 APP_TYPE api_jsonremindwakpb
+
+LOCAL
+PGM_FIELDS
+
+lNobuk		STRING		21
+
+/*
+lTipeRequest	STRING		21
+ldettitle	STRING		31
+ldetlabelshasil	STRING		801
+ldetfieldshasil	STRING		801
+*/
+
+lREMINDKPB11	STRING		11
+lREMINDKPB	STRING		21
+
+lREMINDSVC611	STRING		11
+lREMINDSVC6	STRING		21
+
+lAFTERSVC11  	STRING		11
+lAFTERSVC  	STRING		21
+
+lAFTERKPB11  	STRING		11
+lAFTERKPB  	STRING		21
+
+l0		STRING		2
+
+lname          	STRING		61
+
+/*
+lname_kpb     	STRING		61
+lname_nonkpb    STRING		61
+lname_afterkpb	STRING		61
+lname_aftersvc	STRING		61
+*/
+
+lappId        	STRING		21
+lchannelId   	STRING		61
+ltemplateId 	STRING		61
+ltemplateId_kpb	STRING		61
+ltemplateId_nonkpb	STRING		61
+ltemplateId_after	STRING		61
+
+/*ltext3a		STRING		5000
+ltext3b		STRING		5000*/
+ltext		STRING		5000
+
+lheaderlabel    STRING          50
+lheaderfield    STRING          80
+
+lurl            STRING		101 
+lreqmstlabels   STRING		201
+lreqmstfields  	STRING		801
+
+lmsttitle       STRING          21
+lmstlabels      STRING          201
+lmstfields      STRING          201
+
+lmstnamamap     STRING          21
+ldetlabels      STRING          21
+ldetfields      STRING          21
+ldetnamamap     STRING          21
+lsaveflg	INT2		2
+
+ldataKpb	STRING		21
+
+lstartdate	STRING		61
+
+
+lurl_kpb        STRING          101
+lreturnlabel    STRING          50
+lexpectedreturnvalue    STRING  50
+lrequestreply   STRING          31
+lmstlabeltransg9        STRING  541
+lmstfieldtransg9        STRING  541
+lmstlabeltransg9a       STRING  51
+lmstfieldtransg9a       STRING  51
+lRatingAhass    STRING          21
+ldettitle_kpb 	STRING          21
+
+
+lftmkode2	STRING		21
+lnobuk620	STRING		21
+
+lakttgl		DATE		4
+laktdf1		INT2		2
+laktdf3		INT4		4
+lstraktdf1	STRING		21
+lstraktdf3	STRING		21
+lstrakttgl	STRING		21
+
+lketnama_cab	STRING		21
+lketisi2_cab	STRING		201
+lketstr1_cab	STRING  	91 /* Link Location Cabang */
+lkettype_cab	STRING  	61 /* Aplikasi Booking Service */
+lketstr2_cab	STRING  	91 /* Link Aplikasi Booking Service */
+lketkode_cab	STRING  	21 /* Kode Referal */
+lketyt2_cab	STRING  	21 /* Jam OPR AHASS */
+lketstr3_cab	STRING  	61 /* Pos Service */
+lketstr4_cab	STRING  	61 /* Buku Service */
+
+lshift_opr	STRING		61
+llinkrating	STRING		91
+lposservis	STRING		91
+lproduct	STRING		61
+
+lproduct_btm	STRING		61
+
+lcabnama	STRING		21
+lcabkdjam	STRING		5
+lcabtwr		STRING		21
+lppdbrg		STRING		21
+lbrgkat4	STRING		21
+
+lalamatcab 	STRING		61
+
+lastno2		STRING		21
+lnopol		STRING		21
+lkpb		STRING		21
+ltanggal	DATE		4
+
+ltkmnobuk       STRING          21
+ltkmkode        STRING          21
+ltkmlokjl       STRING          21
+ltkmlok1        STRING          21
+ltkmlok2        STRING          21
+ltkmplg         STRING          21
+ltkmdf1		DFLOAT		8
+
+lnipsgmDCOO	STRING		21
+
+lH2		STRING		21
+lthbl		STRING		21
+
+lVERSI		STRING		21
+ldum		STRING		21
+lbtmsoa		STRING		21
+lbtmiklan	STRING		21
+
+
+MAP(mjoincab)
+cabnama		lcabnama	REPLACE
+cabkdjam	lcabkdjam	REPLACE
+cabtwr		lcabtwr		REPLACE
+
+DBCALCS(djoincab)
+DBC_COMMAND	JOIN
+DBC_TARGET	cabkodidx	aktcab
+DBC_MAP		mjoincab
+
+/* lketyt2         PROTECT                 INPUTRI 9 Ket Jam OPR */
+
+
+MAP(mjoinket_gedung)
+ketnama		lketnama_cab	REPLACE /* Nama cabang */
+ketisi2		lketisi2_cab	REPLACE /* Alamat Cabang */
+
+ketstr1		lketstr1_cab	REPLACE /* Link Location Cabang */
+kettype         lkettype_cab	REPLACE /* Aplikasi Booking Service */
+ketstr2         lketstr2_cab	REPLACE /* Link Aplikasi Booking Service */
+ketkode         lketkode_cab	REPLACE /* Kode Referal */
+ketyt2		lketyt2_cab	REPLACE /* Jam OPR AHASS */
+ketstr3		lketstr3_cab	REPLACE /* Pos Service */
+ketstr4		lketstr4_cab	REPLACE /* Buku Service */
+
+DBCALCS(djoinket_gedung)
+DBC_COMMAND	JOIN
+DBC_TARGET	ketdatbukkod	gv_dttabel	lcabtwr
+DBC_MAP		mjoinket_gedung
+
+MAP(mjointbdcab)
+tbdkettype	lalamatcab	REPLACE
+
+DBCALCS(djointbdcab)
+DBC_COMMAND	JOIN
+DBC_TARGET	tbddatkodidx	gv_dttabel	gv_infoumum	gv_gedung	lcabtwr
+DBC_MAP		mjointbdcab
+
+MAP(mjoinppd)
+ppdbrg          lppdbrg		REPLACE
+
+DBCALCS(djoinppd)
+DBC_COMMAND     JOIN
+DBC_TARGET      ppdbukurtidx aktkode
+DBC_MAP         mjoinppd
+
+MAP(mjoinbrg)
+brgkat4		lbrgkat4	REPLACE
+
+DBCALCS(djoinbrg)
+DBC_COMMAND	JOIN
+DBC_TARGET	brgstsdatbrg	gv_INPG	gv_dtbarang	lppdbrg
+DBC_MAP		mjoinbrg
+
+MAP(mjoinast)
+astno2		lastno2		REPLACE
+
+
+DBCALCS(djoinast_svc6)
+DBC_COMMAND     JOIN
+DBC_TARGET      astjnspolidx    gv_bpkb aktkode
+DBC_MAP         mjoinast
+
+DBCALCS(djoinast_after)
+DBC_COMMAND     JOIN
+DBC_TARGET      astjnspolidx    gv_bpkb aktlok
+DBC_MAP         mjoinast
+
+MAP(mjoinppm)
+ppmpry		lnobuk620	REPLACE
+
+DBCALCS(djoinppm_svc6)
+DBC_COMMAND     JOIN
+DBC_TARGET      ppmbukidx	aktnobuk
+DBC_MAP		mjoinppm
+
+MAP(mjoinbtm)
+btmtypmtr2	lproduct_btm	REPLACE
+
+DBCALCS(djoinbtm_svc6)
+DBC_COMMAND	JOIN
+DBC_TARGET	btmbukidx	lnobuk620
+DBC_MAP		mjoinbtm
+
+
+DBCALCS(djoinppm_after)
+DBC_COMMAND     JOIN
+DBC_TARGET      ppmbukidx	aktkode
+DBC_MAP		mjoinppm
+
+DBCALCS(djoinbtm_after)
+DBC_COMMAND	JOIN
+DBC_TARGET	btmbukidx	lnobuk620
+DBC_MAP		mjoinbtm
+
+MAP(mjoinsgmDCOO)
+sgmstr5         lnipsgmDCOO     REPLACE
+
+DBCALCS(djoinsgmDCOO)
+DBC_COMMAND     JOIN
+DBC_TARGET      sgmdatstrbrg    gv_dtpiccab     lH2 ltkmlokjl lthbl aktcab
+DBC_MAP         mjoinsgmDCOO
+
+
+
+IMAGE(master)
+/--------------------------------------------------------\
+| /----------------------------------------------------\ |
+| |i.NoTelp   : ___________ _______________ ___________| |
+| \----------------------------------------------------/ |
+\--------------------------------------------------------/
+
+FIELDS(master)
+   lNobuk             NONE           INPUTRI          1
+   lstartdate	      NONE	     INPUTRI	      2
+   lftmkode2   	      NONE	     INPUTRI	      3
+
+
+CALCS()
+cthbl		THBLS(g_tgltrn)
+
+
+DEFAULT(master)
+lH2			INIT	H2
+lthbl			INIT	{cthbl}
+l0			INIT	0
+lheaderlabel		INIT	""
+lheaderfield		INIT	""
+
+/*
+lname_kpb		INIT	"Broadcast WA KPB AHASS IKHSAN3"
+lname_nonkpb		INIT	"Broadcast WA NON KPB AHASS"
+lname_afterkpb		INIT	"Broadcast WA AFTER KPB AHASS"
+lname_aftersvc		INIT	"Broadcast WA AFTER SERVICE AHASS"
+*/
+
+lappId			INIT	"512"
+lchannelId		INIT	"b215633e-2783-4f3f-9377-65d00eb55a9f"
+ltemplateId_kpb		INIT	"b73906cb-be13-4315-aeef-dbd93ba27825"
+ltemplateId_nonkpb	INIT	"a0cb26d4-621a-4e40-a737-b8268a068701"
+ltemplateId_after	INIT	"ac84579a-c538-4bdc-b03e-862c4998b2ff"
+
+lreturnlabel         	INIT   	""
+lexpectedreturnvalue 	INIT   	""
+lurl			INIT 	"https://api.kliknss.co.id/campaign"
+lurl_kpb		INIT 	"https://api.kliknss.co.id/ahass/kpb"
+
+/*lmsttitle            	INIT   	""*/
+lmstlabels           	INIT   	""
+lmstfields           	INIT   	""
+lmstnamamap          	INIT   	""
+ldetlabels           	INIT   	""
+ldetfields           	INIT   	""
+ldetnamamap          	INIT   	""
+lsaveflg		INIT	1
+
+/*lstartdate		INIT	"2024-11-01 00:00:00"*/
+
+lNobuk			INIT	{r_string1}
+lftmkode2		INIT	{r_string4}
+lstartdate		INIT	{r_string5}
+ltanggal		INIT	{r_date2}
+
+lREMINDKPB11		INIT	REMINDKPB
+lREMINDKPB		INIT	REMINDKPB
+lREMINDSVC611		INIT	REMINDSVC6
+lREMINDSVC6		INIT	REMINDSVC6
+lAFTERSVC11		INIT	AFTERSVC
+lAFTERSVC		INIT	AFTERSVC
+lAFTERKPB11		INIT	AFTERKPB
+lAFTERKPB		INIT	AFTERKPB
+lVERSI			INIT	04052026
+
+
+lrequestreply   	INIT    "reply"
+lmsttitle     		INIT    "Master KPB"
+lmstlabeltransg9a       INIT    "dataKpb"
+lmstfieldtransg9a       INIT    "ldataKpb"
+ldataKpb		INIT	"DATA KPB"
+ldettitle_kpb 		INIT    "items"
+
+lmstlabeltransg9	INIT	"fullName+product+phoneNumber+nopol+kpbke+lokasi+tgl+km+bukuServis+noFaktur+noMesin"
+lmstfieldtransg9	INIT	"aktket+lbrgkat4+aktbrg+lnopol+lkpb+lketnama_cab+lstrakttgl+lstraktdf3+lketstr4_cab+aktkode+aktkode2"
+
+/*
+lreqmstlabels        	INIT   "name+appId+channelId+templateId+parameters"
+lreqmstfields        	INIT   "lname+lappId+lchannelId+ltemplateId+ltext"
+*/
+
+MAP(mdum)
+cthbl		lthbl		DO_CALC
+DEBUG	ldum	ldum		REPLACE
+
+EDITS(master)
+e.Validate      lNobuk  VALIDATE        tkmbukidx       mtkm    0
+
+MAP(mtkm)
+tkmnobuk        ltkmnobuk       REPLACE
+tkmkode         ltkmkode        REPLACE
+tkmlokjl        ltkmlokjl       REPLACE
+tkmlok1         ltkmlok1        REPLACE
+tkmlok2         ltkmlok2        REPLACE
+tkmplg          ltkmplg         REPLACE
+tkmdf1		ltkmdf1		REPLACE
+
+CALCS()
+c1		1
+cremindkpb	lftmkode2 == "REMINDKPB"
+csvc6bln	lftmkode2 == "REMINDSVC6"
+cafterservice	lftmkode2 == "AFTERSVC"
+cafterkpb	lftmkode2 == "AFTERKPB"
+
+/*** REMINDER KPB ***/
+/*ctext1		"{'body': [{'key': '1','value': 'full_name'},{'key': '2','value': 'full_name'},{'key': '3','value': 'product'},{'key': '4','value': 'nopol'},{'key': '5','value': 'kpbke'},{'key': '6','value': 'lokasi'},{'key': '7','value': 'tgl'},{'key': '8','value': 'km'},{'key': '9','value': 'buku_service'},{'key': '10','value': 'full_name'}]},'recipients': [{'full_name': '"+STRIP(aktket)+"','product': '"+STRIP(lbrgkat4)+"','nopol': '"+STRIP(lnopol)+"','kpbke': '"+STRIP(lkpb)+"','lokasi': '"+STRIP(lketnama_cab)+"','tgl': '"+STRIP(lstrakttgl)+"','km': '"+STRIP(lstraktdf3)+"','buku_service': '"+STRIP(lketstr4_cab)+"','phone_number': '"+STRIP(aktbrg)+"','customer_name': '"+STRIP(aktket)+"','company': 'NSS'}],'startDate': '"+STRIP(lstartdate)+"','errorCallback': 'https://api.kliknss.co.id/hooks/dummy','reporting': [{'type': 1,'url': 'https://api.kliknss.co.id/hooks/dummy','afterMinutes': 1},{'type': 1,'url': 'https://api.kliknss.co.id/hooks/dummy','afterMinutes': 2}]"*/
+
+/*ctext1		"{'items': [{ 'fullName': 'CANDRA BUDIMAN','product': 'BEAT','phone_number': '081295514542','nopol': 'B123XYZ','kpbke': '1 (KPB 1)','lokasi': 'SLIPI','tgl': '20-01-2025','km': 1000,'buku_servis': 'BOOKING SERVIS DI APLIKASI WANDA YA'}]"*/
+
+
+/*** REMINDER NON KPB / SVC 6 BLN ***/
+ctext2		"{'body': [{'key': '1','value': 'full_name'},{'key': '2','value': 'full_name'},{'key': '3','value': 'product'},{'key': '4','value': 'nopol'},{'key': '5','value': 'lokasi'},{'key': '6','value': 'full_name'},{'key': '7','value': 'lokasi'},{'key': '8','value': 'alamat'},{'key': '9','value': 'link'},{'key': '10','value': 'pos'}]},'recipients': [{'full_name': '"+STRIP(aktket)+"','product': '"+STRIP(lproduct_btm)+"','nopol': '"+STRIP(lnopol)+"','lokasi': '"+STRIP(lketnama_cab)+"','alamat': '"+STRIP(lketisi2_cab)+"','link': '"+STRIP(lketstr1_cab)+"','pos':'"+(lposservis)+"','phone_number': '"+STRIP(aktbrg)+"','customer_name': '"+STRIP(aktket)+"','company': 'NSS'}],'startDate': '"+STRIP(lstartdate)+"','errorCallback': 'https://api.kliknss.co.id/hooks/dummy','reporting': [{'type': 1,'url': 'https://api.kliknss.co.id/hooks/dummy','afterMinutes': 1},{'type': 1,'url': 'https://api.kliknss.co.id/hooks/dummy','afterMinutes': 2}]"
+
+/*** AFTER SERVICE ***/
+ctext3		"{'body': [{'key': '1','value': 'full_name'},{'key': '2','value': 'product'},{'key': '3','value': 'nopol'},{'key': '4','value': 'lokasi'},{'key': '5','value': 'linkrating'},{'key': '6','value': 'namaaplikasi'},{'key': '7','value': 'full_name'},{'key': '8','value': 'lokasi'},{'key': '9','value': 'alamat'},{'key': '10','value': 'link'},{'key': '11','value': 'pos'}]},'recipients': [{'full_name': '"+STRIP(aktket)+"','product': '"+STRIP(lproduct_btm)+"','nopol': '"+STRIP(lnopol)+"','lokasi': '"+STRIP(lketnama_cab)+"','linkrating' : '"+STRIP(llinkrating)+"','namaaplikasi' : '"+(lkettype_cab)+"','alamat': '"+(lketisi2_cab)+"','link': '"+STRIP(lketstr1_cab)+"','pos':'"+(lposservis)+"','phone_number': '"+STRIP(aktbrg)+"','customer_name': '"+STRIP(aktket)+"','company': 'NSS'}],'startDate': '"+STRIP(lstartdate)+"'"
+
+/*,'errorCallback': 'https://api.kliknss.co.id/hooks/dummy','reporting': [{'type': 1,'url': 'https://api.kliknss.co.id/hooks/dummy','afterMinutes': 1},{'type': 1,'url': 'https://api.kliknss.co.id/hooks/dummy','afterMinutes': 2}]"*/
+
+
+IMAGE(transt)
+/--------------------t------------------t--------------t----------------t---------------t---------------\
+|i.NoBuk             |i.Nosin           | i.Kode       | t.NoTelp       | t.TglKirim    | t.TglKpb      |
+\--------------------.------------------.--------------.----------------.---------------.---------------/
+
+IMAGE(trans)
+|____________________|__________________|______________|________________|_______________|_______________|
+
+
+FIELD(trans)
+aktnobuk        ALLCAPS SCROLL          INPUTRI 1
+aktkode2        PROTECT                 INPUTRI 2
+aktket          PROTECT                 INPUTRI 3
+aktbrg          PROTECT                 INPUTRI 4
+akttgl2         PROTECT {DD-MM-YYYY}    INPUTRI 5
+akttgl          PROTECT {DD-MM-YYYY}    INPUTRI 6
+
+MAP(mjoinpt)
+btmsoa          lbtmsoa         REPLACE
+btmiklan        lbtmiklan       REPLACE
+
+
+DBCALCS(djoinpt)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      btmbukidx       aktnobuk
+        DBC_MAP         mjoinpt
+
+CALCS()
+cstraktdf1	FLD_TO_STRING(laktdf1)
+cstraktdf3	FLD_TO_STRING(laktdf3)
+cstrakttgl	FLD_TO_STRING(lakttgl)
+cbisareminder   (((ltkmdf1 == 30 && (aktjml < 1 || aktjml == 0)) || 
+		(ltkmdf1 == 14 && (aktdf4 < 1 || aktdf4 == 0)) || 
+		(ltkmdf1 == 7 && (aktdf5 < 1 || aktdf5 == 0)) ||
+		(ltkmdf1 == 0 || ltkmdf1 == BLANKS)) && 
+		((aktbrg != BLANKS && (ltkmlokjl=="CABANG" && (ltkmlok1 == aktcab || ltkmlok1 == BLANKS))) ||
+		(aktbrg != BLANKS && (ltkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)) ||
+                (aktbrg != BLANKS && (ltkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)) ||
+                (aktbrg != BLANKS && (ltkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)))) &&
+		djoinpt == 1 && lbtmsoa != "GC" && lbtmiklan != "GC"
+
+
+ckondRemind2    ltkmplg == BLANKS
+ckondRemind3    ltkmplg != BLANKS
+
+SUBFILE(trans)
+SFL_LINES(10)
+SFL_TITLE(transt)
+SFL_COND cremindkpb
+SFL_SELECT cbisareminder
+SFL_TARGET_IF ckondRemind2
+akttgltypidx    ltanggal lREMINDKPB11
+SFL_TARGET_IF ckondRemind3
+akttgltypidx    ltanggal lREMINDKPB11 ltkmplg
+
+IMAGE(transg1t)
+/--------------------t------------------t--------------t----------------t---------------t---------------\
+|i.NoBuk             |i.Nosin           | i.Kode       | t.NoTelp       | t.TglKirim    | t.TglKpb      |
+\--------------------.------------------.--------------.----------------.---------------.---------------/
+
+IMAGE(transg1)
+|____________________|__________________|______________|________________|_______________|_______________|
+
+
+FIELD(transg1)
+aktnobuk        ALLCAPS SCROLL          INPUTRI 1
+aktkode2        PROTECT                 INPUTRI 2
+aktket          PROTECT                 INPUTRI 3
+aktbrg          PROTECT                 INPUTRI 4
+akttgl2         PROTECT {DD-MM-YYYY}    INPUTRI 5
+akttgl          PROTECT {DD-MM-YYYY}    INPUTRI 6
+
+CALCS()
+cbisa6bln	(aktjml <= 1 && (aktdf6 == 0 || aktdf6 < 1) && (ltkmlokjl=="CABANG" && (ltkmlok1 == aktcab || ltkmlok1 == BLANKS))) ||
+                (aktjml <= 1 && (aktdf6 == 0 || aktdf6 < 1) && (ltkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)) ||
+                (aktjml <= 1 && (aktdf6 == 0 || aktdf6 < 1) && (ltkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)) ||
+                (aktjml <= 1 && (aktdf6 == 0 || aktdf6 < 1) && (ltkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2))
+
+
+
+SUBFILE(transg1)
+SFL_LINES(10)
+SFL_TITLE(transg1t)
+SFL_COND csvc6bln
+SFL_SELECT cbisa6bln
+SFL_TARGET
+akttgltypidx    ltanggal lREMINDSVC611 lREMINDSVC6
+/*akttgltypidx    g_tgltrn lREMINDSVC611 lREMINDSVC6*/
+
+IMAGE(transg2t)
+/--------------------t------------------t--------------t----------------t---------------t---------------\
+|i.NoBuk             |i.Nosin           | i.Kode       | t.NoTelp       | t.TglKirim    | t.TglKpb      |
+\--------------------.------------------.--------------.----------------.---------------.---------------/
+
+IMAGE(transg2)
+|____________________|__________________|______________|________________|_______________|_______________|
+
+
+FIELD(transg2)
+aktnobuk        ALLCAPS SCROLL          INPUTRI 1
+aktkode2        PROTECT                 INPUTRI 2
+aktket          PROTECT                 INPUTRI 3
+aktbrg          PROTECT                 INPUTRI 4
+akttgl2         PROTECT {DD-MM-YYYY}    INPUTRI 5
+akttgl          PROTECT {DD-MM-YYYY}    INPUTRI 6
+
+
+CALCS()
+cbisaaftersvc	((aktdf6 == 0 || aktdf6 < 1) && aktcrtusr != "BELIPART" && aktcrtusr != "SELESAISELISIH" && (ltkmlokjl=="CABANG" && (ltkmlok1 == aktcab || ltkmlok1 == BLANKS))) ||
+                ((aktdf6 == 0 || aktdf6 < 1) && aktcrtusr != "BELIPART" && aktcrtusr != "SELESAISELISIH" && (ltkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)) ||
+                ((aktdf6 == 0 || aktdf6 < 1) && aktcrtusr != "BELIPART" && aktcrtusr != "SELESAISELISIH" && (ltkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)) ||
+                ((aktdf6 == 0 || aktdf6 < 1) && aktcrtusr != "BELIPART" && aktcrtusr != "SELESAISELISIH" && (ltkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2))
+
+
+SUBFILE(transg2)
+SFL_LINES(10)
+SFL_TITLE(transg2t)
+SFL_COND cafterservice
+SFL_SELECT cbisaaftersvc
+SFL_TARGET
+akttgltypidx    ltanggal lAFTERSVC11 lAFTERSVC
+/*akttgltypidx    g_tgltrn lAFTERSVC11 lAFTERSVC*/
+
+
+IMAGE(transg3t)
+/--------------------t------------------t--------------t----------------t---------------t---------------\
+|i.NoBuk             |i.Nosin           | i.Kode       | t.NoTelp       | t.TglKirim    | t.TglKpb      |
+\--------------------.------------------.--------------.----------------.---------------.---------------/
+
+IMAGE(transg3)
+|____________________|__________________|______________|________________|_______________|_______________|
+
+
+FIELD(transg3)
+aktnobuk        ALLCAPS SCROLL          INPUTRI 1
+aktkode2        PROTECT                 INPUTRI 2
+aktket          PROTECT                 INPUTRI 3
+aktbrg          PROTECT                 INPUTRI 4
+akttgl2         PROTECT {DD-MM-YYYY}    INPUTRI 5
+akttgl          PROTECT {DD-MM-YYYY}    INPUTRI 6
+
+SUBFILE(transg3)
+SFL_LINES(10)
+SFL_TITLE(transg3t)
+SFL_COND cafterkpb
+SFL_SELECT cbisareminder
+SFL_TARGET
+akttgltypidx    ltanggal lAFTERKPB11 lAFTERKPB
+/*akttgltypidx    g_tgltrn lAFTERKPB11 lAFTERKPB*/
+
+
+
+CALCS()
+cdjoincab1		djoincab == 1
+cdjoinppd1		djoinppd == 1
+cdjoinbrg1		djoinbrg == 1
+cdjointbdcab1		djointbdcab == 1
+cdjoinket_gedung1	djoinket_gedung == 1
+cdjoinast_svc6		djoinast_svc6 == 1
+cdjoinast_after		djoinast_after == 1
+
+cdjoinppm_svc6		djoinppm_svc6 == 1
+cdjoinbtm_svc6		djoinbtm_svc6 == 1
+
+cdjoinppm_after		djoinppm_after == 1
+cdjoinbtm_after		djoinbtm_after == 1
+
+
+/*cnamawa		"Broadcast WA KPB AHASS" + " " + STRIP(aktkode) + STRIP(lstraktdf1)*/
+cnamawa		"Broadcast WA KPB AHASS" + " " + STRIP(akttype)
+cnamawa2	"Broadcast WA NON KPB AHASS" + " " + STRIP(aktnobuk)
+cnamawa3	"Broadcast WA AFTER SERVICE AHASS" + " " + STRIP(aktkode)
+cnamawa4	"Broadcast WA AFTER KPB AHASS" + " " + STRIP(aktkode)
+
+cnopol		STRIP(aktlok)
+cnopol2		STRIP(aktkode)
+cproduct	STRIP(lbrgkat4)
+cproduct2	STRIP(lproduct_btm)
+
+cstrip		" - "
+cadanopol	aktlok != BLANKS
+ctdknopol	aktlok == BLANKS
+cadanopol2	aktkode != BLANKS
+ctdknopol2	aktkode == BLANKS
+cadaproduct	lbrgkat4 != BLANKS
+ctdkproduct	lbrgkat4 == BLANKS
+cadaproduct2	lproduct_btm != BLANKS
+ctdkproduct2	lproduct_btm == BLANKS
+
+
+ckpb1		STRIP(lstraktdf1) + " (KPB 1)"
+ckpb2		STRIP(lstraktdf1) + " (KPB 2)"
+ckpb3		STRIP(lstraktdf1) + " (KPB 3)"
+ckpb4		STRIP(lstraktdf1) + " (KPB 4)"
+ckondkpb1	aktdf1 == 1
+ckondkpb2	aktdf1 == 2
+ckondkpb3	aktdf1 == 3
+ckondkpb4	aktdf1 == 4
+
+cketyt2_A	lketyt2_cab == "A"
+cketyt2_B	lketyt2_cab == "B"
+cketyt2_C	lketyt2_cab == "C"
+cketyt2_D	lketyt2_cab == "D"
+cketyt2_E	lketyt2_cab == "E"
+cketyt2_F	lketyt2_cab == "F"
+cketyt2_G	lketyt2_cab == "G"
+cketyt2_H	lketyt2_cab == "H"
+cketyt2_I	lketyt2_cab == "I"
+
+
+ckondshiftA	"07:00-17:00WIB"
+ckondshiftB	"08:00-16:30WIB"
+ckondshiftC	"08:00-16:30WITA"
+ckondshiftD	"08:00-17:00WIB"
+ckondshiftE	"08:00-17:00WITA"
+ckondshiftF	"08:30-16:30WIB"
+ckondshiftG	"08:30-16:30WIT"
+ckondshiftH	"08:30-16:30WITA"
+ckondshiftI	"08:30-17:00WIB"
+clinkrating	"https://kliknss.co.id/review-ahass?no=" + STRIP(aktkode)
+
+ctdkpos		lketstr3_cab == BLANKS
+cadapos		lketstr3_cab != BLANKS
+cH30		lftmkode2 == "REMINDKPB" && ltkmdf1 == 30
+cH14		lftmkode2 == "REMINDKPB" && ltkmdf1 == 14
+cH7		lftmkode2 == "REMINDKPB" && ltkmdf1 == 7
+cTdkKPB		lftmkode2 != "REMINDKPB"
+
+MAP(mmapmap)
+aktdf1		laktdf1		REPLACE
+cstraktdf1	lstraktdf1	DO_CALC
+
+cnamawa		lname		DO_CALC
+ltemplateId_kpb	ltemplateId	REPLACE
+
+lppdbrg		lppdbrg		REPLACE_IF cdjoinppd1
+lbrgkat4	lbrgkat4	REPLACE_IF cdjoinbrg1
+
+cstrip		lnopol		DO_CALC_IF ctdknopol
+cnopol		lnopol		DO_CALC_IF cadanopol
+cstrip		lproduct	DO_CALC_IF ctdkproduct
+cproduct	lproduct	DO_CALC_IF cadaproduct
+akttgl		lakttgl		REPLACE
+aktdf3		laktdf3		REPLACE
+cstraktdf3	lstraktdf3	DO_CALC
+cstrakttgl	lstrakttgl	DO_CALC
+ckpb1		lkpb		DO_CALC_IF ckondkpb1
+ckpb2		lkpb		DO_CALC_IF ckondkpb2
+ckpb3		lkpb		DO_CALC_IF ckondkpb3
+ckpb4		lkpb		DO_CALC_IF ckondkpb4
+lcabnama	lcabnama	REPLACE_IF cdjoincab1
+lketnama_cab	lketnama_cab	REPLACE_IF cdjoinket_gedung1
+
+lketstr1_cab	lketstr1_cab	REPLACE_IF cdjoinket_gedung1 /* Link Location Cabang */
+lkettype_cab	lkettype_cab	REPLACE_IF cdjoinket_gedung1 /* Aplikasi Booking Service */
+lketstr2_cab	lketstr2_cab	REPLACE_IF cdjoinket_gedung1 /* Link Aplikasi Booking Service */
+lketkode_cab	lketkode_cab	REPLACE_IF cdjoinket_gedung1 /* Kode Referal */
+lketyt2_cab	lketyt2_cab 	REPLACE_IF cdjoinket_gedung1 /* Jam OPR AHASS */
+lketstr3_cab	lketstr3_cab	REPLACE_IF cdjoinket_gedung1 /* Pos Service */
+lketstr4_cab	lketstr4_cab	REPLACE_IF cdjoinket_gedung1 /* Buku Service */
+
+cstrip		lposservis	DO_CALC_IF ctdkpos
+lketstr3_cab	lposservis	REPLACE_IF cadapos
+
+/*ctext1		ltext		DO_CALC*/
+DEBUG	ldum	ldum		REPLACE
+
+MAP(mmapmap1)
+cnamawa2	lname		DO_CALC
+ltemplateId_nonkpb	ltemplateId	REPLACE
+
+lastno2		lastno2		REPLACE_IF cdjoinast_svc6
+lnobuk620	lnobuk620	REPLACE_IF cdjoinppm_svc6
+lproduct_btm	lproduct_btm	REPLACE_IF cdjoinbtm_svc6
+
+cstrip		lnopol		DO_CALC_IF ctdknopol2
+cnopol2		lnopol		DO_CALC_IF cadanopol2
+cstrip		lproduct	DO_CALC_IF ctdkproduct2
+cproduct2	lproduct	DO_CALC_IF cadaproduct2
+lcabtwr		lcabtwr		REPLACE_IF cdjoincab1
+lcabnama	lcabnama	REPLACE_IF cdjoincab1
+lketnama_cab	lketnama_cab	REPLACE_IF cdjoinket_gedung1
+lketisi2_cab	lketisi2_cab	REPLACE_IF cdjoinket_gedung1
+
+lketstr1_cab	lketstr1_cab	REPLACE_IF cdjoinket_gedung1 /* Link Location Cabang */
+lkettype_cab	lkettype_cab	REPLACE_IF cdjoinket_gedung1 /* Aplikasi Booking Service */
+lketstr2_cab	lketstr2_cab	REPLACE_IF cdjoinket_gedung1 /* Link Aplikasi Booking Service */
+lketkode_cab	lketkode_cab	REPLACE_IF cdjoinket_gedung1 /* Kode Referal */
+lketyt2_cab	lketyt2_cab 	REPLACE_IF cdjoinket_gedung1 /* Jam OPR AHASS */
+lketstr3_cab	lketstr3_cab	REPLACE_IF cdjoinket_gedung1 /* Pos Service */
+lketstr4_cab	lketstr4_cab	REPLACE_IF cdjoinket_gedung1 /* Buku Service */
+
+ckondshiftA	lshift_opr	DO_CALC_IF cketyt2_A
+ckondshiftB	lshift_opr	DO_CALC_IF cketyt2_B
+ckondshiftC	lshift_opr	DO_CALC_IF cketyt2_C
+ckondshiftD	lshift_opr	DO_CALC_IF cketyt2_D
+ckondshiftE	lshift_opr	DO_CALC_IF cketyt2_E
+ckondshiftF	lshift_opr	DO_CALC_IF cketyt2_F
+ckondshiftG	lshift_opr	DO_CALC_IF cketyt2_G
+ckondshiftH	lshift_opr	DO_CALC_IF cketyt2_H
+ckondshiftI	lshift_opr	DO_CALC_IF cketyt2_I
+
+cstrip		lposservis	DO_CALC_IF ctdkpos
+lketstr3_cab	lposservis	REPLACE_IF cadapos
+
+lalamatcab 	lalamatcab 	REPLACE_IF cdjointbdcab1
+ctext2		ltext		DO_CALC
+DEBUG	ltext	ltext	REPLACE
+
+MAP(mmapmap2)
+cnamawa3	lname		DO_CALC
+ltemplateId_after	ltemplateId	REPLACE
+
+lastno2		lastno2		REPLACE_IF cdjoinast_after
+lnobuk620	lnobuk620	REPLACE_IF cdjoinppm_after
+lproduct_btm	lproduct_btm	REPLACE_IF cdjoinbtm_after
+
+cstrip		lproduct	DO_CALC_IF ctdkproduct2
+cproduct2	lproduct	DO_CALC_IF cadaproduct2
+cstrip		lnopol		DO_CALC_IF ctdknopol
+cnopol		lnopol		DO_CALC_IF cadanopol
+lcabtwr		lcabtwr		REPLACE_IF cdjoincab1
+lcabnama	lcabnama	REPLACE_IF cdjoincab1
+lketnama_cab	lketnama_cab	REPLACE_IF cdjoinket_gedung1
+lketisi2_cab	lketisi2_cab	REPLACE_IF cdjoinket_gedung1
+
+lketstr1_cab	lketstr1_cab	REPLACE_IF cdjoinket_gedung1 /* Link Location Cabang */
+lkettype_cab	lkettype_cab	REPLACE_IF cdjoinket_gedung1 /* Aplikasi Booking Service */
+lketstr2_cab	lketstr2_cab	REPLACE_IF cdjoinket_gedung1 /* Link Aplikasi Booking Service */
+lketkode_cab	lketkode_cab	REPLACE_IF cdjoinket_gedung1 /* Kode Referal */
+lketyt2_cab	lketyt2_cab 	REPLACE_IF cdjoinket_gedung1 /* Jam OPR AHASS */
+lketstr3_cab	lketstr3_cab	REPLACE_IF cdjoinket_gedung1 /* Pos Service */
+lketstr4_cab	lketstr4_cab	REPLACE_IF cdjoinket_gedung1 /* Buku Service */
+
+ckondshiftA	lshift_opr	DO_CALC_IF cketyt2_A
+ckondshiftB	lshift_opr	DO_CALC_IF cketyt2_B
+ckondshiftC	lshift_opr	DO_CALC_IF cketyt2_C
+ckondshiftD	lshift_opr	DO_CALC_IF cketyt2_D
+ckondshiftE	lshift_opr	DO_CALC_IF cketyt2_E
+ckondshiftF	lshift_opr	DO_CALC_IF cketyt2_F
+ckondshiftG	lshift_opr	DO_CALC_IF cketyt2_G
+ckondshiftH	lshift_opr	DO_CALC_IF cketyt2_H
+ckondshiftI	lshift_opr	DO_CALC_IF cketyt2_I
+
+cstrip		lposservis	DO_CALC_IF ctdkpos
+lketstr3_cab	lposservis	REPLACE_IF cadapos
+
+lalamatcab	lalamatcab	REPLACE_IF cdjointbdcab1
+clinkrating	llinkrating	DO_CALC
+ctext3		ltext		DO_CALC
+DEBUG	ltext	ltext	REPLACE
+
+
+MAP(mmapmap3)
+cnamawa4	lname		DO_CALC
+ltemplateId_nonkpb	ltemplateId	REPLACE
+
+lastno2		lastno2		REPLACE_IF cdjoinast_after
+lnobuk620	lnobuk620	REPLACE_IF cdjoinppm_after
+lproduct_btm	lproduct_btm	REPLACE_IF cdjoinbtm_after
+
+cstrip		lproduct	DO_CALC_IF ctdkproduct2
+cproduct2	lproduct	DO_CALC_IF cadaproduct2
+cstrip		lnopol		DO_CALC_IF ctdknopol
+cnopol		lnopol		DO_CALC_IF cadanopol
+lcabtwr		lcabtwr		REPLACE_IF cdjoincab1
+lcabnama	lcabnama	REPLACE_IF cdjoincab1
+lketnama_cab	lketnama_cab	REPLACE_IF cdjoinket_gedung1
+lketisi2_cab	lketisi2_cab	REPLACE_IF cdjoinket_gedung1
+
+lketstr1_cab    lketstr1_cab    REPLACE_IF cdjoinket_gedung1 /* Link Location Cabang */
+lkettype_cab    lkettype_cab    REPLACE_IF cdjoinket_gedung1 /* Aplikasi Booking Service */
+lketstr2_cab    lketstr2_cab    REPLACE_IF cdjoinket_gedung1 /* Link Aplikasi Booking Service */
+lketkode_cab    lketkode_cab    REPLACE_IF cdjoinket_gedung1 /* Kode Referal */
+lketyt2_cab     lketyt2_cab     REPLACE_IF cdjoinket_gedung1 /* Jam OPR AHASS */
+lketstr3_cab    lketstr3_cab    REPLACE_IF cdjoinket_gedung1 /* Pos Service */
+lketstr4_cab    lketstr4_cab    REPLACE_IF cdjoinket_gedung1 /* Buku Service */
+
+ckondshiftA     lshift_opr      DO_CALC_IF cketyt2_A
+ckondshiftB     lshift_opr      DO_CALC_IF cketyt2_B
+ckondshiftC     lshift_opr      DO_CALC_IF cketyt2_C
+ckondshiftD     lshift_opr      DO_CALC_IF cketyt2_D
+ckondshiftE     lshift_opr      DO_CALC_IF cketyt2_E
+ckondshiftF     lshift_opr      DO_CALC_IF cketyt2_F
+ckondshiftG     lshift_opr      DO_CALC_IF cketyt2_G
+ckondshiftH     lshift_opr      DO_CALC_IF cketyt2_H
+ckondshiftI     lshift_opr      DO_CALC_IF cketyt2_I
+
+cstrip		lposservis	DO_CALC_IF ctdkpos
+lketstr3_cab	lposservis	REPLACE_IF cadapos
+
+lalamatcab 	lalamatcab 	REPLACE_IF cdjointbdcab1
+clinkrating	llinkrating	DO_CALC
+ctext2		ltext		DO_CALC
+DEBUG	ldum	ldum		REPLACE
+
+MAP(mupdakt_sdhreminder)
+c1		aktjml		DO_CALC_IF cH30
+c1		aktdf4		DO_CALC_IF cH14
+c1		aktdf5		DO_CALC_IF cH7
+c1		aktdf6		DO_CALC_IF cTdkKPB
+
+MAP(mupdtkm)
+gv_CLSD		tkmsts		REPLACE
+
+CALCS()
+ctdkkosong	aktket != BLANKS && aktbrg != BLANKS && aktlok != BLANKS && aktdf1 > 0 && akttgl != BLANKS && aktdf3 > 0
+
+SPCALCS(spmaster)
+DO_LIB ap_dbclc(DNAME dmapdum,DCOMMAND MAPMAP,DMAP mdum);
+
+DO_LIB	ap_snjsp(lurl_kpb,lreturnlabel,lexpectedreturnvalue);
+DO_LIB	ap_jsnmt(lrequestreply,lmsttitle,lmstlabeltransg9a,lmstfieldtransg9a);
+
+DO_LIB	ap_dbclc(DNAME dupdtkm,DCOMMAND UPDATE, DTARGET tkmbukidx lNobuk, DMAP mupdtkm);
+
+
+SPCALCS(sptrans)
+DO_LIB ap_dbclc(DNAME dmapmap,DCOMMAND MAPMAP,DMAP mmapmap);
+
+DO_LIB ap_jsndt(ldettitle_kpb,lmstlabeltransg9,lmstfieldtransg9);
+
+/*DO_LIB ap_rqjsp(lurl,lmsttitle,lreqmstlabels,lreqmstfields,lreturnlabel,lexpectedreturnvalue,lmstlabels,lmstfields,lmstnamamap,ldetlabels,ldetfields,ldetnamamap,lsaveflg,lheaderlabel,lheaderfield);*/
+DO_LIB ap_dbclc(DNAME dupdakt_sdhreminder1,DCOMMAND UPDATE ,DTARGET aktprmidx aktprm ,DMAP mupdakt_sdhreminder);
+
+SPCALCS(sptransg1)
+DO_LIB ap_dbclc(DNAME dmapmap1,DCOMMAND MAPMAP,DMAP mmapmap1);
+DO_LIB ap_rqjsp(lurl,lmsttitle,lreqmstlabels,lreqmstfields,lreturnlabel,lexpectedreturnvalue,lmstlabels,lmstfields,lmstnamamap,ldetlabels,ldetfields,ldetnamamap,lsaveflg,lheaderlabel,lheaderfield);
+DO_LIB ap_dbclc(DNAME dupdakt_sdhreminder2,DCOMMAND UPDATE ,DTARGET aktprmidx aktprm ,DMAP mupdakt_sdhreminder);
+
+SPCALCS(sptransg2)
+DO_LIB ap_dbclc(DNAME dmapmap2,DCOMMAND MAPMAP,DMAP mmapmap2);
+/*DO_LIB ap_rqjsp(lurl,lmsttitle,lreqmstlabels,lreqmstfields,lreturnlabel,lexpectedreturnvalue,lmstlabels,lmstfields,lmstnamamap,ldetlabels,ldetfields,ldetnamamap,lsaveflg,lheaderlabel,lheaderfield);*/
+DO_LIB ap_dbclc(DNAME dupdakt_sdhreminder3,DCOMMAND UPDATE ,DTARGET aktprmidx aktprm ,DMAP mupdakt_sdhreminder);
+
+SPCALCS(sptransg3)
+DO_LIB ap_dbclc(DNAME dmapmap1a,DCOMMAND MAPMAP,DMAP mmapmap3);
+DO_LIB ap_rqjsp(lurl,lmsttitle,lreqmstlabels,lreqmstfields,lreturnlabel,lexpectedreturnvalue,lmstlabels,lmstfields,lmstnamamap,ldetlabels,ldetfields,ldetnamamap,lsaveflg,lheaderlabel,lheaderfield);
+DO_LIB ap_dbclc(DNAME dupdakt_sdhreminder4,DCOMMAND UPDATE ,DTARGET aktprmidx aktprm ,DMAP mupdakt_sdhreminder);
+
+POSTING(master)
+PST_COMMAND	spmaster
+
+POSTING(trans)
+PST_COMMAND	sptrans
+
+POSTING(transg1)
+PST_COMMAND	sptransg1
+
+POSTING(transg2)
+PST_COMMAND	sptransg2
+
+POSTING(transg3)
+PST_COMMAND	sptransg3
+
+END_SCREEN
