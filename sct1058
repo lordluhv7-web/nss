@@ -471,13 +471,13 @@ IMAGE(master)
 || t.TglEstTerimaNom	:	 	     ___________________ ||
 || t.NomDevelopment	:	 	     ___________________ ||
 || t.SalDevKlaim   	:	 	     ___________________ ||
-|| t.SalSisDev     	:	 	     ___________________ ||
+|| t.SalSisDev     	:	 	     _________________._ ||
 || t.AlasanSisDev	:	 	     __________________ _||
 || t.NomDevCair		:	 	     ___________________ ||
 || t.NomTactical	:	 	     ___________________ ||
 || t.BisaKlaimTac	:		     ___________________ ||
 || t.SalTacKlaim   	:	 	     ___________________ ||
-|| t.SalSisTac     	:	 	     ___________________ ||
+|| t.SalSisTac     	:	 	     _________________._ ||
 || t.AlasanSisTac	:	 	     __________________ _||
 || t.NomTacCair		:	 	     ___________________ ||
 || t.teks1058a			 	     t.teks1058b	 ||
@@ -519,25 +519,25 @@ lnipkawil		PROTECT		INPUTRI		16	/* kawil */
 lnamakawil		PROTECT		INPUTRI		17	/* nama kawil */
 ljabkawil		PROTECT		INPUTRI		18	/* jabatan kawil */
 
-ketdf3_1                PROTECT         INPUTRI         19      /* Total Bonus */
-ketdf4_1                PROTECT         INPUTRI         20      /* Transfer Langsung */
-ketdf5_1                PROTECT         INPUTRI         21      /* % Transfer Langsung */
+ketdf3_1                PROTECT         INPUTRI ZERO    19      /* Total Bonus */
+ketdf4_1                PROTECT         INPUTRI ZERO    20      /* Transfer Langsung */
+ketdf5_1                PROTECT         INPUTRI ZERO    21      /* % Transfer Langsung */
 ltgttflang              PROTECT         INPUTRI         22      /* Target TF Langsung */
 
 mtsdvs			NOCHANGE	INPUTRI		23	/* apakah sdh ada nominal dev tac */
 mtstgl1			NOLIMIT {DD-MM-YY} INPUTRI	24	/* tgl estimasi info terima nom */
 
-mtsjml			NUMERIC		INPUTRI		25	/* nominal development */
-mtstothrg		PROTECT		INPUTRI		26	/* saldo dev yg diklaim */
-mtstotdis		PROTECT		INPUTRI		27	/* sisa saldo dev */
+mtsjml			NUMERIC		INPUTRI	ZERO	25	/* nominal development */
+mtstothrg		PROTECT		INPUTRI ZERO    26	/* saldo dev yg diklaim */
+mtstotdis		PROTECT		INPUTRI	ZERO	27	/* sisa saldo dev */
 ketisi_1		TEXTAREA 2	INPUTRI		28	/* alasan sisa saldo dev */
 lblanks			NOCHANGE	INPUTRI		29	/* biar tetep keskip */
 ketdf1_1		NUMERIC		INPUTRI		30	/* nominal dev cair */
 
-mtsjml2			NUMERIC		INPUTRI		31	/* nominal tactical */
+mtsjml2			NUMERIC		INPUTRI ZERO    31	/* nominal tactical */
 mtstype1		PROTECT		INPUTRI		32	/* bisa klaim tactical atau tidak */
-mtsperdis		PROTECT		INPUTRI		33	/* saldo tac yg diklaim */
-mtsperdisd		PROTECT		INPUTRI		34	/* sisa saldo tac */
+mtsperdis		PROTECT		INPUTRI ZERO    33	/* saldo tac yg diklaim */
+mtsperdisd		PROTECT		INPUTRI ZERO    34	/* sisa saldo tac */
 ketisi2_1		TEXTAREA 2	INPUTRI		35	/* alasan sisa saldo tac */
 lblanks			NOCHANGE	INPUTRI		36	/* biar tetep keskip */
 ketdf2_1		NUMERIC		INPUTRI		37	/* nominal tac cair */
