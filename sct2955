@@ -845,6 +845,12 @@ DO_LIB_IF cjointkmspkro         ap_dbclc(DNAME daddabk, DCOMMAND ADD, DFILE abk,
 DO_LIB_IF cjoinspkro            ap_dbclc(DNAME daddspk, DCOMMAND ADD, DFILE spk, DMAP mmaddspk);
 DO_LIB_IF caddspklck            ap_dbclc(DNAME daddspklck, DCOMMAND ADD, DFILE spk, DMAP maddspklck);
 
+DBCALCS(dharikerja)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tgmdattglidx gv_TGL ltgl2 lHK
+CALCS()
+charikerja			dharikerja == 1
+
 POSTING(trans)
 PST_COMMAND     sptrans
 
@@ -856,6 +862,7 @@ PST_COMMAND     sptransg2
 
 POSTING(transg3)
 PST_COMMAND     sptransg3
+PST_COND	charikerja
 
 POSTING(trans2)
 PST_COMMAND     sptrans2
