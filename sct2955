@@ -86,6 +86,8 @@ lREMINDERKPB            STRING  21
 lPROMOSI                STRING  11
 lCABANG                 STRING  21
 l7                      INT2    2
+l14                     INT2    2
+l30                     INT2    2
 lPKTSERVICEKPB1         STRING  21
 lPKTSERVICEKPB2         STRING  21
 lPKTSERVICEKPB3         STRING  21
@@ -250,6 +252,8 @@ lREMINDERKPB        INIT        REMINDERKPB
 lPROMOSI            INIT        "PROMOSI"
 lCABANG             INIT        "CABANG"
 l7                  INIT        7
+l14                 INIT        14
+l30                 INIT        30
 lPKTSERVICEKPB1     INIT        "PKTSERVICEKPB1"
 lPKTSERVICEKPB2     INIT        "PKTSERVICEKPB2"
 lPKTSERVICEKPB3     INIT        "PKTSERVICEKPB3"
@@ -731,7 +735,7 @@ cnobuk1401              "PMS" + THBLS(g_tgltrn)
 MAP(mmapmapg3)
 DEBUG cnobuk1401        tkmnobuk        DO_CALC
 
-MAP(maddmaster1401)
+MAP(maddmaster1401_7)
 lPROMOSI                tkmdata                 REPLACE
 tkmnobuk                tkmnobuk                REPLACE
 gv_INPG                 tkmsts                  REPLACE
@@ -746,7 +750,41 @@ lPKTSERVICEKPB2         tkmplg                  REPLACE_IF cpil5
 lPKTSERVICEKPB3         tkmplg                  REPLACE_IF cpil6
 lPKTSERVICEKPB4         tkmplg                  REPLACE_IF cpil7
 DEBUG lAUTO             tkmtype                 REPLACE
-/*l7                    tkmdf1                  REPLACE*/
+l7                    	tkmdf1                  REPLACE
+
+MAP(maddmaster1401_14)
+lPROMOSI                tkmdata                 REPLACE
+tkmnobuk                tkmnobuk                REPLACE
+gv_INPG                 tkmsts                  REPLACE
+lREMINDERKPB            tkmkode                 REPLACE
+ltgl2                   tkmtgl                  REPLACE
+lCABANG                 tkmlokjl                REPLACE
+lSYSTIME                tkmjam                  REPLACE
+ctambah14               tkmtgl1                 DO_CALC
+ctambah30               tkmtgl2                 DO_CALC
+lPKTSERVICEKPB1         tkmplg                  REPLACE_IF cpil4
+lPKTSERVICEKPB2         tkmplg                  REPLACE_IF cpil5
+lPKTSERVICEKPB3         tkmplg                  REPLACE_IF cpil6
+lPKTSERVICEKPB4         tkmplg                  REPLACE_IF cpil7
+DEBUG lAUTO             tkmtype                 REPLACE
+l14                     tkmdf1                  REPLACE
+
+MAP(maddmaster1401_30)
+lPROMOSI                tkmdata                 REPLACE
+tkmnobuk                tkmnobuk                REPLACE
+gv_INPG                 tkmsts                  REPLACE
+lREMINDERKPB            tkmkode                 REPLACE
+ltgl2                   tkmtgl                  REPLACE
+lCABANG                 tkmlokjl                REPLACE
+lSYSTIME                tkmjam                  REPLACE
+ctambah30               tkmtgl1                 DO_CALC
+ctambah30               tkmtgl2                 DO_CALC
+lPKTSERVICEKPB1         tkmplg                  REPLACE_IF cpil4
+lPKTSERVICEKPB2         tkmplg                  REPLACE_IF cpil5
+lPKTSERVICEKPB3         tkmplg                  REPLACE_IF cpil6
+lPKTSERVICEKPB4         tkmplg                  REPLACE_IF cpil7
+DEBUG lAUTO             tkmtype                 REPLACE
+l30                     tkmdf1                  REPLACE
 
 MAP(m4966_h7)
 tkmnobuk                r_string1               REPLACE
@@ -774,10 +812,14 @@ SPCALCS(sptransg2)
 DO_LIB                          ap_dbclc(DNAME dcrtnobuk, DCOMMAND MAPMAP, DMAP mapinitnobuk);
 
 SPCALCS(sptransg3)
-DO_LIB                          ap_dbclc(DNAME dmapmapg3,DCOMMAND MAPMAP,DMAP mmapmapg3);
-DO_LIB                          ap_dbclc(DNAME daddmaster1401,DCOMMAND ADD,DFILE tkm,DLTARGET tkmbukidx tkmnobuk,DLLEN {stspjbuk},DMAP maddmaster1401);
+DO_LIB                          ap_dbclc(DNAME dmapmapg3_h7,DCOMMAND MAPMAP,DMAP mmapmapg3);
+DO_LIB                          ap_dbclc(DNAME daddmaster1401_h7,DCOMMAND ADD,DFILE tkm,DLTARGET tkmbukidx tkmnobuk,DLLEN {stspjbuk},DMAP maddmaster1401_7);
 DO_LIB                          ap_nxpst(l4966,lm4966_h7);
+DO_LIB                          ap_dbclc(DNAME dmapmapg3_h14,DCOMMAND MAPMAP,DMAP mmapmapg3);
+DO_LIB                          ap_dbclc(DNAME daddmaster1401_h14,DCOMMAND ADD,DFILE tkm,DLTARGET tkmbukidx tkmnobuk,DLLEN {stspjbuk},DMAP maddmaster1401_14);
 DO_LIB                          ap_nxpst(l4966,lm4966_h14);
+DO_LIB                          ap_dbclc(DNAME dmapmapg3_h30,DCOMMAND MAPMAP,DMAP mmapmapg3);
+DO_LIB                          ap_dbclc(DNAME daddmaster1401_30,DCOMMAND ADD,DFILE tkm,DLTARGET tkmbukidx tkmnobuk,DLLEN {stspjbuk},DMAP maddmaster1401_30);
 DO_LIB                          ap_nxpst(l4966,lm4966_h30);
 
 SPCALCS(sptrans2)
