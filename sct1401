@@ -352,7 +352,7 @@ lREMINDSVC611	INIT		REMINDSVC6
 lAFTERSVC11	INIT		AFTERSVC
 lAFTERKPB11	INIT		AFTERKPB
 lREMINDKPB	INIT		REMINDKPB
-lVERSI		INIT		04052026
+lVERSI		INIT		17092026
 l4966		INIT		4966
 lm4966		INIT		"m4966"
 l4887		INIT		4887
@@ -740,18 +740,21 @@ ckondRemind1	(((tkmdf1 == 30 && (aktjml < 1 || aktjml == 0)) ||
 		(tkmlokjl=="HMCAM" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2)))/* && djoinpt == 1 &&
 		lbtmsoa != "GC" && lbtmiklan != "GC"*/
 
-ckondRemind2	tkmplg == BLANKS
-ckondRemind3	tkmplg != BLANKS
+ckondRemind2	tkmplg == BLANKS && tkmtype != "AUTO"
+ckondRemind3	tkmplg != BLANKS && tkmtype != "AUTO"
+ckondRemindAuto	tkmtype == "AUTO"
 
 SUBFILE(transg7)
 SFL_LINES(10)
 SFL_TITLE(transg7t)
 SFL_COND cadaakt1
 SFL_SELECT ckondRemind1
-SFL_TARGET_IF ckondRemind2
-akttgltypidx 	tkmtgl1 lREMINDKPB11
-SFL_TARGET_IF ckondRemind3
-akttgltypidx	tkmtgl1	lREMINDKPB11 tkmplg
+SFL_TARGET_GTE_IF ckondRemind2
+akttgltypidx 	tkmtgl1 lREMINDKPB11 {tkmtgl1} {lREMINDKPB11}
+SFL_TARGET_GTE_IF ckondRemind3
+akttgltypidx	tkmtgl1	lREMINDKPB11 tkmplg {tkmtgl1} {lREMINDKPB11} {tkmplg}
+SFL_TARGET_GTE_IF ckondRemindAuto
+akttgltypidx	tkmtgl1	lREMINDKPB11 tkmplg {tkmtgl2} {lREMINDKPB11} {tkmplg}
 
 /**********************************************************************/
 IMAGE(transg8t)

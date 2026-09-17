@@ -144,6 +144,7 @@ lbtmiklan	STRING		21
 */
 lapi_key	STRING		100
 lsecret_key	STRING		100
+lBLANKS		STRING		21
 /*
 */
 
@@ -293,7 +294,7 @@ lreturnlabel         	INIT   	""
 lexpectedreturnvalue 	INIT   	""
 lurl			INIT 	"https://api.kliknss.co.id/campaign"
 /*lurl_kpb		INIT 	"https://api.kliknss.co.id/ahass/kpb"*/
-lurl_kpb		INIT 	"http://172.23.63.186:8000/api/data-masuk"
+lurl_kpb		INIT 	"http://172.23.63.233:8000/api/data-masuk"
 
 /*lmsttitle            	INIT   	""*/
 lmstlabels           	INIT   	""
@@ -319,7 +320,7 @@ lAFTERSVC11		INIT	AFTERSVC
 lAFTERSVC		INIT	AFTERSVC
 lAFTERKPB11		INIT	AFTERKPB
 lAFTERKPB		INIT	AFTERKPB
-lVERSI			INIT	04052026
+lVERSI			INIT	17092026
 
 
 lrequestreply   	INIT    "reply"
@@ -337,9 +338,11 @@ lreqmstlabels        	INIT   "name+appId+channelId+templateId+parameters"
 lreqmstfields        	INIT   "lname+lappId+lchannelId+ltemplateId+ltext"
 */
 lapi_key		INIT	"dgi-key-live:d872d8b55d2bc71a1def"
+lBLANKS			INIT	BLANKS
 
 CALCS()
 cplus23			ltanggal + 23
+cKondRemindAuto   	lftmkode2 == "REMINDKPB" && ltkmtype == "AUTO"
 
 MAP(mdum)
 cthbl		lthbl		DO_CALC
@@ -358,7 +361,9 @@ tkmplg          ltkmplg         REPLACE
 tkmdf1		ltkmdf1		REPLACE
 tkmtype		ltkmtype	REPLACE
 tkmtgl		ltkmtgl		REPLACE
-cplus23		ltanggal2	DO_CALC
+lBLANKS		ltanggal2	REPLACE
+ltanggal	ltanggal2	REPLACE
+cplus23		ltanggal2	DO_CALC_IF cKondRemindAuto
 
 CALCS()
 c1		1
@@ -418,7 +423,8 @@ cstrakttgl	FLD_TO_STRING(lakttgl)
 cbisareminder   (((ltkmdf1 == 30 && (aktjml < 1 || aktjml == 0)) || 
 		(ltkmdf1 == 14 && (aktdf4 < 1 || aktdf4 == 0)) || 
 		(ltkmdf1 == 7 && (aktdf5 < 1 || aktdf5 == 0)) ||
-		(ltkmdf1 == 0 || ltkmdf1 == BLANKS)) && 
+		(ltkmdf1 == 0 || ltkmdf1 == BLANKS) ||
+		(ltkmtype == "AUTO" && aktjml < 1 && aktdf4 < 1 && aktdf5 < 1)) && 
 		((aktbrg != BLANKS && (ltkmlokjl=="CABANG" && (ltkmlok1 == aktcab || ltkmlok1 == BLANKS))) ||
 		(aktbrg != BLANKS && (ltkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)) ||
                 (aktbrg != BLANKS && (ltkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==ltkmlok2)) ||
@@ -607,12 +613,12 @@ clinkrating	"https://kliknss.co.id/review-ahass?no=" + STRIP(aktkode)
 
 ctdkpos		lketstr3_cab == BLANKS
 cadapos		lketstr3_cab != BLANKS
-cH30		lftmkode2 == "REMINDKPB" && ltkmdf1 == 30
-cH14		lftmkode2 == "REMINDKPB" && ltkmdf1 == 14
-cH7		lftmkode2 == "REMINDKPB" && ltkmdf1 == 7
-cRKPBAUTO30	lftmkode2 == "REMINDKPB" && ltkmtype == "AUTO" && ltkmtgl == (g_tgltrn + 30)
-cRKPBAUTO14	lftmkode2 == "REMINDKPB" && ltkmtype == "AUTO" && ltkmtgl == (g_tgltrn + 14)
-cRKPBAUTO7	lftmkode2 == "REMINDKPB" && ltkmtype == "AUTO" && ltkmtgl == (g_tgltrn + 7)
+cH30		lftmkode2 == "REMINDKPB" && ltkmdf1 == 30 && ltkmtype != "AUTO"
+cH14		lftmkode2 == "REMINDKPB" && ltkmdf1 == 14 && ltkmtype != "AUTO"
+cH7		lftmkode2 == "REMINDKPB" && ltkmdf1 == 7 && ltkmtype != "AUTO"
+cRKPBAUTO30	lftmkode2 == "REMINDKPB" && ltkmtype == "AUTO" && akttgl == (ltkmtgl + 30)
+cRKPBAUTO14	lftmkode2 == "REMINDKPB" && ltkmtype == "AUTO" && akttgl == (ltkmtgl + 14)
+cRKPBAUTO7	lftmkode2 == "REMINDKPB" && ltkmtype == "AUTO" && akttgl == (ltkmtgl + 7)
 cTdkKPB		lftmkode2 != "REMINDKPB"
 
 MAP(mmapmap)
