@@ -1,0 +1,401 @@
+SCREEN 1408 QUERY_TYPE i.UplSPart
+SCR_FILE mts
+SCR_NXT_POSTING_IF cOPEN 4704
+		   cINPG 4705
+SCR_LOGFLD mtsnobuk 
+SCR_DOCUPLFLD mtsnobuk
+SCR_UPL_DIRFLD mtstgl
+SCR_DOCUPLFLD_DBCALCS dupdmts
+SCR_NXT_MAP mnext
+
+SCR_NXT_MSG IF cbknopen1 Belum Upload File
+            IF cbknopen2 Nama File Tidak Boleh Kosong
+	    IF cbknopen3 Ket Jenis Ada Yang Kosong / Salah
+            IF cbknopen4 Ket P Ada Yang Kosong / Salah
+            IF cbknopen5 Ket L Ada Yang Kosong / Salah
+            IF cbknopen6 Ket T Ada Yang Kosong / Salah
+
+LOCAL
+PGM_FIELDS
+lkodebukti	STRING		21
+lVERSI		STRING		21
+lOK		STRING		5
+lketjns_ksng	INT2		2
+lketP_ksng 	INT2            2
+lketL_ksng	INT2            2
+lketT_ksng	INT2            2
+
+MAP(mnext)
+mtsnobuk  	r_string1    	REPLACE
+mtsket    	r_string2    	REPLACE
+mtsscr    	r_string3    	REPLACE
+mtsjml		r_double1	REPLACE
+
+CALCS()
+cmtdlok2_ksng		mtdlok2 == BLANKS
+cmtdperdis1_ksng	mtdperdis1 == BLANKS
+cmtdperdis2_ksng        mtdperdis2 == BLANKS
+cmtdperdis3_ksng        mtdperdis3 == BLANKS
+
+MAP(mscanmtd)
+gv_int1		lketjns_ksng	REPLACE_IF cmtdlok2_ksng
+gv_int1		lketP_ksng	REPLACE_IF cmtdperdis1_ksng
+gv_int1		lketL_ksng	REPLACE_IF cmtdperdis2_ksng
+gv_int1		lketT_ksng	REPLACE_IF cmtdperdis3_ksng
+
+DBCALCS(dscanmtd)
+	DBC_COMMAND	SCANSCAN
+	DBC_TARGET	mtdbukurtidx	mtsnobuk
+	DBC_SUM_MAP	mscanmtd
+
+CALCS()
+c0			0
+cOPEN       		(mtssts == "OPEN" && mtstypbrg == "OK" && mtsket != BLANKS)
+cINPG			((mtssts == "INPG" && mtstypbrg == "OK" && mtsket != BLANKS && mtsgrup != "LOKASI") ||
+			(mtssts == "INPG" && mtstypbrg == "OK" && mtsket != BLANKS && mtsgrup == "LOKASI" && 
+			dscanmtd >= 0 && lketjns_ksng == 0 && dscanmtd >= 0 && lketP_ksng == 0 && 
+			dscanmtd >= 0 && lketL_ksng == 0 &&dscanmtd >= 0 && lketT_ksng == 0))
+cspv                    (g_grpnam == "AHASSSPV" || g_grpnam == "AHASSKABENG")
+cselainspv              g_grpnam != "AHASSSPV" && g_grpnam != "AHASSFD" && g_grpnam != "AHASSSA" && g_grpnam != "AHASSKABENG" && 
+			g_grpnam != "ADMPART" && g_grpnam != "ADH" && g_grpnam != "AUDIT"
+ckecspv			g_grpnam == "AHASSFD" || g_grpnam == "AHASSSA" || g_grpnam == "AHASSKABENG" || g_grpnam == "AHASSSPV" ||
+			g_grpnam == "AHASSHEAD" || g_grpnam == "ADMPART" || g_grpnam == "ADH" || g_grpnam == "AUDIT" ||
+			g_grpnam == "AUDITHEAD" || g_grpnam == "AUDITSPV" || g_grpnam == "RAS" || g_grpnam == "RASAHASS"
+
+cbknopen1      		mtssts == "OPEN" && mtstypbrg == BLANKS
+cbknopen2      		mtsket == BLANKS 
+cbknopen3		mtsgrup == "LOKASI" && dscanmtd >= 0 && lketjns_ksng > 0
+cbknopen4		mtsgrup == "LOKASI" && dscanmtd >= 0 && lketP_ksng > 0
+cbknopen5		mtsgrup == "LOKASI" && dscanmtd >= 0 && lketL_ksng > 0
+cbknopen6		mtsgrup == "LOKASI" && dscanmtd >= 0 && lketT_ksng > 0
+
+cnamafile      		"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/part.txt"
+cnamafile_po      	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/poahs.txt"
+cnamafile_pohmc      	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/pohmc.txt"
+cnamafile_tgtnpbt     	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/tgtnpbt.txt"
+cnamafile_shiftahs	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/shiftahs.txt"
+cnamafile_usiamtr	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/usiamtr.txt"
+cnamafile_rekomenpkt	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/rekomenpkt.txt"
+cnamafile_partpermotor	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/partpermotor.txt"
+cnamafile_showroom	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/showroom.txt"
+cnamafile_asuransi1	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/asuransi1.txt"
+cnamafile_asuransi2	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/asuransi2.txt"
+cnamafile_popart503	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/popart503.txt"
+cnamafile_datanpbt	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/datanpbt.txt"
+cnamafile_pmtmekanik	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/pmtmekanik.txt"
+cnamafile_uplmasterrmd	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/uplmasterrmd.txt"
+cnamafile_tgtslinahs	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/tgtslinahs.txt"
+cnamafile_ubr		"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/uplubr.txt"
+cnamafile_uplmvbrg      "docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/uplmvbrg.txt"
+cnamafile_uplservis     "docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/uplservis.txt"
+cnamafile_uplpart       "docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/uplpart.txt"
+cnamafile_uplomzet      "docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/uplomz.txt"
+cnamafile_uplstokaudit  "docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/uplstok.txt"
+cnamafile_uplibd	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/ibd.txt"
+cnamafile_uplactibd	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/actibd.txt"
+cnamafile_uplkomisitld	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/komisitld.txt"
+cnamafile_uplkomisipps	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/komisipps.txt"
+cnamafile_kpi           "docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/kpi.txt" 
+cnamafile_uplrankahass	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/rankahass.txt"
+cnamafile_uplkatjasa	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/katjasa.txt"
+cnamafile_updpkt620	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/pkt620.txt"
+cnamafile_upltgtdesk    "docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/tgtdesk.txt"
+cnamafile_uplringahass  "docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/ringahass.txt"
+cnamafile_uplavgjl6bln  "docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/avgjl6bln.txt"
+cnamafile_updbrgnama	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/namabarang.txt"	
+cnamafile_updclmbonus	"docupload/" + THBLS(mtstgl) + "/" + STRIP(mtsnobuk) + "/claimbonus.txt"	
+
+
+cnonPO		mtsgrup != "UPL_POAHS" && mtsgrup !="UPL_POHMC" && mtsgrup !="TGTNPBT" && mtsgrup !="UPL_SHIFT_AHASS" &&
+		mtsgrup != "UPL_USIA_MOTOR" && mtsgrup != "UPL_REKOMEN_PKT" && mtsgrup != "UPL_PART_PERMOTOR" &&
+		mtsgrup != "UPL_HRG_SHOWROOM" && mtsgrup != "UPL_ASURANSI1" && mtsgrup != "UPL_ASURANSI2" && mtsgrup != "UPL_POPART503" &&
+		mtsgrup != "UPL_DATA_NPBT" && mtsgrup != "UPL_TIPE_SERVICE" && mtsgrup != "UPL_PMT_MEKANIK" && mtsgrup != "UPL_MASTER_RMD" && 
+		mtsgrup != "UPL_KOMISI_TLD" && mtsgrup != "UPL_KOMISI_PPS"
+cpilPO		mtsgrup == "UPL_POAHS"
+cpilPO2		mtsgrup == "UPL_POHMC"
+cpilTGT		mtsgrup == "TGTNPBT"
+cpilSHIFT	mtsgrup == "UPL_SHIFT_AHASS"
+cpilUSIA 	mtsgrup == "UPL_USIA_MOTOR" 
+cpilREKOMEN	mtsgrup == "UPL_REKOMEN_PKT"
+cpilPARTPERMOTOR mtsgrup == "UPL_PART_PERMOTOR"
+cpilSHOWROOM	mtsgrup == "UPL_HRG_SHOWROOM"
+cpilASURANSI1	mtsgrup == "UPL_ASURANSI1"
+cpilASURANSI2	mtsgrup == "UPL_ASURANSI2"
+cpilPOPART503	mtsgrup == "UPL_POPART503"
+cpilDATANPBT	mtsgrup == "UPL_DATA_NPBT"
+cpilPMTMEKANIK	mtsgrup == "UPL_PMT_MEKANIK"
+cpilMASTERRMD 	mtsgrup == "UPL_MASTER_RMD"
+cpilTGTSLINAHS	mtsgrup == "UPL_TGTSLINAHS"
+cpilUPLUBR	mtsgrup == "UPL_UBR"
+cpilUPLMVBRG    mtsgrup == "UPL_MVBRG_AHASS"
+cpilUPLMPART    mtsgrup == "UPL_MPART_AHASS"
+cpilUPLMSERV    mtsgrup == "UPL_MSERVIC_AHASS"
+cpilUPLOMZ      mtsgrup == "UPL_OMZ_AHASS"
+cpilUPLSTKAU    mtsgrup == "UPL_STOKAUDIT"
+cpilUPLIBD	mtsgrup == "UPL_IBD"
+cpilUPLACTIBD	mtsgrup == "UPL_ACT_IBD"
+cpilUPL_NPBTH2  mtsgrup == "UPL_NPBTH2"
+cpilUPL_KOMISI	mtsgrup == "UPL_KOMISI_TLD"
+cpilUPL_DATAKPI mtsgrup == "UPL_DATAKPI"
+cpilUPL_KOMISI2	mtsgrup == "UPL_KOMISI_PPS"
+cpilUPL_RANK_AHASS	mtsgrup == "UPL_RANK_AHASS"
+cpilUPD_KATJASA	mtsgrup == "UPD_KATEGORI_JASA"
+cpilUPD_PKT620	mtsgrup == "UPD_PAKET_620"
+cpilUPL_TGTDESK mtsgrup == "UPL_TGT_DESKCALL"
+cpilUPL_RINGAHS mtsgrup == "UPL_RING_AHASS"
+cpilUPL_AVGJL6BLN mtsgrup == "UPL_AVGJL_6BLN"
+cpilUPD_BRGNAMA mtsgrup == "UPD_NAMA_BARANG"
+cpilUPD_CLMBNS mtsgrup == "UPL_CLAIMBONUS"
+
+MAP(mupdpmb)
+lOK			mtstypbrg	REPLACE
+cnamafile		mtsket		DO_CALC_IF cnonPO
+cnamafile_po		mtsket		DO_CALC_IF cpilPO
+cnamafile_pohmc       	mtsket		DO_CALC_IF cpilPO2
+cnamafile_tgtnpbt     	mtsket		DO_CALC_IF cpilTGT
+cnamafile_shiftahs    	mtsket		DO_CALC_IF cpilSHIFT
+cnamafile_usiamtr     	mtsket		DO_CALC_IF cpilUSIA 
+cnamafile_rekomenpkt  	mtsket		DO_CALC_IF cpilREKOMEN
+cnamafile_partpermotor	mtsket		DO_CALC_IF cpilPARTPERMOTOR
+cnamafile_showroom  	mtsket		DO_CALC_IF cpilSHOWROOM
+cnamafile_asuransi1  	mtsket		DO_CALC_IF cpilASURANSI1
+cnamafile_asuransi2  	mtsket		DO_CALC_IF cpilASURANSI2
+cnamafile_popart503  	mtsket		DO_CALC_IF cpilPOPART503
+cnamafile_datanpbt  	mtsket		DO_CALC_IF cpilDATANPBT
+cnamafile_pmtmekanik	mtsket		DO_CALC_IF cpilPMTMEKANIK
+cnamafile_uplmasterrmd	mtsket		DO_CALC_IF cpilMASTERRMD
+cnamafile_tgtslinahs	mtsket		DO_CALC_IF cpilTGTSLINAHS
+cnamafile_ubr		mtsket		DO_CALC_IF cpilUPLUBR
+cnamafile_uplmvbrg      mtsket          DO_CALC_IF cpilUPLMVBRG   /* master volume barang */
+cnamafile_uplpart       mtsket          DO_CALC_IF cpilUPLMPART
+cnamafile_uplservis     mtsket          DO_CALC_IF cpilUPLMSERV
+cnamafile_uplomzet      mtsket          DO_CALC_IF cpilUPLOMZ
+cnamafile_uplstokaudit  mtsket          DO_CALC_IF cpilUPLSTKAU
+cnamafile_uplibd	mtsket		DO_CALC_IF cpilUPLIBD	/*TGT BONUS DEALER*/
+cnamafile_uplactibd	mtsket		DO_CALC_IF cpilUPLACTIBD /*ACT BONUS DEALER*/
+cnamafile_uplkomisitld	mtsket		DO_CALC_IF cpilUPL_KOMISI	/* UPD TLD KOMISI */
+cnamafile               mtsket          DO_CALC_IF cpilUPL_NPBTH2
+cnamafile_kpi           mtsket          DO_CALC_IF cpilUPL_DATAKPI
+cnamafile_uplkomisipps	mtsket		DO_CALC_IF cpilUPL_KOMISI2	/* UPD PPS KOMISI */
+cnamafile_uplrankahass	mtsket		DO_CALC_IF cpilUPL_RANK_AHASS
+cnamafile_uplkatjasa	mtsket		DO_CALC_IF cpilUPD_KATJASA
+cnamafile_updpkt620	mtsket		DO_CALC_IF cpilUPD_PKT620
+cnamafile_upltgtdesk	mtsket		DO_CALC_IF cpilUPL_TGTDESK
+cnamafile_uplringahass	mtsket		DO_CALC_IF cpilUPL_RINGAHS
+cnamafile_uplavgjl6bln	mtsket		DO_CALC_IF cpilUPL_AVGJL6BLN
+cnamafile_updbrgnama	mtsket		DO_CALC_IF cpilUPD_BRGNAMA
+cnamafile_updclmbonus	mtsket		DO_CALC_IF cpilUPD_CLMBNS
+
+DBCALCS(dupdmts)
+DBC_COMMAND  UPDATE
+DBC_TARGET mtsprmidx mtsprm 
+DBC_MAP mupdpmb
+
+
+IMAGE(master) 
+/-------------------------------------\
+ /------------------------------------\
+  i.Tgl     : ________________                                
+  i.NoDo    : ________________   
+  t.Tipe    : ________________
+  i.Sts     : _________  _____                                
+  i.Dlmt    : _______________
+  i.Namfil  : _______________________
+                             ________  
+ \------------------------------------/ 
+ /---------DOCUPLOAD------------------\
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+  
+                         
+ \------------------------------------/
+\-------------------------------------/
+
+FIELD(master)
+   mtstgl         PROTECT NOCHANGE {DD-MM-YY} INPUTRI   1 
+   mtsnobuk       PROTECT                     INPUTRI   2
+   mtsgrup	  NOCHANGE		      INPUTRI   3 
+   mtssts         NOCHANGE                    INPUTRI   4 
+   mtstypbrg      PROTECT		      INPUTRI   5
+   mtsjml	  NOCHANGE NUMERIC            INPUTRI	6
+   mtsket	  PROTECT                     INPUTRI	7
+   mtsdata	  PROTECT                     INPUTRI	8
+
+DEFAULT(master)
+lVERSI	  INIT	      24082026
+lOK	  INIT	      OK
+mtstgl    INIT        {g_tgltrn}
+mtssts    INIT        OPEN
+mtsscr    INIT        {g_scrnumstr}
+mtsdata   INIT        UPLSPART
+mtsdata   INIT_QUERY  UPLSPART
+mtsdvs    INIT        H2
+IF cselainspv   mtsgrup   DFALT_SCAN  TAMBAH_JASA
+		      UPD_KODE_JASA
+		      UPD_HRG_JASA
+		      BARANG
+		      LOKASI
+		      WARNA
+		      SO
+		      TR
+		      PARTMAN
+		      FAKTUR      
+		      HET
+		      DESKCALL     
+		      PARTHITAM
+		      UPD_STS_PART 
+		      TGTAHASS
+		      UPD_KODE2_KAT4
+		      UPD_KATEGORI_BRG
+		      UPD_STATUS_DLP
+		      UPD_BARU_BEKAS_PART
+		      UPD_HOTLINE_PART
+		      UPL_POAHS
+		      UPL_POHMC
+		      TGTNPBT
+		      UPL_SHIFT_AHASS
+		      UPL_USIA_MOTOR
+		      UPL_REKOMEN_PKT
+		      UPL_PART_PERMOTOR
+		      UPL_HRG_SHOWROOM
+		      UPL_ASURANSI1
+		      UPL_ASURANSI2
+		      UPL_POPART503
+		      UPL_DATA_NPBT
+		      UPL_PMT_MEKANIK
+		      UPL_MASTER_RMD
+		      UPL_LEADTIME_PO
+		      UPL_DTTHAHASS
+		      DEL_REMINDKPB
+     		      UPD_JTP_REMINDKPB
+		      UPL_BARANGAHASS
+		      UPL_TGTSLINAHS
+		      UPL_UBR
+                      UPL_MVBRG_AHASS
+                      UPL_MPART_AHASS
+                      UPL_MSERVIC_AHASS
+                      UPL_OMZ_AHASS
+                      UPL_STOKAUDIT
+		      UPD_SERIES_AHASS
+		      UPL_IBD
+		      UPL_ACT_IBD
+		      UPD_BTF_AHASS
+                      UPL_NPBTH2
+		      UPL_KOMISI_TLD
+                      UPL_DATAKPI
+                      UPD_HPP_AHASS
+		      DEL_PPDAHS
+		      UPL_CABOTOPO
+		      UPL_KOMISI_PPS
+		      UPD_PMB_KECOT
+		      UPL_RANK_AHASS
+		      UPD_KATEGORI_JASA
+		      UPD_PAKET_620
+		      UPL_TGT_DESKCALL
+                      UPL_RING_AHASS
+		      UPL_AVGJL_6BLN
+		      UPD_NAMA_BARANG
+                      UPL_CLAIMBONUS
+
+IF      cspv          mtsgrup   DFALT_SCAN      UPL_OMZ_AHASS
+						UPL_POAHS
+                      				UPL_RANK_AHASS
+
+IF      ckecspv       mtsgrup   DFALT_SCAN      LOKASI
+
+mtsjml	DFALT_SCAN    1 "Tab (	)"
+                      2 "Titik Koma (;)"
+                      3 "Garis Tegak (|)"
+
+EDITS(master)
+e.Mandatory	mtsnobuk	MANDATORY
+e.Mandatory	mtsgrup		MANDATORY
+
+CALCS()
+cotY       	stsotobukti == "Y"
+ckodebukti	DO_LIB ap_amdvs(mtsdvs,mtsscr,lkodebukti); 
+cnomer     	STRIP(lkodebukti) + THBLS(g_tgltrn) + "-"
+ctypadd    	g_curcmd == 1
+
+MAP(mnomer)
+ckodebukti	lkodebukti	DO_CALC
+cnomer     	mtsnobuk    	DO_CALC_IF ctypadd
+
+HOOKS(master)
+AFTER_INPUT    	cur_field=mtssts  	DO_MAP SHOW IF cotY mnomer
+
+IMAGE(transt)
+/----------------------t----------\
+| i.KdBrg              | i.Nom    |
+\----------------------.----------/
+
+IMAGE(trans)
+|______________________|__________|
+
+FIELD(trans)
+	mtdbrg		NOCHANGE	INPUTRI		1
+	mtdhrg		NOCHANGE	INPUTRI		2
+
+CALCS()
+cCLSD		(mtssts == "CLSD" || mtssts == "INPG") && mtsgrup != "LOKASI"
+
+SUBFILE(trans)
+SFL_LINES(10)
+SFL_COND cCLSD
+SFL_TITLE(transt)
+SFL_TARGET
+	mtdbukurtidx	mtsnobuk
+
+
+IMAGE(transg1t)
+/-----------t----------t--------t-------t--------------------t---------t---------t---------\
+| t.Lokasi  | t.Status | t.Cab	|t.Jenis| t.KetJenis         | t.P(cm) | t.L(cm) | t.T(cm) |
+\-----------.----------.--------.-------.--------------------.---------.---------.---------/
+
+IMAGE(transg1)
+|___________|__________|________|_______|____________________|_________|_________|_________|
+
+FIELD(transg1)
+        mtdbrg          NOCHANGE        INPUTRI         1
+	mtdlok		PROTECT		INPUTRI		2
+	mtdcab		PROTECT		INPUTRI		3
+	mtdbisnis	PROTECT		INPUTRI		4
+	mtdlok2		PROTECT		INPUTRI		5
+	mtdperdis1	PROTECT		INPUTRI		6
+	mtdperdis2	PROTECT		INPUTRI		7
+	mtdperdis3	PROTECT		INPUTRI		8
+
+CALCS()
+cCLSD_LOK           (mtssts == "CLSD" || mtssts == "INPG") && mtsgrup == "LOKASI"
+
+SUBFILE(transg1)
+SFL_LINES(10)
+SFL_COND cCLSD_LOK
+SFL_TITLE(transg1t)
+SFL_TARGET
+        mtdbukurtidx    mtsnobuk	
+
+MAP(maddsub)
+mtsnobuk        mtsnobuk  REPLACE
+
+SPCALCS(sadd)
+DO_LIB_IF cotY	ap_dbclc(DNAME daddsub,DCOMMAND ADD_SUB,DFILE mts,DLTARGET mtsbukidx mtsnobuk,DLLEN {stspjbuk},DMAP maddsub);
+
+POSTING(master)
+   PST_SUB_ADDCMD sadd
+
+
+PERMIT(trans)
+PMT_DEL_COND		c0
+PMT_ADD_COND		c0
+PMT_UPDALL_COND		c0
+
+PERMIT(transg1)
+PMT_DEL_COND		c0
+PMT_ADD_COND		c0
+PMT_UPDALL_COND		c0
+
+END_SCREEN
+

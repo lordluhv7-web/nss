@@ -1,0 +1,484 @@
+SCREEN 4704 APP_TYPE i.UplSPart2
+
+/*
+SCR_NXT_POSTING 4705
+SCR_NXT_MAP mnext
+
+MAP(mnext)
+mtsnobuk        r_string1       REPLACE
+mtsket          r_string2       REPLACE
+mtsscr          r_string3       REPLACE
+mtsjml          r_double1     	REPLACE
+*/
+
+LOCAL
+PGM_FIELDS
+   lnamfil               STRING                50
+   lnamacalc             STRING                50
+   lfields               STRING                201
+   ldatetype		 INT2		       2
+   lmap			 STRING		       21
+   lbatas                INT2                  2
+   lmtsnobuk             STRING                21
+   lscr			 STRING		       11
+   ljmlgagal		 INT2                  2
+
+   lpos1		 INT2                  2
+   lpos2		 INT2                  2
+   lpos3		 INT2                  2
+   lpos4		 INT2                  2
+   lpos5		 INT2                  2
+   lpos6		 INT2                  2
+   lpos7		 INT2                  2
+   lpos8		 INT2                  2
+   lpos9		 INT2                  2
+   lpos10		 INT2                  2
+
+   lpos11		 INT2                  2
+   lpos12		 INT2                  2
+   lpos13		 INT2                  2
+   lpos14		 INT2                  2
+   lpos15		 INT2                  2
+   lpos16		 INT2                  2
+   lpos17		 INT2                  2
+   lpos18		 INT2                  2
+   lpos19		 INT2                  2
+   lpos20		 INT2                  2
+   
+   lpos21		 INT2                  2
+   lpos22		 INT2                  2
+   lpos23		 INT2                  2
+   lpos24		 INT2                  2
+   lpos25		 INT2                  2
+   lpos26		 INT2                  2
+   lpos27		 INT2                  2
+   lpos28		 INT2                  2
+   lpos29		 INT2                  2
+   lpos30		 INT2                  2
+   
+   lpos31		 INT2                  2
+   lpos32		 INT2                  2
+   lpos33		 INT2                  2
+   lpos34		 INT2                  2
+   lpos35		 INT2                  2
+   lpos36		 INT2                  2
+   lpos37		 INT2                  2
+   lpos38		 INT2                  2
+   lpos39		 INT2                  2
+   lpos40		 INT2                  2
+
+   lpos41		 INT2                  2
+   lpos42		 INT2                  2
+   lpos43		 INT2                  2
+   lpos44		 INT2                  2
+   lpos45		 INT2                  2
+   lpos46		 INT2                  2
+   lpos47		 INT2                  2
+   lpos48		 INT2                  2
+   lpos49		 INT2                  2
+   lpos50		 INT2                  2
+
+   lpos51		 INT2                  2
+   lpos52		 INT2                  2
+   lpos53		 INT2                  2
+   lpos54		 INT2                  2
+   lpos55		 INT2                  2
+   lpos56		 INT2                  2
+   lpos57		 INT2                  2
+   lpos58		 INT2                  2
+   lpos59		 INT2                  2
+   lpos60		 INT2                  2
+
+   lpos61		 INT2                  2
+   lpos62		 INT2                  2
+   lpos63		 INT2                  2
+   lpos64		 INT2                  2
+   lpos65		 INT2                  2
+   lpos66		 INT2                  2
+   lpos67		 INT2                  2
+   lpos68		 INT2                  2
+   lpos69		 INT2                  2
+   lpos70		 INT2                  2
+
+   lpos71		 INT2                  2
+   lpos72		 INT2                  2
+   lpos73		 INT2                  2
+   lpos74		 INT2                  2
+   lpos75		 INT2                  2
+   lpos76		 INT2                  2
+   lpos77		 INT2                  2
+   lpos78		 INT2                  2
+   lpos79		 INT2                  2
+   lpos80		 INT2                  2
+
+   lpos81		 INT2                  2
+   lpos82		 INT2                  2
+   lpos83		 INT2                  2
+   lpos84		 INT2                  2
+   lpos85		 INT2                  2
+   lpos86		 INT2                  2
+   lpos87		 INT2                  2
+   lpos88		 INT2                  2
+   lpos89		 INT2                  2
+   lpos90		 INT2                  2
+
+   lpos91		 INT2                  2
+   lpos92		 INT2                  2
+   lpos93		 INT2                  2
+   lpos94		 INT2                  2
+   lpos95		 INT2                  2
+   lpos96		 INT2                  2
+   lpos97		 INT2                  2
+   lpos98		 INT2                  2
+   lpos99		 INT2                  2
+   lpos100		 INT2                  2
+   
+   lVERSI		 STRING		       21
+
+IMAGE(master)
+/----------------------------------\
+|/--------s.ImporExcelTab---------\|
+|| i.NoBuk : ________________     ||
+|| i.NamFil: ____________________ ||
+|| i.Scr   : _____                ||
+|| i.Fld   : ____________________ ||
+||                                ||
+|| ___  ___                       ||
+|\--------------------------------/|
+\----------------------------------/
+
+FIELD(master)
+lmtsnobuk	ALLCAPS		INPUTRI		1
+lnamfil		NONE		INPUTRI		2
+lscr		NOCHANGE	INPUTRI		3
+lfields		NOCHANGE	INPUTRI		4
+lpos1		NUMERIC		INPUTRI		5
+lpos2		NUMERIC		INPUTRI		6
+
+DEFAULTS(master)
+lmap		INIT		"mmtd"
+lmtsnobuk	INIT		{r_string1}
+lnamfil		INIT		{r_string2}
+lscr		INIT		{r_string3}
+lbatas		INIT		{r_double1}
+lVERSI		INIT		24082026
+
+CALCS()
+c1	1
+cKetJenis1	"TANPA BINBOX & PALET"
+cKetJenis2	"BINBOX BESAR"
+cKetJenis3	"BINBOX KECIL"
+cKetJenis4	"PALET"
+cKondJenis1	mtsgrup == "LOKASI" && mtdbisnis == "1"
+cKondJenis2	mtsgrup == "LOKASI" && mtdbisnis == "2"
+cKondJenis3	mtsgrup == "LOKASI" && mtdbisnis == "3"
+cKondJenis4	mtsgrup == "LOKASI" && mtdbisnis == "4"
+
+cKetP     	"KETERANGAN P"     /* misalnya “P” */
+cKetL      	"KETERANGAN L"     /* misalnya “L” */
+cKetT      	"KETERANGAN T"     /* misalnya “T” */
+cKondP     	mtsgrup == "LOKASI" && mtdbisnis == "P"
+cKondL     	mtsgrup == "LOKASI" && mtdbisnis == "L"
+cKondT     	mtsgrup == "LOKASI" && mtdbisnis == "T"
+
+MAP(mmtd)
+mtsnobuk	mtdnobuk	REPLACE
+mtsdata		mtddata		REPLACE
+c1		mtdnourt	DO_CALC
+
+cKetJenis1	mtdlok2		DO_CALC_IF cKondJenis1
+cKetJenis2	mtdlok2		DO_CALC_IF cKondJenis2
+cKetJenis3	mtdlok2		DO_CALC_IF cKondJenis3
+cKetJenis4	mtdlok2		DO_CALC_IF cKondJenis4
+
+cKetP		mtdperdis1	DO_CALC_IF cKondP
+cKetL           mtdperdis2      DO_CALC_IF cKondL
+cKetT           mtdperdis3      DO_CALC_IF cKondT
+
+
+CALCS()
+cjs		lscr == "1408" && (mtsgrup == "TAMBAH_JASA" || mtsgrup == "UPD_STATUS_DLP" || mtsgrup == "UPD_BARU_BEKAS_PART" ||
+		 mtsgrup == "UPD_HOTLINE_PART" || mtsgrup == "DEL_REMINDKPB" || mtsgrup == "UPD_JTP_REMINDKPB"   
+		|| mtsgrup == "UPD_BTF_AHASS"  || mtsgrup == "UPL_RING_AHASS" )
+cbarang		lscr == "1408" && mtsgrup == "BARANG"
+clokasi		lscr == "1408" && mtsgrup == "LOKASI"
+
+
+cjasa		lscr == "1408" && (mtsgrup == "UPD_HRG_JASA" 	   || mtsgrup == "UPL_DTTHAHASS"     || mtsgrup == "TR"		      	|| mtsgrup == "PARTHITAM"      	|| 
+				   mtsgrup == "DESKCALL" 	   || mtsgrup == "LOKASI" 	     || mtsgrup == "TGTAHASS" 	        || mtsgrup == "UPL_BARANGAHASS" || 
+				   mtsgrup == "UPD_KODE2_KAT4" 	   || mtsgrup == "UPD_KATEGORI_BRG"  || mtsgrup == "UPL_POAHS" 	   	|| mtsgrup == "TGTNPBT" 	|| 
+				   mtsgrup == "UPL_SHIFT_AHASS"    || mtsgrup == "UPL_USIA_MOTOR"    || mtsgrup =="UPL_POHMC" 	    	|| mtsgrup == "UPL_REKOMEN_PKT" || 
+				   mtsgrup == "UPL_PART_PERMOTOR"  || mtsgrup == "UPL_HRG_SHOWROOM"  || mtsgrup == "UPL_ASURANSI1"  	|| mtsgrup == "UPL_ASURANSI2" 	|| 
+				   mtsgrup == "UPL_POPART503" 	   || mtsgrup == "DEL_REMINDKPB"     || mtsgrup == "UPD_JTP_REMINDKPB" 	|| mtsgrup == "UPL_DATA_NPBT" 	|| 
+				   mtsgrup == "UPL_PMT_MEKANIK"    || mtsgrup == "UPL_MASTER_RMD"    || mtsgrup == "UPL_LEADTIME_PO"    || mtsgrup == "UPL_TGTSLINAHS"	|| 
+				   mtsgrup == "UPL_MVBRG_AHASS"    || mtsgrup == "UPL_MPART_AHASS"   || mtsgrup == "UPL_MSERVIC_AHASS"  || mtsgrup == "UPL_OMZ_AHASS"   || 
+				   mtsgrup == "UPL_STOKAUDIT"	   || mtsgrup == "UPL_IBD"	     || mtsgrup == "UPL_ACT_IBD"	|| mtsgrup == "UPD_BTF_AHASS"	||
+                                   mtsgrup == "UPL_NPBTH2" 	   || mtsgrup == "UPL_KOMISI_TLD"    || mtsgrup == "UPL_DATAKPI"        || mtsgrup == "UPD_HPP_AHASS"	||
+				   mtsgrup == "DEL_PPDAHS"	   || mtsgrup == "UPL_CABOTOPO"      || mtsgrup == "UPL_KOMISI_PPS"	|| mtsgrup == "UPD_PMB_KECOT"   ||
+				   mtsgrup == "UPL_RANK_AHASS"     || mtsgrup == "UPL_AVGJL_6BLN")
+
+cjaslok		lscr == "1408" && (mtsgrup == "TAMBAH_JASA" 	    || mtsgrup == "UPL_DTTHAHASS"   || mtsgrup == "UPD_HRG_JASA"     || mtsgrup == "LOKASI"   	     || mtsgrup == "WARNA" 		||
+				   mtsgrup == "SO" 		    || mtsgrup == "UPL_BARANGAHASS" || mtsgrup == "TR" 	       	     || mtsgrup == "PARTMAN"  	     || mtsgrup == "PARTHITAM"         	|| 
+				   mtsgrup == "FAKTUR" 		    || mtsgrup == "UPD_KODE_JASA"   || mtsgrup == "HET" 	     || mtsgrup == "DESKCALL" 	     || mtsgrup == "UPD_STS_PART"      	|| 
+				   mtsgrup == "TGTAHASS" 	    || mtsgrup == "UPD_KODE2_KAT4"  || mtsgrup == "UPD_KATEGORI_BRG" || mtsgrup == "UPL_POAHS" 	     || mtsgrup == "UPL_POHMC" 	   	||
+				   mtsgrup == "TGTNPBT" 	    || mtsgrup == "UPL_SHIFT_AHASS" || mtsgrup == "UPL_USIA_MOTOR"   || mtsgrup == "UPL_REKOMEN_PKT" || mtsgrup == "UPL_PART_PERMOTOR" 	|| 
+				   mtsgrup == "UPL_HRG_SHOWROOM"    || mtsgrup == "UPL_ASURANSI1"   || mtsgrup == "UPL_ASURANSI2"    || mtsgrup == "UPL_POPART503"   || mtsgrup == "DEL_REMINDKPB" 	||
+				   mtsgrup == "UPD_JTP_REMINDKPB"   || mtsgrup == "UPL_DATA_NPBT"   || mtsgrup == "UPL_PMT_MEKANIK"  || mtsgrup == "UPL_MASTER_RMD"  || mtsgrup == "UPD_STATUS_DLP" 	||
+				   mtsgrup == "UPD_BARU_BEKAS_PART" || mtsgrup == "UPL_LEADTIME_PO" || mtsgrup == "UPD_HOTLINE_PART" || mtsgrup == "UPL_TGTSLINAHS"  || mtsgrup == "UPL_UBR"            || 
+                                   mtsgrup == "UPL_MVBRG_AHASS"     || mtsgrup == "UPL_MPART_AHASS" || mtsgrup == "UPL_MSERVIC_AHASS"  || mtsgrup == "UPL_OMZ_AHASS" || mtsgrup == "UPL_STOKAUDIT"   	||
+				   mtsgrup == "UPD_SERIES_AHASS"    || mtsgrup == "UPL_IBD"	    || mtsgrup == "UPL_ACT_IBD"	     || mtsgrup == "UPD_BTF_AHASS"   || mtsgrup == "UPL_NPBTH2" 	||
+				   mtsgrup == "UPL_KOMISI_TLD"      || mtsgrup == "UPL_DATAKPI"     || mtsgrup == "UPD_HPP_AHASS"    || mtsgrup == "DEL_PPDAHS"      || mtsgrup == "UPL_CABOTOPO"	||
+				   mtsgrup == "UPL_KOMISI_PPS"	    || mtsgrup == "UPD_PMB_KECOT"   || mtsgrup == "UPL_RANK_AHASS"   || mtsgrup == "UPL_TGT_DESKCALL" || mtsgrup == "UPL_RING_AHASS"    ||
+				   mtsgrup == "UPL_AVGJL_6BLN"	    || mtsgrup == "UPD_NAMA_BARANG" || mtsgrup == "UPL_CLAIMBONUS")
+
+cwarna		lscr == "1408" && ( mtsgrup == "WARNA" || mtsgrup == "UPL_TGT_DESKCALL")
+cSO		lscr == "1408" && mtsgrup == "SO"
+
+cbarjas 	lscr == "1408" && (mtsgrup == "TAMBAH_JASA" 	 || mtsgrup == "UPL_DTTHAHASS"	   	|| mtsgrup == "BARANG" 		  || 
+				   mtsgrup == "UPD_HRG_JASA" 	 || mtsgrup == "LOKASI"   	   	|| mtsgrup == "WARNA" 		  || 
+				   mtsgrup == "UPL_BARANGAHASS"	 || mtsgrup == "SO" 		   	|| mtsgrup == "TR" 		  || 
+				   mtsgrup == "PARTMAN" 	 || mtsgrup == "PARTHITAM" 	   	|| mtsgrup == "FAKTUR" 		  || 
+				   mtsgrup == "UPD_KODE_JASA" 	 || mtsgrup == "HET" 		   	|| mtsgrup == "UPD_STS_PART" 	  || 
+				   mtsgrup == "DESKCALL" 	 || mtsgrup == "TGTAHASS" 	   	|| mtsgrup == "UPD_KODE2_KAT4" 	  ||
+				   mtsgrup == "UPD_KATEGORI_BRG" || mtsgrup == "UPL_POHMC" 	   	|| mtsgrup == "TGTNPBT" 	  || 
+				   mtsgrup == "UPL_SHIFT_AHASS"  || mtsgrup == "UPL_POAHS" 	   	|| mtsgrup == "UPL_USIA_MOTOR" 	  || 
+				   mtsgrup == "UPL_REKOMEN_PKT"  || mtsgrup == "UPL_PART_PERMOTOR" 	|| mtsgrup == "UPL_HRG_SHOWROOM"  || 
+				   mtsgrup == "UPL_ASURANSI1" 	 || mtsgrup == "UPL_ASURANSI2" 	   	|| mtsgrup == "UPL_POPART503" 	  || 
+				   mtsgrup == "UPL_DATA_NPBT" 	 || mtsgrup == "UPL_PMT_MEKANIK"   	|| mtsgrup == "UPL_MASTER_RMD" 	  || 
+				   mtsgrup == "UPD_STATUS_DLP" 	 || mtsgrup == "UPD_BARU_BEKAS_PART"	|| mtsgrup == "UPL_LEADTIME_PO"   || 
+				   mtsgrup == "UPD_HOTLINE_PART" || mtsgrup == "DEL_REMINDKPB" 	 	|| mtsgrup == "UPD_JTP_REMINDKPB" ||
+				   mtsgrup == "UPL_TGTSLINAHS"	 || mtsgrup == "UPL_UBR"                || mtsgrup == "UPL_MVBRG_AHASS"   ||
+                                   mtsgrup == "UPL_MPART_AHASS"  || mtsgrup == "UPL_MSERVIC_AHASS"      || mtsgrup == "UPL_OMZ_AHASS"  	  || 
+				   mtsgrup == "UPL_STOKAUDIT"	 || mtsgrup == "UPD_SERIES_AHASS"	|| mtsgrup == "UPL_IBD"		  ||
+				   mtsgrup == "UPL_ACT_IBD"	 || mtsgrup == "UPD_BTF_AHASS"          || mtsgrup == "UPL_NPBTH2"        ||
+				   mtsgrup == "UPL_KOMISI_TLD"   || mtsgrup == "UPL_DATAKPI"            || mtsgrup == "UPD_HPP_AHASS"	  ||
+				   mtsgrup == "DEL_PPDAHS"	 || mtsgrup == "UPL_CABOTOPO" 		|| mtsgrup == "UPL_KOMISI_PPS"	  ||
+				   mtsgrup == "UPD_PMB_KECOT"	 || mtsgrup == "UPL_RANK_AHASS"		|| mtsgrup == "UPL_TGT_DESKCALL"  ||
+                                   mtsgrup == "UPL_RING_AHASS"   || mtsgrup == "UPL_AVGJL_6BLN" 	|| mtsgrup == "UPD_NAMA_BARANG"   ||
+                                   mtsgrup == "UPL_CLAIMBONUS")
+
+
+cTRX		lscr == "1408" && (mtsgrup == "TR" 		  || mtsgrup == "DESKCALL"	   || mtsgrup == "TGTAHASS" 	   || mtsgrup == "UPD_KODE2_KAT4"   || 
+				   mtsgrup == "UPL_POAHS" 	  || mtsgrup =="UPL_POHMC" 	   || mtsgrup == "TGTNPBT" 	   || mtsgrup == "UPD_KATEGORI_BRG" ||
+				   mtsgrup == "UPL_SHIFT_AHASS"   || mtsgrup == "UPL_USIA_MOTOR"   || mtsgrup == "UPL_REKOMEN_PKT" || mtsgrup == "UPD_BTF_AHASS"    ||
+				   mtsgrup == "UPL_PART_PERMOTOR" || mtsgrup == "UPL_HRG_SHOWROOM" || mtsgrup == "UPL_ASURANSI1"   || mtsgrup == "LOKASI"	    ||
+				   mtsgrup == "UPL_ASURANSI2" 	  || mtsgrup == "UPL_POPART503"	   || mtsgrup == "UPL_DATA_NPBT"   || 
+				   mtsgrup == "UPL_PMT_MEKANIK"   || mtsgrup == "UPL_MASTER_RMD"   || mtsgrup == "UPL_LEADTIME_PO" || 
+				   mtsgrup == "DEL_REMINDKPB" 	  || mtsgrup == "UPD_JTP_REMINDKPB"|| mtsgrup == "UPL_TGTSLINAHS"  || 
+                                   mtsgrup == "UPL_MVBRG_AHASS"   || mtsgrup == "UPL_MPART_AHASS"  || mtsgrup == "UPL_MSERVIC_AHASS"  || mtsgrup == "UPL_OMZ_AHASS" || 
+                                   mtsgrup == "UPL_STOKAUDIT"     || mtsgrup == "UPL_CABOTOPO"	   || mtsgrup == "UPD_PMB_KECOT"   || mtsgrup == "UPL_RANK_AHASS")
+
+
+cTR		lscr == "1408" && (mtsgrup == "TR" 		 || mtsgrup == "DESKCALL" 	   || mtsgrup == "TGTAHASS" 	     || mtsgrup == "UPD_KODE2_KAT4"   || 
+				   mtsgrup == "UPL_POAHS" 	 || mtsgrup == "UPL_POHMC"  	   || mtsgrup == "UPL_SHIFT_AHASS"   || mtsgrup == "UPD_KATEGORI_BRG" ||
+				   mtsgrup == "UPL_USIA_MOTOR" 	 || mtsgrup == "UPL_REKOMEN_PKT"   || mtsgrup == "UPL_PART_PERMOTOR" || mtsgrup == "UPL_HRG_SHOWROOM" || 
+				   mtsgrup == "UPL_ASURANSI1"    || mtsgrup == "UPL_ASURANSI2" 	   || mtsgrup == "UPL_POPART503"     || mtsgrup == "UPL_DATA_NPBT"    || 
+				   mtsgrup == "UPL_PMT_MEKANIK"  || mtsgrup == "UPL_MASTER_RMD"    || mtsgrup == "UPL_LEADTIME_PO"   || mtsgrup == "DEL_REMINDKPB"    || 
+				   mtsgrup == "UPD_JTP_REMINDKPB"|| mtsgrup == "UPL_TGTSLINAHS"    || mtsgrup == "UPL_MVBRG_AHASS"   || mtsgrup == "UPL_MPART_AHASS"  || 
+                                   mtsgrup == "UPL_MSERVIC_AHASS" || mtsgrup == "UPL_OMZ_AHASS"    || mtsgrup == "UPL_STOKAUDIT"     || mtsgrup == "UPD_BTF_AHASS"    ||
+				   mtsgrup == "LOKASI"		 || mtsgrup == "UPL_CABOTOPO"	   || mtsgrup == "UPD_PMB_KECOT"     || mtsgrup == "UPL_RANK_AHASS")
+
+cpartm		lscr == "1408" && (mtsgrup  == "PARTMAN" || mtsgrup == "UPD_NAMA_BARANG") 
+cpart_gudang	lscr == "1408" && mtsgrup  == "PARTHITAM"  
+cfaktur		lscr == "1408" && mtsgrup  == "FAKTUR"
+cupdjasa	lscr == "1408" && mtsgrup  == "UPD_KODE_JASA"
+chet    	lscr == "1408" && mtsgrup  == "HET"              
+cupdsts_partspm lscr == "1408" && mtsgrup  == "UPD_STS_PART"             
+cdeskcall    	lscr == "1408" && mtsgrup  == "DESKCALL"              
+ctgtahass	lscr == "1408" && (mtsgrup == "TGTAHASS" 	|| mtsgrup == "UPL_LEADTIME_PO")
+ckode2kat4	lscr == "1408" && (mtsgrup == "UPD_KODE2_KAT4"  || mtsgrup == "UPD_KATEGORI_BRG" || mtsgrup == "UPD_BTF_AHASS")
+cpoahs  	lscr == "1408" && mtsgrup  == "UPL_POAHS"
+cpohmc  	lscr == "1408" && mtsgrup  == "UPL_POHMC" || mtsgrup == "UPL_AVGJL_6BLN"
+ctgtnpbt 	lscr == "1408" && mtsgrup  == "TGTNPBT"
+cshiftahs	lscr == "1408" && mtsgrup  == "UPL_SHIFT_AHASS"
+cusiamotor	lscr == "1408" && mtsgrup  == "UPL_USIA_MOTOR"
+crekomenpkt	lscr == "1408" && (mtsgrup  == "UPL_REKOMEN_PKT" || mtsgrup == "UPD_SERIES_AHASS")
+cpartpermotor	lscr == "1408" && mtsgrup  == "UPL_PART_PERMOTOR"
+cshowroom	lscr == "1408" && mtsgrup  == "UPL_HRG_SHOWROOM"
+casuransi1	lscr == "1408" && mtsgrup  == "UPL_ASURANSI1"
+casuransi2	lscr == "1408" && mtsgrup  == "UPL_ASURANSI2"
+cpopart503	lscr == "1408" && mtsgrup  == "UPL_POPART503"
+cdatanpbt	lscr == "1408" && mtsgrup  == "UPL_DATA_NPBT" 
+cpmtmekanik	lscr == "1408" && mtsgrup  == "UPL_PMT_MEKANIK"
+cmasterrmd 	lscr == "1408" && mtsgrup  == "UPL_MASTER_RMD"
+cremindkpb 	lscr == "1408" && (mtsgrup  == "DEL_REMINDKPB" || mtsgrup == "UPL_CABOTOPO")
+cremindkpbjtp	lscr == "1408" && mtsgrup  == "UPD_JTP_REMINDKPB"
+ctgtslinahs	lscr == "1408" && mtsgrup  == "UPL_TGTSLINAHS"
+cuplubr		lscr == "1408" && mtsgrup  == "UPL_UBR"
+cpilUPLMVBRG    lscr == "1408" && mtsgrup  == "UPL_MVBRG_AHASS" 
+cpilUPLMPART    lscr == "1408" && mtsgrup  == "UPL_MPART_AHASS"
+cpilUPLMSERV    lscr == "1408" && mtsgrup  == "UPL_MSERVIC_AHASS"
+cpilUPLOMZ      lscr == "1408" && mtsgrup == "UPL_OMZ_AHASS"
+cpilUPLSTKAU    lscr == "1408" && mtsgrup == "UPL_STOKAUDIT"
+cuplibd		lscr == "1408" && mtsgrup == "UPL_IBD"
+cuplactibd	lscr == "1408" && mtsgrup == "UPL_ACT_IBD"
+cuplkomisitld	lscr == "1408" && (mtsgrup == "UPL_KOMISI_TLD" || mtsgrup == "UPL_KOMISI_PPS" || mtsgrup == "UPD_HPP_AHASS" || mtsgrup == "DEL_PPDAHS" || mtsgrup == "UPD_PMB_KECOT")
+cuplrankahass	lscr == "1408" && mtsgrup == "UPL_RANK_AHASS"
+cuplclaimbonus  lscr == "1408" && mtsgrup == "UPL_CLAIMBONUS"
+
+cpos1	1
+cpos2	2
+cpos3	3
+cpos4	4
+cpos5	5
+cpos6	6
+cpos7	7
+cpos8	8
+cpos9	9
+cpos10	10
+cpos11	11
+cpos12	12
+cpos13	13
+cpos14	14
+cpos15	15
+cpos16	16
+cpos17	17
+cpos18	18
+cpos19	19
+cpos20	20
+cpos21	21
+
+
+cmtd	"mtdbrg+mtdket+mtdkat"
+cmtd1	"mtdbrg+mtdhrg"
+cmtd2	"mtdbrg+mtdcab+mtdhrg+mtdjml+mtdket+mtdkat"
+cmtd3	"mtdbrg+mtdket+mtdkat+mtdcab+mtdlok+mtdbisnis+mtdperdis1+mtdperdis2+mtdperdis3"
+cmtd4	"mtdbrg+mtdcab+mtdjml"
+cmtd5	"mtdbrg+mtdcab+mtdjml+mtdhrg"
+cmtd6	"mtdsat+mtdsts+mtdcab+mtddvs+mtdtmp1+mtdgrup+mtdjml+mtdjml2+mtdjml3+mtdplg+mtdsubtot+mtdtmp2+mtdjmlren+mtdgrup2+mtdnobbm+mtdukrwrn+mtdket+mtdnorangka+mtdperdis1+mtdnomesin+mtdperdis2"
+cmtd7	"mtdbrg+mtdket+mtdcab"
+/*cmtd8	"mtdbrg+mtdcab+mtdjml"*/
+cmtd9	"mtdbrg+mtdcab+mtdtglfak"
+cmtd10	"mtdbrg+mtdcab+mtdkat"
+cmtd11	"mtdbrg+mtdcab+mtdhrg"
+cmtd12	"mtdbrg+mtdnoll+mtdcab+mtdplg+mtdnobbm+mtdjml+mtdjml2+mtdjml3+mtdhrg+mtdsubtot+mtdukrwrn+mtdsat+mtdperdis"
+cmtd13	"mtdcab+mtdscr+mtdbrg+mtdthbl+mtdplg+mtdjml+mtdhrg+mtdsubtot+mtdperdis+mtdtotdis"
+cmtd14	"mtdbrg+mtdlok+mtdukrwrn"
+cmtd15	"mtdbrg+mtdlok+mtdjml+mtdlok2+mtdtgl2"    /* Barang + cab +jml + Penanda Fix/Add + TanggalPo */
+cmtd16	"mtdbrg+mtdukrwrn+mtdlok+mtdjml+mtdlok2+mtdtgl2"    /* Barang + Warna + cab +jml + Penanda Fix/Add + TanggalPO  */
+cmtd17	"mtdbrg+mtdukrwrn+mtdlok+mtdlok2+mtdbisnis+mtdtglfak+mtdjml"   /* birnobuk + birkode1 +birkode2 + birkode3 + birkode4 +  birtgl + birtotal1 */
+cmtd18	"mtdbrg+mtdcab+mtdtglfak+mtdtgl2+mtdket+mtdnoll+mtdlok+mtdlok2+mtdsat+mtdkat" 
+	/* Shift 167 > Nip + cab + tgl1 + tgl s/d + ket + tgl per hari + cab awl + cab tuj + tipe awl + shift */
+cmtd19	"mtdbrg+mtdjml+mtdlok"
+cmtd20	"mtdbrg+mtdnoll+mtdlok"
+cmtd21	"mtdbrg+mtdhrg+mtdnoll"
+cmtd22	"mtdbrg+mtdcab+mtdbisnis+mtdtglfak+mtdtgl2"
+cmtd23	"mtdbrg+mtdtglfak+mtdjml2+mtdjml+mtdperdis1+mtdperdis2+mtdlok"
+	/* CAB + Tgl + HE + birtotal1 + birtotal2 + birtotal3 + Penanda */
+cmtd24	"mtdbrg+mtdjml+mtdtglfak+mtdlok"
+	/* CAB + PMTKE + tglupl + nipmeka */
+
+cmtd25	"mtdnourt+mtdbrg+mtdukrwrn+mtdsat+mtdlok+mtdket+mtdjml+mtdjml2+mtdjml3+mtdperdis1+mtdperdis2+mtdperdis3+mtdgrup+mtdgrup2+mtdlok2"
+	/* urut+rmdkode+rmdkode2+rmdkode3+rmdkode4+rmdgab+rmdbts1+rmdbts2+rmdbts3+rmdtotal1+rmdtotal2+rmdtotal3+rmdtext1+rmdtext2 */
+
+cmtd26    "mtdbrg+mtdkat+mtdtglfak"
+	/*nomesin+remindkpb(lokal)+typekpb+tgljtp*/
+
+cmtd27	"mtdscr+mtdcab+mtdlok+mtdbrg+mtdperdis1+mtdperdis2+mtdperdis3+mtdperdis4+mtdperdis5"
+cmtd28  "mtdbrg+mtdscr+mtdlok2+mtdket"
+cmtd29  "mtdbrg+mtdkat+mtdplg+mtdsat+mtdperdis7+mtdlok+mtdperdis1+mtdperdis2+mtdperdis3+mtdperdis4+mtdperdis5+mtdperdis6+mtdnoll+mtdjml3+mtdgrup+mtdgrup2+mtdjml+mtdjml2" 
+cmtd30  "mtdlok2+mtdbrg+mtdkat+mtdplg+mtdsat+mtdnoll+mtdjml+mtdjml2+mtdgrup+mtdgrup2"
+cmtd31  "mtdlok2+mtdthbl+mtdnoll+mtdsat+mtdplg+mtdlok+mtdgrup+mtdgrup2+mtdperdis1+mtdbrg+mtdkat+mtdperdis2+mtdperdis3"                                                                          
+cmtd32  "mtdthbl+mtdcab+mtdkat+mtdperdis1+mtdperdis2+mtdperdis3+mtdperdis4+mtdperdis5+mtdperdis6+mtdperdis7+mtdjml+mtdjml2+mtdjml3+mtdtmp1+mtdtmp2+mtdperdism"
+cmtd33  "mtdbrg+mtdnoll+mtdsts+mtdjml+mtdjml2+mtdjml3+mtdtmp1+mtdket+mtdkat"
+cmtd34  "mtdjml2+mtdcab+mtdket+mtdjml+mtdkat+mtdthnstr" /*NOURT,CABANG,INDIKATOR BONUS DEALER, HASIL MATRIX TGT, PERFORMANCE/POTENTIAL, THBL*/
+cmtd35  "mtdcab+mtdket+mtdkat+mtdthnstr+mtdjml+mtdnomesin" /*cabang, kode, tipe, thbl, week, act*/
+cmtd36  "mtdppdoto+mtdbrg+mtdsts+mtdlok2"
+cmtd37  "mtdthbl+mtdcab+mtdgrup+mtdket+mtdlok+mtdbrg+mtdgrup2+mtdukrwrn+mtdjml+mtdjml2+mtdjml3+mtdsts+mtdtmp1+mtdtmp2+mtdjmlpos"
+cmtd38  "mtdcab+mtdplg+mtdjml+mtdhrg"
+
+MAP(mfields)
+cmtd		lfields		DO_CALC_IF cjs
+cmtd1		lfields		DO_CALC_IF cbarang
+cmtd2		lfields		DO_CALC_IF cjasa
+cmtd4		lfields		DO_CALC_IF cwarna   
+cmtd5		lfields		DO_CALC_IF cSO      
+cmtd6		lfields		DO_CALC_IF cTR     
+cmtd3		lfields		DO_CALC_IF clokasi
+cmtd7		lfields		DO_CALC_IF cpartm  
+cmtd9		lfields		DO_CALC_IF cpart_gudang
+cmtd9		lfields		DO_CALC_IF cfaktur      
+cmtd10		lfields		DO_CALC_IF cupdjasa     
+cmtd1		lfields		DO_CALC_IF chet
+cmtd1		lfields		DO_CALC_IF cupdsts_partspm
+cmtd12		lfields		DO_CALC_IF cdeskcall
+cmtd13		lfields		DO_CALC_IF ctgtahass 
+cmtd14          lfields         DO_CALC_IF ckode2kat4
+cmtd15          lfields         DO_CALC_IF cpoahs 
+cmtd16          lfields         DO_CALC_IF cpohmc 
+cmtd17          lfields         DO_CALC_IF ctgtnpbt
+cmtd18		lfields		DO_CALC_IF cshiftahs
+cmtd19		lfields		DO_CALC_IF cusiamotor
+cmtd20		lfields		DO_CALC_IF crekomenpkt
+cmtd20		lfields		DO_CALC_IF cpartpermotor
+cmtd21		lfields		DO_CALC_IF cshowroom
+cmtd11		lfields		DO_CALC_IF casuransi1
+cmtd11		lfields		DO_CALC_IF casuransi2
+cmtd22		lfields		DO_CALC_IF cpopart503
+cmtd23		lfields		DO_CALC_IF cdatanpbt
+cmtd24		lfields		DO_CALC_IF cpmtmekanik
+cmtd25		lfields		DO_CALC_IF cmasterrmd
+cmtd		lfields		DO_CALC_IF cremindkpb
+cmtd26		lfields		DO_CALC_IF cremindkpbjtp
+cmtd27		lfields		DO_CALC_IF ctgtslinahs
+cmtd28		lfields		DO_CALC_IF cuplubr
+cmtd29          lfields         DO_CALC_IF cpilUPLMVBRG
+cmtd30          lfields         DO_CALC_IF cpilUPLMSERV
+cmtd31          lfields         DO_CALC_IF cpilUPLMPART
+cmtd32          lfields         DO_CALC_IF cpilUPLOMZ
+cmtd33          lfields         DO_CALC_IF cpilUPLSTKAU
+cmtd34		lfields		DO_CALC_IF cuplibd
+cmtd35		lfields		DO_CALC_IF cuplactibd
+cmtd36		lfields		DO_CALC_IF cuplkomisitld
+cmtd37		lfields		DO_CALC_IF cuplrankahass
+cmtd38          lfields         DO_CALC_IF cuplclaimbonus
+
+cpos1		lpos1		DO_CALC_IF cbarjas
+cpos2		lpos2		DO_CALC_IF cbarjas
+cpos3		lpos3		DO_CALC_IF cjaslok
+cpos4		lpos4		DO_CALC_IF cjaslok
+cpos5		lpos5		DO_CALC_IF cjasa
+cpos6		lpos6		DO_CALC_IF cjasa
+cpos7		lpos7		DO_CALC_IF cTRX
+cpos8		lpos8		DO_CALC_IF cTR
+cpos9		lpos9		DO_CALC_IF cTR
+cpos10		lpos10		DO_CALC_IF cTR
+cpos11		lpos11		DO_CALC_IF cTR
+cpos12		lpos12		DO_CALC_IF cTR
+cpos13		lpos13		DO_CALC_IF cTR
+cpos14		lpos14		DO_CALC_IF cTR
+cpos15		lpos15		DO_CALC_IF cTR
+cpos16		lpos16		DO_CALC_IF cTR
+cpos17		lpos17		DO_CALC_IF cTR
+cpos18		lpos18		DO_CALC_IF cTR
+cpos19		lpos19		DO_CALC_IF cTR
+cpos20		lpos20		DO_CALC_IF cTR
+cpos21		lpos21		DO_CALC_IF cTR
+
+DEBUG		lpos5		lpos5		REPLACE
+
+
+HOOKS(master)
+AFTER_INPUT	cur_field=lmtsnobuk	DO_MAP SHOW mfields
+
+CALCS()
+ctab		lbatas == 1
+ctitikkoma	lbatas == 2
+ctegak		lbatas == 3
+
+MAP(mupdmts)
+DEBUG gv_INPG		mtssts		REPLACE
+
+
+
+SPCALCS(spmst)
+DO_LIB ap_arfld(lfields,lpos1,lpos2,lpos3,lpos4,lpos5,lpos6,lpos7,lpos8,lpos9,lpos10,lpos11,lpos12,lpos13,lpos14,lpos15,lpos16,lpos17,lpos18,lpos19,lpos20,lpos21,lpos22,lpos23,lpos24,lpos25,lpos26,lpos27,lpos28,lpos29,lpos30,lpos31,lpos32,lpos33,lpos34,lpos35,lpos36,lpos37,lpos38,lpos39,lpos40,lpos41,lpos42,lpos43,lpos44,lpos45,lpos46,lpos47,lpos48,lpos49,lpos50,lpos51,lpos52,lpos53,lpos54,lpos55,lpos56,lpos57,lpos58,lpos59,lpos60,lpos61,lpos62,lpos63,lpos64,lpos65,lpos66,lpos67,lpos68,lpos69,lpos70,lpos71,lpos72,lpos73,lpos74,lpos75,lpos76,lpos77,lpos78,lpos79,lpos80,lpos81,lpos82,lpos83,lpos84,lpos85,lpos86,lpos87,lpos88,lpos89,lpos90,lpos91,lpos92,lpos93,lpos94,lpos95,lpos96,lpos97,lpos98,lpos99,lpos100);
+DO_LIB_IF ctab ap_imtab(lnamfil,lfields,ldatetype,lmap,lnamacalc,&ljmlgagal);
+DO_LIB_IF ctitikkoma ap_imtkm(lnamfil,lfields,ldatetype,lmap,lnamacalc,&ljmlgagal);
+DO_LIB_IF ctegak ap_imtgk(lnamfil,lfields,ldatetype,lmap,lnamacalc,&ljmlgagal);
+DO_LIB ap_dbclc(DNAME dupdmts,DCOMMAND UPDATE,DTARGET mtsbukidx lmtsnobuk,DMAP mupdmts);
+
+POSTING(master)
+	PST_COMMAND	spmst
+
+END_SCREEN

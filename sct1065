@@ -403,7 +403,7 @@ cgyok			djoinpsi == 1 && ((lmtsjml > 0 && lmtsjml2>0 && ((djoinmts == 0 || djoin
 				(mtssts == "INPG" && mtshcex == "CAIR" && ((ldanacair == "BELUM") || (ldanacair == "SUDAH" && lupldanacair == "OK" && ketdf1_1 > 0 && (ketdf2_1 > 0 || mtstype1 == "TIDAK"))) && lproses3dke3 == 2) ||
 				(mtssts == "INPG" && (mtshcex == "CAIR" || mtshcex == "KLAIM") && ldanacair == "REVISI")
 			)
-ckondisi01              (mtssts == "RINP" || mtssts == "OPEN") && mtshcex == BLANKS && mtsdvs == "SUDAH" && (lmtsjml == BLANKS || lmtsjml2 == BLANKS || ((djoinmts == 0 || djoinmts == 1) && lcabangBlm > 0 )) 
+ckondisi01              (mtssts == "RINP" || mtssts == "OPEN") && mtshcex == BLANKS && mtsdvs == "SUDAH" && (lmtsjml == BLANKS || lmtsjml2 == BLANKS || ((djoinmts == 0 || djoinmts == 1) && lcabangBlm != 0 )) 
 ckondisi02		lsudahceklis == BLANKS
 ckondisi03		mtssts == "INPG" && ((mtshcex == "APR1" && lsudahapprove == BLANKS) || (mtshcex == "APR2" && lsudahapprove2 == BLANKS))
 ckondisi04		mtshcex == "AKTIVITAS" && lsudahuplproposal == BLANKS && mtsplg != "INDACO" && mtsplg != "DAM" && mtsplg != "CAPELA"
@@ -1178,7 +1178,7 @@ SFL_UPL_DIRFLD		mtdtgl2
 SFL_UPL_DIRFLD2		mtstgl
 SFL_UPL_DIRFLD3		lbkmtgl
 SFL_UPLFLD              mtdnoll
-SFL_UPLFLD2             mtdnobuk 
+SFL_UPLFLD2             mtdnobuk mtdoto 
 SFL_UPLFLD3             lbkmnobuk
 SFL_UPLFLD2_DBCALCS	dupd1
 SFL_UPL_DELCOND		c0
@@ -1191,7 +1191,7 @@ mtdbukbrglok  mtsnobuk  lCLAIMDEVELOPMENT
 
 
 SFL_MAP
-mtddata                 mtddata
+lCLAIMBD                mtddata
 mtsnobuk                mtdnobuk
 lCLAIMDEVELOPMENT       mtdbrg
 
@@ -1445,7 +1445,7 @@ SFL_UPL_DIRFLD5         lbkmtgl
 SFL_UPLFLD              mtdnoll mtdnorangka
 SFL_UPLFLD2             mtdnoll mtdnomesin
 SFL_UPLFLD3		mtdnoll lFOTOH3
-SFL_UPLFLD4		mtdnobuk 
+SFL_UPLFLD4		mtdnobuk mtdoto
 SFL_UPLFLD5             lbkmnobuk
 SFL_UPL_READONLY
 SFL_UPL_READONLY2
@@ -1459,8 +1459,8 @@ SFL_TARGET
 mtdbukbrglok   mtsnobuk  lCLAIMTACTICAL
 
 SFL_MAP
-mtddata                 mtddata
-mtsnobuk                mtdbrdoto
+lCLAIMBD                mtddata
+mtsnobuk                mtdnobuk
 lCLAIMTACTICAL       	mtdbrg
 
 IMAGE(transct)
