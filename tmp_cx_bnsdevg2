@@ -1,0 +1,225 @@
+IMAGE(tmptranst)
+/-------------------------------------------------------\
+spasi __ _
+ /-----------------------------------------------------\
+  t.TipeBonus     	______________________
+  t.ScreenAsal    	______________________
+  t.NobukAsal     	______________________
+  t.Jenis		______________________
+  t.Tipe		______________________
+  t.Cabang		______________________
+  t.Tanggal		______________________
+  t.KodeAktiva		______________________
+  t.NamaAktv      	______________________
+  t.TotalBiaya       	______________________
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+  t.Foto
+ \-----------------------------------------------------/
+ /------------------s.UPLOAD---------------------------\
+
+
+
+
+ \-----------------------------------------------------/
+spasi
+ /-----------------------------------------------------\
+  t.FotoTambahan
+ \-----------------------------------------------------/
+ /------------------s.UPLOAD2--------------------------\
+
+
+
+
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+                t.TglUpl : __________ t.StsUpl : ____
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+  t.FotoHistory
+ \-----------------------------------------------------/
+ /------------------s.UPLOAD3--------------------------\
+
+
+
+
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+  t.ChecklistCBD  	_______________________  ________
+  t.ApprovalCXHO  	_______________________
+  t.AlsCXHO  	        _______________________
+  t.AktvAcc       	_______________________
+  spasi
+                                     		___
+ \-----------------------------------------------------/
+\-------------------------------------------------------/
+
+IMAGE(tmptrans)
+
+FIELD(tmptranst)
+mtdnobuk                PROTECT         UNSEEN  INPUTRI 1
+mtdoto                  PROTECT         UNSEEN  INPUTRI 1
+mtdkat          	PROTECT         INPUTRI 1               /* tipe bonus */
+mtdsat          	PROTECT         INPUTRI 2               /* screen asal */
+mtdnoll         	PROTECT         INPUTRI 3               /* nobuk asal */
+
+mtdlok			PROTECT		INPUTRI	4		/* jenis */
+mtdlok2			PROTECT		INPUTRI	5		/* tipe */
+mtdcab			PROTECT		INPUTRI	6		/* cabang */
+
+mtdtgl2			NOLIMIT {DD-MM-YY} INPUTRI 7		/* tanggal */
+mtdbisnis		PROTECT		INPUTRI	8		/* kode aktiva */
+mtdket        		ALLCAPS         INPUTRI 9               /* nama aktivitas */
+
+mtdperdis       	NUMERIC         INPUTRI 10              /* total biaya */
+
+mtdtgl5			PROTECT {DD-MM-YY} INPUTRI	21		/* tgl upl */
+mtdjasbrg		PROTECT		INPUTRI	22		/* tanda upl */
+
+mtddk			NOCHANGE	INPUTRI	11		/* checklist */
+ltomhitung1		TOMBOL		INPUTRI	20		/* tombol hitung */
+/*mtdplg          	NOCHANGE        INPUTRI 12*/             	/* approval am */
+/*lalsam                  TEXTAREA        INPUTRI 13*/             /* alasan am tacc */
+
+mtdukrwrn          	NOCHANGE        INPUTRI 14             	/* approval cx ho */
+lalscx                  TEXTAREA        INPUTRI 15              /* alasan cx ho tacc */
+mtdnobbm		NOCHANGE	INPUTRI	1		/* apakah aktivitas disetujui */
+/*ltomfototambahan1	TOMBOL		INPUTRI	14*/		/* tombol foto tambahan */
+lblanks         	NOCHANGE        INPUTRI 16              /* enter */
+
+DEFAULT(tmptranst)
+mtdkat			INIT_ADD		"DEV"
+mtdsts			INIT_ADD		"OPEN"
+ltomfototambahan1	INIT			"1d. Foto Tambahan"
+mtddk			DFALT_LIST		BLANKS	Y
+/*mtdplg          	DFALT_SCAN_BLANKS       ACC     TACC*/
+mtdukrwrn		DFALT_SCAN_BLANKS	ACC	TACC
+mtdnobbm		DFALT_SCAN_BLANKS	YA	TIDAK
+
+EDIT(tmptranst)
+/*e.MandatoryApproval	mtdplg		MANDATORY_IF cMtINPG_APR1*/
+e.IsiNamaAktivitas	mtdket		MANDATORY_IF ctambahdev
+e.IsiNamaAktivitas	mtdket		MANDATORY_IF cwajibisinamaakt
+e.IsiNomAktivitas	mtdperdis	MANDATORY_IF ctambahdev
+e.MandatoryTgl		mtdtgl2		MANDATORY_IF ctambahdev
+/*e.WajibIsiJikaTACC      lalsam          MANDATORY_IF calsam*/       
+e.WajibIsiJikaTACC      lalscx          MANDATORY_IF calscx                         
+e.ValidateKeterangan    mtdoto          VALIDATE_IF cTdkNgapa2in ketdatbukkod mketerangg2 {Pmtddata} {Smtdbrg}
+e.ValidateCab           mtdcab          VALIDATE cabkodidx mcabdg2 0
+
+MAP(mcabdg2)
+cBLANKS         lbkmnobuk       DO_CALC
+cBLANKS         lbkmtgl         DO_CALC
+lbkmnobuk       lbkmnobuk       REPLACE_IF cdjoin820bkm301
+lbkmtgl         lbkmtgl         REPLACE_IF cdjoin820bkm301 
+lbkmnobuk       lbkmnobuk       REPLACE_IF cdjoin820bkm303
+lbkmtgl         lbkmtgl         REPLACE_IF cdjoin820bkm303 
+lbkmnobuk       lbkmnobuk       REPLACE_IF cdjoin820bkm309
+lbkmtgl         lbkmtgl         REPLACE_IF cdjoin820bkm309 
+
+
+
+MAP(mketerangg2)
+/*cBLANKS		lalsam	DO_CALC*/
+cBLANKS		lalscx	DO_CALC
+/*ketstr1         lalsam  REPLACE*/
+ketstr2         lalscx  REPLACE
+
+
+MAP(mnourut1g2)
+	cy		mtddk		DO_CALC
+	mtscab		mtdcab		REPLACE
+	mtsnobuk	mtdnobuk	REPLACE
+	lblanks		lnourut		REPLACE
+	lnourut		lnourut		REPLACE_IF cdscannourt
+	ctambahnourut1	lnourut		DO_CALC
+	lnourut		mtdnourt	REPLACE
+	g_usrkode	mtdppdoto	REPLACE
+	/*cACC		mtdplg		DO_CALC_IF cAPR1*/
+	cACC		mtdukrwrn	DO_CALC_IF cAPR2
+	
+HOOKS(tmptranst)
+BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF ctdkadapenandarvs
+AFTER_INPUT	cur_field=mtdtgl2	DO_MAP SHOW
+                IF ctglvalidaktdev	mdum
+                ELSE HKCURSOR STAY
+                HKMSG Tanggal aktivitas tidak boleh lebih dari hari ini
+AFTER_INPUT	cur_field=mtdnobbm	DO_MAP SHOW mubahceklis
+BEFORE_INPUT	cur_field=mtdkat	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdsat	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdnoll	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdlok	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdlok2	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdcab	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdbisnis	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdket	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF cproposaltacc
+BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cproposalblmtacc
+
+BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF ctidakbisaubah
+BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF ctidakbisaubah
+BEFORE_INPUT	cur_field=mtdket	DO_MAP SHOW IF ctambahdev mnourut1g2
+/*BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF ctambahdev*/
+BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF ctambahdev
+BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF ctambahdev
+BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF ctambahdev
+
+BEFORE_INPUT	cur_field=mtdket	DO_SKIP_IF cubahceklisdevb
+BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cubahceklisdev
+BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cubahceklisdev
+/*BEFORE_INPUT	cur_field=mtdplg	DO_SKIP_IF cubahceklisdeva*/
+BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cubahceklisdeva
+/*BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cubahceklisdev*/
+
+BEFORE_INPUT	cur_field=mtdtgl2	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtdket	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtdperdis	DO_SKIP_IF cMtINPG_APR1ACCADD
+BEFORE_INPUT	cur_field=mtddk		DO_SKIP_IF cMtINPG_APR1ACC
+BEFORE_INPUT	cur_field=mtdukrwrn	DO_SKIP_IF cMtINPG_APR1
+/*BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cMtINPG_APR1*/
+
+BEFORE_INPUT    cur_field=mtdtgl2       DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtdket        DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtdperdis     DO_SKIP_IF cMtINPG_APR2ACCADD
+BEFORE_INPUT    cur_field=mtddk         DO_SKIP_IF cMtINPG_APR2ACC
+/*BEFORE_INPUT    cur_field=mtdplg     	DO_SKIP_IF cMtINPG_APR2*/
+/*BEFORE_INPUT    cur_field=mtdnobbm      DO_SKIP_IF cMtINPG_APR2*/
+BEFORE_INPUT	cur_field=mtdnobbm	DO_SKIP_IF cskipaktdisetujui
+
+/*AFTER_INPUT	cur_field=mtdplg	DO_MAP SHOW mhapusalasantacc*/
+/*AFTER_INPUT	cur_field=mtddk		DO_MAP SHOW mhapusacc*/
+AFTER_INPUT	cur_keybd=EN		DO_SPCALCS shitung
+CLICKED		cur_field=ltomhitung1	DO_SPCALCS shitung
+AFTER_INPUT	cur_keybd=EN		DO_SPCALCS standaceklistld
+
+/*BEFORE_INPUT    cur_field=lalsam        DO_SKIP_IF calsamacc*/
+BEFORE_INPUT    cur_field=lalscx        DO_SKIP_IF calscxacc 
+
+CALCS()
+cmasukdetailtsa		(mtsplg == "TRIO" || mtsplg == "SINSEN" || mtsplg == "ASPER") && (mtsdvs == "SUDAH" && mtssts != "OPEN" && mtssts != "RINP") || g_grpnam == "RI" || g_grpnam == "IT" 
+ 
+SUBFILE(tmptrans)
+SFL_LINES(1)
+SFL_TITLE(tmptranst)
+SFL_COND		cmasukdetailtsa
+SFL_UPL_DIRFLD		mtdtgl2
+SFL_UPL_DIRFLD2		mtstgl
+SFL_UPL_DIRFLD3		lbkmtgl
+SFL_UPLFLD              mtdnoll
+SFL_UPLFLD2             mtdnobuk mtdoto
+SFL_UPLFLD3             lbkmnobuk
+SFL_UPLFLD2_DBCALCS	dupd1
+/*SFL_UPL_DELCOND		c0*/
+SFL_UPL_READONLY
+SFL_UPL_READONLY3
+SFL_SORT_BY_FIELD       mtddk
+SFL_SORT_UPDOWN         DOWN
+SFL_TARGET
+mtdbukbrglok    mtsnobuk lCLAIMDEVELOPMENT
+
+SFL_MAP
+lCLAIMBD                mtddata
+mtsnobuk                mtdnobuk
+lCLAIMDEVELOPMENT       mtdbrg

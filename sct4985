@@ -2,67 +2,132 @@ SCREEN 4985 APP_TYPE  s.NxtClaimBD
 
 LOCAL
 PGM_FIELDS
-lNOBUK		STRING		21
-lSTATUS		STRING		5
-lSTATUS2	STRING		21
-lMD		STRING		21
-lkunciabsen	STRING		11
-l1058		STRING		5
-lSYSTIME	TIME		4
-ljam14		TIME		4
-lH1		STRING		21
-lNSOHEAD	STRING		21
-lKAWIL		STRING		21
-lHMCAM		STRING		21
-lAPR1		STRING		21
-lAPR2		STRING		21
-lAKTIVITAS	STRING		21
-lPROPOSAL	STRING		21
-lKLAIM		STRING		21
-lRVS		STRING		21
-lCLAIM		STRING		21
-lCAIR		STRING		21
-lCLAIMBD	STRING		11
-lnipnsoh	STRING		21
-lniphosmg	STRING		21
-lnipam		STRING		21
-lnipkawil	STRING		21
-lniphocx	STRING		21
-lthbl		STRING		21
-lPROGRESSCLAIM	STRING		21
-lPROGCLAIM	STRING		11
-laccproposal	STRING		21
-linfoproposal	STRING		21
-laprproposal	STRING		61
-laprkirimaju	STRING		21
-lproposalterima	STRING		21
-ltglcair	DATE		8
-lproses3dke	INT2		7
-lproses3dke2	INT2		7
-lproses3dke3	INT2		7
-lsudahcair	STRING		21
-lalasanrevcair	STRING		61
-lpenandainfo	INT2		7
-lpenandainfo2	INT2		7
-lpenandacair	INT2		7
-lpenandacair2	INT2		7
-lhasilhitung	INT2		7
-lhasilhitung2	INT2		7
-l1		INT2		3
-l2		INT2		3
-l3		INT2		3
-lCUSTOMEREXPERIENCE STRING	21
-lNIPHOSEMARANG	STRING		21
-lHOCX		STRING		21
-lNIPHOSMG1	STRING		21
-lYA		STRING		21
-lTIDAK		STRING		21
-lCLAIMDEVELOPMENT       STRING          21
-lCLAIMTACTICAL          STRING          21
-lspkket		STRING		251
-lspkket2	STRING		251
-lversi		STRING		21
+lNOBUK			STRING		21
+lSTATUS			STRING		5
+lSTATUS2		STRING		21
+lMD			STRING		21
+lkunciabsen		STRING		11
+l1058			STRING		5
+l1065			STRING		5
+lSYSTIME		TIME		4
+ljam14			TIME		4
+lH1			STRING		21
+lNSOHEAD		STRING		21
+lKAWIL			STRING		21
+lHMCAM			STRING		21
+lAPR1			STRING		21
+lAPR2			STRING		21
+lAKTIVITAS		STRING		21
+lPROPOSAL		STRING		21
+lKLAIM			STRING		21
+lRVS			STRING		21
+lCLAIM			STRING		21
+lCAIR			STRING		21
+lCLAIMBD		STRING		11
+lCLAIMBD2		STRING		11
+lnipnsoh		STRING		21
+lniphosmg		STRING		21
+lnipam			STRING		21
+lnipkawil		STRING		21
+lniphocx		STRING		21
+lthbl			STRING		21
+lPROGRESSCLAIM		STRING		21
+lPROGCLAIM		STRING		11
+laccproposal		STRING		21
+linfoproposal		STRING		21
+laprproposal		STRING		61
+laprkirimaju		STRING		21
+lproposalterima		STRING		21
+ltglcair		DATE		8
+lproses3dke		INT2		7
+lproses3dke2		INT2		7
+lproses3dke3		INT2		7
+lsudahcair		STRING		21
+lalasanrevcair		STRING		61
+lpenandainfo		INT2		7
+lpenandainfo2		INT2		7
+lpenandacair		INT2		7
+lpenandacair2		INT2		7
+lhasilhitung		INT2		7
+lhasilhitung2		INT2		7
+l1			INT2		3
+l2			INT2		3
+l3			INT2		3
+lCUSTOMEREXPERIENCE 	STRING		21
+lMASTERMD 		STRING		21
+lNIPHOSEMARANG		STRING		21
+lHOCX			STRING		21
+lNIPHOSMG1		STRING		21
+lYA			STRING		21
+lTIDAK			STRING		21
+lCLAIMDEVELOPMENT       STRING		21
+lCLAIMTACTICAL          STRING		21
+lspkket			STRING		251
+lspkket2		STRING		251
+lRINP			STRING		5
+lversi			STRING		21
+lTGL                    DATE            4
 
+lnobuk1058              STRING          21
+/*ljenis                  STRING          21
+lceklist                STRING          2*/
+lquartal                STRING          21
+lcabang                 STRING          21
+/*ltip2                   STRING          21                   
+ltipbns                 STRING          21
+lscrasl                 STRING          21
+lnobasl                 STRING          21
+ltglinput               DATE            4
+ltipe                   STRING          21
+ltipaktivity            STRING          21
+lkettipaktivity         STRING          151
+ltema                   STRING          21
+lmedia                  STRING          21
+ltglmulai               DATE            4
+ltglakh                 DATE            4
+ljmlbrg                 DFLOAT          4                 
+ltotbia                 DFLOAT          4
+ltglupl1                DATE            4
+ltndupl1                STRING          3
+ltglupl2                DATE            4
+ltndupl2                STRING          3               
+lceklist1               STRING          2
+laktdisetujui           STRING          21
+lkodaktiva              STRING          21
+lnamaktifitas           STRING          21*/
+ljmltacc                INT2            2
+lprlproposal            STRING          21
+ltnduplspk1             STRING          21
+ltgluplspk1             DATE            4
+ltglinfopro             DATE            4
+ltnduplspk2             STRING          21
+ltgluplspk2             DATE            4
+lalspropditlk           STRING          251
+ltnduplspk3             STRING          21
+ltgluplspk3             DATE            4
+ltnduplspk4             STRING          21
+ltgluplspk4             DATE            4
+lalsadarvs              STRING          251
+lremindtglcair          DATE            4
+ltnduplspk5             STRING          21
+ltgluplspk5             DATE            4
+lnomdevtac              STRING          21
+ltglestnom              DATE            4
+lsaldoklmdev            DFLOAT          4
+lsaldosisadev           DFLOAT          4
+lbisaklaimtac           STRING          21     
+lsaldoklaimtac          DFLOAT          4    
+lsaldosisatac           DFLOAT          4
+ltgllengkapakt          DATE            4  
+lalssisadev             STRING          351
+lnomdevcair             DFLOAT          4
+lalssisatac             STRING          251
+lnomtaccair             DFLOAT          4
+ltglinp                 DATE            4
+
+lm1065					STRING			21
+l4904					INT2			2
+l0                      DFLOAT          4
 /* ======================== MASTER ======================== */
 
 IMAGE(master)
@@ -80,42 +145,50 @@ cblanks		BLANKS
 cthbl		THBLS(g_tgltrn)
 
 DEFAULT(master)
-lNOBUK		INIT		{r_string1}
-lSTATUS		INIT		{r_string2}
-lSTATUS2	INIT		{r_string3}
-lMD		INIT		{r_string4}
-lkunciabsen	INIT		"KUNCIABSEN"
-l1058		INIT		"1058"
-lSYSTIME	INIT		SYSTIME
-ljam14		INIT		1400
-lH1		INIT		"H1"
-lNSOHEAD	INIT		"NSOHEAD"
-lHMCAM		INIT		"HMCAM"
-lKAWIL		INIT		"KAWIL"
-lAPR1		INIT		"APR1"
-lAPR2		INIT		"APR2"
-lAKTIVITAS	INIT		"AKTIVITAS"
-lPROPOSAL	INIT		"PROPOSAL"
-lKLAIM		INIT		"KLAIM"
-lRVS		INIT		"RVS"
-lCLAIM		INIT		"CLAIM"
-lCAIR		INIT		"CAIR"
-lCLAIMBD	INIT		"CLAIMBD"
-lPROGRESSCLAIM	INIT		"PROGRESSCLAIM"
-lPROGCLAIM      INIT            "PROGCLAIM"
-lthbl		INIT		{cthbl}
-l1		INIT		1
-l2		INIT		2
-l3		INIT		3
-lCUSTOMEREXPERIENCE INIT	"CUSTOMEREXPERIENCE"
-lNIPHOSEMARANG	INIT		"NIPHOSEMARANG"
-lHOCX		INIT		"HOCX"
-lNIPHOSMG1	INIT		"NIPHOSMG1"
-lYA		INIT		"YA"
-lTIDAK		INIT		"TIDAK"
-lCLAIMDEVELOPMENT       INIT    "CLAIMDEVELOPMENT"
-lCLAIMTACTICAL          INIT    "CLAIMTACTICAL"
-lversi		INIT		"180626v1"
+lNOBUK			INIT		{r_string1}
+lSTATUS			INIT		{r_string2}
+lSTATUS2		INIT		{r_string3}
+lMD			INIT		{r_string4}
+lTGL                    INIT            {r_date1}
+lkunciabsen		INIT		"KUNCIABSEN"
+l1058			INIT		"1058"
+l1065			INIT		"1065"
+lSYSTIME		INIT		SYSTIME
+ljam14			INIT		1400
+lH1			INIT		"H1"
+lNSOHEAD		INIT		"NSOHEAD"
+lHMCAM			INIT		"HMCAM"
+lKAWIL			INIT		"KAWIL"
+lAPR1			INIT		"APR1"
+lAPR2			INIT		"APR2"
+lAKTIVITAS		INIT		"AKTIVITAS"
+lPROPOSAL		INIT		"PROPOSAL"
+lKLAIM			INIT		"KLAIM"
+lRVS			INIT		"RVS"
+lCLAIM			INIT		"CLAIM"
+lCAIR			INIT		"CAIR"
+lCLAIMBD		INIT		"CLAIMBD"
+lCLAIMBD2		INIT		"CLAIMBD2"
+lPROGRESSCLAIM		INIT		"PROGRESSCLAIM"
+lPROGCLAIM      	INIT            "PROGCLAIM"
+lthbl			INIT		{cthbl}
+l1			INIT		1
+l2			INIT		2
+l3			INIT		3
+l0                      INIT		0
+lCUSTOMEREXPERIENCE	INIT		"CUSTOMEREXPERIENCE"
+lMASTERMD		INIT		"MASTERMD"
+lNIPHOSEMARANG		INIT		"NIPHOSEMARANG"
+lHOCX			INIT		"HOCX"
+lNIPHOSMG1		INIT		"NIPHOSMG1"
+lYA			INIT		"YA"
+lTIDAK			INIT		"TIDAK"
+lCLAIMDEVELOPMENT       INIT		"CLAIMDEVELOPMENT"
+lCLAIMTACTICAL          INIT		"CLAIMTACTICAL"
+lRINP			INIT		"RINP"
+lversi			INIT		"060826v2"
+lm1065			INIT		"m1065"
+l4904			INIT		4904	
 
 /* ======================== TRANS ======================== */
 
@@ -129,6 +202,34 @@ SUBFILE(trans)
 SFL_LINES(10)
 SFL_TARGET
         mtsbukidx       lNOBUK
+
+
+IMAGE(trans2)
+|_______|______|
+
+
+FIELD(trans2)
+mtdnobuk        NOCHANGE        INPUTRI 1
+mtdcab          NOCHANGE        INPUTRI 2
+
+MAP(m1065)
+mtdnobuk        r_string1       REPLACE
+l1065           r_string2       REPLACE
+mtdkat          r_string3      	REPLACE
+mtdcab          r_string4       REPLACE
+lsudahcair      r_string5       REPLACE 
+mtsnoasal      	r_string6       REPLACE 
+lproses3dke3    r_double1       REPLACE
+
+
+CALCS()
+cmtddata        mtddata == "CLAIMBDMTD"
+
+SUBFILE(trans2)
+SFL_LINES(10)
+SFL_SELECT cmtddata
+SFL_TARGET
+        mtdbukurtidx       lNOBUK
 
 
 /* ======================== MAP ======================== */
@@ -201,12 +302,12 @@ MAP(mjoindetail3d)
 
 DBCALCS(djoindetail3d)
 	DBC_COMMAND	JOIN
-	DBC_TARGET	spkdatbuktyp    mtsdata mtsnobuk lPROGCLAIM
+	DBC_TARGET	spkdatbuktyp    lCLAIMBD mtsnobuk lPROGCLAIM
 	DBC_MAP		mjoindetail3d
 
 DBCALCS(djoindetail3d2)
         DBC_COMMAND     JOIN
-        DBC_TARGET      spkdatbuktyp    mtsdata mtsnobuk lPROGCLAIM
+        DBC_TARGET      spkdatbuktyp    lCLAIMBD mtsnobuk lPROGCLAIM
 
 
 CALCS()
@@ -223,8 +324,8 @@ cblmterimaclaimabk	mtsdvs == "BELUM" && (lSTATUS == "OPEN" || lSTATUS == "RINP")
 cMtINPG_SISA		lSTATUS == "INPG" && lSTATUS2 == BLANKS && (mtstotdis != BLANKS || mtsperdisd != BLANKS)
 cMtINPG_SISA_ABK	lSTATUS == "INPG" && lSTATUS2 == BLANKS && (mtstotdis != BLANKS || mtsperdisd != BLANKS) && (abksts == "RINP" || abksts == "INPG")
 
-cMtINPG_APR1		lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "WAHANA" || lMD == "DAW" || lMD == "ASPER" || lMD == "SINSEN" || lMD == "INDACO" || lMD == "TRIO")
-cMtINPG_APR2		((lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "TDM")) || (lSTATUS == "INPG" && lSTATUS2 == "APR1")) && lMD != "TRIO"
+cMtINPG_APR1		lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "WAHANA" || lMD == "DAW" || /*lMD == "ASPER" || lMD == "SINSEN" ||*/ lMD == "INDACO" || lMD == "TRIO")
+cMtINPG_APR2		((lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "TDM" || lMD == "ASPER" || lMD == "SINSEN")) || (lSTATUS == "INPG" && lSTATUS2 == "APR1")) && lMD != "TRIO" 
 
 cMtINPG_APR1_ABK	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (abksts == "RINP" || abksts == "INPG") && (lMD == "WAHANA" || lMD == "DAW" || lMD == "ASPER" || lMD == "SINSEN" || lMD == "INDACO" || lMD == "TRIO")
 cMtINPG_APR2_ABK            ((lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "TDM")) || (lSTATUS == "INPG" && lSTATUS2 == "APR1")) && (abksts == "RINP" || abksts == "INPG") && lMD != "TRIO"
@@ -237,25 +338,24 @@ cMtINPG_AKTIVITASTRIO_ABK lSTATUS == "INPG" && lSTATUS2 == "APR1" && mtstotdis <
 
 
 
-cMtINPG_AKTIVITASMPM	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "HSO" || lMD == "MPM")
-cMtINPG_AKTIVITASMPM_ABK lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "HSO" || lMD == "MPM") && (abksts == "RINP" || abksts == "INPG")
+cMtINPG_AKTIVITASMPM	lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "HSO" /*|| lMD == "MPM" || lMD == "DAM"*/)
+cMtINPG_AKTIVITASMPM_ABK lSTATUS == "INPG" && lSTATUS2 == BLANKS && mtstotdis <= 0 && mtsperdisd <= 0 && (lMD == "HSO" ||/* lMD == "MPM" ||*/ lMD == "DAM") && (abksts == "RINP" || abksts == "INPG")
 
 cMtINPG_AKTIVITAS	lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || (lSTATUS2 == "RVS")) && lMD != "INDACO"
-cMtINPG_AKTIVITAS_3D	lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || (lSTATUS2 == "RVS")) && djoindetail3d == 0
-cMtINPG_AKTIVITAS_3DDAM	lSTATUS == "INPG" && (lMD == "CAPELA" || lMD == "DAM" || lMD == "HSO" || lMD == "MPM" || lMD == "TRIO") && djoindetail3d == 0
+cMtINPG_AKTIVITAS_3D	lSTATUS == "INPG" && djoindetail3d == 0
 
 cMtINPG_AKTIVITAS_ABK	lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || (lSTATUS2 == "RVS")) && (abksts == "RINP" || abksts == "INPG")
-cMtINPG_PROPOSAL	lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && lMD != "INDACO" && lMD != "DAM" && lMD != "CAPELA" && lMD != "TRIO"
+cMtINPG_PROPOSAL	lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && lMD != "INDACO" && lMD != "DAM" && lMD != "CAPELA" && lMD != "TRIO" && lMD != "HSO" && lMD != "MPM"
 cMtINPG_PROPOSALTRIO	lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && lMD == "TRIO" && lproses3dke == 1
 cMtINPG_PROPOSALTRIO_ABK lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && lMD == "TRIO" && (abksts == "RINP" || abksts == "INPG") && lproses3dke == 1
 
-cMtINPG_PROPOSAL_ABK	lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (abksts == "RINP" || abksts == "INPG")
+cMtINPG_PROPOSAL_ABK	lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (abksts == "RINP" || abksts == "INPG") && lMD != "MPM"
 cMtINPG_PROPOSALTACC	lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && laccproposal == "TACC" && lproses3dke == 1
 
 cMtINPG_PROPOSALTACC_ABK lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && laccproposal == "TACC" && lproses3dke == 1 && (abksts == "RINP" || abksts == "INPG")
-cMtINPG_PROPOSALACC	lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && laccproposal == "ACC" && lproses3dke == 1
+cMtINPG_PROPOSALACC	(lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && laccproposal == "ACC" && lproses3dke == 1) || (lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (lMD == "HSO" /*|| lMD == "MPM" || lMD == "DAM"*/))
 
-cMtINPG_PROPOSALACC_ABK lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && laccproposal == "ACC" && lproses3dke == 1 && (abksts == "RINP" || abksts == "INPG")
+cMtINPG_PROPOSALACC_ABK ((lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && laccproposal == "ACC" && lproses3dke == 1) || (lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (lMD == "HSO" || /*lMD == "MPM" ||*/ lMD == "DAM"))) && (abksts == "RINP" || abksts == "INPG")
 cMtINPG_PROPOSALBELUM5	lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "BELUM" && (lhasilhitung * 5 == lpenandainfo2) && lpenandainfo > 0
 
 cMtINPG_PROPOSALBELUM	lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "BELUM"
@@ -264,8 +364,10 @@ cMtINPG_PROPOSALBELUM_ABK lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfopr
 cMtINPG_PROPOSALSUDAHTACC	lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && laprproposal == "AKTIVITAS_DITOLAK"
 cMtINPG_PROPOSALSUDAHTACC_ABK lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && laprproposal == "AKTIVITAS_DITOLAK" && (abksts == "RINP" || abksts == "INPG")
 
-cMtINPG_PROPOSALSUDAHTACCSEMUA		lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && laprproposal == "AKTIVITAS_DITOLAK" && lspkket == "SEMUA_AKTIVITAS" && mtddk != BLANKS
+cMtINPG_PROPOSALSUDAHTACCSEMUA		lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && laprproposal == "AKTIVITAS_DITOLAK" && lspkket == "SEMUA_AKTIVITAS" && (mtddk != BLANKS || mtdnobbm == "TIDAK")
+cMtINPG_PROPOSALSUDAHTACCSEMUAa		lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && laprproposal == "AKTIVITAS_DITOLAK" && lspkket == "SEMUA_AKTIVITAS"
 cMtINPG_PROPOSALSUDAHTACCBEBERAPA	lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && laprproposal == "AKTIVITAS_DITOLAK" && lspkket == "BEBERAPA_AKTIVITAS" && mtddk != BLANKS
+cMtINPG_PROPOSALSUDAHTACCBEBERAPAa	lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && laprproposal == "AKTIVITAS_DITOLAK" && lspkket == "BEBERAPA_AKTIVITAS"
 
 cMtINPG_PROPOSALSUDAHTACC2	lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && (laprproposal == "PERBAIKAN_BUKTI_AKTIVITAS" || laprproposal == "LAINNYA")
 cMtINPG_PROPOSALSUDAHTACC2_ABK lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && (laprproposal == "PERBAIKAN_BUKTI_AKTIVITAS" || laprproposal == "LAINNYA") && (abksts == "RINP" || abksts == "INPG")
@@ -273,7 +375,7 @@ cMtINPG_PROPOSALSUDAHTACC2_ABK lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && li
 cMtINPG_PROPOSALSUDAHACC1	(lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && lproposalterima == "ACC" && lproses3dke2 == 1 && lMD != "INDACO") || (lSTATUS == "INPG" && (lSTATUS2 == "RVS" || (lSTATUS2 == "APR2")) && lproses3dke2 == 1 && lMD == "INDACO")
 cMtINPG_PROPOSALSUDAHACC1_ABK ((lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && lproposalterima == "ACC" && lproses3dke2 == 1 && lMD != "INDACO") || (lSTATUS == "INPG" && (lSTATUS2 == "RVS" || (lSTATUS2 == "APR2")) && lproses3dke2 == 1 && lMD == "INDACO")) && (abksts == "RINP" || abksts == "INPG")
 
-cMtINPG_PROPOSALSUDAHACC2	((lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && lproposalterima == "ACC" && lproses3dke2 == 2 && lMD != "INDACO" && lMD != "DAM" && lMD != "CAPELA" && lMD != "TRIO") || (lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (lMD == "INDACO" || lMD == "DAM" || lMD == "CAPELA")))
+cMtINPG_PROPOSALSUDAHACC2	((lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && lproposalterima == "ACC" && lproses3dke2 == 2 && lMD != "INDACO" && lMD != "DAM" && lMD != "CAPELA" && lMD != "TRIO") || (lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (lMD == "INDACO" /*|| lMD == "DAM" || lMD == "CAPELA"*/))) && lMD != "HSO" && lMD != "MPM"
 cMtINPG_PROPOSALSUDAHACC2_ABK ((lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && linfoproposal == "SUDAH" && lproposalterima == "ACC" && lproses3dke2 == 2 && lMD != "INDACO" && lMD != "DAM" && lMD != "CAPELA" && lMD != "TRIO") || (lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (lMD == "INDACO" || lMD == "DAM" || lMD == "CAPELA"))) && (abksts == "RINP" || abksts == "INPG")
 
 cMtINPG_KLAIMTACC		lSTATUS == "INPG" && lSTATUS2 == "KLAIM" && laprkirimaju == "TACC" && lproses3dke3 == 1 && lMD != "INDACO" && lMD != "DAM" && lMD != "CAPELA"
@@ -281,8 +383,8 @@ cMtINPG_KLAIMTACC_ABK		lSTATUS == "INPG" && lSTATUS2 == "KLAIM" && laprkirimaju 
 cMtINPG_KLAIMTACCINDACO		lSTATUS == "INPG" && lSTATUS2 == "KLAIM" && laprkirimaju == "TACC" && lproses3dke3 == 1 && (lMD == "INDACO" || lMD == "DAM" || lMD == "CAPELA")
 cMtINPG_KLAIMTACCINDACO_ABK	lSTATUS == "INPG" && lSTATUS2 == "KLAIM" && laprkirimaju == "TACC" && (abksts == "RINP" || abksts == "INPG") && lproses3dke3 == 1 && (lMD == "INDACO" || lMD == "DAM" || lMD == "CAPELA")
 
-cMtINPG_KLAIMACC		lSTATUS == "INPG" && ((lSTATUS2 == "KLAIM" && laprkirimaju == "ACC") || (lSTATUS2 == "PROPOSAL" && lMD == "TRIO")) && lproses3dke3 == 1
-cMtINPG_KLAIMACC_ABK		lSTATUS == "INPG" && ((lSTATUS2 == "KLAIM" && laprkirimaju == "ACC") || (lSTATUS2 == "PROPOSAL" && lMD == "TRIO")) && (abksts == "RINP" || abksts == "INPG") && lproses3dke3 == 1
+cMtINPG_KLAIMACC		((lSTATUS == "INPG" && ((lSTATUS2 == "KLAIM" && laprkirimaju == "ACC") || (lSTATUS2 == "PROPOSAL" && lMD == "TRIO")) && lproses3dke2 == 2 && lproses3dke3 == 1) || (lproses3dke2 == 2 && lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && (lMD == "HSO" /*|| lMD == "MPM" || lMD == "DAM"*/))) && lMD != "MPM"
+cMtINPG_KLAIMACC_ABK		(lSTATUS == "INPG" && ((lSTATUS2 == "KLAIM" && laprkirimaju == "ACC") || (lSTATUS2 == "PROPOSAL" && lMD == "TRIO")) && (abksts == "RINP" || abksts == "INPG") && lproses3dke2 == 2 && lproses3dke3 == 1) && lMD != "MPM"
 
 cMtINPG_KLAIMCAIRBELUM		lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "BELUM"
 cMtINPG_KLAIMCAIRBELUM_ABK	lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && (abksts == "RINP" || abksts == "INPG") && lproses3dke3 == 2 && lsudahcair == "BELUM"
@@ -299,33 +401,59 @@ cMtINPG_KLAIMCAIRREVISI1INDACO_ABK lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || 
 
 
 cMtINPG_KLAIMCAIRREVISI2	lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK"
-cMtINPG_KLAIMCAIRREVISI2SEMUA		lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK" && lspkket2 == "SEMUA_AKTIVITAS" && mtddk != BLANKS
+cMtINPG_KLAIMCAIRREVISI2SEMUA		lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK" && lspkket2 == "SEMUA_AKTIVITAS" && (mtddk != BLANKS || mtdnobbm == "TIDAK")
+cMtINPG_KLAIMCAIRREVISI2SEMUAa		lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK" && lspkket2 == "SEMUA_AKTIVITAS"
 cMtINPG_KLAIMCAIRREVISI2BEBERAPA	lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK" && lspkket2 == "BEBERAPA_AKTIVITAS" && mtddk != BLANKS
+cMtINPG_KLAIMCAIRREVISI2BEBERAPAa	lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK" && lspkket2 == "BEBERAPA_AKTIVITAS"
 cMtINPG_KLAIMCAIRREVISI2_ABK lSTATUS == "INPG" && (lSTATUS2 == "KLAIM" || lSTATUS2 == "CAIR") && (abksts == "RINP" || abksts == "INPG") && lproses3dke3 == 2 && lsudahcair == "REVISI" && lalasanrevcair == "AKTIVITAS_DITOLAK"
 
 cMtINPG_APR2RVSINDACO		lSTATUS == "INPG" && ((lSTATUS2 == "APR2") || lSTATUS2 == "RVS") && lMD == "INDACO"
+cMtINPG_AKTIVITASHSO		lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (lMD == "HSO" /*|| lMD == "MPM" || lMD == "DAM"*/)
+
+cMtINPG_KLAIMDAM		lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && (lproses3dke == 1 || lproses3dke == 2) && (lproses3dke2 == 1 || lproses3dke2 == 2) && lproses3dke3 == 1 && (lMD == "DAM" || lMD == "CAPELA")
+
+cMtINPG_AKTIVITASMPM2		lSTATUS == "INPG" && lSTATUS2 == BLANKS && lMD == "MPM"
+cMtINPG_AKTIVITASMPM2_ABK	lSTATUS == "INPG" && lSTATUS2 == BLANKS && lMD == "MPM" && (abksts == "RINP" || abksts == "INPG")
+
+
+cMtINPG_PROPOSALMPM2a		lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && lproses3dke == 1 && lMD == "MPM"
+cMtINPG_PROPOSALMPM2a_ABK	lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && lproses3dke == 1 && lMD == "MPM" && (abksts == "RINP" || abksts == "INPG")
+
+cMtINPG_PROPOSALMPM2b		lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && lproses3dke == 2 && lMD == "MPM"
+cMtINPG_PROPOSALMPM2b_ABK	lSTATUS == "INPG" && lSTATUS2 == "AKTIVITAS" && lproses3dke == 2 && lMD == "MPM" && (abksts == "RINP" || abksts == "INPG")
+
+cMtINPG_KLAIMMPM2a		lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && lproses3dke2 == 2 && lproses3dke3 == 1 && lMD == "MPM"
+cMtINPG_KLAIMMPM2a_ABK		lSTATUS == "INPG" && lSTATUS2 == "PROPOSAL" && lproses3dke2 == 2 && lproses3dke3 == 1&& lMD == "MPM" && (abksts == "RINP" || abksts == "INPG")
+
+cMtINPG_KLAIMMPM2b		lSTATUS == "INPG" && lSTATUS2 == "KLAIM" && lproses3dke2 == 2 && lproses3dke3 == 1 && laprkirimaju == "ACC" && lMD == "MPM"
+cMtINPG_KLAIMMPM2b_ABK		lSTATUS == "INPG" && lSTATUS2 == "KLAIM" && lproses3dke2 == 2 && lproses3dke3 == 1&& laprkirimaju == "ACC" && lMD == "MPM" && (abksts == "RINP" || abksts == "INPG")
+
+cMtINPG_KLAIMMPM2b_TACC		lSTATUS == "INPG" && lSTATUS2 == "KLAIM" && lproses3dke2 == 2 && lproses3dke3 == 1 && laprkirimaju == "TACC" && lMD == "MPM"
+cMtINPG_KLAIMMPM2bTACC_ABK	lSTATUS == "INPG" && lSTATUS2 == "KLAIM" && lproses3dke2 == 2 && lproses3dke3 == 1&& laprkirimaju == "TACC" && lMD == "MPM" && (abksts == "RINP" || abksts == "INPG")
 
 cdjoinnsoh		djoinnsoh == 1
 cdjoinhosmg		djoinhosmg == 1
 cdjoinam		djoinam == 1
 cdjoinkawil		djoinkawil == 1
 cdjoinhocx		djoinhocx == 1
-cketabk1		"INPUT CLAIM BD"
-cketabk2		"APPROVAL CLAIM BD"
-cketabk3		"APPROVAL CLAIM BD"
-cketabk5		"UPLOAD PROPOSAL CBD"
-cketabk6		"ACC KIRIM PROPOSAL"
-cketabk7		"UPL ULANG PROPOSAL"
-cketabk8		"CEK INFO PROPOSAL"
-cketabk9		"PILIH AKTIVITAS CBD"
-cketabk10		"REVISI BUKTI"
-cketabk11		"KIRIM AJU KLAIM"
-cketabk12		"PERIKSA AJU KLAIM"
-cketabk13		"AJU KLAIM ULANG"
-cketabk14		"CEK DANA SDH CAIR"
+cketabk1		"PILIH AKTIVITAS BD"
+cketabk2		"APR AKTIVITAS CLAIM"
+cketabk3		"APR AKTIVITAS CLAIM"
+cketabk5		"KIRIM PROPOSAL BD"
+cketabk6		"CEK KRM PROPOSAL BD"
+cketabk7		"AJU ULANG PROPOSAL"
+cketabk8		"CEK INFO PROPOSAL BD"
+cketabk9		"RVS AKTIVITAS BD"
+cketabk10		"AJU ULANG PROPOSAL" /*"RVS AKTIVITAS BD"*/
+cketabk11		"AJUKAN KLAIM BD"
+cketabk12		"CEK AJU KLAIM BD"
+cketabk13		"AJU ULANG KLAIM BD"
+cketabk14		"CEK INFO DANA CAIR"
 cketabkbaca		"BACA INFO PROPOSAL"
-cketabkbacacair		"BACA INFO CAIR"
-cketabkbaca2		"BACA PROSES KLAIM"
+cketabkbacahso		"BACA KRM PROPOSAL BD"
+cketabkbacacair		"BACA INFO DANA CAIR"
+cketabkbaca2		"BACA ADA PROSESKLAIM"
+cketabksisa		"LENGKAPI AKTIVITASBD"
 cbaca			"BACA"
 cpenandainfo2		lpenandainfo + 1
 cpenandacair2		lpenandacair + 1
@@ -368,21 +496,26 @@ MAP(maptrans)
 DEBUG	lnipkawil	lnipkawil	REPLACE_IF cdjoinkawil
 
 MAP(mupdmaster)
-	gt_RINP		mtssts		REPLACE_IF cblmterimaclaim
+	lRINP		mtssts		REPLACE_IF cblmterimaclaim
 
 	l1		mtstotal	REPLACE_IF cMtINPG_SISA	
 
 	lAPR1		mtshcex		REPLACE_IF cMtINPG_APR1
 	lAPR2		mtshcex		REPLACE_IF cMtINPG_APR2
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_AKTIVITAS
+	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_AKTIVITASMPM2
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_AKTIVITASMPM
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_AKTIVITASDAM
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_AKTIVITASTRIO
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_PROPOSALTACC
 	lPROPOSAL	mtshcex		REPLACE_IF cMtINPG_PROPOSAL
+	lPROPOSAL	mtshcex		REPLACE_IF cMtINPG_PROPOSALMPM2b
 	lPROPOSAL	mtshcex		REPLACE_IF cMtINPG_PROPOSALTRIO
+	lPROPOSAL	mtshcex		REPLACE_IF cMtINPG_PROPOSALMPM2a
 	lKLAIM		mtshcex		REPLACE_IF cMtINPG_PROPOSALSUDAHACC2
 	lKLAIM		mtshcex		REPLACE_IF cMtINPG_KLAIMACC
+	lKLAIM		mtshcex		REPLACE_IF cMtINPG_KLAIMDAM
+	lKLAIM		mtshcex		REPLACE_IF cMtINPG_KLAIMMPM2a
 	cblanks		mtshcex		DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC
 	l1		mtstotpph	REPLACE_IF cMtINPG_PROPOSALSUDAHTACC
 	cblanks		mtstotal	DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC
@@ -401,18 +534,89 @@ MAP(mupdmaster)
 	lPROPOSAL	mtshcex		REPLACE_IF cMtINPG_KLAIMCAIRREVISI1
 	lAKTIVITAS	mtshcex		REPLACE_IF cMtINPG_KLAIMCAIRREVISI1INDACO
 	cblanks		mtstgljtp	DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC
+	lPROPOSAL	mtshcex		REPLACE_IF cMtINPG_AKTIVITASHSO
+	
+	l1		mtstotppn	REPLACE_IF cMtINPG_PROPOSALSUDAHTACCSEMUAa
+	l1		mtstotppn	REPLACE_IF cMtINPG_KLAIMCAIRREVISI2SEMUAa
+	l2		mtstotppn	REPLACE_IF cMtINPG_PROPOSALSUDAHTACCBEBERAPAa
+	l2		mtstotppn	REPLACE_IF cMtINPG_KLAIMCAIRREVISI2BEBERAPAa
 	
 DEBUG	gv_INPG		mtssts		REPLACE_IF csdhterimaclaim
 
+MAP(mjoinmasterisi)
+mtsdvs          lnomdevtac      REPLACE
+mtstgl1         ltglestnom      REPLACE
+mtstothrg       lsaldoklmdev    REPLACE
+mtstotdis       lsaldosisadev   REPLACE
+mtstype1        lbisaklaimtac   REPLACE
+mtsperdis       lsaldoklaimtac  REPLACE
+mtsperdisd      lsaldosisatac   REPLACE
+mtsperdisd      lsaldosisatac   REPLACE
+mtstgljtp       ltgllengkapakt  REPLACE
+
+DBCALCS(djoinmasterisi)
+DBC_COMMAND     JOIN
+DBC_TARGET      mtsbukidx lNOBUK
+DBC_MAP         mjoinmasterisi
+
+MAP(mjoinmasterket)
+ketisi  lalssisadev     REPLACE
+ketdf1  lnomdevcair     REPLACE
+ketisi2 lalssisatac     REPLACE
+ketdf2  lnomtaccair     REPLACE
+
+DBCALCS(djoinmasterket)
+DBC_COMMAND     JOIN
+DBC_TARGET      ketdatbukkod    gt_CX lNOBUK gt_CX21
+DBC_MAP         mjoinmasterket
+
+CALCS()
+cdjoinmasterisi djoinmasterisi == 1 
+cdjoinmasterket djoinmasterket == 1
+
+MAP(mupdmaster1065ke1058)
+gv_CLSD         mtssts          REPLACE
+lnomdevtac      mtsdvs          REPLACE_IF cdjoinmasterisi
+ltglestnom      mtstgl1         REPLACE_IF cdjoinmasterisi
+lnomdevtac      mtstothrg          REPLACE_IF cdjoinmasterisi
+/*lsaldoklmdev    mtstothrg       REPLACE_IF cdjoinmasterisi*/
+/*lsaldosisadev   mtstotdis       REPLACE_IF cdjoinmasterisi*/
+l0              mtstotdis       REPLACE
+lbisaklaimtac   mtstype1        REPLACE_IF cdjoinmasterisi 
+lsaldoklaimtac  mtsperdis       REPLACE_IF cdjoinmasterisi
+lsaldosisatac   mtsperdisd      REPLACE_IF cdjoinmasterisi
+ltgllengkapakt  mtstgljtp       REPLACE_IF cdjoinmasterisi
+
+MAP(mupdmaster1065ke1058ket)
+lalssisadev     ketisi          REPLACE_IF cdjoinmasterket 
+lnomdevcair     ketdf1          REPLACE_IF cdjoinmasterket
+lalssisatac     ketisi2         REPLACE_IF cdjoinmasterket
+lnomtaccair     ketdf2          REPLACE_IF cdjoinmasterket
+
+MAP(maddmaster1065ke1058ket)
+gt_CX           ketdata         REPLACE
+lnobuk1058      ketnobuk        REPLACE
+gt_CX21         ketkode         REPLACE
+lalssisadev     ketisi          REPLACE_IF cdjoinmasterket 
+lnomdevcair     ketdf1          REPLACE_IF cdjoinmasterket
+lalssisatac     ketisi2         REPLACE_IF cdjoinmasterket
+lnomtaccair     ketdf2          REPLACE_IF cdjoinmasterket
+
 MAP(mupdabk1)
-	gv_CLSD		abksts		REPLACE_IF cMtINPG_PROPOSAL_ABK
+DEBUG	gv_CLSD		abksts		REPLACE_IF cMtINPG_PROPOSAL_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITAS_ABK
+	gv_CLSD		abksts		REPLACE_IF cMtINPG_PROPOSALMPM2a_ABK
+	gv_CLSD		abksts		REPLACE_IF cMtINPG_KLAIMMPM2bTACC_ABK
+	gv_CLSD		abksts		REPLACE_IF cMtINPG_KLAIMMPM2a_ABK
+	gv_CLSD		abksts		REPLACE_IF cMtINPG_KLAIMMPM2b_ABK
+	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITASMPM2_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITASMPM_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITASDAM_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_AKTIVITASTRIO_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_PROPOSALTACC_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_PROPOSALACC_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_PROPOSALTRIO_ABK
+	gv_CLSD		abksts		REPLACE_IF cMtINPG_PROPOSALMPM2b_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_APR1_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_APR2_ABK
 	gv_CLSD		abksts		REPLACE_IF csdhterimaclaimabk
@@ -427,47 +631,78 @@ MAP(mupdabk1)
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_KLAIMCAIRREVISI1_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_KLAIMCAIRREVISI1INDACO_ABK
 	gv_CLSD		abksts		REPLACE_IF cMtINPG_KLAIMCAIRREVISI2_ABK
-	gt_RINP		abksts		REPLACE_IF cMtINPG_KLAIMCAIRBELUM_ABK
+	lRINP		abksts		REPLACE_IF cMtINPG_KLAIMCAIRBELUM_ABK
 	chplus7		abktgl		DO_CALC_IF cMtINPG_KLAIMCAIRBELUM_ABK
-	gt_RINP		abksts		REPLACE_IF cMtINPG_SISA_ABK
+	lRINP		abksts		REPLACE_IF cMtINPG_SISA_ABK
 	mtstgljtp	abktgl		REPLACE_IF cMtINPG_SISA_ABK
-	gt_RINP		abksts		REPLACE_IF cMtINPG_PROPOSALBELUM_ABK
+	cketabksisa	abkkym2		DO_CALC_IF cMtINPG_SISA_ABK
+	lRINP		abksts		REPLACE_IF cMtINPG_PROPOSALBELUM_ABK
 	chplus7		abktgl		DO_CALC_IF cMtINPG_PROPOSALBELUM_ABK
-	gt_RINP		abksts		REPLACE_IF cblmterimaclaimabk
+	lRINP		abksts		REPLACE_IF cblmterimaclaimabk
 DEBUG	mtstgl1		abktgl		REPLACE_IF cblmterimaclaimabk
 
 CALCS()
 cMD1_APR1	lMD == "WAHANA" || lMD == "DAW" || lMD == "INDACO"
 cMD2_APR1	lMD == "ASPER" || lMD == "SINSEN"
-cMDMPM		lMD == "MPM"
-cMDTRIO		lMD == "TRIO"
+cMD_MPM		lMD == "MPM"
+cMD_TRIO	lMD == "TRIO"
+cMD_ASPER	lMD == "ASPER"
+cMD_DAW		lMD == "DAW"
+cMD_HSO		lMD == "HSO"
+cMD_TDM		lMD == "TDM"
+cMD_WAHANA	lMD == "WAHANA"
+cMD_CDN		lMD == "CAPELA"
+cMD_DAM		lMD == "DAM"
+cMD_INDACO	lMD == "INDACO"
+cMD_SINSEN	lMD == "SINSEN"
+camtdkada	lnipam == BLANKS && (lMD == "ASPER" || lMD == "TRIO" || lMD == "SINSEN")
+c1058           mtsdata == "CLAIMBD"
+c1065           mtsdata == "CLAIMBD2"
 
 MAP(maddabk1)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP           abksts          REPLACE
 cbesok		abktgl		DO_CALC
 mtsgrup2	abkkym		REPLACE
-lniphocx	abkkym		REPLACE_IF cMDTRIO
+lnipam		abkkym		REPLACE_IF cMD_ASPER
+lnipnsoh	abkkym		REPLACE_IF cMD_DAW
+lniphosmg	abkkym		REPLACE_IF cMD_HSO
+mtsgrup2	abkkym		REPLACE_IF cMD_MPM
+lnipkawil	abkkym		REPLACE_IF cMD_TDM
+lniphocx	abkkym		REPLACE_IF cMD_TRIO
+lnipnsoh	abkkym		REPLACE_IF cMD_WAHANA
+lniphosmg	abkkym		REPLACE_IF cMD_CDN
+lniphosmg	abkkym		REPLACE_IF cMD_DAM
+lnipnsoh	abkkym		REPLACE_IF cMD_INDACO
+lnipam		abkkym		REPLACE_IF cMD_SINSEN
 cketabk1        abkkym2         DO_CALC
 
 MAP(maddabk2)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         abksts          REPLACE
 cbesok          abktgl          DO_CALC
 lnipam       	abkkym          REPLACE_IF cMD1_APR1
 lnipkawil	abkkym		REPLACE_IF cMD2_APR1
-lnipam		abkkym		REPLACE_IF cMDTRIO
+lnipam		abkkym		REPLACE_IF cMD_WAHANA
+lnipam		abkkym		REPLACE_IF cMD_DAW
+lnipkawil	abkkym		REPLACE_IF cMD_ASPER
+lnipkawil	abkkym		REPLACE_IF cMD_SINSEN
+lnipam		abkkym		REPLACE_IF cMD_TRIO
+lnipam		abkkym		REPLACE_IF cMD_INDACO
 cketabk2        abkkym2         DO_CALC
 
 MAP(maddabk3)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         abksts          REPLACE
 cbesok        	abktgl          DO_CALC
 lniphocx        abkkym          REPLACE
 cketabk3        abkkym2         DO_CALC
@@ -475,122 +710,209 @@ cketabk3        abkkym2         DO_CALC
 
 MAP(maddabk5)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         	abksts          REPLACE
 cbesok          abktgl          DO_CALC
 mtsgrup2        abkkym          REPLACE
-lnipam		abkkym		REPLACE_IF cMDMPM
-lniphocx	abkkym		REPLACE_IF cMDTRIO
+lnipam          abkkym          REPLACE_IF cMD_ASPER
+lnipam        	abkkym          REPLACE_IF cMD_DAW
+lniphosmg       abkkym          REPLACE_IF cMD_HSO
+lnipam        	abkkym          REPLACE_IF cMD_MPM
+lnipkawil       abkkym          REPLACE_IF cMD_TDM
+lniphocx        abkkym          REPLACE_IF cMD_TRIO
+lnipnsoh        abkkym          REPLACE_IF cMD_WAHANA
+lniphosmg       abkkym          REPLACE_IF cMD_CDN
+lniphosmg       abkkym          REPLACE_IF cMD_DAM
+lnipnsoh        abkkym          REPLACE_IF cMD_INDACO
+lnipam          abkkym          REPLACE_IF cMD_SINSEN
 cketabk5        abkkym2         DO_CALC
 
 MAP(maddabk6)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         abksts          REPLACE
 cbesok        	abktgl          DO_CALC
 lniphocx       	abkkym          REPLACE
 cketabk6        abkkym2         DO_CALC
 
 MAP(maddabk7)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         abksts          REPLACE
 cbesok        	abktgl          DO_CALC
 mtsgrup2       	abkkym          REPLACE
+lnipam          abkkym          REPLACE_IF cMD_ASPER
+lnipam          abkkym          REPLACE_IF cMD_DAW
+lniphosmg       abkkym          REPLACE_IF cMD_HSO
+lnipam        	abkkym          REPLACE_IF cMD_MPM
+lnipkawil       abkkym          REPLACE_IF cMD_TDM
+lniphocx        abkkym          REPLACE_IF cMD_TRIO
+lnipnsoh        abkkym          REPLACE_IF cMD_WAHANA
+lniphosmg       abkkym          REPLACE_IF cMD_CDN
+lniphosmg       abkkym          REPLACE_IF cMD_DAM
+lnipnsoh        abkkym          REPLACE_IF cMD_INDACO
+lnipam          abkkym          REPLACE_IF cMD_SINSEN
 cketabk7        abkkym2         DO_CALC
 
 MAP(maddabk8)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         abksts          REPLACE
 chplus7         abktgl          DO_CALC
-mtsgrup2        abkkym          REPLACE
-lnipam		abkkym		REPLACE_IF cMDTRIO
+lnipam          abkkym          REPLACE_IF cMD_ASPER
+lnipnsoh        abkkym          REPLACE_IF cMD_DAW
+lniphosmg      	abkkym          REPLACE_IF cMD_HSO
+lniphosmg      	abkkym          REPLACE_IF cMD_MPM
+lnipkawil       abkkym          REPLACE_IF cMD_TDM
+lnipam       	abkkym          REPLACE_IF cMD_TRIO
+lnipnsoh        abkkym          REPLACE_IF cMD_WAHANA
+lniphosmg       abkkym          REPLACE_IF cMD_CDN
+lniphosmg       abkkym          REPLACE_IF cMD_DAM
+lnipnsoh        abkkym          REPLACE_IF cMD_INDACO
+lnipam          abkkym          REPLACE_IF cMD_SINSEN
+lnipkawil	abkkym		REPLACE_IF camtdkada
 cketabk8        abkkym2         DO_CALC
 
 MAP(maddabk9)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         abksts          REPLACE
 cbesok         	abktgl          DO_CALC
 mtsgrup2        abkkym          REPLACE
+lniphocx	abkkym		REPLACE_IF cMD_TRIO
 cketabk9        abkkym2         DO_CALC
 
 MAP(maddabk10)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         	abksts          REPLACE
 cbesok          abktgl          DO_CALC
 mtsgrup2        abkkym          REPLACE
+lniphocx	abkkym		REPLACE_IF cMD_TRIO
+lnipam		abkkym		REPLACE_IF cMD_MPM
+lniphosmg       abkkym          REPLACE_IF cMD_HSO
 cketabk10       abkkym2         DO_CALC
 
 MAP(maddabk11)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         abksts          REPLACE
 cbesok         	abktgl          DO_CALC
-mtsgrup2        abkkym          REPLACE
-lniphocx	abkkym		REPLACE_IF cMDTRIO
+lnipam          abkkym          REPLACE_IF cMD_ASPER
+lnipam          abkkym          REPLACE_IF cMD_DAW
+lniphosmg       abkkym          REPLACE_IF cMD_HSO
+lnipam        	abkkym          REPLACE_IF cMD_MPM
+lnipkawil       abkkym          REPLACE_IF cMD_TDM
+lniphocx        abkkym          REPLACE_IF cMD_TRIO
+lnipnsoh        abkkym          REPLACE_IF cMD_WAHANA
+lniphosmg       abkkym          REPLACE_IF cMD_CDN
+lniphosmg       abkkym          REPLACE_IF cMD_DAM
+lnipnsoh        abkkym          REPLACE_IF cMD_INDACO
+lnipam          abkkym          REPLACE_IF cMD_SINSEN
 cketabk11       abkkym2         DO_CALC
 
 MAP(maddabk12)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         abksts          REPLACE
 cbesok          abktgl          DO_CALC
 lniphocx        abkkym          REPLACE
 cketabk12       abkkym2         DO_CALC
 
 MAP(maddabk13)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         	abksts          REPLACE
 cbesok          abktgl          DO_CALC
-mtsgrup2        abkkym          REPLACE
+lnipam          abkkym          REPLACE_IF cMD_ASPER
+lnipam          abkkym          REPLACE_IF cMD_DAW
+lniphosmg       abkkym          REPLACE_IF cMD_HSO
+lnipam        	abkkym          REPLACE_IF cMD_MPM
+lnipkawil       abkkym          REPLACE_IF cMD_TDM
+lniphocx        abkkym          REPLACE_IF cMD_TRIO
+lnipnsoh        abkkym          REPLACE_IF cMD_WAHANA
+lniphosmg       abkkym          REPLACE_IF cMD_CDN
+lniphosmg       abkkym          REPLACE_IF cMD_DAM
+lnipnsoh        abkkym          REPLACE_IF cMD_INDACO
+lnipam          abkkym          REPLACE_IF cMD_SINSEN
 cketabk13       abkkym2         DO_CALC
 
 MAP(maddabk14)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         abksts          REPLACE
 chplus7         abktgl          DO_CALC
 lniphosmg       abkkym          REPLACE
 cketabk14       abkkym2         DO_CALC
 
 MAP(maddabk15)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP        	abksts          REPLACE
 cbesok         	abktgl          DO_CALC
-mtsgrup2       	abkkym          REPLACE
+lnipam          abkkym          REPLACE_IF cMD_ASPER
+lnipam          abkkym          REPLACE_IF cMD_DAW
+lniphosmg       abkkym          REPLACE_IF cMD_HSO
+lnipam        	abkkym          REPLACE_IF cMD_MPM
+lnipkawil       abkkym          REPLACE_IF cMD_TDM
+lniphocx        abkkym          REPLACE_IF cMD_TRIO
+lnipnsoh        abkkym          REPLACE_IF cMD_WAHANA
+lniphosmg       abkkym          REPLACE_IF cMD_CDN
+lniphosmg       abkkym          REPLACE_IF cMD_DAM
+lnipnsoh        abkkym          REPLACE_IF cMD_INDACO
+lnipam          abkkym          REPLACE_IF cMD_SINSEN
 cketabk13       abkkym2         DO_CALC
 
 MAP(maddabkbaca)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         abksts          REPLACE
 cbesok        	abktgl          DO_CALC
 lniphocx        abkkym          REPLACE
 cketabkbaca     abkkym2         DO_CALC
 cbaca           abktype         DO_CALC
 
+MAP(maddabkbacahso)
+lkunciabsen     abkdata         REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
+lNOBUK          abknobuk        REPLACE
+lRINP         abksts          REPLACE
+cbesok          abktgl          DO_CALC
+lniphocx        abkkym          REPLACE
+cketabkbacahso  abkkym2         DO_CALC
+cbaca           abktype         DO_CALC
+
 MAP(maddabkbacacair)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP         abksts          REPLACE
 cbesok          abktgl          DO_CALC
 lniphocx        abkkym          REPLACE
 cketabkbacacair abkkym2         DO_CALC
@@ -598,23 +920,35 @@ cbaca           abktype         DO_CALC
 
 MAP(maddabkbaca2)
 lkunciabsen     abkdata         REPLACE
-l1058           abkscr          REPLACE
+l1058           abkscr          REPLACE_IF c1058
+l1065           abkscr          REPLACE_IF c1065
 lNOBUK          abknobuk        REPLACE
-gt_RINP         abksts          REPLACE
+lRINP           abksts          REPLACE
 cbesok          abktgl          DO_CALC
 lniphosmg       abkkym          REPLACE
+lniphocx	abkkym		REPLACE_IF cMD_HSO
+lniphocx	abkkym		REPLACE_IF cMD_MPM
+lniphocx	abkkym		REPLACE_IF cMD_DAM
 cketabkbaca2    abkkym2         DO_CALC
 cbaca           abktype         DO_CALC
 
 CALCS()
-cTDKPERLUPROPOSAL	lMD == "CAPELA" || lMD == "DAM" || lMD == "INDACO" 
+cselectmd	tbdkettype == "TIDAK" && tbdket == lMD	
+DBCALCS(djoinkodemd)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tbddatkodidx   gv_dttabel lCUSTOMEREXPERIENCE lMASTERMD
+	DBC_SELECT	cselectmd
+
+CALCS()
+/*cTDKPERLUPROPOSAL	lMD == "CAPELA" || lMD == "DAM" || lMD == "INDACO" */
+cTDKPERLUPROPOSAL	djoinkodemd == 1
 
 MAP(madd3d)
 	g_tgltrn	spktgl		REPLACE
 	gv_OPEN		spknoasal	REPLACE
 	lNOBUK		spknobuk	REPLACE
 	lPROGCLAIM	spktype		REPLACE
-	lCLAIMBD	spkdata		REPLACE
+	lCLAIMBD        spkdata		REPLACE
 	l1		spkgaji		REPLACE
 	l1		spkjrk		REPLACE
 	l1		spkjrk2		REPLACE
@@ -635,9 +969,15 @@ MAP(mupdd3)
 	ctambahpenandacair spkjrk4	DO_CALC_IF cMtINPG_KLAIMCAIRBELUM
 
 	l2		spkgaji		REPLACE_IF cMtINPG_PROPOSALACC
+	l2		spkgaji		REPLACE_IF cMtINPG_PROPOSALMPM2b
 	l2		spkgaji		REPLACE_IF cMtINPG_PROPOSALTRIO
 	l2		spkjrk		REPLACE_IF cMtINPG_PROPOSALSUDAHACC1
 	l2		spkjrk2		REPLACE_IF cMtINPG_KLAIMACC
+	l2		spkjrk2		REPLACE_IF cMtINPG_KLAIMMPM2b
+	l2		spkgaji		REPLACE_IF cMtINPG_KLAIMDAM
+	l2		spkjrk		REPLACE_IF cMtINPG_KLAIMDAM
+	l2		spkjrk2		REPLACE_IF cMtINPG_KLAIMDAM
+	l1		spkjrk2		REPLACE_IF cMtINPG_KLAIMMPM2b_TACC
 	
 	cblanks		spkkat2		DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC
 	cblanks		spktglft	DO_CALC_IF cMtINPG_PROPOSALSUDAHTACC
@@ -733,7 +1073,23 @@ MAP(mupdd3)
 	ctambahcounttacc spkjrk3	DO_CALC_IF cMtINPG_KLAIMCAIRREVISI1INDACO
 
 CALCS()
+chsoclsd        mtssts == "CLSD" && mtsnobuk == lNOBUK
+DBCALCS(djoinmasterclsd)
+DBC_COMMAND     JOIN
+DBC_TARGET      mtsdatplgtgl lCLAIMBD2 lMD lTGL
+DBC_SELECT      chsoclsd  
+
+DBCALCS(djoinkettdkada)
+DBC_COMMAND     JOIN
+DBC_TARGET      ketdatbukkod gt_CX lnobuk1058 gt_CX21          
+
+
+CALCS()
+cjkclsd         djoinmasterclsd == 1
+cjkclsdketada   djoinmasterclsd == 1 && djoinkettdkada == 1
+cjkclsdkettdk   djoinmasterclsd == 1 && djoinkettdkada == 0
 cMtCLSD		mtssts == "CLSD"
+cmtdnobbmtidak	mtdnobbm == "TIDAK"
 
 MAP(mupdd1d2)
 DEBUG	gv_CLSD		mtdsts		REPLACE
@@ -751,6 +1107,7 @@ MAP(mupdmtd2)
         l1              mtdperdis1      REPLACE_IF cMtINPG_KLAIMCAIRREVISI2SEMUA
         lTIDAK          mtdnobbm        REPLACE_IF cMtINPG_KLAIMCAIRREVISI2SEMUA
         l2              mtdperdis1      REPLACE_IF cMtINPG_KLAIMCAIRREVISI2BEBERAPA
+	l1		mtdperdis2	REPLACE_IF cmtdnobbmtidak
 
         cblanks         mtddk           DO_CALC_IF cMtINPG_KLAIMCAIRREVISI2SEMUA
         cblanks         mtdplg          DO_CALC_IF cMtINPG_KLAIMCAIRREVISI2SEMUA
@@ -764,23 +1121,212 @@ DEBUG	cblanks		tlddk		DO_CALC
 MAP(mupdket)
 	cblanks		ketisi		DO_CALC
 	cblanks		ketisi2		DO_CALC
-/* ======================== SPCALCS ======================== */
 
+
+/*MAP(mjoinmtddev)
+mtdcab          lcabang         REPLACE
+mtdsat          lscrasl         REPLACE
+mtdkat          ltipbns         REPLACE
+mtdnoll         lnobasl         REPLACE
+mtdlok          ljenis          REPLACE
+mtdlok2         ltip2           REPLACE
+mtdbisnis       lkodaktiva      REPLACE
+mtdket          lnamaktifitas   REPLACE
+mtdperdis       ltotbia         REPLACE
+mtdtgl5         ltglupl1        REPLACE
+mtdjasbrg       ltndupl1        REPLACE
+mtddk           lceklist        REPLACE
+mtdnobbm        laktdisetujui   REPLACE
+mtdtgl2         ltglinput       REPLACE
+
+MAP(mjoinmtdtac)
+mtdkat          ltipbns                         REPLACE
+mtdsat          lscrasl                         REPLACE
+mtdnoll         lnobasl                         REPLACE
+mtdtgl2         ltglinput                       REPLACE
+mtdcab          lcabang                         REPLACE
+mtdlok2         ltipe                           REPLACE
+mtdlok          ltipaktivity                    REPLACE
+mtdket          lkettipaktivity                 REPLACE
+mtdbisnis       ltema                           REPLACE
+mtdgrup2        lmedia                          REPLACE
+mtdtgl3         ltglmulai                       REPLACE
+mtdtgl4         ltglakh                         REPLACE
+mtdjml          ljmlbrg                         REPLACE
+mtdperdis       ltotbia                         REPLACE
+mtdtgl5         ltglupl2                        REPLACE
+mtdjasbrg       ltndupl2                        REPLACE
+mtddk           lceklist1                       REPLACE
+mtdnobbm        laktdisetujui                   REPLACE
+*/
+MAP(mjoinmtdclm)
+        spktgl          ltglinp         REPLACE
+        spkjrk3         ljmltacc        REPLACE
+        spkkat          lprlproposal    REPLACE
+        spkkat2         ltnduplspk1     REPLACE                     
+        spktglft        ltgluplspk1     REPLACE
+	spkkode		laccproposal	REPLACE
+	spkkode2	linfoproposal	REPLACE
+        spktglft2       ltglinfopro     REPLACE
+        spkkat3         ltnduplspk2     REPLACE
+        spktglft3       ltgluplspk2     REPLACE
+	spkkode3	lproposalterima	REPLACE
+	spknama		laprproposal	REPLACE
+	spkket		lspkket		REPLACE
+        spkket3         lalspropditlk   REPLACE
+        spkkat4         ltnduplspk3     REPLACE
+        spktglft4       ltgluplspk3     REPLACE
+        spkkat5         ltnduplspk4     REPLACE
+        spktglft5       ltgluplspk4     REPLACE
+	spkkode4	laprkirimaju	REPLACE
+	spkkode5	lsudahcair	REPLACE
+	spknama2	lalasanrevcair	REPLACE
+	spkket2		lspkket2	REPLACE
+        spkreview       lalsadarvs      REPLACE
+        spktglft6       lremindtglcair  REPLACE
+        spkkat6         ltnduplspk5     REPLACE
+        spktglft7       ltgluplspk5     REPLACE
+	spkgaji		lproses3dke	REPLACE
+	spkjrk		lproses3dke2	REPLACE
+	spkjrk2		lproses3dke3	REPLACE
+	spkssgaji	lpenandainfo	REPLACE
+	spkjrk4		lpenandacair	REPLACE
+	mtdtglfak	ltglcair	REPLACE
+
+MAP(mmapmaptran2)
+        mtdkat          lnobuk1058      REPLACE
+        mtdcab          lcabang         REPLACE
+        mtdsat          lquartal        REPLACE
+        
+/*CALCS()
+cdjoinmtdsel    mtdcab == "HSO" 
+
+DBCALCS(djoinmtddev)
+DBC_COMMAND     JOIN
+DBC_TARGET      mtdbukbrglok lNOBUK lCLAIMDEVELOPMENT
+DBC_MAP         mjoinmtddev
+DBC_SELECT      cdjoinmtdsel
+
+DBCALCS(djoinmtdtac)
+DBC_COMMAND     JOIN
+DBC_TARGET      mtdbukbrglok lNOBUK lCLAIMTACTICAL
+DBC_MAP         mjoinmtdtac
+DBC_SELECT      cdjoinmtdsel
+*/
+DBCALCS(djoinmtdclm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	spkdatbuktyp    lCLAIMBD lNOBUK lPROGCLAIM
+	DBC_MAP		mjoinmtdclm
+
+CALCS()
+/*cdjoinmtddev            djoinmtddev == 1 
+cdjoinmtdtac            djoinmtdtac == 1*/ 
+cdjoinmtdclm            djoinmtdclm == 1                    
+
+/*MAP(maddmtddev)
+        lCLAIMBD                mtddata         REPLACE
+        lCLAIMDEVELOPMENT       mtdbrg          REPLACE
+        lnobuk1058              mtdnobuk        REPLACE
+        ltipbns                 mtdkat          REPLACE_IF cdjoinmtddev
+        lscrasl                 mtdsat          REPLACE_IF cdjoinmtddev
+        lnobasl                 mtdnoll         REPLACE_IF cdjoinmtddev
+        ljenis                  mtdlok          REPLACE_IF cdjoinmtddev
+        ltip2                   mtdlok2         REPLACE_IF cdjoinmtddev
+        ltglinput               mtdtgl2         REPLACE_IF cdjoinmtddev
+        lcabang                 mtdcab          REPLACE_IF cdjoinmtddev
+        lkodaktiva              mtdbisnis       REPLACE_IF cdjoinmtddev
+        lnamaktifitas           mtdket          REPLACE_IF cdjoinmtddev
+        ltotbia                 mtdperdis       REPLACE_IF cdjoinmtddev
+        ltglupl1                mtdtgl5         REPLACE_IF cdjoinmtddev
+        ltndupl1                mtdjasbrg       REPLACE_IF cdjoinmtddev
+        lceklist                mtddk           REPLACE_IF cdjoinmtddev
+        laktdisetujui           mtdnobbm        REPLACE_IF cdjoinmtddev
+        lNOBUK                  mtdbrdoto       REPLACE
+
+MAP(maddmtdtac)
+        lCLAIMBD                mtddata         REPLACE
+        lCLAIMTACTICAL          mtdbrg          REPLACE
+        lnobuk1058              mtdnobuk        REPLACE
+        ltipbns                 mtdkat          REPLACE_IF cdjoinmtdtac
+        lscrasl                 mtdsat          REPLACE_IF cdjoinmtdtac
+        lnobasl                 mtdnoll         REPLACE_IF cdjoinmtdtac
+        ltglinput               mtdtgl2         REPLACE_IF cdjoinmtdtac
+        lcabang                 mtdcab          REPLACE
+        ltipe                   mtdlok2         REPLACE_IF cdjoinmtdtac
+        ltipaktivity            mtdlok          REPLACE_IF cdjoinmtdtac
+        ltipaktivity            mtdket          REPLACE_IF cdjoinmtdtac
+        ltema                   mtdbisnis       REPLACE_IF cdjoinmtdtac
+        lmedia                  mtdgrup2        REPLACE_IF cdjoinmtdtac
+        ltglmulai               mtdtgl3         REPLACE_IF cdjoinmtdtac
+        ltglakh                 mtdtgl4         REPLACE_IF cdjoinmtdtac
+        ljmlbrg                 mtdjml          REPLACE_IF cdjoinmtdtac
+        ltotbia                 mtdperdis       REPLACE_IF cdjoinmtdtac
+        ltglupl2                mtdtgl5         REPLACE_IF cdjoinmtdtac
+        ltndupl2                mtdjasbrg       REPLACE_IF cdjoinmtdtac
+        lceklist1               mtddk           REPLACE_IF cdjoinmtdtac
+        laktdisetujui           mtdnobbm        REPLACE_IF cdjoinmtdtac
+        lNOBUK                  mtdbrdoto       REPLACE
+*/
+MAP(maddspkproposal)
+        lCLAIMBD                spkdata                 REPLACE
+        lnobuk1058              spknobuk                REPLACE
+        lPROGCLAIM              spktype                 REPLACE
+        ltglinp                 spktgl                  REPLACE_IF cdjoinmtdclm
+        ljmltacc                spkjrk3                 REPLACE_IF cdjoinmtdclm
+        lprlproposal            spkkat                  REPLACE_IF cdjoinmtdclm
+        ltnduplspk1             spkkat2                 REPLACE_IF cdjoinmtdclm                     
+        ltgluplspk1             spktglft                REPLACE_IF cdjoinmtdclm
+        laccproposal	        spkkode			REPLACE_IF cdjoinmtdclm
+        linfoproposal	        spkkode2		REPLACE_IF cdjoinmtdclm
+        ltglinfopro             spktglft2               REPLACE_IF cdjoinmtdclm
+        ltnduplspk2             spkkat3                 REPLACE_IF cdjoinmtdclm
+        ltgluplspk2             spktglft3               REPLACE_IF cdjoinmtdclm
+        lproposalterima	        spkkode3		REPLACE_IF cdjoinmtdclm
+        laprproposal	        spknama			REPLACE_IF cdjoinmtdclm
+        lspkket	                spkket			REPLACE_IF cdjoinmtdclm
+        lalspropditlk           spkket3                 REPLACE_IF cdjoinmtdclm
+        ltnduplspk3             spkkat4                 REPLACE_IF cdjoinmtdclm
+        ltgluplspk3             spktglft4               REPLACE_IF cdjoinmtdclm
+        ltnduplspk4             spkkat5                 REPLACE_IF cdjoinmtdclm
+        ltgluplspk4             spktglft5               REPLACE_IF cdjoinmtdclm
+        laprkirimaju	        spkkode4		REPLACE_IF cdjoinmtdclm
+        lsudahcair	        spkkode5		REPLACE_IF cdjoinmtdclm
+        lalasanrevcair	        spknama2		REPLACE_IF cdjoinmtdclm
+        lspkket2	        spkket2			REPLACE_IF cdjoinmtdclm
+        lalsadarvs              spkreview               REPLACE_IF cdjoinmtdclm
+        lremindtglcair          spktglft6               REPLACE_IF cdjoinmtdclm
+        ltnduplspk5             spkkat6                 REPLACE_IF cdjoinmtdclm
+        ltgluplspk5             spktglft7               REPLACE_IF cdjoinmtdclm
+        lproses3dke	        spkgaji			REPLACE_IF cdjoinmtdclm
+        lproses3dke2	        spkjrk			REPLACE_IF cdjoinmtdclm
+        lproses3dke3	        spkjrk2			REPLACE_IF cdjoinmtdclm
+        lpenandainfo	        spkssgaji		REPLACE_IF cdjoinmtdclm
+        lpenandacair	        spkjrk4			REPLACE_IF cdjoinmtdclm
+        ltglcair	        mtdtglfak		REPLACE_IF cdjoinmtdclm
+        lNOBUK                  spktgg2                 REPLACE
+
+/* ======================== SPCALCS ======================== */
 SPCALCS(spmaster)
 DO_LIB		ap_dbclc(DNAME dmapmaster,DCOMMAND MAPMAP,DMAP mapmaster);
 
 SPCALCS(sptrans)
 DO_LIB				ap_dbclc(DNAME dmaptrans,DCOMMAND MAPMAP,DMAP maptrans);
+DO_LIB_IF cMtINPG_AKTIVITAS_3D	ap_dbclc(DNAME dadd3d,DCOMMAND ADD,DFILE spk,DMAP madd3d);
 DO_LIB				ap_dbclc(DNAME dupdabk1,DCOMMAND UPDATE_RANGE,DTARGET abkdatbukidx lkunciabsen mtsnobuk,DMAP mupdabk1);
 DO_LIB_IF csdhterimaclaim	ap_dbclc(DNAME daddabk1,DCOMMAND ADD,DFILE abk,DMAP maddabk1);
 DO_LIB_IF cMtINPG_APR1		ap_dbclc(DNAME daddabk2,DCOMMAND ADD,DFILE abk,DMAP maddabk2);
 DO_LIB_IF cMtINPG_APR2		ap_dbclc(DNAME daddabk3,DCOMMAND ADD,DFILE abk,DMAP maddabk3);
 DO_LIB_IF cMtINPG_AKTIVITAS	ap_dbclc(DNAME daddabk5,DCOMMAND ADD,DFILE abk,DMAP maddabk5);
+DO_LIB_IF cMtINPG_AKTIVITASMPM2	ap_dbclc(DNAME daddabk5c,DCOMMAND ADD,DFILE abk,DMAP maddabk5);
 DO_LIB_IF cMtINPG_AKTIVITASMPM	ap_dbclc(DNAME daddabk5a,DCOMMAND ADD,DFILE abk,DMAP maddabk5);
 DO_LIB_IF cMtINPG_AKTIVITASTRIO	ap_dbclc(DNAME daddabk5b,DCOMMAND ADD,DFILE abk,DMAP maddabk5);
 DO_LIB_IF cMtINPG_PROPOSAL	ap_dbclc(DNAME daddabk6,DCOMMAND ADD,DFILE abk,DMAP maddabk6);
+DO_LIB_IF cMtINPG_PROPOSALMPM2a	ap_dbclc(DNAME daddabk6mpm,DCOMMAND ADD,DFILE abk,DMAP maddabk6);
 DO_LIB_IF cMtINPG_PROPOSALTACC	ap_dbclc(DNAME daddabk7,DCOMMAND ADD,DFILE abk,DMAP maddabk7);
 DO_LIB_IF cMtINPG_PROPOSALACC	ap_dbclc(DNAME daddabk8,DCOMMAND ADD,DFILE abk,DMAP maddabk8);
+DO_LIB_IF cMtINPG_AKTIVITASHSO	ap_dbclc(DNAME daddabkbacahso,DCOMMAND ADD,DFILE abk,DMAP maddabkbacahso);
+DO_LIB_IF cMtINPG_PROPOSALMPM2b	ap_dbclc(DNAME daddabk8mpm,DCOMMAND ADD,DFILE abk,DMAP maddabk8);
+DO_LIB_IF cMtINPG_PROPOSALMPM2b	ap_dbclc(DNAME daddabkbacampm,DCOMMAND ADD,DFILE abk,DMAP maddabkbacahso);
 DO_LIB_IF cMtINPG_PROPOSALTRIO	ap_dbclc(DNAME daddabk8a,DCOMMAND ADD,DFILE abk,DMAP maddabk8);
 DO_LIB_IF cMtINPG_PROPOSALSUDAHTACC ap_dbclc(DNAME daddabk9,DCOMMAND ADD,DFILE abk,DMAP maddabk9);
 DO_LIB_IF cMtINPG_PROPOSALSUDAHTACC ap_dbclc(DNAME dupdmtd,DCOMMAND UPDATE_RANGE,DTARGET mtdbukurtidx lNOBUK,DMAP mupdmtd);
@@ -796,20 +1342,39 @@ DO_LIB_IF cMtINPG_KLAIMTACC 	ap_dbclc(DNAME daddabk13,DCOMMAND ADD,DFILE abk,DMA
 DO_LIB_IF cMtINPG_KLAIMTACCINDACO ap_dbclc(DNAME daddabk13indaco,DCOMMAND ADD,DFILE abk,DMAP maddabk13);
 DO_LIB_IF cMtINPG_KLAIMACC 	ap_dbclc(DNAME daddabk14,DCOMMAND ADD,DFILE abk,DMAP maddabk14);
 DO_LIB_IF cMtINPG_KLAIMACC 	ap_dbclc(DNAME daddabkbaca2,DCOMMAND ADD,DFILE abk,DMAP maddabkbaca2);
+
+DO_LIB_IF cMtINPG_KLAIMMPM2a 	ap_dbclc(DNAME daddabk12MPM,DCOMMAND ADD,DFILE abk,DMAP maddabk12);
+DO_LIB_IF cMtINPG_KLAIMMPM2b 	ap_dbclc(DNAME daddabk14a,DCOMMAND ADD,DFILE abk,DMAP maddabk14);
+
+DO_LIB_IF cMtINPG_KLAIMDAM 	ap_dbclc(DNAME daddabk14DAM,DCOMMAND ADD,DFILE abk,DMAP maddabk14);
+DO_LIB_IF cMtINPG_KLAIMDAM 	ap_dbclc(DNAME daddabkbaca2DAM,DCOMMAND ADD,DFILE abk,DMAP maddabkbaca2);
 DO_LIB_IF cMtINPG_KLAIMCAIRREVISI1 ap_dbclc(DNAME daddabk15,DCOMMAND ADD,DFILE abk,DMAP maddabk15);
 DO_LIB_IF cMtINPG_KLAIMCAIRREVISI1INDACO ap_dbclc(DNAME daddabk15a,DCOMMAND ADD,DFILE abk,DMAP maddabk15);
 DO_LIB_IF cMtINPG_KLAIMCAIRREVISI2 ap_dbclc(DNAME daddabk16,DCOMMAND ADD,DFILE abk,DMAP maddabk9);
 DO_LIB_IF cMtINPG_KLAIMCAIRREVISI2 ap_dbclc(DNAME dupdmtd2,DCOMMAND UPDATE_RANGE,DTARGET mtdbukurtidx lNOBUK,DMAP mupdmtd2);
 DO_LIB_IF cMtINPG_KLAIMCAIRREVISI2 ap_dbclc(DNAME dupdtld2,DCOMMAND UPDATE_RANGE,DTARGET tldbukurtidx lNOBUK,DMAP mupdtld);
 DO_LIB_IF cMtINPG_PROPOSALBELUM5 ap_dbclc(DNAME daddabkbaca,DCOMMAND ADD,DFILE abk,DMAP maddabkbaca);
-DO_LIB_IF cMtINPG_CAIRBELUM5 ap_dbclc(DNAME daddabkbacacair,DCOMMAND ADD,DFILE abk,DMAP maddabkbacacair);
-DO_LIB_IF cMtINPG_AKTIVITAS_3D	ap_dbclc(DNAME dadd3d,DCOMMAND ADD,DFILE spk,DMAP madd3d);
-DO_LIB_IF cMtINPG_AKTIVITAS_3DDAM ap_dbclc(DNAME dadd3da,DCOMMAND ADD,DFILE spk,DMAP madd3d);
+DO_LIB_IF cMtINPG_CAIRBELUM5    ap_dbclc(DNAME daddabkbacacair,DCOMMAND ADD,DFILE abk,DMAP maddabkbacacair);
 DO_LIB				ap_dbclc(DNAME dupdmaster,DCOMMAND UPDATE,DTARGET mtsprmidx mtsprm,DMAP mupdmaster);
-DO_LIB_IF cdjoindetail3d2	ap_dbclc(DNAME dupdd3,DCOMMAND UPDATE,DTARGET spkdatbuktyp mtsdata mtsnobuk lPROGCLAIM,DMAP mupdd3);
+DO_LIB_IF cdjoindetail3d2	ap_dbclc(DNAME dupdd3,DCOMMAND UPDATE,DTARGET spkdatbuktyp lCLAIMBD mtsnobuk lPROGCLAIM,DMAP mupdd3);
 DO_LIB_IF cMtCLSD		ap_dbclc(DNAME dupdd1d2,DCOMMAND UPDATE_RANGE,DTARGET mtdbukbrglok lNOBUK,DMAP mupdd1d2);
 
 
+CALCS()
+cMtmenujuCLSD     mtssts == "CLSD" && lproses3dke3 == 2 && lsudahcair == "SUDAH"
+/*cMtINPGkosdev   djoinmtddev == 1 && mtssts == "INPG" && mtshcex == "AKTIVITAS"*/
+/*cMtINPGkostac   djoinmtdtac == 1 && mtssts == "INPG" && mtshcex == "AKTIVITAS"*/ 
+cMtINPGkosclm   djoinmtdclm == 1 && lsudahcair == "SUDAH"
+
+SPCALCS(sptrans2)
+DO_LIB		        	ap_dbclc(DNAME dmaptrans2,DCOMMAND MAPMAP,DMAP mmapmaptran2);
+DO_LIB_IF cMtmenujuCLSD         ap_nxpst(l4904,lm1065);
+/*DO_LIB_IF cMtINPGkosdev       ap_dbclc(DNAME daddmtddev,DCOMMAND ADD,DFILE mtd,DMAP maddmtddev);*/
+/*DO_LIB_IF cMtINPGkostac       ap_dbclc(DNAME daddmtdtac,DCOMMAND ADD,DFILE mtd,DMAP maddmtdtac);*/
+DO_LIB_IF cMtINPGkosclm         ap_dbclc(DNAME daddspkproposal,DCOMMAND ADD,DFILE spk,DMAP maddspkproposal);
+DO_LIB_IF cjkclsd               ap_dbclc(DNAME dupdmasterhso,DCOMMAND UPDATE_RANGE,DTARGET mtsbukidx lnobuk1058 ,DMAP mupdmaster1065ke1058);
+DO_LIB_IF cjkclsdketada         ap_dbclc(DNAME dupdmasterhsoket,DCOMMAND UPDATE_RANGE,DTARGET ketdatbukkod gt_CX lnobuk1058 gt_CX21,DMAP mupdmaster1065ke1058ket);
+DO_LIB_IF cjkclsdkettdk         ap_dbclc(DNAME daddmasterhsoket,DCOMMAND ADD,DFILE ket,DMAP maddmaster1065ke1058ket);
 
 /* ======================== POSTING ======================== */
 
@@ -817,6 +1382,7 @@ POSTING(master)
 	PST_COMMAND	spmaster
 POSTING(trans)
 	PST_COMMAND	sptrans
-
+POSTING(trans2)
+    PST_COMMAND sptrans2
 
 END_SCREEN

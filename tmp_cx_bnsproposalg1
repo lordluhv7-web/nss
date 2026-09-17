@@ -1,0 +1,297 @@
+IMAGE(tmptranst)
+/-------------------------------------------------------\
+spasi
+ /-----------------------------------------------------\
+  t.JmlTacc			___
+  t.ApakahPerluProsoal		______________________
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+  t.BuktiKirimProposal
+ \-----------------------------------------------------/
+ /------------------s.UPLOAD---------------------------\
+
+
+
+
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+ |                t.StsUpl  ____ t.TglUpl  ___________ |
+ \-----------------------------------------------------/
+spasi
+ /-----------------------------------------------------\
+  t.AccProposal			______________________
+  t.SdhAdaInfoProposal		______________________
+  t.ReminderTglInfoPro		_______________________
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+  t.BuktiSdhInfoPro
+ \-----------------------------------------------------/
+ /-------------------s.UPLOAD2-------------------------\
+
+
+
+
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+ |                t.StsUpl  ____ t.TglUpl  ___________ |
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+  t.ProposalDiterima 		______________________
+  t.AlasanPropDitolak  		________  ____________
+				______________________
+ \-----------------------------------------------------/
+spasi
+ /-----------------------------------------------------\
+  t.BuktiAccProposal
+ \-----------------------------------------------------/
+ /-------------------s.UPLOAD3-------------------------\
+
+
+
+
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+ |                t.StsUpl  ____ t.TglUpl  ___________ |
+ \-----------------------------------------------------/
+spasi
+ /-----------------------------------------------------\
+  t.BuktiKirimPengajuanKlaim
+ \-----------------------------------------------------/
+ /-------------------s.UPLOAD4-------------------------\
+
+
+
+
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+ |                t.StsUpl  ____ t.TglUpl  ___________ |
+ \-----------------------------------------------------/
+
+  t.ApprovalKirimKlaim		______________________
+  t.DanaSdhCair			______________________
+  t.AlasanAdaRevisi		________  ____________
+				______________________
+  t.ReminderTglCair		______________________
+
+ /-----------------------------------------------------\
+  t.BuktiDanaCair
+ \-----------------------------------------------------/
+ /-------------------s.UPLOAD5-------------------------\
+
+
+
+
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+ |                t.StsUpl  ____ t.TglUpl  ___________ |
+ \-----------------------------------------------------/
+ /-----------------------------------------------------\
+  t.NobukHL : _________________________________                 
+ \-----------------------------------------------------/
+
+					____________ __
+\-------------------------------------------------------/
+
+IMAGE(tmptrans)
+
+FIELD(tmptranst)
+spkjrk3		PROTECT		INPUTRI	1		/* jml tacc */
+spkkat          PROTECT        	INPUTRI 1               /* apakah perlu proposal */
+
+spkkat2		PROTECT		INPUTRI	2		/* sts upl 1 */
+spktglft	PROTECT {DD-MM-YY} INPUTRI 3		/* tgl upl 1 */
+
+spkkode		NOCHANGE	INPUTRI	4		/* acc proposal */
+spkkode2	NOCHANGE	INPUTRI	4		/* sdh ada info proposal */
+spktglft2	NOLIMIT {DD-MM-YY} INPUTRI 4		/* reminder tgl info proposal */
+
+spkkat3		PROTECT		INPUTRI	5		/* sts upl 2 */
+spktglft3	PROTECT {DD-MM-YY} INPUTRI 5		/* tgl upl 2 */
+
+spkkode3	NOCHANGE	INPUTRI	6		/* proposal diterima atau tidak */
+spknama		NOCHANGE	INPUTRI	7		/* alasan proposal diterima atau tidak */
+spkket		NONE		INPUTRI	8		/* alasan proposal diterima atau tidak 2 */
+spkket3		TEXTAREA 2 	INPUTRI 9
+
+spkkat4		PROTECT		INPUTRI	9		/* sts upl 3 */
+spktglft4	PROTECT {DD-MM-YY} INPUTRI 9		/* tgl upl 3 */
+
+spkkat5		PROTECT		INPUTRI	10		/* sts upl 4 */
+spktglft5	PROTECT {DD-MM-YY} INPUTRI 10		/* tgl upl 4 */
+
+spkkode4	NOCHANGE	INPUTRI	11		/* approval Kirim Pengajuan Klaim (CX HO) */
+spkkode5	NOCHANGE	INPUTRI	12		/* apakah dana sudah cair */
+spknama2	NOCHANGE	INPUTRI	13		/* alasan ada revisi */
+spkket2		NONE		INPUTRI	14		/* alasan ada revisi 2 */
+spkreview	TEXTAREA 2	INPUTRI	15
+spktglft6	PROTECT {DD-MM-YY} INPUTRI 16		/* reminder tanggal pencairan */
+
+spkkat6		PROTECT		INPUTRI	17		/* sts upl 5 */
+spktglft7	PROTECT {DD-MM-YY} INPUTRI 18		/* tgl upl 5 */
+
+spktgg          ALLCAPS         INPUTRI 19              /* NOBUK HL */
+
+ltomsdhbca	TOMBOL		INPUTRI	20		/* tombol sudah baca */
+lblanks         NOCHANGE        INPUTRI 21              /* enter */
+
+DEFAULT(tmptranst)
+ltomsdhbca	INIT		"SUDAH BACA"
+spkkat          DFALT_SCAN_BLANKS       YA	TIDAK
+spkkode		DFALT_SCAN_BLANKS	ACC	TACC
+spkkode2	DFALT_SCAN_BLANKS	SUDAH	BELUM
+spkkode3	DFALT_SCAN_BLANKS	ACC	TACC
+spknama		DFALT_SCAN_BLANKS	AKTIVITAS_DITOLAK
+					PERBAIKAN_BUKTI_AKTIVITAS
+					LAINNYA
+spkket		DFALT_SCAN_BLANKS	SEMUA_AKTIVITAS
+					BEBERAPA_AKTIVITAS
+spkkode4	DFALT_SCAN_BLANKS	ACC	TACC
+spkkode5	DFALT_SCAN_BLANKS	SUDAH	BELUM	REVISI
+spknama2	DFALT_SCAN_BLANKS	AKTIVITAS_DITOLAK
+					PERBAIKAN_BUKTI_AKTIVITAS
+					LAINNYA
+spkket2		DFALT_SCAN_BLANKS	SEMUA_AKTIVITAS
+					BEBERAPA_AKTIVITAS
+
+
+EDIT(tmptranst)
+e.IsiApakahProposalDiterima	spkkode3	MANDATORY_IF cMtINPG_PROPOSAL2SUDAH
+e.IsiAlasanProposalDitolak	spknama		MANDATORY_IF cMtINPG_PROPOSAL2TACC
+e.IsiAlasanProposalDitolak	spkket		MANDATORY_IF cMtINPG_PROPOSAL2TACCa
+e.IsiAlasanProposalDitolak	spkket3		MANDATORY_IF cMtINPG_PROPOSAL2LAINNYA
+e.WajibIsiApakahDanaSdhCair	spkkode5	MANDATORY_IF cMtINPG_KLAIM2
+e.WajibIsiAlasanAdaRevisi	spknama2	MANDATORY_IF cMtINPG_KLAIM2REVISI
+e.WajibIsiAlasanAdaRevisi	spkket2		MANDATORY_IF cMtINPG_KLAIM2REVISIxLAINNYA
+e.WajibIsiAlasanAdaRevisi	spkreview	MANDATORY_IF cMtINPG_KLAIM2REVISILAINNYA
+
+
+HOOKS(tmptranst)
+AFTER_INPUT	cur_field=spkkode5	DO_MAP SHOW mtglreminderpencairan
+BEFORE_INPUT	cur_field=spkkode	DO_SKIP_IF cMtINPG_AKTIVITAS
+BEFORE_INPUT	cur_field=spkkode2	DO_SKIP_IF cMtINPG_AKTIVITAS
+BEFORE_INPUT	cur_field=spktglft2	DO_SKIP_IF cMtINPG_AKTIVITAS
+
+BEFORE_INPUT	cur_field=spkkode3	DO_SKIP_IF cMtINPG_AKTIVITAS
+BEFORE_INPUT	cur_field=spknama	DO_SKIP_IF cMtINPG_AKTIVITAS
+BEFORE_INPUT	cur_field=spkket	DO_SKIP_IF cMtINPG_AKTIVITAS
+BEFORE_INPUT	cur_field=spkket3	DO_SKIP_IF cMtINPG_AKTIVITAS
+
+BEFORE_INPUT	cur_field=spkkode4	DO_SKIP_IF cMtINPG_AKTIVITAS
+BEFORE_INPUT	cur_field=spkkode5	DO_SKIP_IF cMtINPG_AKTIVITAS
+BEFORE_INPUT	cur_field=spknama2	DO_SKIP_IF cMtINPG_AKTIVITAS
+BEFORE_INPUT	cur_field=spkket2	DO_SKIP_IF cMtINPG_AKTIVITAS
+BEFORE_INPUT	cur_field=spkreview	DO_SKIP_IF cMtINPG_AKTIVITAS
+BEFORE_INPUT	cur_field=spktglft6	DO_SKIP_IF cMtINPG_AKTIVITAS
+/* ================================================================= */
+
+BEFORE_INPUT    cur_field=spkkode2      DO_SKIP_IF cMtINPG_PROPOSAL1
+BEFORE_INPUT    cur_field=spktglft2     DO_SKIP_IF cMtINPG_PROPOSAL1
+
+BEFORE_INPUT    cur_field=spkkode3      DO_SKIP_IF cMtINPG_PROPOSAL1
+BEFORE_INPUT    cur_field=spknama       DO_SKIP_IF cMtINPG_PROPOSAL1
+BEFORE_INPUT    cur_field=spkket        DO_SKIP_IF cMtINPG_PROPOSAL1
+BEFORE_INPUT    cur_field=spkket3       DO_SKIP_IF cMtINPG_PROPOSAL1
+
+BEFORE_INPUT    cur_field=spkkode4      DO_SKIP_IF cMtINPG_PROPOSAL1
+BEFORE_INPUT    cur_field=spkkode5      DO_SKIP_IF cMtINPG_PROPOSAL1
+BEFORE_INPUT    cur_field=spknama2      DO_SKIP_IF cMtINPG_PROPOSAL1
+BEFORE_INPUT    cur_field=spkket2       DO_SKIP_IF cMtINPG_PROPOSAL1
+BEFORE_INPUT    cur_field=spkreview     DO_SKIP_IF cMtINPG_PROPOSAL1
+BEFORE_INPUT    cur_field=spktglft6     DO_SKIP_IF cMtINPG_PROPOSAL1
+/* ================================================================= */
+
+BEFORE_INPUT    cur_field=spktglft2     DO_SKIP_IF cMtINPG_PROPOSAL2
+BEFORE_INPUT    cur_field=spkkode3      DO_SKIP_IF cMtINPG_PROPOSAL2a
+BEFORE_INPUT    cur_field=spknama       DO_SKIP_IF cMtINPG_PROPOSAL2ACC
+BEFORE_INPUT    cur_field=spkket        DO_SKIP_IF cMtINPG_PROPOSAL2ACC
+BEFORE_INPUT    cur_field=spkket3       DO_SKIP_IF cMtINPG_PROPOSAL2ACC
+
+BEFORE_INPUT    cur_field=spkkode4      DO_SKIP_IF cMtINPG_PROPOSAL2
+BEFORE_INPUT    cur_field=spkkode5      DO_SKIP_IF cMtINPG_PROPOSAL2
+BEFORE_INPUT    cur_field=spknama2      DO_SKIP_IF cMtINPG_PROPOSAL2
+BEFORE_INPUT    cur_field=spkket2       DO_SKIP_IF cMtINPG_PROPOSAL2
+BEFORE_INPUT    cur_field=spkreview     DO_SKIP_IF cMtINPG_PROPOSAL2
+BEFORE_INPUT    cur_field=spktglft6     DO_SKIP_IF cMtINPG_PROPOSAL2
+BEFORE_INPUT    cur_field=spkkode     	DO_SKIP_IF cMtINPG_PROPOSAL2
+/* ================================================================= */
+BEFORE_INPUT    cur_field=spkket     	DO_SKIP_IF cMtINPG_PROPOSAL2LAINNYA
+BEFORE_INPUT    cur_field=spkket     	DO_SKIP_IF cMtINPG_PROPOSAL2BUKTI
+BEFORE_INPUT    cur_field=spkket3     	DO_SKIP_IF cMtINPG_PROPOSAL2xLAINNYA
+
+/* ================================================================= */
+BEFORE_INPUT    cur_field=spktglft2     DO_SKIP_IF cMtINPG_KLAIM
+BEFORE_INPUT    cur_field=spkkode3      DO_SKIP_IF cMtINPG_KLAIM
+BEFORE_INPUT    cur_field=spknama       DO_SKIP_IF cMtINPG_KLAIM
+BEFORE_INPUT    cur_field=spkket        DO_SKIP_IF cMtINPG_KLAIM
+BEFORE_INPUT    cur_field=spkket3       DO_SKIP_IF cMtINPG_KLAIM
+
+BEFORE_INPUT    cur_field=spkkode2      DO_SKIP_IF cMtINPG_KLAIM
+BEFORE_INPUT    cur_field=spkkode5      DO_SKIP_IF cMtINPG_KLAIM
+BEFORE_INPUT    cur_field=spknama2      DO_SKIP_IF cMtINPG_KLAIM
+BEFORE_INPUT    cur_field=spkket2       DO_SKIP_IF cMtINPG_KLAIM
+BEFORE_INPUT    cur_field=spkreview     DO_SKIP_IF cMtINPG_KLAIM
+BEFORE_INPUT    cur_field=spktglft6     DO_SKIP_IF cMtINPG_KLAIM
+BEFORE_INPUT    cur_field=spkkode       DO_SKIP_IF cMtINPG_KLAIM
+
+BEFORE_INPUT    cur_field=spktglft2     DO_SKIP_IF cMtINPG_KLAIM2
+BEFORE_INPUT    cur_field=spkkode3      DO_SKIP_IF cMtINPG_KLAIM2
+BEFORE_INPUT    cur_field=spknama       DO_SKIP_IF cMtINPG_KLAIM2
+BEFORE_INPUT    cur_field=spkket        DO_SKIP_IF cMtINPG_KLAIM2
+BEFORE_INPUT    cur_field=spkket3       DO_SKIP_IF cMtINPG_KLAIM2
+
+BEFORE_INPUT    cur_field=spkkode2      DO_SKIP_IF cMtINPG_KLAIM2
+BEFORE_INPUT    cur_field=spkkode4      DO_SKIP_IF cMtINPG_KLAIM2
+BEFORE_INPUT    cur_field=spknama2      DO_SKIP_IF cMtINPG_KLAIM2xREVISI
+BEFORE_INPUT    cur_field=spkket2       DO_SKIP_IF cMtINPG_KLAIM2xREVISI
+BEFORE_INPUT    cur_field=spkreview     DO_SKIP_IF cMtINPG_KLAIM2xREVISI
+BEFORE_INPUT    cur_field=spktglft6     DO_SKIP_IF cMtINPG_KLAIM2
+BEFORE_INPUT    cur_field=spkkode       DO_SKIP_IF cMtINPG_KLAIM2
+BEFORE_INPUT    cur_field=spkket2       DO_SKIP_IF cMtINPG_KLAIM2REVISILAINNYA
+BEFORE_INPUT    cur_field=spkket2       DO_SKIP_IF cMtINPG_KLAIM2REVISIBUKTI
+BEFORE_INPUT    cur_field=spkreview     DO_SKIP_IF cMtINPG_KLAIM2REVISIBUKTI
+BEFORE_INPUT    cur_field=spkreview     DO_SKIP_IF cMtINPG_KLAIM2REVISIxLAINNYA
+/* ================================================================= */
+
+AFTER_INPUT	cur_field=spkkode2	DO_MAP SHOW IF cMtINPG_PROPOSAL2 mhplus7
+AFTER_INPUT	cur_keybd=EN		DO_MAP SHOW IF cMtINPG_PROPOSAL2 mhplus7enter
+
+/*
+BEFORE_INPUT	cur_field=mtdtglfak	DO_SKIP_IF cMD_INDACO
+
+AFTER_INPUT	cur_field=mtdgrup	DO_MAP SHOW IF cMtINPG_CAIR3blm mtglindaco
+AFTER_INPUT             cur_field=mtdtglfak       DO_MAP SHOW
+                        IF ctglvalidd3    mdum
+                        ELSE HKCURSOR STAY
+                        HKMSG Tanggal tidak boleh yang sudah lewat atau hari ini dan maksimal H+14
+*/
+
+CALCS()
+cmasukdetailspkhso      mtsplg == "HSO"
+
+SUBFILE(tmptrans)
+SFL_LINES(1)
+SFL_TITLE(tmptranst)
+SFL_COND        cmasukdetailspkhso
+SFL_UPL_DIRFLD	spktgl
+SFL_UPL_DIRFLD2	spktgl
+SFL_UPL_DIRFLD3	spktgl
+SFL_UPL_DIRFLD4	spktgl
+SFL_UPL_DIRFLD5	spktgl
+SFL_UPLFLD      spktgg2	lsatu
+SFL_UPLFLD2     spktgg2	ldua
+SFL_UPLFLD3     spktgg2	ltiga
+SFL_UPLFLD4     spktgg2	lempat
+SFL_UPLFLD5     spktgg2	llima
+SFL_UPLFLD_DBCALCS  dupd3d_1
+SFL_UPLFLD2_DBCALCS dupd3d_2
+SFL_UPLFLD3_DBCALCS dupd3d_3
+SFL_UPLFLD4_DBCALCS dupd3d_4
+SFL_UPLFLD5_DBCALCS dupd3d_5
+SFL_UPL_DELCOND c0
+SFL_TARGET
+spkdatbuktyp   	mtsdata mtsnobuk lPROGCLAIM
+
+SFL_MAP
+mtsdata                 spkdata
+mtsnobuk                spknobuk
+lPROGCLAIM          	spktype

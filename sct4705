@@ -1,0 +1,2677 @@
+SCREEN 4705 APP_TYPE i.UplSPart2
+
+LOCAL
+PGM_FIELDS
+	lmtsnobuk		STRING		21
+	lsts			STRING		5
+	lDEALER			STRING		11
+	lTARGETNPBT		STRING		11
+	lCABAHS			STRING		11
+	lH2			STRING		21
+	lPARTSPM		STRING		21
+	lDTBARANG		STRING		21
+	lcabbis			STRING 		11
+	lJASA			STRING		21
+	lJASAIN			STRING		21
+	lLOKAHASS		STRING		21
+	lnobukPO 		STRING		21
+	lTGRNTG			STRING		11
+	lPARTHITAM		STRING		11
+	lLEGAL			STRING		21
+lcmpmtuang            STRING			11
+lcmpytppn           		STRING		11
+lcmpperppn            		DFLOAT		8
+	lAHASS			STRING		21
+	lHRD  			STRING		21
+	lcadcmp 		STRING		21
+	ltldnourt		INT2		2
+	ltldnourt2		INT2		2
+	ltldnourt3		INT2		2
+	lKUNCIABSEN		STRING		11
+	lppmsales		STRING		21
+	lsgmstr5         	STRING          21
+	lsgmstr5_1      	STRING          21
+	lsgmstr5_2      	STRING          21
+	lsgmstr5_3      	STRING          21
+	lsgmstr5_4      	STRING          21
+	lsgmstr5_5      	STRING          21
+	lsgmstr5_6      	STRING          21
+	lH1             	STRING          21
+	lADH            	STRING          21
+	lAHASSFD        	STRING          21
+	lAHASSSA        	STRING          21
+	lAHASSKABENG    	STRING          21
+	lAHASSPARTMAN   	STRING          21
+	lBUM            	STRING          21
+	lBM             	STRING          21
+	lthbl          		STRING          21
+	lthbl11          	STRING          11
+	lthbl2         		STRING          21
+	lscr623         	STRING          5
+	ldum            	STRING          5
+lDTPO       			STRING		11
+l502        			STRING		11
+l503				STRING		11
+lUPLOADPO   			STRING		11
+ lPOAHASS			STRING		21
+ lPMTMEKA			STRING		11
+ lPMTMEKA21			STRING		21
+ lPOHMC    	STRING		21
+lkodebukti     		        STRING          21  
+l10				INT2		2
+lnourt				INT2		2 
+lbrchrgbl      			DFLOAT		8
+lbrchrgbl2      		DFLOAT		8
+ltldsubtot      		DFLOAT		8
+	lAHS2			STRING		5
+	lAHS2x			STRING		21
+	lOPNAME			STRING		11
+	lcabtwr			STRING		21
+	lcabnama		STRING		21
+	lcabkdjam		STRING		21
+	ltldnobuk		STRING		21
+	lurut2			INT2		2
+	ltglpo			STRING		11
+lnamaCbg			STRING		21
+lthblSHIFT			STRING		21
+lnamaSdm			STRING		21
+lpsijabatanSHIFT		STRING		21
+ltbdrekbrg			STRING		21
+ltbdketSHIFT			STRING		21
+lJDWABS				STRING		11
+lJDWREV				STRING		11
+lSHIFTAHASS			STRING		21
+lshiftAHASS			STRING		21
+lhrmnobuk			STRING		21
+lnipshift			STRING		21
+lcabangpo			STRING		21
+l1				INT2		2
+lAwlbln				DATE		4
+lAkhbln				DATE		4
+lAkhMin2			DATE		4
+l167				STRING		5
+lUSIAMOTOR			STRING		21
+lREKOMENPAKET			STRING		21
+lrmdgabusia			STRING		61
+lrmdgabrekomen			STRING		61
+lrmdgabasuransi1		STRING		61
+lrmdgabasuransi2		STRING		61
+lrmdkd2rekomen			STRING		21
+lPARTPERMOTOR			STRING		21
+lCABANGAHASS			STRING		21
+lCABSHOW			STRING		21
+lCABHETMD			STRING		21
+lPROMOASURANSI1			STRING		21
+lPROMOASURANSI2			STRING		21
+l3106				STRING		11
+l211.00.1001			STRING		21
+lcadtot1_leadtimeDO		INT2		2
+lTglEstimasiDO			DATE		4
+lDTTGLPJG			STRING		11
+ltipe				STRING		5
+
+lbirnobuk_ue1           STRING          21
+lbirnobuk_ue2           STRING          21
+lbirnobuk_ue3           STRING          21
+lbirnobuk_ue4           STRING          21
+lbirnobuk_ue5           STRING          21
+lbirnobuk_ue6           STRING          21
+lbirnobuk_ue7           STRING          21
+lbirnobuk_ue8           STRING          21
+lbirnobuk_ue9           STRING          21
+lbirnobuk_ue10          STRING          21
+
+lbirnobuk_omz1          STRING          21
+lbirnobuk_omz2          STRING          21
+lbirnobuk_omz3          STRING          21
+lbirnobuk_omz4          STRING          21
+lbirnobuk_omz5          STRING          21
+lbirnobuk_omz6          STRING          21
+
+lbirnobuk_lk1           STRING          21
+lbirnobuk_lk2           STRING          21
+lbirnobuk_lk3           STRING          21
+lbirnobuk_lk4           STRING          21
+lbirnobuk_lk5           STRING          21
+lbirnobuk_lk6           STRING          21
+
+lGABAHSTHBL             STRING          21
+l11GABAHSTHBL           STRING          11
+lmtdbrg			STRING		21
+lmtdcab			STRING		21
+lmtdhrg			STRING		21
+lmtdjml			STRING		21
+lmtdket11		STRING		11
+lmtdket			STRING		21
+lVERSI			STRING		21
+lDTTHAHASS		STRING		11
+lSTBAHASS		STRING		11
+lSTOKAHASS		STRING		21
+lREMINDKPB		STRING		11
+lmin3			INT2		2
+ltglmin3        	DATE            4
+ltbddtmkode             STRING          21
+ltbdtblkode             STRING          21
+ltbddata                STRING          11
+ltbdkode                STRING          21
+lVOLUMEBRG              STRING          21
+lNAS                    STRING          21
+lPAKETPART              STRING          21
+lPKTSERVIS              STRING          21
+lMCABAHASS              STRING          21
+ltldsts                 STRING          5
+ltldbrg                 STRING          21
+lCLAIMBD                STRING          11
+lnobukbd                STRING          21
+
+/*DBCALCS(djointldahsall2)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tldbukbrglok    ltldnobuk   mtdbrg */
+
+MAP(mjointldahs2)
+tldnourt        lurut2            REPLACE
+
+DBCALCS(djointldahs2)
+        DBC_COMMAND     JOIN_LAST_SFL
+        DBC_TARGET      tldbukbbmidx    ltldnobuk lAHS2x
+        DBC_MAP         mjointldahs2
+
+MAP(mjoincabahs)
+cabtwr 		lcabtwr		REPLACE
+cabnama		lcabnama	REPLACE
+cabkdjam	lcabkdjam	REPLACE
+
+DBCALCS(djoincabahs)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	cabkodidx	mtdcab
+	DBC_MAP		mjoincabahs
+
+MAP(mjoinsgm)
+sgmstr5         lsgmstr5        REPLACE
+
+DBCALCS(djoinsgm)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      sgmdatstrbrg    gv_dtpiccab lH1 lADH lthbl mtdcab
+        DBC_MAP         mjoinsgm
+
+MAP(mjoinsgm1)
+sgmstr5         lsgmstr5_1       REPLACE
+
+DBCALCS(djoinsgm1)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      sgmdatstrbrg    gv_dtpiccab lH2 lAHASSFD lthbl mtdcab
+        DBC_MAP         mjoinsgm1
+
+MAP(mjoinsgm2)
+sgmstr5         lsgmstr5_2       REPLACE
+
+DBCALCS(djoinsgm2)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      sgmdatstrbrg    gv_dtpiccab lH2 lAHASSSA lthbl mtdcab
+        DBC_MAP         mjoinsgm2
+
+MAP(mjoinsgm3)
+sgmstr5         lsgmstr5_3       REPLACE
+
+DBCALCS(djoinsgm3)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      sgmdatstrbrg    gv_dtpiccab lH2 lAHASSKABENG lthbl mtdcab
+        DBC_MAP         mjoinsgm3
+
+MAP(mjoinsgm4)
+sgmstr5         lsgmstr5_4       REPLACE
+
+DBCALCS(djoinsgm4)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      sgmdatstrbrg    gv_dtpiccab lH2 lAHASSPARTMAN lthbl mtdcab
+        DBC_MAP         mjoinsgm4
+
+MAP(mjoinsgm5)
+sgmstr5         lsgmstr5_5       REPLACE
+
+DBCALCS(djoinsgm5)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      sgmdatstrbrg    gv_dtpiccab lH2 lBUM lthbl mtdcab
+        DBC_MAP         mjoinsgm5
+
+MAP(mjoinsgm6)
+sgmstr5         lsgmstr5_6       REPLACE
+
+DBCALCS(djoinsgm6)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      sgmdatstrbrg    gv_dtpiccab lH2 lBM lthbl mtdcab
+        DBC_MAP         mjoinsgm6
+
+
+
+MAP(mjoinppm)
+ppmsales	lppmsales	REPLACE
+
+DBCALCS(djoinppm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	ppmbukidx   mtdbrg  
+	DBC_MAP		mjoinppm
+	
+DBCALCS(djoinbrgjs)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	brgstsdatbrg  gv_INPG gv_jasain mtdbrg
+
+DBCALCS(djoincadtgtahass)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      cadcabthkod mtdcab mtdscr mtdbrg mtdthbl mtdplg
+
+DBCALCS(djoincadtgtahass2)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      cadcabdtidx mtdcab mtdscr mtdbrg mtdplg
+
+DBCALCS(djoincadtgtahass3)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      caddatkodcab   mtdscr mtdbrg mtdplg mtdcab
+
+MAP(mjoinbrc1)
+brchrgbl	lbrchrgbl	REPLACE
+
+DBCALCS(djoinbrc)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	brcdatstskod gv_dtbarang gv_INPG mtdcab lDTBARANG lPARTSPM mtdbrg
+	DBC_MAP		mjoinbrc1
+
+DBCALCS(djoinbrc_het)
+        DBC_COMMAND     JOIN
+	DBC_TARGET	brcdatstskod gv_dtbarang gv_INPG cadkdcab lDTBARANG lPARTSPM mtdbrg
+
+DBCALCS(djoinbrc2)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      brcdttypidx     gv_jasain mtdbrg mtdcab lJASAIN lJASA
+
+CALCS()
+csama	brcstr1 == mtdbrg
+
+DBCALCS(djoinbrc3)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	brcdatstskod gv_dtbarang gv_INPG mtdcab lDTBARANG lPARTSPM
+	DBC_SELECT	csama   
+
+DBCALCS(djoinbrc3x)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	brcdatstskod gv_dtbarang gv_INPG mtdcab lDTBARANG lPARTSPM
+
+DBCALCS(djointbt_cabhetMD)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tbtdattypkod            gv_dttabel gv_dttabel21  gt_ahass   lCABANGAHASS  lCABHETMD cadkdcab
+
+DBCALCS(djointlm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tlmbukidx mtdsat
+
+MAP(mjointld)
+tldnourt	ltldnourt	REPLACE
+
+DBCALCS(djointld)
+	DBC_COMMAND	JOIN_LAST_SFL
+	DBC_TARGET	tldstsbrgukr lTGRNTG gv_OPEN mtdsat lLEGAL
+	DBC_MAP		mjointld
+
+MAP(mjointld2)
+tldnourt	ltldnourt2	REPLACE
+
+DBCALCS(djointld2)
+	DBC_COMMAND	JOIN_LAST_SFL
+	DBC_TARGET	tldstsbrgukr lTGRNTG gv_OPEN mtdsat lHRD  
+	DBC_MAP		mjointld2
+
+MAP(mjointld3)
+tldnourt        ltldnourt3      REPLACE
+
+DBCALCS(djointld3)
+        DBC_COMMAND     JOIN_LAST_SFL
+        DBC_TARGET      tldstsbrgukr	lJDWREV	gv_OPEN	mtdbrg
+        DBC_MAP         mjointld3
+
+MAP(mjoinpsiSHIFT)
+psijabatan	lpsijabatanSHIFT	REPLACE
+
+DBCALCS(djoinpsiSHIFT)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	psikodidx	mtdbrg
+	DBC_MAP		mjoinpsiSHIFT
+
+DBCALCS(djoinhrmSHIFT)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	hrmdatniptgl lJDWABS	mtdbrg	g_tgltrn
+
+MAP(mjointbdaprovalahs)
+tbdrekbrg	ltbdrekbrg	REPLACE
+
+DBCALCS(djointbdaprovalahs)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddatkodidx	gv_dttabel	gv_personal	gv_jabatan	lpsijabatanSHIFT
+	DBC_MAP		mjointbdaprovalahs
+
+DBCALCS(djointbd_lokasi)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddatkodidx	gv_dttabel	gv_barang	lLOKAHASS	mtdbrg
+
+MAP(mjointbdshiftahs)
+tbdket		ltbdketSHIFT	REPLACE
+
+DBCALCS(djointbdshiftahs)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddatkodidx	gv_dttabel	gt_ahass	lSHIFTAHASS	mtdkat
+	DBC_MAP		mjointbdshiftahs
+
+DBCALCS(djoinabkshiftahs)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	abkdatstskym	lKUNCIABSEN	gv_INPG	mtdbrg	l167	g_tgltrn	lhrmnobuk
+
+DBCALCS(djointbd_part_permotor)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddatkodidx	gv_dttabel gt_ahass lPARTPERMOTOR mtdbrg
+
+DBCALCS(djointbt_part_permotor)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbtdattypkod    gv_dttabel gv_dttabel21 gt_ahass lPARTPERMOTOR mtdbrg mtdnoll
+
+DBCALCS(djointbt_showroom)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbtdattypkod    gv_dttabel gv_dttabel21 gt_ahass lCABANGAHASS lCABSHOW mtdbrg
+
+DBCALCS(djoinpmb_popart503)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	pmbdatbukidx	gv_dthut gv_OPEN mtdbrg
+
+MAP(mjoincad_leadtimeDO)
+cadtot1         lcadtot1_leadtimeDO     REPLACE
+
+DBCALCS(djoincad_leadtimeDO)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      cadcabdtidx     mtdcab  lCABAHS gt_ahass gt_ahass
+        DBC_MAP         mjoincad_leadtimeDO
+
+DBCALCS(djointkd_perpanjangJTP)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tkddatbukll	lDTTGLPJG	mtdbrg
+
+/************** BIR UE *************/
+DBCALCS(djoinbirahass_ueall)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_ue1       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_uekpb)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_ue2       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_uenonkpb)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_ue3       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_ueservice)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_ue4       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_ueservicelkp)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_ue5       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_ueservicering)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_ue6       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_uehr)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_ue7       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_uelr)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_ue8       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_uego)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_ue9       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_uebelipart)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_ue10      l11GABAHSTHBL
+
+/************** BIR LK ************/
+DBCALCS(djoinbirahass_lkall)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_lk1       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_lkjasa)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_lk2       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_lkpart)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_lk3       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_lkoli)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_lk4       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_lktire)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_lk5       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_lkbatt)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_lk6       l11GABAHSTHBL
+
+/************** BIR OMZ ************/
+DBCALCS(djoinbirahass_omzall)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_omz1       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_omzjasa)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_omz2       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_omzpart)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_omz3       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_omzoli)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_omz4       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_omztire)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_omz5       l11GABAHSTHBL
+
+DBCALCS(djoinbirahass_omzbatt)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      birbukdatidx            lbirnobuk_omz6       l11GABAHSTHBL
+
+DBCALCS(djoinakt_pmtmekanik)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      aktkodtypidx    mtdlok      lPMTMEKA  lPMTMEKA21 mtdtglfak
+
+DBCALCS(djoinrmd)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	rmdstskodgab	gv_INPG	mtdbrg
+
+DBCALCS(djoinrptthahass)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	rptdttypkod	lDTTHAHASS	lmtdket11	lmtdket  lmtdhrg  lmtdbrg	mtdcab	
+
+DBCALCS(djointbdmasterahass)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tbddatkodidx    ltbddata        ltbddtmkode     ltbdtblkode     ltbdkode
+
+
+DBCALCS(djointldstok)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tldbukbrgoto    ltldnobuk       ltldsts ltldbrg
+
+
+IMAGE(master)
+/-----------------------------------\
+|/---------------------------------\|
+|| ____________________________    ||
+|\---------------------------------/|
+\-----------------------------------/
+
+FIELD(master)
+	lmtsnobuk	ALLCAPS  INPUTRI		1
+
+CALCS()
+cthbl		THBLS(g_tgltrn)
+cthbl2		THBLS(mtdtglfak)
+
+DEFAULTS(master)
+	lmin3		INIT	-3
+	lmtsnobuk	INIT	{r_string1}
+	lCABAHS		INIT	CABAHS
+	lCABHETMD	INIT	CABHETMD
+	lTARGETNPBT	INIT	TARGETNPBT
+	l10		INIT	10
+	lDTPO		INIT	DTPO
+	l502		INIT	502
+	l503		INIT	503
+	lH2		INIT	H2
+	lsts		INIT	INPG
+	lUPLOADPO	INIT	UPLOADPO
+        lCLAIMBD	INIT	CLAIMBD
+ 	lPOAHASS	INIT	POAHASS
+ 	lPMTMEKA	INIT	PMTMEKA
+ 	lPMTMEKA21	INIT	PMTMEKA
+ 	lPOHMC  	INIT	POHMC  
+	lDEALER		INIT	DEALER
+	lPARTSPM	INIT	PARTSPM
+	lDTBARANG	INIT	DTBARANG
+	lcabbis		INIT	CABBIS
+	lJASA		INIT	JASA
+	lJASAIN		INIT	JASAIN
+	lLOKAHASS	INIT	LOKAHASS		
+	lTGRNTG		INIT	TGRNTG
+	lPARTHITAM	INIT	PARTHITAM
+	lLEGAL 		INIT	LEGAL 
+	lAHASS 		INIT	AHASS 
+	lHRD   		INIT	HRD   
+	lKUNCIABSEN	INIT	KUNCIABSEN
+	lH1             INIT    H1
+	lADH            INIT    ADH
+	lAHASSFD        INIT    AHASSFD
+	lAHASSSA        INIT    AHASSSA
+	lAHASSKABENG    INIT    AHASSKABENG
+	lAHASSPARTMAN   INIT    AHASSPARTMAN
+	lBUM            INIT    BUM    
+	lBM             INIT    BM     
+	lthbl           INIT    {cthbl}
+	lthbl2          INIT    {cthbl2}
+	lscr623         INIT    "623"
+	l167		INIT	"167"
+	l3106		INIT	"3106"
+	lAHS2		INIT	AHS2
+	lAHS2x		INIT	AHS2
+	lOPNAME		INIT	OPNAME
+	ltglpo		INIT	20220727
+	lJDWABS		INIT	JDWABS
+	lJDWREV		INIT	JDWREV
+	lSHIFTAHASS	INIT	SHIFTAHASS
+	l1		INIT	1
+	lUSIAMOTOR	INIT	USIAMOTOR
+	lREKOMENPAKET	INIT	REKOMENPAKET
+	lPARTPERMOTOR	INIT	PARTPERMOTOR
+	lCABANGAHASS	INIT	CABANGAHASS
+	lPROMOASURANSI1	INIT	PROMOASURANSI1
+	lPROMOASURANSI2	INIT	PROMOASURANSI2
+	lCABSHOW	INIT	CABSHOW
+	l211.00.1001	INIT	211.00.1001
+	lDTTGLPJG	INIT	DTTGLPJG
+	ltipe		INIT	1
+	lVERSI		INIT	08082025
+	lDTTHAHASS	INIT	DTTHAHASS
+	lSTBAHASS	INIT	STBAHASS
+	lSTOKAHASS	INIT	STOKAHASS
+	lREMINDKPB	INIT	REMINDKPB
+        lVOLUMEBRG      INIT    VOLUMEBRG
+        lNAS            INIT    NAS
+        lPAKETPART      INIT    PAKETPART
+        lPKTSERVIS      INIT    PKTSERVIS
+        lMCABAHASS      INIT    MCABAHASS
+
+EDITS(master)
+e.Validate	lmtsnobuk	VALIDATE	mtsbukidx	mmts	0
+
+MAP(mmts)
+mtsnobuk	mtsnobuk	REPLACE
+mtsgrup		mtsgrup		REPLACE
+
+IMAGE(trans)
+| _______________________ | ____ | _________ | __________________ |
+
+FIELD(trans)
+	mtdbrg		NOCHANGE	INPUTRI		1
+	mtdjml		PROTECT		INPUTRI		2
+	mtdhrg		PROTECT		INPUTRI		3
+	mtdsat		PROTECT		INPUTRI		4
+
+SUBFILE(trans)
+SFL_LINES(15)
+SFL_TARGET
+	mtdbukurtidx	lmtsnobuk
+
+IMAGE(trans2)
+| _______ | _____________________ |
+
+FIELD(trans2)
+	cadkdcab	NOCHANGE	INPUTRI		1
+	cadgrpush	PROTECT		INPUTRI		2
+ 
+CALCS()
+ccadok  	/*cadsts == "INPG" &&*/ cadkdcab != "PST10" && cadkdcab != "PST20" && cadkdcab != "PST30" && cadkode == "H2"
+ccmbrg		(mtsgrup == "BARANG" || mtsgrup == "HET")
+
+SUBFILE(trans2)
+SFL_LINES(10)
+SFL_COND 	ccmbrg
+SFL_SELECT	ccadok  
+SFL_TARGET
+	caddatkodidx lcabbis     
+
+CALCS()
+cpercab mtsjml != BLANKS && mtsjml2 != BLANKS && mtscab == mtdcab 
+
+DBCALCS(djoinbrg)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	brgdatkodidx	gv_dtbarang	mtdbrg
+
+MAP(mjoinclaimbd)
+        mtsnobuk        lnobukbd        REPLACE
+DBCALCS(djoinclaimbd)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      mtsdatslsts     lCLAIMBD        mtdplg
+        DBC_SELECT      cpercab
+        DBC_MAP         mjoinclaimbd
+CALCS()
+cPARTSPM	"PARTSPM"
+cbrgjs0		djoinbrgjs == 0 && mtsgrup == "TAMBAH_JASA"
+cbrc0		djoinbrc == 0 && mtsgrup == "BARANG" 
+cbrc1		djoinbrc == 1 && mtsgrup == "BARANG"
+cbrc0x		mtsgrup == "UPD_HRG_JASA" && djoinbrc2 == 0 && mtdket !="JASA"
+cbrc1x		mtsgrup == "UPD_HRG_JASA" && djoinbrc2 == 1
+cbrc2x		mtsgrup == "UPD_HRG_JASA" && djoinbrc3 == 1 && mtdket!="JASA"
+cbrc3x		mtsgrup == "UPD_HRG_JASA" && djoinbrc3x == 1 && mtdket=="JASA"  /* Hanya Jasa yang di Update */
+c400.02001	"400.02001"
+c1		1
+clokasi_0	mtsgrup == "LOKASI" && djointbd_lokasi == 0
+clokasi_1	mtsgrup == "LOKASI" && djointbd_lokasi == 1
+cbrc1wrn	djoinbrc == 1 && mtsgrup == "WARNA"
+cbrc2wrn	djoinbrc == 0 && mtsgrup == "WARNA"
+cSO		mtsgrup == "SO"
+cupdjasa0	mtsgrup == "UPD_KODE_JASA" && djoinbrc == 0
+cupdjasa1	mtsgrup == "UPD_KODE_JASA" && djoinbrc == 1
+chet0    	djoinbrc_het == 0 && mtsgrup == "HET"     
+chet1    	djoinbrc_het == 1 && mtsgrup == "HET"     
+cdeskcall	mtsgrup == "DESKCALL"
+ctgtahass	mtsgrup == "TGTAHASS" && djoincadtgtahass == 0 && djoincadtgtahass2 == 0 && djoincadtgtahass3 == 0
+cleadtimepo0	mtsgrup == "UPL_LEADTIME_PO" && djoincadtgtahass == 0 && djoincadtgtahass2 == 0 && djoincadtgtahass3 == 0
+cleadtimepo1	mtsgrup == "UPL_LEADTIME_PO" && djoincadtgtahass3 == 1
+ckode2kat4	(mtsgrup == "UPD_KODE2_KAT4" && djoinbrg == 1)
+cbrgjaba	(mtsgrup == "UPD_KATEGORI_BRG" && djoinbrg == 1)
+cbrgstsdlp	(mtsgrup == "UPD_STATUS_DLP" && djoinbrg == 1)
+cbrgbrbkspart	(mtsgrup == "UPD_BARU_BEKAS_PART" && djoinbrg == 1)
+cbrghotlinepart	(mtsgrup == "UPD_HOTLINE_PART" && djoinbrg == 1)
+cbrgfrefik2	(mtsgrup == "UPD_SERIES_AHASS" && djoinbrg == 1)
+cupdbrgsts_partspm	mtsgrup == "UPD_STS_PART" && djoinbrg == 1
+cdtthahs0       (mtsgrup == "UPL_DTTHAHASS" && djoinrptthahass == 0)
+cdtthahs1       (mtsgrup == "UPL_DTTHAHASS" && djoinrptthahass == 1)
+cdtthahs         mtsgrup == "UPL_DTTHAHASS"
+cmtdahs		 mtsgrup == "UPL_BARANGAHASS"
+cuplmvbrg        mtsgrup == "UPL_MVBRG_AHASS"
+cuplmvbrg0       mtsgrup == "UPL_MVBRG_AHASS" && djointbdmasterahass == 0
+cuplmvbrg1       mtsgrup == "UPL_MVBRG_AHASS" && djointbdmasterahass == 1
+cuplmpart        mtsgrup == "UPL_MPART_AHASS" 
+cuplmpart0       mtsgrup == "UPL_MPART_AHASS" && djointbdmasterahass == 0
+cuplmpart1       mtsgrup == "UPL_MPART_AHASS" && djointbdmasterahass == 1
+cuplmserv        mtsgrup == "UPL_MSERVIC_AHASS"
+cuplmserv0       mtsgrup == "UPL_MSERVIC_AHASS" && djointbdmasterahass == 0
+cuplmserv1       mtsgrup == "UPL_MSERVIC_AHASS" && djointbdmasterahass == 1
+cuplmomzcabahass mtsgrup == "UPL_OMZ_AHASS"
+cuplmomzcabahass1 mtsgrup == "UPL_OMZ_AHASS" && djointbdmasterahass == 1
+cuplmomzcabahass0 mtsgrup == "UPL_OMZ_AHASS" && djointbdmasterahass == 0
+cbrdkosong	 mtsgrup == "DEL_BRD_KOSONG"
+cuplstokaudit     mtsgrup == "UPL_STOKAUDIT" 
+cuplstokaudit1    mtsgrup == "UPL_STOKAUDIT" && djointldstok == 1
+cuplstokaudit0    mtsgrup == "UPL_STOKAUDIT" && djointldstok == 0
+cuplclaimbonus    mtsgrup == "UPL_CLAIMBONUS" && djoinclaimbd == 1
+
+
+MAP(maddbrgjs)
+gv_jasain  	brgdata		REPLACE
+mtdbrg		brgkode		REPLACE
+mtdket		brgnama		REPLACE
+mtdkat		brgkat		REPLACE
+c400.02001	brgbbmprs	DO_CALC
+gv_INPG		brgsts		REPLACE
+c1		brgpb		DO_CALC
+
+MAP(maddbrc)
+gv_dtbarang	brcdata		REPLACE
+gv_INPG		brcsts		REPLACE
+brcdata		brctype		REPLACE
+cPARTSPM	brctype2	DO_CALC
+cadkdcab	brccab		REPLACE
+mtdbrg		brckode		REPLACE
+brckode		brcbrg		REPLACE
+mtdhrg		brchrgjl	REPLACE
+
+MAP(maddbrc2)
+gv_jasain  	brcdata		REPLACE
+mtdbrg		brckode		REPLACE
+mtdcab		brccab		REPLACE
+brckode		brcbrg		REPLACE
+lJASAIN		brctype		REPLACE
+lJASA  		brctype2	REPLACE
+mtdhrg		brchrgjl	REPLACE
+mtdjml		brcdf1		REPLACE
+c1		brcdf2		DO_CALC
+gv_INPG		brcsts		REPLACE
+
+MAP(maddtbd)
+gv_barang	tbddtmkode	REPLACE
+lLOKAHASS	tbdtblkode	REPLACE
+gv_dttabel	tbddata		REPLACE
+mtdbrg		tbdkode		REPLACE
+mtdket		tbdket		REPLACE
+mtdkat		tbdlv1		REPLACE
+mtdcab		tbdlv2		REPLACE
+mtdlok		tbdkettype	REPLACE
+
+MAP(mupdtbd)
+mtdlok		tbdkettype	REPLACE
+
+MAP(mupdbrc2)
+mtdhrg		brchrgjl	REPLACE
+c1		brcdf2		DO_CALC
+
+MAP(mupdbrc2x)
+mtdhrg		brcdf1  	REPLACE
+
+MAP(mupdbrc)
+mtdhrg		brchrgjl	REPLACE
+
+MAP(mupdbrc3)	
+mtdjml		brcdf3		REPLACE
+
+MAP(mupdmts)
+gv_CLSD		mtssts		REPLACE
+
+MAP(maddbrc3)
+gv_dtbarang     brcdata         REPLACE
+brcdata         brctype         REPLACE
+gv_INPG		brcsts		REPLACE
+cPARTSPM        brctype2        DO_CALC
+mtdcab          brccab          REPLACE
+mtdbrg          brckode         REPLACE
+mtdjml          brcdf3          REPLACE
+mtdbrg		brcbrg		REPLACE
+
+CALCS()
+cSOAHASS	"SOAHASS"
+cAHASS2		"AHASS2"
+cPARTMAN1	"PARTMAN"
+cAHASS		"AHASS"
+
+MAP(maddtbd2)
+cSOAHASS	tbddata		DO_CALC
+mtdcab		tbdkode		REPLACE
+mtdbrg		tbdtblkode	REPLACE
+mtdjml		tbddf1		REPLACE
+mtdhrg		tbddf2		REPLACE
+
+MAP(maddtbd3)
+gv_dttabel	tbddata		REPLACE
+mtdbrg		tbdkode		REPLACE
+cAHASS2		tbddtmkode	DO_CALC
+cPARTMAN1	tbdtblkode	DO_CALC
+mtdket		tbdket		REPLACE
+mtdcab		tbdlv2		REPLACE
+
+MAP(mmapmap)
+DEBUG mtdbrg mtdbrg	REPLACE
+
+DBCALCS(dmapmap)
+	DBC_COMMAND	MAPMAP
+	DBC_MAP		mmapmap
+
+CALCS()
+cTGRNTG		"TGRNTG"
+cTR		mtsgrup == "TR"
+cTR2		mtsgrup == "TR" && djointlm == 0
+c1x		ltldnourt + 1
+c1y		ltldnourt2 + 1
+cdjointld0	djointld == 0
+cdjointld1	djointld == 1
+cdjointld20	djointld2 == 0
+cdjointld21	djointld2 == 1
+cLEGAL		"LEGAL"
+cHRD		"HRD"
+cpartm		mtsgrup == "PARTMAN"
+cparthitam  	/*djointldahsall2 == 0 &&*/ mtsgrup == "PARTHITAM"
+cfaktur		mtsgrup == "FAKTUR"
+cH2		"H2"
+
+MAP(maddtlm)
+mtdsat		tlmnobuk	REPLACE
+cTGRNTG		tlmdata		DO_CALC
+g_tgltrn	tlmtgl		REPLACE
+gv_OPEN		tlmsts		REPLACE
+mtdukrwrn	tlmbisnis	REPLACE
+mtdnobbm	tlmsts2		REPLACE
+mtdplg		tlmplg		REPLACE
+mtddvs		tlmdvs		REPLACE
+mtdcab		tlmcab		REPLACE
+mtdgrup		tlmgrup2	REPLACE
+mtdtmp1		tlmperdis	REPLACE
+mtdjml		tlmtotal	REPLACE
+mtdjml2		tlmtotdis	REPLACE
+mtdjml3		tlmtothrg	REPLACE
+mtdket		tlmket		REPLACE
+mtdnorangka	tlmdari		REPLACE
+mtdperdis1	tlmjml		REPLACE
+mtdnomesin	tlmuntuk	REPLACE
+mtdperdis2	tlmjml2		REPLACE
+
+MAP(maddtld)
+c1		tldnourt	DO_CALC_IF cdjointld0
+c1x		tldnourt	DO_CALC_IF cdjointld1
+cTGRNTG		tlddata		DO_CALC
+mtdsat		tldnobuk	REPLACE
+mtdsat		tldbrg  	REPLACE
+g_tgltrn	tldtglfak	REPLACE
+gv_OPEN		tldsts		REPLACE
+cLEGAL		tldukrwrn	DO_CALC
+mtdcab		tldlok		REPLACE
+mtdcab		tldsat		REPLACE
+mtdgrup2	tldgrup		REPLACE
+mtdplg		tldplg		REPLACE
+mtdsubtot	tldjml		REPLACE
+mtdtmp2		tldtmp2		REPLACE
+mtdjmlren	tldsubtot	REPLACE
+
+CALCS()
+cnobuks		STRIP(tldnobuk) + FLD_TO_STRING(tldnourt)
+
+MAP(maddtld2)
+c1		tldnourt	DO_CALC_IF cdjointld20
+c1y		tldnourt	DO_CALC_IF cdjointld21
+cTGRNTG		tlddata		DO_CALC
+mtdsat		tldnobuk	REPLACE
+mtdsat		tldbrg  	REPLACE
+g_tgltrn	tldtglfak	REPLACE
+gv_OPEN		tldsts		REPLACE
+cnobuks		tldnoll		DO_CALC
+cHRD  		tldukrwrn	DO_CALC
+mtdcab		tldlok		REPLACE
+mtdcab		tldsat		REPLACE
+mtdplg		tldplg		REPLACE
+mtdsubtot	tldjml		REPLACE
+mtdtmp2		tldtmp2		REPLACE
+mtdjmlren	tldsubtot	REPLACE
+
+CALCS()
+cnobukhitam	"SOAH" + STRIP(lcabtwr) + THBLS_YY(mtdtglfak) + THBLS_MM(mtdtglfak) + THBLS_DD(mtdtglfak) + "01"
+ctldahass	"SOAH" + THBLS_YY(mtdtglfak) + THBLS_MM(mtdtglfak) + THBLS_DD(mtdtglfak)
+curt_2		lurut2 + 1
+cjointldahs2_0  djointldahs2 == 0
+cjointldahs2_1  djointldahs2 == 1
+cjoincabahs	djoincabahs == 1
+
+MAP(mmapmaptld3a)
+cnobukhitam	ltldnobuk	DO_CALC_IF cjoincabahs
+DEBUG		ldum		ldum	REPLACE
+
+MAP(maddtld3a)
+ltldnobuk	tldnobuk	REPLACE
+mtdbrg		tldbrg		REPLACE
+mtdcab		tldplg		REPLACE
+lAHS2		tldsts		REPLACE
+lAHS2x		tldnobbm	REPLACE
+mtdcab		tldcab		REPLACE
+lOPNAME		tlddata		REPLACE
+cAHASS		tldgrup		DO_CALC
+ctldahass	tldnoll		DO_CALC
+mtdtglfak	tldtglfak	REPLACE
+gv_int1		tldnourt	REPLACE_IF cjointldahs2_0
+curt_2		tldnourt	DO_CALC_IF cjointldahs2_1
+DEBUG		ldum		ldum	REPLACE
+
+
+MAP(maddtld4)
+cAHASS 		tlddata		DO_CALC
+mtdnoll		tldnobuk	REPLACE
+mtdbrg		tldbrg		REPLACE
+mtdcab		tldcab		REPLACE
+mtdplg		tldplg		REPLACE
+g_tgltrn	tldtglfak	REPLACE
+gv_OPEN		tldsts		REPLACE
+cH2		tlddvs		DO_CALC
+mtdnobbm	tldnobbm	REPLACE
+mtdjml		tldjml		REPLACE
+mtdjml2		tldjml2		REPLACE		
+mtdjml3		tldjml3		REPLACE
+mtdhrg		tldhrg		REPLACE
+mtdsubtot	tldsubtot	REPLACE
+mtdnoll		tldnoll		REPLACE	
+mtdukrwrn	tldukrwrn	REPLACE
+mtdsat		tldsat		REPLACE
+mtdperdis	tldperdis	REPLACE
+
+MAP(maddcad)
+mtdcab		cadkdcab	REPLACE
+mtdcab		cadarea		REPLACE
+mtdscr		caddata		REPLACE
+mtdbrg		cadtype		REPLACE
+mtdthbl		cadthbl		REPLACE
+mtdplg 		cadkode		REPLACE
+mtdjml		cadtot1		REPLACE
+mtdhrg		cadtot2		REPLACE
+mtdsubtot	cadtot3		REPLACE
+mtdperdis	cadtot4		REPLACE
+mtdtotdis	cadtot5		REPLACE
+
+MAP(mupdcad_leadtimepo)
+mtdjml		cadtot1		REPLACE
+mtdhrg		cadtot2		REPLACE
+mtdsubtot	cadtot3		REPLACE
+mtdperdis	cadtot4		REPLACE
+mtdtotdis	cadtot5		REPLACE
+
+CALCS()
+cdjoinsgm       djoinsgm == 1
+cFD             "FD"
+cADH            "ADH"
+cfakturtunai    "SELESAIKAN 623"
+cppmsales1      djoinppm == 1 && lppmsales != BLANKS
+cppmsales0      djoinppm == 1 && lppmsales == BLANKS && djoinsgm1 == 1
+
+
+MAP(maddabk1)
+lKUNCIABSEN     abkdata         REPLACE
+lppmsales       abkkym          REPLACE_IF cppmsales1
+lsgmstr5_1      abkkym          REPLACE_IF cppmsales0
+mtdtglfak       abktgl          REPLACE
+lscr623         abkscr          REPLACE
+gt_RINP         abksts          REPLACE
+mtdbrg          abknobuk        REPLACE
+cfakturtunai    abkkym2         DO_CALC
+cFD             abktype         DO_CALC
+
+MAP(maddabk2)
+lKUNCIABSEN     abkdata         REPLACE
+lsgmstr5        abkkym          REPLACE_IF cdjoinsgm
+mtdtglfak       abktgl          REPLACE
+lscr623         abkscr          REPLACE
+gt_RINP         abksts          REPLACE
+mtdbrg          abknobuk        REPLACE
+cfakturtunai    abkkym2         DO_CALC
+cADH            abktype         DO_CALC
+
+MAP(maddbrc4)
+gv_dtbarang	brcdata		REPLACE
+gv_INPG		brcsts		REPLACE
+brcdata		brctype		REPLACE
+cPARTSPM	brctype2	DO_CALC
+mtdcab  	brccab		REPLACE
+mtdbrg		brcbrg 		REPLACE
+mtdkat		brcstr1		REPLACE /* kode jasa yang nempel */
+
+MAP(mupdbrc4)
+mtdkat		brcstr1		REPLACE /* kode jasa yang nempel */
+
+CALCS()
+cttljual_md		mtdhrg + ((mtdhrg * 10) / 100)
+cdjointbt_cabhetMD0	djointbt_cabhetMD == 0
+cdjointbt_cabhetMD1	djointbt_cabhetMD == 1
+
+MAP(maddbrc5)
+gv_dtbarang	brcdata		REPLACE
+gv_INPG		brcsts		REPLACE
+brcdata		brctype		REPLACE
+cPARTSPM	brctype2	DO_CALC
+cadkdcab    	brccab		REPLACE
+mtdbrg		brcbrg 		REPLACE
+g_tgltrn	brctgl2		REPLACE
+mtdhrg		brchrgjl  	REPLACE_IF cdjointbt_cabhetMD0 /* harga het */
+cttljual_md	brchrgjl  	DO_CALC_IF cdjointbt_cabhetMD1 /* harga het */
+
+MAP(mupdbrc5)
+g_tgltrn	brctgl2		REPLACE
+brchrgjl	brchrgpjakh	REPLACE
+mtdhrg		brchrgjl	REPLACE_IF cdjointbt_cabhetMD0
+cttljual_md	brchrgjl	DO_CALC_IF cdjointbt_cabhetMD1
+
+MAP(mupdbrg)
+mtdlok		brgkat5 	REPLACE
+mtdukrwrn	brgkat4		REPLACE
+
+MAP(mupdbrgjaba)
+mtdlok		brgjaba		REPLACE
+
+MAP(mupdbrgstsdlp)
+mtdket		brgkat6		REPLACE
+
+MAP(mupdbrgbrbkspart)
+mtdket		brgkattype	REPLACE
+
+MAP(mupdhotlinepart)
+mtdket		brgprefik	REPLACE
+
+MAP(mupdbrg_series_ahass)
+mtdnoll		brgfrefik2	REPLACE
+
+CALCS()
+cPCS		"PCS"
+
+MAP(maddakt_hmc)
+mtdlok   	aktkode			REPLACE
+lUPLOADPO	aktdata			REPLACE
+lPOHMC    	akttype			REPLACE
+mtdtgl2  	akttgl			REPLACE
+tlmnobuk 	aktkode2			REPLACE
+
+
+MAP(maddakt_po)
+mtdlok   	aktkode			REPLACE
+lUPLOADPO	aktdata			REPLACE
+lPOAHASS  	akttype			REPLACE
+mtdtgl2  	akttgl			REPLACE
+tlmnobuk 	aktkode2			REPLACE
+
+MAP(maddaktpmt)
+lPMTMEKA	aktdata		REPLACE
+lPMTMEKA21	akttype		REPLACE
+mtdbrg		aktbrg		REPLACE
+mtdjml		aktjml		REPLACE
+mtdtglfak	akttgl		REPLACE
+mtdlok		aktkode		REPLACE
+
+MAP(mupdaktpmt)
+mtdjml		aktjml		REPLACE
+
+MAP(mupdaktjtp)
+mtdtglfak          akttgl          REPLACE
+
+MAP(mmapaktpo)
+aktkode2	lnobukPO			REPLACE
+
+DBCALCS(djoinaktpo)
+	DBC_COMMAND	JOIN
+/*	DBC_TARGET	aktkodtypidx	mtdlok      lUPLOADPO  lPOAHASS mtdtgl2  */
+	DBC_TARGET	aktkod2typid	tlmnobuk    lUPLOADPO  lPOAHASS mtdtgl2  
+	DBC_MAP		mmapaktpo
+
+MAP(mmapaktpo2)
+aktkode2	lnobukPO			REPLACE
+
+DBCALCS(djoinaktpo2)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	aktkodtypidx	mtdlok      lUPLOADPO  lPOHMC   mtdtgl2  
+	DBC_MAP		mmapaktpo2
+
+MAP(mjointldu)
+tldnourt        lnourt          REPLACE
+
+DBCALCS(djointldu)
+        DBC_COMMAND     JOIN_LAST_SFL
+        DBC_TARGET      tldbukurtidx   lnobukPO
+        DBC_MAP         mjointldu
+
+MAP(mjoinbrc)
+brchrgbl        lbrchrgbl       REPLACE
+brchrgbl2       lbrchrgbl2      REPLACE
+
+DBCALCS(djoinbrcU1)  
+        DBC_COMMAND     JOIN
+        DBC_TARGET      brcdtbrgidx   gv_dtbarang mtdbrg  mtdlok
+        DBC_MAP         mjoinbrc
+
+MAP(mmapcadarea)
+cadcmp			lcadcmp		REPLACE
+
+DBCALCS(djoincadarea)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	caddatkodcab		lCABAHS  gt_ahass    gt_ahass   mtdlok
+	DBC_MAP		mmapcadarea
+
+MAP(mmapcadH1)
+cadcmp			lcadcmp		REPLACE
+
+DBCALCS(djoincadH1)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	caddatkodcab		gv_cabbis mtdlok  lH1   mtdlok
+	DBC_MAP		mmapcadH1  
+
+MAP(mmapcmp)
+cmpmtuang       lcmpmtuang            REPLACE
+cmpytppn        lcmpytppn             REPLACE
+cmpperppn       lcmpperppn            REPLACE
+
+DBCALCS(djoincmp)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	cmpsuptykod		gv_dtsup	gv_DN		lcadcmp
+	DBC_MAP		mmapcmp 
+
+
+CALCS()
+curut           lnourt + 1
+cjointldu0		djointldu ==0
+cjointldu1		djointldu ==1
+cjoinbrc  		djoinbrcU1 ==1
+csubtot         (tldhrgnet * tldjml)
+c0			0 
+c502			"502"
+cmin3bln                DO_LIB ap_tambl(g_tgltrn,lmin3,&ltglmin3);
+cjoincadarea		djoincadarea ==1
+cjoincadH1 		djoincadH1 ==1
+cmuaisi			djoincadarea ==1 && djoincmp ==1 && lcmpmtuang != BLANKS
+cmuaksg			djoincadarea ==1 && djoincmp ==1 && lcmpmtuang == BLANKS
+
+c2muaisi			djoincadH1 ==1 && djoincmp ==1 && lcmpmtuang != BLANKS
+c2muaksg			djoincadH1 ==1 && djoincmp ==1 && lcmpmtuang == BLANKS
+
+MAP(maddtld_po)
+c0		ltldsubtot			DO_CALC
+c1		tldnourt			DO_CALC_IF cjointldu0
+curut		tldnourt			DO_CALC_IF cjointldu1
+cPARTSPM	tldkat				DO_CALC
+mtdbrg		tldbrg				REPLACE
+mtdjml		tldjml				REPLACE
+cPCS		tldsat				DO_CALC
+lH2		tlddvs				REPLACE
+gv_OPEN		tldsts				REPLACE
+lnobukPO	tldnobuk			REPLACE
+lbrchrgbl	tldhrg				REPLACE_IF cjoinbrc
+lbrchrgbl	tldhrgnet			REPLACE_IF cjoinbrc
+csubtot         tldsubtot       		DO_CALC
+tldsubtot	ltldsubtot			REPLACE
+cmin3bln	ltglmin3			DO_CALC
+ltglmin3	tldtgl2				REPLACE
+DEBUG		ldum		ldum			REPLACE
+
+CALCS()
+cSPM		"SPM"
+	
+MAP(maddtld_po2)
+c0		ltldsubtot			DO_CALC
+c1		tldnourt			DO_CALC_IF cjointldu0
+curut		tldnourt			DO_CALC_IF cjointldu1
+cSPM	 	tldkat				DO_CALC
+mtdbrg		tldbrg				REPLACE
+mtdukrwrn	tldukrwrn			REPLACE
+mtdjml		tldjml				REPLACE
+cPCS		tldsat				DO_CALC
+gv_INPG		tldsts				REPLACE
+lnobukPO	tldnobuk			REPLACE
+lbrchrgbl	tldhrg				REPLACE_IF cjoinbrc
+lbrchrgbl	tldhrgnet	REPLACE_IF cjoinbrc
+csubtot         tldsubtot       DO_CALC
+tldsubtot	ltldsubtot	REPLACE
+DEBUG		ldum		ldum			REPLACE
+	
+MAP(maddtlm_po)
+lDTPO				tlmdata			REPLACE
+tlmnobuk			tlmnobuk		REPLACE
+gv_OPEN				tlmsts			REPLACE
+mtdlok				tlmcab			REPLACE
+mtdlok2				tlmgrup2		REPLACE
+lH2				tlmdvs			REPLACE
+mtdtgl2 			tlmtgl			REPLACE
+mtdtgl2 			tlmtgl2			REPLACE
+gv_DN				tlmtype1		REPLACE
+gv_dealer			tlmbisnis		REPLACE
+gv_Y				tlmytppn		REPLACE
+l10				tlmperppn		REPLACE
+c502				tlmscr			DO_CALC
+lcadcmp				tlmplg			REPLACE_IF cjoincadarea
+
+lcmpmtuang       tlmtype2        REPLACE_IF cmuaisi
+stsmua           tlmtype2        REPLACE_IF cmuaksg
+lcmpytppn        tlmytppn        REPLACE
+lcmpperppn       tlmperppn       REPLACE
+DEBUG		ldum	ldum	 REPLACE
+
+MAP(maddtlm_po2)
+lDTPO				tlmdata			REPLACE
+tlmnobuk			tlmnobuk		REPLACE
+gv_INPG				tlmsts			REPLACE
+mtdlok				tlmcab			REPLACE
+mtdlok2				tlmgrup2		REPLACE
+lH1				tlmdvs			REPLACE
+mtdtgl2 			tlmtgl			REPLACE
+mtdtgl2 			tlmtgl2			REPLACE
+gv_DN				tlmtype1		REPLACE
+gv_dealer			tlmbisnis		REPLACE
+gv_Y				tlmytppn		REPLACE
+l10				tlmperppn		REPLACE
+c502				tlmscr			DO_CALC
+lcadcmp				tlmplg			REPLACE_IF cjoincadH1
+
+lcmpmtuang       tlmtype2        REPLACE_IF c2muaisi
+stsmua           tlmtype2        REPLACE_IF c2muaksg
+lcmpytppn        tlmytppn        REPLACE
+lcmpperppn       tlmperppn       REPLACE
+
+
+
+CALCS()
+ckodebukti      DO_LIB ap_amdvs(lH2,l502,lkodebukti);
+cnomer          STRIP(lkodebukti) + STRIP(mtdlok) + THBLS(g_tgltrn) + "-"
+cpohmc_blmada		mtsgrup == "UPL_POHMC" && djoinaktpo2 ==0
+cpohmc_sdhada		mtsgrup == "UPL_POHMC" && djoinaktpo2 ==1
+
+cbedacabang		mtsgrup == "UPL_POAHS" && lcabangpo != mtdlok
+csamacabang		mtsgrup == "UPL_POAHS" && lcabangpo == mtdlok
+cpoahs_blmada		mtsgrup == "UPL_POAHS" && djoinaktpo ==0 && lcabangpo != mtdlok
+cpoahs_sdhada		mtsgrup == "UPL_POAHS" && djoinaktpo ==1 
+cpoahs		mtsgrup == "UPL_POAHS"	
+cpohmc		mtsgrup == "UPL_POHMC"	
+ctlmtotal       tlmtothrg + tlmtotppn
+ctlmtothrg_a    tlmtothrg + ltldsubtot
+ctotppn         tlmtothrg * (tlmperppn/100)	
+cpmtmeka0	mtsgrup == "UPL_PMT_MEKANIK" && djoinakt_pmtmekanik == 0
+cpmtmeka1	mtsgrup == "UPL_PMT_MEKANIK" && djoinakt_pmtmekanik == 1
+
+
+MAP(mmapmap_po)
+ckodebukti      lkodebukti      DO_CALC
+cnomer          tlmnobuk        DO_CALC
+
+MAP(mupdtlm_po)
+ctlmtothrg_a        tlmtothrg       DO_CALC
+ctotppn             tlmtotppn       DO_CALC
+ctlmtotal           tlmtotal        DO_CALC
+DEBUG	ldum	ldum		    REPLACE
+
+MAP(mupdtlm_po2)
+ctlmtothrg_a        tlmtothrg       DO_CALC
+ctotppn             tlmtotppn       DO_CALC
+ctlmtotal           tlmtotal        DO_CALC
+
+MAP(mdumpo)
+mtdlok		lcabangpo	REPLACE
+DEBUG		ldum 	ldum	REPLACE
+
+
+DBCALCS(djoinbir_npbt)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	birbukdatidx		mtdbrg lTARGETNPBT
+
+CALCS()
+ctgtnpbt_0	mtsgrup == "TGTNPBT" && djoinbir_npbt==0	
+ctgtnpbt_1	mtsgrup == "TGTNPBT" && djoinbir_npbt==1	
+
+MAP(maddbir_npbt)
+lTARGETNPBT	birdata			REPLACE
+mtdbrg		birnobuk		REPLACE
+mtdukrwrn	birkode1		REPLACE
+mtdlok		birkode2		REPLACE
+mtdlok2		birkode3		REPLACE
+mtdbisnis	birkode4		REPLACE
+mtdlok2		birlok  		REPLACE
+mtdtglfak	birtgl			REPLACE
+mtdtglfak	bircrttgl			REPLACE
+
+MAP(mupdbir_npbt)
+mtdjml		birtotal1		REPLACE
+
+CALCS()
+cSHIFT_AHASS		mtsgrup == "UPL_SHIFT_AHASS"
+cSHIFT_AHASS0		mtsgrup == "UPL_SHIFT_AHASS" && djoinhrmSHIFT == 0 && lnipshift != mtdbrg
+cSHIFT_AHASS1		mtsgrup == "UPL_SHIFT_AHASS" && djoinhrmSHIFT == 1 && djoinabkshiftahs == 0
+cnobukshift		"JWL" + THBLS(g_tgltrn)
+cshiftAHASS		STRIP(ltbdketSHIFT) + STRIP(lcabkdjam)
+cdjoinpsiSHIFT1		djoinpsiSHIFT == 1
+cdjointbdaprovalahs	djointbdaprovalahs == 1
+cthblSHIFT		THBLS(mtdtglfak)
+c1z			ltldnourt3 + 1
+cdjointld30		djointld3 == 0
+cdjointld31		djointld3 == 1
+cdjointbdshiftahs	djointbdshiftahs == 1 && djoincabahs == 1 && mtdkat != "LIBUR"
+cdjointbdshiftahsL	djointbdshiftahs == 1 && djoincabahs == 1 && mtdkat == "LIBUR"
+cLIBUR			"LIBUR"
+cAwlbln			ststglprjgl + 1
+cHitungTgl		DO_LIB ap_tambl(lAwlbln,l1,&lAkhbln);
+cAkhMin2		lAkhbln - 2
+cket167AHASS		"SELESAIKAN 167"
+
+MAP(mmap_tanggal_ahass)
+cAwlbln			lAwlbln			DO_CALC
+cHitungTgl		lAkhbln			DO_CALC
+cAkhMin2		lAkhMin2		DO_CALC
+DEBUG		ldum		ldum		REPLACE
+
+MAP(mmap_shift_ahass)
+cnobukshift		hrmnobuk   		DO_CALC
+lnamaSdm		lnamaSdm		REPLACE_IF cdjoinpsiSHIFT1
+lpsijabatanSHIFT	lpsijabatanSHIFT	REPLACE_IF cdjoinpsiSHIFT1
+lcabnama		lcabnama		REPLACE_IF cjoincabahs
+cthblSHIFT		lthblSHIFT		DO_CALC
+ltbdrekbrg		ltbdrekbrg		REPLACE_IF cdjointbdaprovalahs
+cshiftAHASS		lshiftAHASS		DO_CALC_IF cdjointbdshiftahs
+cLIBUR			lshiftAHASS		DO_CALC_IF cdjointbdshiftahsL
+DEBUG		ldum		ldum		REPLACE	
+
+MAP(maddhrm_shift_ahass)
+hrmnobuk		hrmnobuk		REPLACE
+hrmnobuk		lhrmnobuk		REPLACE
+lJDWABS			hrmdata			REPLACE
+g_tgltrn		hrmtgl			REPLACE
+gv_OPEN			hrmsts			REPLACE
+mtdbrg			hrmnip1			REPLACE
+lnamaSdm		lnamaSdm		REPLACE
+lpsijabatanSHIFT	hrmdvs			REPLACE
+mtdcab			hrmcab			REPLACE
+lcabnama		lnamaCbg		REPLACE
+mtdtglfak		hrmtgl1			REPLACE
+mtdtgl2			hrmtgl2			REPLACE
+lthblSHIFT		hrmkep			REPLACE
+mtdket			hrmket1			REPLACE
+ltbdrekbrg		hrmkodeapr		REPLACE
+DEBUG		ldum		ldum		REPLACE
+
+MAP(maddtld_shift_ahass)
+c1		tldnourt	DO_CALC_IF cdjointld30
+c1z		tldnourt	DO_CALC_IF cdjointld31
+lhrmnobuk	lhrmnobuk	REPLACE
+lhrmnobuk   	tldnobuk	REPLACE
+mtdbrg		tldbrg		REPLACE
+gv_OPEN		tldsts		REPLACE
+lJDWREV		tlddata		REPLACE
+mtdnoll		tldtglfak	REPLACE
+mtdlok		tldcab		REPLACE
+mtdlok2		tldsat		REPLACE
+mtdsat		tldgrup2	REPLACE
+lshiftAHASS	tldplg		REPLACE
+DEBUG	ldum	ldum		REPLACE
+
+MAP(mdumSHIFT)
+hrmnobuk	hrmnobuk	REPLACE
+hrmnobuk	lhrmnobuk	NO_REPLACE
+DEBUG		ldum		ldum		REPLACE
+
+MAP(mdumnip)
+mtdbrg		lnipshift	REPLACE
+DEBUG		ldum 	ldum	REPLACE
+
+MAP(maddabk_shift_ahass)
+lKUNCIABSEN	abkdata		REPLACE
+gv_INPG		abksts		REPLACE
+mtdbrg		abkkym		REPLACE
+l167		abkscr		REPLACE
+g_tgltrn	abktgl		REPLACE
+lAkhMin2	abktgl		REPLACE
+lhrmnobuk	abknobuk	REPLACE
+cket167AHASS	abkkym2		DO_CALC
+DEBUG	ldum	ldum		REPLACE
+
+CALCS()
+cUSIA_REKOMEN	(mtsgrup == "UPL_USIA_MOTOR" || mtsgrup == "UPL_REKOMEN_PKT")
+cUSIA_MOTOR	mtsgrup == "UPL_USIA_MOTOR" 
+cREKOMEN_PKT	mtsgrup	== "UPL_REKOMEN_PKT"
+crmdgabusia	STRIP(lUSIAMOTOR)+STRIP(mtdbrg)
+crmdgabrekomen	STRIP(lREKOMENPAKET)+STRIP(lrmdkd2rekomen)
+crmdkd2rekomen	STRIP(mtdbrg)+STRIP(mtdnoll)
+
+MAP(mmaprmdREKOMEN)
+crmdgabusia	lrmdgabusia	DO_CALC
+crmdkd2rekomen	lrmdkd2rekomen	DO_CALC
+crmdgabrekomen	lrmdgabrekomen	DO_CALC
+DEBUG	ldum	ldum		REPLACE
+
+MAP(maddrmd_usia_motor)
+gv_dtahass	rmddata		REPLACE
+gv_INPG		rmdsts		REPLACE
+lUSIAMOTOR	rmdkode		REPLACE
+mtdbrg		rmdkode2	REPLACE
+mtdjml		rmdbts1		REPLACE
+mtdlok		rmdtext1	REPLACE
+lrmdgabusia	rmdgab		REPLACE
+DEBUG	ldum	ldum		REPLACE
+
+MAP(maddrmd_rekomen_pkt)
+gv_dtahass	rmddata		REPLACE
+gv_INPG         rmdsts          REPLACE
+lREKOMENPAKET   rmdkode         REPLACE
+crmdkd2rekomen  rmdkode2        DO_CALC
+mtdlok          rmdtext1        REPLACE
+lrmdgabrekomen  rmdgab          REPLACE
+DEBUG	ldum	ldum		REPLACE
+
+CALCS()
+cPART_PERMOTOR0a mtsgrup == "UPL_PART_PERMOTOR" && djointbd_part_permotor == 0
+cPART_PERMOTOR0b mtsgrup == "UPL_PART_PERMOTOR" && djointbt_part_permotor == 0
+cPARTPERMOTOR	 "KODE PART PER MOTOR"
+
+cSHOWROOM_0	mtsgrup == "UPL_HRG_SHOWROOM" && djointbt_showroom == 0
+cSHOWROOM_1	mtsgrup == "UPL_HRG_SHOWROOM" && djointbt_showroom == 1
+
+MAP(maddtbd_part_permotor)
+gv_dttabel	tbddata		REPLACE  /* DTTABEL */
+gv_dttabel21	tbdtype		REPLACE  /* DTTABEL */
+gt_ahass	tbddtmkode	REPLACE
+lPARTPERMOTOR	tbdtblkode	REPLACE
+cPARTPERMOTOR	tbdtblket	DO_CALC
+l3106		tbdscr		REPLACE
+mtdbrg		tbdkode		REPLACE
+mtdbrg		tbdket		REPLACE
+
+MAP(maddtbt_part_permotor)
+gv_dttabel	tbtdata		REPLACE
+mtdnoll		tbttype		REPLACE
+gt_ahass	tbtdtmkode	REPLACE
+lPARTPERMOTOR	tbttblkode	REPLACE
+mtdbrg		tbttbdkode	REPLACE
+l3106		tbtscr		REPLACE
+mtdnoll		tbtkode		REPLACE
+mtdlok		tbtkode2	REPLACE
+
+MAP(maddtbt_showroom)
+gv_dttabel      tbtdata         REPLACE
+gv_dttabel21    tbttype         REPLACE
+gt_ahass        tbtdtmkode      REPLACE
+lCABANGAHASS    tbttblkode      REPLACE
+lCABSHOW        tbttbdkode      REPLACE
+l3106           tbtscr          REPLACE
+mtdbrg          tbtkode         REPLACE
+mtdhrg		tbtdf1		REPLACE
+mtdnoll         tbtkode2        REPLACE
+
+MAP(mupdtbt_showroom)
+mtdhrg		tbtdf1		REPLACE
+mtdnoll		tbtkode2	REPLACE
+
+
+CALCS()
+cPROMO_ASURANSI (mtsgrup == "UPL_ASURANSI1" || mtsgrup == "UPL_ASURANSI2")
+cASURANSI1      mtsgrup == "UPL_ASURANSI1"
+cASURANSI2      mtsgrup == "UPL_ASURANSI2"
+crmdgabasuransi1 "PROMOASURANSI1" + STRIP(mtdcab) + STRIP(mtdbrg)
+crmdgabasuransi2 "PROMOASURANSI2" + STRIP(mtdcab) + STRIP(mtdbrg)
+
+MAP(mmaprmdAsuransi)
+crmdgabasuransi1 lrmdgabasuransi1 DO_CALC
+crmdgabasuransi2 lrmdgabasuransi2 DO_CALC
+DEBUG   ldum    ldum            REPLACE
+
+MAP(maddrmd_promo_asuransi1)
+gv_dtahass      rmddata         REPLACE
+gv_INPG         rmdsts          REPLACE
+lPROMOASURANSI1 rmdkode         REPLACE
+mtdcab          rmdkode2        REPLACE
+mtdbrg          rmdkode3        REPLACE
+mtdhrg          rmdtotal1       REPLACE
+lrmdgabasuransi1 rmdgab         REPLACE
+DEBUG   ldum    ldum            REPLACE
+
+MAP(maddrmd_promo_asuransi2)
+gv_dtahass      rmddata         REPLACE
+gv_INPG         rmdsts          REPLACE
+lPROMOASURANSI2 rmdkode         REPLACE
+mtdcab          rmdkode2        REPLACE
+mtdbrg          rmdkode3        REPLACE
+mtdhrg          rmdtotal1       REPLACE
+lrmdgabasuransi2 rmdgab         REPLACE
+DEBUG   ldum    ldum            REPLACE
+
+CALCS()
+cdjoinsgm1	djoinsgm1 == 1
+cdjoinsgm2	djoinsgm2 == 1
+cdjoinsgm3	djoinsgm3 == 1
+cdjoinsgm4	djoinsgm4 == 1
+cdjoinsgm5	djoinsgm5 == 1
+cdjoinsgm6	djoinsgm6 == 1
+cPOPART503	mtsgrup == "UPL_POPART503"
+cPOPART503_0	mtsgrup == "UPL_POPART503" && djoinpmb_popart503 == 0
+cPOPART503_1	mtsgrup == "UPL_POPART503" && djoinsgm == 1 && djoinpmb_popart503 == 1
+cPOPART503a 	mtsgrup == "UPL_POPART503" && djoinsgm1 == 1 && djoinpmb_popart503 == 1
+cPOPART503b 	mtsgrup == "UPL_POPART503" && djoinsgm2 == 1 && djoinpmb_popart503 == 1
+cPOPART503c 	mtsgrup == "UPL_POPART503" && djoinsgm3 == 1 && djoinpmb_popart503 == 1
+cPOPART503d 	mtsgrup == "UPL_POPART503" && djoinsgm4 == 1 && djoinpmb_popart503 == 1
+cPOPART503e 	mtsgrup == "UPL_POPART503" && djoinsgm5 == 1 && djoinpmb_popart503 == 1
+cPOPART503f 	mtsgrup == "UPL_POPART503" && djoinsgm6 == 1 && djoinpmb_popart503 == 1
+cdjoincad_leadtimeDO	djoincad_leadtimeDO == 1
+cPOPART503tkd	mtsgrup == "UPL_POPART503" && djointkd_perpanjangJTP == 0
+cKONTROL503	"KONTROL 503"
+cSA		"SA"
+cKABENG		"KABENG"
+cPARTMAN	"PARTMAN"
+cBUM		"BUM"
+cBM		"BM"
+cK		"K"
+chariefektif	DO_LIB ap_jtpkr(ltipe,mtdtglfak,lcadtot1_leadtimeDO,&lTglEstimasiDO);
+
+MAP(mmapnip_popart503)
+lsgmstr5	lsgmstr5	REPLACE_IF cdjoinsgm
+lsgmstr5_1	lsgmstr5_1	REPLACE_IF cdjoinsgm1
+lsgmstr5_2	lsgmstr5_2	REPLACE_IF cdjoinsgm2 
+lsgmstr5_3	lsgmstr5_3	REPLACE_IF cdjoinsgm3
+lsgmstr5_4	lsgmstr5_4	REPLACE_IF cdjoinsgm4
+lsgmstr5_5	lsgmstr5_5	REPLACE_IF cdjoinsgm5
+lsgmstr5_6	lsgmstr5_6	REPLACE_IF cdjoinsgm6
+lcadtot1_leadtimeDO	lcadtot1_leadtimeDO	REPLACE_IF cdjoincad_leadtimeDO
+chariefektif	lTglEstimasiDO	DO_CALC
+
+MAP(maddpmb_popart503)
+mtdbrg		pmbnobuk	REPLACE
+gv_dthut	pmbdata		REPLACE
+gv_OPEN		pmbsts		REPLACE
+lH2		pmbdvs		REPLACE
+mtdcab		pmbcab		REPLACE
+mtdbisnis	pmbbisnis	REPLACE
+mtdtglfak	pmbtglganbg	REPLACE
+mtdtgl2		pmbtgljtp	REPLACE
+g_tgltrn	pmbtglfak	REPLACE
+l503		pmbscr		REPLACE
+gv_F		pmbfr		REPLACE
+gv_DN		pmbtype		REPLACE
+cK		pmbtk		DO_CALC
+l211.00.1001	pmbnobbm	REPLACE
+cthbl		pmbthbl		DO_CALC
+
+MAP(maddabk_popart503)
+mtdbrg		abknobuk	REPLACE
+lsgmstr5	abkkym		REPLACE
+lKUNCIABSEN	abkdata		REPLACE
+gt_RINP		abksts		REPLACE
+lTglEstimasiDO	abktgl		REPLACE
+l503		abkscr		REPLACE
+cKONTROL503	abkkym2		DO_CALC
+cADH		abktype		DO_CALC
+
+MAP(maddabk_popart503a)
+mtdbrg          abknobuk        REPLACE
+lsgmstr5_1      abkkym          REPLACE
+lKUNCIABSEN     abkdata         REPLACE
+gt_RINP         abksts          REPLACE
+lTglEstimasiDO  abktgl          REPLACE
+l503            abkscr          REPLACE
+cKONTROL503     abkkym2         DO_CALC
+cFD             abktype         DO_CALC
+
+MAP(maddabk_popart503b)
+mtdbrg          abknobuk        REPLACE
+lsgmstr5_2      abkkym          REPLACE
+lKUNCIABSEN     abkdata         REPLACE
+gt_RINP         abksts          REPLACE
+lTglEstimasiDO  abktgl          REPLACE
+l503            abkscr          REPLACE
+cKONTROL503     abkkym2         DO_CALC
+cSA             abktype         DO_CALC
+
+MAP(maddabk_popart503c)
+mtdbrg          abknobuk        REPLACE
+lsgmstr5_3      abkkym          REPLACE
+lKUNCIABSEN     abkdata         REPLACE
+gt_RINP         abksts          REPLACE
+lTglEstimasiDO  abktgl          REPLACE
+l503            abkscr          REPLACE
+cKONTROL503     abkkym2         DO_CALC
+cKABENG         abktype         DO_CALC
+
+MAP(maddabk_popart503d)
+mtdbrg          abknobuk        REPLACE
+lsgmstr5_4      abkkym          REPLACE
+lKUNCIABSEN     abkdata         REPLACE
+gt_RINP         abksts          REPLACE
+lTglEstimasiDO  abktgl          REPLACE
+l503            abkscr          REPLACE
+cKONTROL503     abkkym2         DO_CALC
+cPARTMAN        abktype         DO_CALC
+
+MAP(maddabk_popart503e)
+mtdbrg          abknobuk        REPLACE
+lsgmstr5_5      abkkym          REPLACE
+lKUNCIABSEN     abkdata         REPLACE
+gt_RINP         abksts          REPLACE
+lTglEstimasiDO  abktgl          REPLACE
+l503            abkscr          REPLACE
+cKONTROL503     abkkym2         DO_CALC
+cBUM            abktype         DO_CALC
+
+MAP(maddabk_popart503f)
+mtdbrg          abknobuk        REPLACE
+lsgmstr5_6      abkkym          REPLACE
+lKUNCIABSEN     abkdata         REPLACE
+gt_RINP         abksts          REPLACE
+lTglEstimasiDO  abktgl          REPLACE
+l503            abkscr          REPLACE
+cKONTROL503     abkkym2         DO_CALC
+cBM             abktype         DO_CALC
+
+MAP(maddtkd_perpanjangJTP)
+mtdbrg		tkdnobuk	REPLACE
+lDTTGLPJG	tkddata		REPLACE	
+lTglEstimasiDO	tkdtgl		REPLACE
+c1		tkdnourt	DO_CALC
+DEBUG	ldum	ldum		REPLACE
+
+CALCS()
+cbirnobuk_ue1           "UE1"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* UE1SLP11240223 (UE TOTAL) */
+cbirnobuk_ue2           "UE2"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* UE2SLP11240223 (UE KPB) */
+cbirnobuk_ue3           "UE3"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* UE3SLP11240223 (UE NON KPB) */
+cbirnobuk_ue4           "UE4"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* UE4SLP11240223 (UE SERVICE) */
+cbirnobuk_ue5           "UE5"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* UE5SLP11240223 (UE SERVICE LENGKAP) */
+cbirnobuk_ue6           "UE6"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* UE6SLP11240223 (UE SERVICE RINGAN) */
+cbirnobuk_ue7           "UE7"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* UE7SLP11240223 (UE HR) */
+cbirnobuk_ue8           "UE8"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* UE8SLP11240223 (UE LR) */
+cbirnobuk_ue9           "UE9"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* UE9SLP11240223 (UE GO) */
+cbirnobuk_ue10          "UE10"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* UE10SLP11240223 (UE BELIPART) */
+
+
+cbirnobuk_omz1          "OMZ1"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* OMZ1SLP11240223 (OMZET TOTAL) */
+cbirnobuk_omz2          "OMZ2"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* OMZ2SLP11240223 (OMZET JASA) */
+cbirnobuk_omz3          "OMZ3"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* OMZ3SLP11240223 (OMZET PART) */
+cbirnobuk_omz4          "OMZ4"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* OMZ4SLP11240223 (OMZET OLI) */
+cbirnobuk_omz5          "OMZ5"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* OMZ5SLP11240223 (OMZET TIRE) */
+cbirnobuk_omz6          "OMZ6"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* OMZ6SLP11240223 (OMZET BATT) */
+
+
+cbirnobuk_lk1           "LK1"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* LK1SLP11240223 (LABA KOTOR TOTAL) */
+cbirnobuk_lk2           "LK2"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* LK2SLP11240223 (LABA KOTOR JASA) */
+cbirnobuk_lk3           "LK3"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* LK3SLP11240223 (LABA KOTOR PART) */
+cbirnobuk_lk4           "LK4"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* LK4SLP11240223 (LABA KOTOR OLI) */
+cbirnobuk_lk5           "LK5"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* LK5SLP11240223 (LABA KOTOR TIRE) */
+cbirnobuk_lk6           "LK6"+STRIP(mtdbrg)+THBLS_YY(mtdtglfak)+THBLS_MM(mtdtglfak)+THBLS_DD(mtdtglfak) /* LK6SLP11240223 (LABA KOTOR BATT) */
+
+cjoinbirahass_omzall0           djoinbirahass_omzall == 0 && mtdlok == "OMZALL"
+cjoinbirahass_omzjasa0          djoinbirahass_omzjasa == 0 && mtdlok == "OMZJASA"
+cjoinbirahass_omzpart0          djoinbirahass_omzpart == 0 && mtdlok == "OMZPART"
+cjoinbirahass_omzoli0           djoinbirahass_omzoli == 0 && mtdlok == "OMZOLI"
+cjoinbirahass_omztire0          djoinbirahass_omztire == 0 && mtdlok == "OMZTIRE"
+cjoinbirahass_omzbatt0          djoinbirahass_omzbatt == 0 && mtdlok == "OMZBATT"
+
+cjoinbirahass_lkall0            djoinbirahass_lkall == 0 && mtdlok == "LKALL"
+cjoinbirahass_lkjasa0           djoinbirahass_lkjasa == 0 && mtdlok == "LKJASA"
+cjoinbirahass_lkpart0           djoinbirahass_lkpart == 0 && mtdlok == "LKPART"
+cjoinbirahass_lkoli0            djoinbirahass_lkoli == 0 && mtdlok == "LKOLI"
+cjoinbirahass_lktire0           djoinbirahass_lktire == 0 && mtdlok == "LKTIRE"
+cjoinbirahass_lkbatt0           djoinbirahass_lkbatt == 0 && mtdlok == "LKBATT"
+
+cjoinbirahass_ueall0            djoinbirahass_ueall == 0 && mtdlok == "UEALL"
+cjoinbirahass_uekpb0            djoinbirahass_uekpb == 0 && mtdlok == "UEKPB"
+cjoinbirahass_uenonkpb0         djoinbirahass_uenonkpb == 0 && mtdlok == "UENONKPB"
+cjoinbirahass_ueservice0        djoinbirahass_ueservice == 0 && mtdlok == "UESERVICE"
+cjoinbirahass_ueservicelkp0     djoinbirahass_ueservicelkp == 0 && mtdlok == "UESERVICELKP"
+cjoinbirahass_ueservicering0    djoinbirahass_ueservicering == 0 && mtdlok == "UESERVICERING"
+cjoinbirahass_uehr0             djoinbirahass_uehr == 0 && mtdlok == "UEHR"
+cjoinbirahass_uelr0             djoinbirahass_uelr == 0 && mtdlok == "UELR"
+cjoinbirahass_uego0             djoinbirahass_uego == 0 && mtdlok == "UEGO"
+cjoinbirahass_uebelipart0       djoinbirahass_uebelipart == 0 && mtdlok == "UEBELIPART"
+
+cBLANKS				BLANKS
+cGABAHSTHBL                     "GABAHS" + THBLS_YY(mtdtglfak) + THBLS_MM(mtdtglfak)
+
+cOMZALL                         "OMZALL"
+cOMZJASA                        "OMZJASA"
+cOMZPART                        "OMZPART"
+cOMZOLI                         "OMZOLI"
+cOMZTIRE                        "OMZTIRE"
+cOMZBATT                        "OMZBATT"
+
+cLKALL                          "LKALL"
+cLKJASA                         "LKJASA"
+cLKPART                         "LKPART"
+cLKOLI                          "LKOLI"
+cLKTIRE                         "LKTIRE"
+cLKBATT                         "LKBATT"
+
+cUEALL                          "UEALL"
+cUEKPB                          "UEKPB"
+cUENONKPB                       "UENONKPB"
+cUESERVICE                      "UESERVICE"
+cUESERVICELKP                   "UESERVICELKP"
+cUESERVICERING                  "UESERVICERING"
+cUEHR                           "UEHR"
+cUELR                           "UELR"
+cUEGO                           "UEGO"
+cUEBELIPART                     "UEBELIPART"
+
+
+MAP(mawal_ahs)
+cBLANKS                 lbirnobuk_ue1   DO_CALC
+cBLANKS                 lbirnobuk_ue2   DO_CALC
+cBLANKS                 lbirnobuk_ue3   DO_CALC
+cBLANKS                 lbirnobuk_ue4   DO_CALC
+cBLANKS                 lbirnobuk_ue5   DO_CALC
+cBLANKS                 lbirnobuk_ue6   DO_CALC
+cBLANKS                 lbirnobuk_ue7   DO_CALC
+cBLANKS                 lbirnobuk_ue8   DO_CALC
+cBLANKS                 lbirnobuk_ue9   DO_CALC
+cBLANKS                 lbirnobuk_ue10  DO_CALC
+
+cBLANKS                 lbirnobuk_omz1  DO_CALC
+cBLANKS                 lbirnobuk_omz2  DO_CALC
+cBLANKS                 lbirnobuk_omz3  DO_CALC
+cBLANKS                 lbirnobuk_omz4  DO_CALC
+cBLANKS                 lbirnobuk_omz5  DO_CALC
+cBLANKS                 lbirnobuk_omz6  DO_CALC
+
+cBLANKS                 lbirnobuk_lk1   DO_CALC
+cBLANKS                 lbirnobuk_lk2   DO_CALC
+cBLANKS                 lbirnobuk_lk3   DO_CALC
+cBLANKS                 lbirnobuk_lk4   DO_CALC
+cBLANKS                 lbirnobuk_lk5   DO_CALC
+cBLANKS                 lbirnobuk_lk6   DO_CALC
+
+cbirnobuk_ue1           lbirnobuk_ue1   DO_CALC
+cbirnobuk_ue2           lbirnobuk_ue2   DO_CALC
+cbirnobuk_ue3           lbirnobuk_ue3   DO_CALC
+cbirnobuk_ue4           lbirnobuk_ue4   DO_CALC
+cbirnobuk_ue5           lbirnobuk_ue5   DO_CALC
+cbirnobuk_ue6           lbirnobuk_ue6   DO_CALC
+cbirnobuk_ue7           lbirnobuk_ue7   DO_CALC
+cbirnobuk_ue8           lbirnobuk_ue8   DO_CALC
+cbirnobuk_ue9           lbirnobuk_ue9   DO_CALC
+cbirnobuk_ue10          lbirnobuk_ue10  DO_CALC
+
+cbirnobuk_omz1          lbirnobuk_omz1  DO_CALC
+cbirnobuk_omz2          lbirnobuk_omz2  DO_CALC
+cbirnobuk_omz3          lbirnobuk_omz3  DO_CALC
+cbirnobuk_omz4          lbirnobuk_omz4  DO_CALC
+cbirnobuk_omz5          lbirnobuk_omz5  DO_CALC
+cbirnobuk_omz6          lbirnobuk_omz6  DO_CALC
+
+cbirnobuk_lk1           lbirnobuk_lk1   DO_CALC
+cbirnobuk_lk2           lbirnobuk_lk2   DO_CALC
+cbirnobuk_lk3           lbirnobuk_lk3   DO_CALC
+cbirnobuk_lk4           lbirnobuk_lk4   DO_CALC
+cbirnobuk_lk5           lbirnobuk_lk5   DO_CALC
+cbirnobuk_lk6           lbirnobuk_lk6   DO_CALC
+
+cGABAHSTHBL             lGABAHSTHBL     DO_CALC
+cGABAHSTHBL             l11GABAHSTHBL   DO_CALC
+
+DBCALCS(dmapawal_ahs)
+        DBC_COMMAND     MAPMAP
+        DBC_MAP         mawal_ahs
+
+/*********** OMZET *****************/
+
+MAP(maddbirahass_omzall)
+lbirnobuk_omz1          birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cOMZALL                 birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cOMZALL                 birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_omzjasa)
+lbirnobuk_omz2          birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cOMZJASA                birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cOMZJASA                birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_omzpart)
+lbirnobuk_omz3          birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cOMZPART                birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cOMZPART                birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_omzoli)
+lbirnobuk_omz4          birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cOMZOLI                 birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cOMZOLI                 birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_omztire)
+lbirnobuk_omz5          birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cOMZTIRE                birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cOMZTIRE                birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_omzbatt)
+lbirnobuk_omz6          birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cOMZBATT                birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cOMZBATT                birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+/*********** LABA KOTOR *****************/
+
+MAP(maddbirahass_lkall)
+lbirnobuk_lk1           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cLKALL                  birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cLKALL                  birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_lkjasa)
+lbirnobuk_lk2           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cLKJASA                 birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cLKJASA                 birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_lkpart)
+lbirnobuk_lk3           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cLKPART                 birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cLKPART                 birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_lkoli)
+lbirnobuk_lk4           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cLKOLI                  birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cLKOLI                  birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_lktire)
+lbirnobuk_lk5           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cLKTIRE                 birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cLKTIRE                 birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_lkbatt)
+lbirnobuk_lk6           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cLKBATT                 birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cLKBATT                 birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+/*********** UE (UNIT ENTRY) *****************/
+
+MAP(maddbirahass_ueall)
+lbirnobuk_ue1           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cUEALL                  birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cUEALL                  birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_uekpb)
+lbirnobuk_ue2           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cUEKPB                  birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cUEKPB                  birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_uenonkpb)
+lbirnobuk_ue3           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cUENONKPB               birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cUENONKPB               birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_ueservice)
+lbirnobuk_ue4           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cUESERVICE              birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cUESERVICE              birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_ueservicelkp)
+lbirnobuk_ue5           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cUESERVICELKP           birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cUESERVICELKP           birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_ueservicering)
+lbirnobuk_ue6           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cUESERVICERING          birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cUESERVICERING          birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_uehr)
+lbirnobuk_ue7           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cUEHR                   birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cUEHR                   birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_uelr)
+lbirnobuk_ue8           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cUELR                   birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cUELR                   birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_uego)
+lbirnobuk_ue9           birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cUEGO                   birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cUEGO                   birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+MAP(maddbirahass_uebelipart)
+lbirnobuk_ue10          birnobuk        REPLACE
+l11GABAHSTHBL           birdata         REPLACE
+mtdtglfak               birtgl          REPLACE
+lthbl2                  birthbl         REPLACE
+cUEBELIPART             birlok          DO_CALC
+cGABAHSTHBL             birkode1        DO_CALC
+mtdbrg                  birkode2        REPLACE
+cH2                     birkode3        DO_CALC
+cUEBELIPART             birkode4        DO_CALC
+cAHASS                  birtype         DO_CALC
+mtdjml                  birtotal1       REPLACE
+mtdperdis1		birtotal2	REPLACE
+mtdperdis2		birtotal3	REPLACE
+mtdjml2                 birhreff        REPLACE
+DEBUG      ldum         ldum            REPLACE
+
+CALCS()
+cdjoinrmd1	mtsgrup == "UPL_MASTER_RMD" && djoinrmd == 1 && g_grpnam == "TUTUP"
+cmasterrmd	mtsgrup == "UPL_MASTER_RMD"
+cremindkpb	mtsgrup == "DEL_REMINDKPB" 
+cremindkpbjtp   mtsgrup == "UPD_JTP_REMINDKPB"
+ctgtslinahs	mtsgrup == "UPL_TGTSLINAHS"
+cuplubr		mtsgrup == "UPL_UBR"
+cuplibd		mtsgrup == "UPL_IBD"
+
+MAP(maddmaster_rmd)
+mtdbrg          rmdkode         REPLACE	 
+mtdukrwrn       rmdkode2        REPLACE	 
+mtdsat          rmdkode3        REPLACE	
+mtdlok          rmdkode4        REPLACE	
+gv_INPG         rmdsts          REPLACE	
+mtdket          rmdgab          REPLACE	
+mtdjml          rmdbts1         REPLACE	
+mtdjml2         rmdbts2         REPLACE	
+mtdjml3         rmdbts3         REPLACE	
+mtdperdis1      rmdtotal1       REPLACE	
+mtdperdis2      rmdtotal2       REPLACE	
+mtdperdis3      rmdtotal3       REPLACE	
+mtdgrup         rmdtext1        REPLACE	
+mtdgrup2        rmdtext2        REPLACE	
+g_tgltrn        rmdtglawl       REPLACE	
+mtdlok2         rmddata         REPLACE	
+
+MAP(mupdbrgsts_partspm)
+gv_CLSD		brgsts		REPLACE
+
+MAP(mdum)
+DEBUG	ldum	ldum	REPLACE
+
+/*********** TGTTHAHASS **************/
+MAP(mmaptgtue)
+g_strksg	lmtdbrg		REPLACE
+g_strksg	lmtdhrg		REPLACE
+g_strksg	lmtdjml		REPLACE
+g_strksg	lmtdket		REPLACE
+mtdbrg		lmtdbrg		REPLACE
+mtdhrg		lmtdhrg		REPLACE
+mtdjml		lmtdjml		REPLACE
+mtdket		lmtdket		REPLACE
+mtdket		lmtdket11	REPLACE
+DEBUG	ldum	ldum		REPLACE
+
+MAP(maddrpttgt)
+lDTTHAHASS	rptdata  	REPLACE
+mtdket		rptth    	REPLACE
+mtdket		rpttype1 	REPLACE
+mtdhrg		rptkode1	REPLACE
+mtdbrg		rptkode2	REPLACE
+mtdcab		rptkode3	REPLACE
+mtdket		rpttype2	REPLACE
+g_tgltrn	rpttgl		REPLACE
+DEBUG ldum	ldum	REPLACE
+
+MAP(mupdrpttgt)
+mtdhrg		rptkode1	REPLACE
+mtdjml          rptkode1        REPLACE
+DEBUG	ldum	ldum		REPLACE
+
+/************* STBAHASS ***************/
+MAP(mmapstbahass)
+g_strksg        lmtdbrg         REPLACE
+g_strksg	lthbl11		REPLACE
+g_strksg	lmtdcab		REPLACE
+mtdcab		lmtdcab		REPLACE
+lthbl		lthbl11		REPLACE
+mtdbrg		lmtdbrg		REPLACE
+DEBUG		ldum	ldum	REPLACE
+
+DEBUG   ldum    ldum            REPLACE
+
+MAP(maddrptstbahass)
+lSTBAHASS	rptdata 	REPLACE
+lthbl		rptth		REPLACE
+lSTOKAHASS	rpttype1	REPLACE
+lSTOKAHASS	rpttype2	REPLACE
+lSTOKAHASS	rptkode1	REPLACE
+mtdcab		rptkode2	REPLACE
+mtdbrg		rptkode3	REPLACE
+mtdjml		rptbl1		REPLACE
+mtdhrg		rptbl2		REPLACE
+g_tgltrn	rpttgl		REPLACE
+DEBUG ldum      ldum    REPLACE
+
+MAP(maddcadtgtslinahs)
+mtdscr		caddata		REPLACE
+mtdcab		cadkdcab	REPLACE
+mtdlok		cadthbl		REPLACE
+mtdlok		cadkode		REPLACE
+mtdbrg		cadtype		REPLACE
+mtdperdis1	cadtot1		REPLACE
+mtdperdis2	cadtot2		REPLACE
+mtdperdis3	cadtot3		REPLACE
+mtdperdis4	cadtot4		REPLACE
+mtdperdis5	cadtot5		REPLACE
+
+MAP(maddubr)
+/*"mtdbrg+mtdscr+mtdlok2+mtdket"*/
+mtdbrg		ubrbrg		REPLACE
+mtdscr		ubrdata		REPLACE
+mtdlok2		ubrkode		REPLACE
+mtdket		ubrket		REPLACE
+
+CALCS()
+ctlddata	"TGTBNSDLR"
+MAP(maddibd)
+/*"mtdjml2+mtdcab+mtdket+mtdjml+mtdkat+mtdthnstr"*/
+/*NOURT, CABANG,INDIKATOR BONUS DEALER, HASIL MATRIX TGT, PERFORMANCE/POTENTIAL, THBL*/
+mtdjml2		tldnourt	REPLACE
+mtdcab      tldcab          REPLACE
+mtdket      tldstr4         REPLACE
+mtdjml      tldjml         REPLACE
+mtdkat      tldbrg          REPLACE
+mtdthnstr	tldth	          REPLACE
+ctlddata	tlddata		    DO_CALC
+DEBUG ldum  ldum    REPLACE
+
+/*******MAP master volume barang ahass ******/
+MAP(mmapmaptbdbrg)
+cBLANKS         ltbddata        DO_CALC
+cBLANKS         ltbddtmkode     DO_CALC
+cBLANKS         ltbdtblkode     DO_CALC
+cBLANKS         ltbdkode        DO_CALC
+lVOLUMEBRG      ltbddata        REPLACE
+lAHASS          ltbddtmkode     REPLACE
+lNAS            ltbdtblkode     REPLACE                                                                                                                                                
+mtdbrg          ltbdkode        REPLACE
+DEBUG   ldum    ldum    REPLACE
+
+
+MAP(maddtbdbrg)
+mtdbrg          tbdkode         REPLACE
+mtdkat          tbdlv1          REPLACE
+mtdplg          tbdkode2        REPLACE
+mtdsat          tbdlv2          REPLACE
+mtdperdis7      tbddf7          REPLACE
+mtdlok          tbdlv4          REPLACE
+mtdperdis1      tbddf1          REPLACE
+mtdperdis2      tbddf2          REPLACE 
+mtdperdis3      tbddf3          REPLACE
+mtdperdis4      tbddf4          REPLACE
+mtdperdis5      tbddf5          REPLACE
+mtdperdis6      tbddf6          REPLACE
+mtdnoll         tbdlv3          REPLACE
+mtdjml3         tbddf8          REPLACE
+mtdgrup         tbdkettype      REPLACE
+mtdgrup2        tbdtblket       REPLACE
+mtdjml          tbddf8          REPLACE
+mtdjml2         tbddf9          REPLACE
+lVOLUMEBRG      tbddata         REPLACE
+lAHASS          tbddtmkode      REPLACE
+lNAS            tbdtblkode      REPLACE
+DEBUG   ldum    ldum            REPLACE
+
+MAP(mupdtbdbrg)
+mtdkat          tbdlv1          REPLACE
+mtdplg          tbdkode2        REPLACE
+mtdsat          tbdlv2          REPLACE
+mtdperdis7      tbddf7          REPLACE
+mtdlok          tbdlv4          REPLACE
+mtdperdis1      tbddf1          REPLACE
+mtdperdis2      tbddf2          REPLACE 
+mtdperdis3      tbddf3          REPLACE
+mtdperdis4      tbddf4          REPLACE
+mtdperdis5      tbddf5          REPLACE
+mtdperdis6      tbddf6          REPLACE
+mtdnoll         tbdlv3          REPLACE
+mtdjml3         tbddf8          REPLACE
+mtdgrup         tbdkettype      REPLACE                                                                                                                                                
+mtdgrup2        tbdtblket       REPLACE
+mtdjml          tbddf8          REPLACE
+mtdjml2         tbddf9          REPLACE
+DEBUG   ldum    ldum            REPLACE
+
+/********* MAP master paket SERIVIS *************/
+MAP(mmapmaptbdmservis)
+cBLANKS         ltbddata        DO_CALC
+cBLANKS         ltbddtmkode     DO_CALC
+cBLANKS         ltbdtblkode     DO_CALC
+cBLANKS         ltbdkode        DO_CALC
+lPKTSERVIS      ltbddata         REPLACE
+lthbl           ltbddtmkode     REPLACE
+mtdlok2         ltbdtblkode     REPLACE                                                                                                                                           
+mtdbrg          ltbdkode        REPLACE
+DEBUG   ldum    ldum    REPLACE
+    
+MAP(mupdtbdmservis)
+mtdbrg          tbdkode         REPLACE
+mtdkat          tbdkettype      REPLACE
+mtdplg          tbdlv1          REPLACE                                                                                                                                                
+mtdsat          tbdlv2          REPLACE
+mtdnoll         tbdlv3          REPLACE
+mtdjml          tbddf1          REPLACE
+mtdjml2         tbddf2          REPLACE
+mtdgrup         tbdlv4          REPLACE
+mtdgrup2        tbdkode2        REPLACE
+DEBUG ldum      ldum            REPLACE
+
+MAP(maddtbdmservis)
+mtdbrg          tbdkode         REPLACE
+mtdkat          tbdkettype      REPLACE
+mtdplg          tbdlv1          REPLACE
+mtdsat          tbdlv2          REPLACE
+mtdnoll         tbdlv3          REPLACE
+mtdjml          tbddf1          REPLACE
+mtdjml2         tbddf2          REPLACE
+mtdgrup         tbdlv4          REPLACE
+mtdgrup2        tbdkode2        REPLACE
+lPKTSERVIS      tbddata         REPLACE
+lthbl           tbddtmkode      REPLACE
+mtdlok2         tbdtblkode      REPLACE
+DEBUG   ldum    ldum            REPLACE
+
+/*********** MAP PART AHASS ***************/
+MAP(mmapmaptbdmpart)
+cBLANKS         ltbddata        DO_CALC
+cBLANKS         ltbddtmkode     DO_CALC
+cBLANKS         ltbdtblkode     DO_CALC
+cBLANKS         ltbdkode        DO_CALC
+lPAKETPART      ltbddata         REPLACE                                                                                                                                               lthbl           ltbddtmkode     REPLACE
+mtdlok2         ltbdtblkode     REPLACE
+mtdbrg          ltbdkode        REPLACE
+DEBUG   ldum    ldum            REPLACE
+
+MAP(mupdtbdmpart)
+mtdthbl         tbdlv1          REPLACE
+mtdnoll         tbdlv2          REPLACE
+mtdsat          tbdlv3          REPLACE
+mtdplg          tbdlv4          REPLACE
+mtdlok          tbdkettype      REPLACE
+mtdgrup         tbdkode2        REPLACE
+mtdgrup2        tbdtblket       REPLACE
+mtdperdis1      tbddf1          REPLACE
+mtdkat          tbdket          REPLACE
+mtdperdis2      tbddf2          REPLACE
+mtdperdis3      tbddf3          REPLACE
+DEBUG   ldum    ldum    REPLACE
+
+
+
+MAP(maddtbdmpart)    
+mtdthbl         tbdlv1          REPLACE
+mtdnoll         tbdlv2          REPLACE
+mtdsat          tbdlv3          REPLACE
+mtdplg          tbdlv4          REPLACE
+mtdlok          tbdkettype      REPLACE
+mtdgrup         tbdkode2        REPLACE
+mtdgrup2        tbdtblket       REPLACE
+mtdperdis1      tbddf1          REPLACE
+mtdbrg          tbdkode         REPLACE
+mtdkat          tbdket          REPLACE
+mtdperdis2      tbddf2          REPLACE
+mtdperdis3      tbddf3          REPLACE
+lPAKETPART      tbddata         REPLACE                                                                                                                                                
+lthbl           tbddtmkode      REPLACE
+mtdlok2         tbdtblkode      REPLACE
+DEBUG   ldum    ldum            REPLACE
+
+/****************** MAP MASTER TARGET OMZ PERCABANG ********************/
+MAP(mmapmaptbdmomzcabahass)
+cBLANKS         ltbddata        DO_CALC
+cBLANKS         ltbddtmkode     DO_CALC
+cBLANKS         ltbdtblkode     DO_CALC
+cBLANKS         ltbdkode        DO_CALC
+lMCABAHASS      ltbddata        REPLACE
+lAHASS          ltbddtmkode     REPLACE
+mtdthbl         ltbdtblkode     REPLACE
+mtdcab          ltbdkode        REPLACE
+DEBUG   ldum    ldum    REPLACE
+
+MAP(mupdtbdmomzcabahass)
+mtdkat          tbdket          REPLACE
+mtdperdis1      tbddf1          REPLACE
+mtdperdis2      tbddf2          REPLACE
+mtdperdis3      tbddf3          REPLACE
+mtdperdis4      tbddf4          REPLACE
+mtdperdis5      tbddf5          REPLACE
+mtdperdis6      tbddf6          REPLACE
+mtdperdis7      tbddf7          REPLACE
+mtdjml          tbddf8          REPLACE
+mtdjml2         tbddf9          REPLACE
+mtdjml3         tbddf10         REPLACE
+mtdtmp1         tbddf11         REPLACE
+mtdtmp2         tbddf12         REPLACE
+mtdperdism      tbdkode2        REPLACE
+DEBUG   ldum    ldum    REPLACE
+
+MAP(maddtbdmomzcabahass)
+mtdthbl         tbdtblkode      REPLACE
+mtdcab          tbdkode         REPLACE
+mtdkat          tbdket          REPLACE
+mtdperdis1      tbddf1          REPLACE
+mtdperdis2      tbddf2          REPLACE
+mtdperdis3      tbddf3          REPLACE
+mtdperdis4      tbddf4          REPLACE
+mtdperdis5      tbddf5          REPLACE
+mtdperdis6      tbddf6          REPLACE
+mtdperdis7      tbddf7          REPLACE
+mtdjml          tbddf8          REPLACE
+mtdjml2         tbddf9          REPLACE
+mtdjml3         tbddf10         REPLACE
+mtdtmp1         tbddf11         REPLACE
+mtdtmp2         tbddf12         REPLACE
+mtdperdism      tbdkode2        REPLACE
+lMCABAHASS      tbddata         REPLACE
+lAHASS          tbddtmkode      REPLACE
+DEBUG   ldum    ldum    REPLACE
+
+MAP(mmapmaptldstok)
+cBLANKS         ltldnobuk       DO_CALC
+cBLANKS         ltldsts         DO_CALC
+cBLANKS         ltldbrg         DO_CALC
+mtdnoll         ltldnobuk       REPLACE
+mtdbrg          ltldbrg         REPLACE
+mtdsts          ltldsts         REPLACE
+DEBUG   ldum    ldum    REPLACE
+
+MAP(mupdtldstok)
+mtdjml          tldjml          REPLACE         /* sisa barang */
+mtdjml2         tldjml2         REPLACE         /* sisa barang rencana */
+mtdjml3         tldjml3         REPLACE         /* pembelian awal */
+mtdtmp1         tldtmp1         REPLACE         /* jual */
+mtdket          tldket          REPLACE         /* lokasi mutasi */
+mtdkat          tldkat          REPLACE         /* mutasi beda lokasi */
+DEBUG   ldum    ldum    REPLACE
+
+MAP(maddtldstok)
+mtdbrg          tldbrg          REPLACE         /* kode barang */
+mtdnoll         tldnobuk        REPLACE         /* brd nobuk */
+mtdsts          tldsts          REPLACE         /* status nobuk */
+mtdjml          tldjml          REPLACE         /* sisa barang */
+mtdjml2         tldjml2         REPLACE         /* sisa barang rencana */
+mtdjml3         tldjml3         REPLACE         /* pembelian awal */
+mtdtmp1         tldtmp1         REPLACE         /* jual */
+mtdket          tldket          REPLACE         /* lokasi mutasi */
+mtdkat          tldkat          REPLACE         /* mutasi beda lokasi */
+DEBUG   ldum    ldum    REPLACE
+
+MAP(mmapmapcbd)
+        cBLANKS lnobukbd        DO_CALC
+        lnobukbd lnobukbd       REPLACE_IF cuplclaimbonus
+
+MAP(mupdketclaimbd)
+        mtdjml  ketdf3  REPLACE
+DEBUG   mtdhrg  ketdf4  REPLACE
+
+SPCALCS(sptr1)
+DO_LIB_IF cbrgjs0 ap_dbclc(DNAME daddbrgjs,DCOMMAND ADD,DFILE brg,DMAP maddbrgjs); 
+DO_LIB_IF cbrc0x ap_dbclc(DNAME daddbrc2,DCOMMAND ADD,DFILE brc,DMAP maddbrc2);
+DO_LIB_IF cbrc1x ap_dbclc(DNAME dupdbrc2,DCOMMAND UPDATE_RANGE,DTARGET brcdttypidx gv_jasain mtdbrg mtdcab lJASAIN lJASA, DMAP mupdbrc2);
+DO_LIB_IF cbrc2x ap_dbclc(DNAME dupdbrc2x,DCOMMAND UPDATE_RANGE,DTARGET brcdatstskod gv_dtbarang gv_INPG mtdcab lDTBARANG lPARTSPM, DBC_COND csama, DMAP mupdbrc2x);
+DO_LIB_IF cbrc3x ap_dbclc(DNAME dupdbrc3x,DCOMMAND UPDATE_RANGE,DTARGET brcdttypidx  gv_dtbarang mtdbrg mtdcab lDTBARANG lPARTSPM,DMAP mupdbrc2x);
+dmapmap
+DO_LIB_IF clokasi_0 ap_dbclc(DNAME daddtbd,DCOMMAND ADD,DFILE tbd,DMAP maddtbd);
+DO_LIB_IF clokasi_1 ap_dbclc(DNAME dupdtbd,DCOMMAND UPDATE,DTARGET tbddatkodidx gv_dttabel gv_barang lLOKAHASS mtdbrg,DMAP mupdtbd);
+DO_LIB_IF cbrc1wrn ap_dbclc(DNAME dupdbrc3,DCOMMAND UPDATE_RANGE,DTARGET brcdatstskod gv_dtbarang gv_INPG mtdcab lDTBARANG lPARTSPM mtdbrg,DMAP mupdbrc3);
+DO_LIB_IF cbrc2wrn ap_dbclc(DNAME daddbrc3, DCOMMAND ADD, DFILE brc, DMAP maddbrc3);
+DO_LIB_IF cSO	ap_dbclc(DNAME daddtbd2, DCOMMAND ADD, DFILE tbd, DMAP maddtbd2);
+DO_LIB_IF cTR2	ap_dbclc(DNAME daddtlm, DCOMMAND ADD, DFILE tlm, DMAP maddtlm);
+DO_LIB_IF cTR	ap_dbclc(DNAME daddtld, DCOMMAND ADD, DFILE tld, DMAP maddtld);
+DO_LIB_IF cTR	ap_dbclc(DNAME daddtld2, DCOMMAND ADD, DFILE tld, DMAP maddtld2);
+DO_LIB_IF cpartm ap_dbclc(DNAME daddtbd3, DCOMMAND ADD, DFILE tbd, DMAP maddtbd3);
+DO_LIB_IF cparthitam ap_dbclc(DNAME dmapmaptld3a, DCOMMAND MAPMAP,DMAP mmapmaptld3a);
+DO_LIB_IF cparthitam ap_dbclc(DNAME daddtld3, DCOMMAND ADD, DFILE tld, DMAP maddtld3a);
+DO_LIB_IF cfaktur ap_dbclc(DNAME daddabk1, DCOMMAND ADD,DFILE abk,DMAP maddabk1);
+DO_LIB_IF cfaktur ap_dbclc(DNAME daddabk2, DCOMMAND ADD,DFILE abk,DMAP maddabk2);
+DO_LIB_IF cupdjasa0 ap_dbclc(DNAME daddbrc4,DCOMMAND ADD,DFILE brc,DMAP maddbrc4);
+DO_LIB_IF cupdjasa1 ap_dbclc(DNAME dupdbrc4,DCOMMAND UPDATE_RANGE,DTARGET brcdatstskod gv_dtbarang gv_INPG mtdcab lDTBARANG lPARTSPM mtdbrg,DMAP mupdbrc4);
+
+DO_LIB_IF cdeskcall ap_dbclc(DNAME daddtld4, DCOMMAND ADD, DFILE tld, DMAP maddtld4);
+DO_LIB_IF ctgtahass ap_dbclc(DNAME daddcad, DCOMMAND ADD, DFILE cad, DMAP maddcad);
+DO_LIB_IF cleadtimepo0 ap_dbclc(DNAME daddcad_leadtimepo, DCOMMAND ADD, DFILE cad, DMAP maddcad);
+DO_LIB_IF cleadtimepo1 ap_dbclc(DNAME dupdcad_leadtimepo, DCOMMAND UPDATE, DTARGET caddatkodcab mtdscr mtdbrg mtdplg mtdcab, DMAP mupdcad_leadtimepo);
+DO_LIB_IF ckode2kat4 ap_dbclc(DNAME dupdbrg, DCOMMAND UPDATE, DTARGET brgdatkodidx gv_dtbarang mtdbrg, DMAP mupdbrg);
+DO_LIB_IF cbrgjaba ap_dbclc(DNAME dupdbrgjaba, DCOMMAND UPDATE, DTARGET brgdatkodidx gv_dtbarang mtdbrg, DMAP mupdbrgjaba);
+DO_LIB_IF cbrgstsdlp ap_dbclc(DNAME dupdbrgstsdlp, DCOMMAND UPDATE, DTARGET brgdatkodidx gv_dtbarang mtdbrg, DMAP mupdbrgstsdlp);
+DO_LIB_IF cbrgbrbkspart ap_dbclc(DNAME dupdbrgbrbkspartdlp, DCOMMAND UPDATE, DTARGET brgdatkodidx gv_dtbarang mtdbrg, DMAP mupdbrgbrbkspart);
+DO_LIB_IF cbrghotlinepart ap_dbclc(DNAME dupdbrghotlinepartdlp, DCOMMAND UPDATE, DTARGET brgdatkodidx gv_dtbarang mtdbrg, DMAP mupdhotlinepart);
+DO_LIB_IF cbrgfrefik2 ap_dbclc(DNAME dupdbrg_series_ahass, DCOMMAND UPDATE, DTARGET brgdatkodidx gv_dtbarang mtdbrg, DMAP mupdbrg_series_ahass);
+
+DO_LIB_IF cpoahs  ap_dbclc(DNAME dmapmap_po, DCOMMAND MAPMAP,DMAP mmapmap_po);
+DO_LIB_IF cbedacabang    ap_dbclc(DNAME daddtlm_po, DCOMMAND ADD, DFILE tlm,DLTARGET tlmbukidx tlmnobuk, DLLEN {stspjbuk}, DMAP maddtlm_po);
+DO_LIB_IF cpoahs_blmada  ap_dbclc(DNAME daddakt_po, DCOMMAND ADD, DFILE akt, DMAP maddakt_po);
+DO_LIB_IF cpoahs_sdhada  ap_dbclc(DNAME daddtld_po, DCOMMAND ADD, DFILE tld, DMAP maddtld_po);
+DO_LIB_IF csamacabang    ap_dbclc(DNAME daddtld_poahs, DCOMMAND ADD, DFILE tld, DMAP maddtld_po);
+DO_LIB_IF cpoahs_sdhada  ap_dbclc(DNAME dupdtlm_po, DCOMMAND UPDATE,DTARGET tlmbukidx lnobukPO, DMAP mupdtlm_po);
+DO_LIB                   ap_dbclc(DNAME dmapdum_po,DCOMMAND MAPMAP, DMAP mdumpo);
+
+
+DO_LIB_IF cpohmc  ap_dbclc(DNAME dmapmap_po2, DCOMMAND MAPMAP,DMAP mmapmap_po);
+DO_LIB_IF cpohmc_blmada  ap_dbclc(DNAME daddtlm_po2, DCOMMAND ADD, DFILE tlm,DLTARGET tlmbukidx tlmnobuk, DLLEN {stspjbuk}, DMAP maddtlm_po2);
+DO_LIB_IF cpohmc_blmada  ap_dbclc(DNAME daddakt_po2, DCOMMAND ADD, DFILE akt, DMAP maddakt_hmc);
+DO_LIB_IF cpohmc_sdhada  ap_dbclc(DNAME daddtld_po2, DCOMMAND ADD, DFILE tld, DMAP maddtld_po2);
+DO_LIB_IF cpohmc_sdhada  ap_dbclc(DNAME dupdtlm_po2, DCOMMAND UPDATE,DTARGET tlmbukidx lnobukPO, DMAP mupdtlm_po2);
+DO_LIB_IF ctgtnpbt_0  ap_dbclc(DNAME daddbir_npbt, DCOMMAND ADD, DFILE bir,DMAP maddbir_npbt);
+DO_LIB_IF ctgtnpbt_1  ap_dbclc(DNAME dupdbir,DCOMMAND UPDATE,DTARGET birbukdatidx mtdbrg lTARGETNPBT,DMAP mupdbir_npbt);
+
+DO_LIB_IF cupdbrgsts_partspm ap_dbclc(DNAME dupdbrgsts_partspm,DCOMMAND UPDATE, DTARGET brgdatkodidx gv_dtbarang mtdbrg, DMAP mupdbrgsts_partspm);
+
+DO_LIB_IF cSHIFT_AHASS 	ap_dbclc(DNAME dmapmap_tglahs, DCOMMAND MAPMAP, DMAP mmap_tanggal_ahass);
+DO_LIB_IF cSHIFT_AHASS	ap_dbclc(DNAME dmapmap_shiftahs, DCOMMAND MAPMAP, DMAP mmap_shift_ahass);
+DO_LIB_IF cSHIFT_AHASS0	ap_dbclc(DNAME daddhrmSHIFT,DCOMMAND ADD, DFILE hrm,DLTARGET hrmbukidx hrmnobuk, DLLEN {stspjbuk}, DMAP maddhrm_shift_ahass);
+DO_LIB			ap_dbclc(DNAME dmapdum1,DCOMMAND MAPMAP, DMAP mdumSHIFT);
+DO_LIB_IF cSHIFT_AHASS  ap_dbclc(DNAME daddtldSHIFT,DCOMMAND ADD,DFILE tld,DMAP maddtld_shift_ahass);
+DO_LIB			ap_dbclc(DNAME dmapdum2,DCOMMAND MAPMAP, DMAP mdumSHIFT);
+DO_LIB			ap_dbclc(DNAME dmapdum3,DCOMMAND MAPMAP, DMAP mdumnip);
+DO_LIB_IF cSHIFT_AHASS1	ap_dbclc(DNAME daddabk_shift, DCOMMAND ADD,DFILE abk,DMAP maddabk_shift_ahass);
+
+DO_LIB_IF cUSIA_REKOMEN	ap_dbclc(DNAME dmaprmdREKOMEN,DCOMMAND MAPMAP, DMAP mmaprmdREKOMEN);
+DO_LIB_IF cUSIA_MOTOR	ap_dbclc(DNAME daddrmd_usia_motor, DCOMMAND ADD, DFILE rmd, DMAP maddrmd_usia_motor);
+DO_LIB_IF cREKOMEN_PKT	ap_dbclc(DNAME daddrmd_rekomen_pkt, DCOMMAND ADD, DFILE rmd, DMAP maddrmd_rekomen_pkt);
+
+DO_LIB_IF cPART_PERMOTOR0a ap_dbclc(DNAME daddtbd_part_permotor,DCOMMAND ADD,DFILE tbd,DMAP maddtbd_part_permotor);
+DO_LIB_IF cPART_PERMOTOR0b ap_dbclc(DNAME daddtbt_part_permotor,DCOMMAND ADD,DFILE tbt,DMAP maddtbt_part_permotor);
+
+DO_LIB_IF cSHOWROOM_0 ap_dbclc(DNAME daddtbt_showroom,DCOMMAND ADD, DFILE tbt,DMAP maddtbt_showroom);
+DO_LIB_IF cSHOWROOM_1 ap_dbclc(DNAME dupdtbt_showroom,DCOMMAND UPDATE, DTARGET tbtdattypkod gv_dttabel gv_dttabel21 gt_ahass lCABANGAHASS lCABSHOW mtdbrg, DMAP mupdtbt_showroom);
+
+DO_LIB_IF cPROMO_ASURANSI ap_dbclc(DNAME dmaprmdASURANSI,DCOMMAND MAPMAP, DMAP mmaprmdAsuransi);
+DO_LIB_IF cASURANSI1      ap_dbclc(DNAME daddrmd_promo_asuransi1, DCOMMAND ADD, DFILE rmd, DMAP maddrmd_promo_asuransi1);
+DO_LIB_IF cASURANSI2      ap_dbclc(DNAME daddrmd_promo_asuransi2, DCOMMAND ADD, DFILE rmd, DMAP maddrmd_promo_asuransi2);
+
+DO_LIB_IF cPOPART503 	ap_dbclc(DNAME dmapnip_popart503,DCOMMAND MAPMAP, DMAP mmapnip_popart503);
+DO_LIB_IF cPOPART503_0 	ap_dbclc(DNAME daddpmb_popart503,DCOMMAND ADD,DFILE pmb,DMAP maddpmb_popart503);
+DO_LIB_IF cPOPART503_1  ap_dbclc(DNAME daddabk_popart503,DCOMMAND ADD,DFILE abk,DMAP maddabk_popart503);
+DO_LIB_IF cPOPART503a  	ap_dbclc(DNAME daddabk_popart503a,DCOMMAND ADD,DFILE abk,DMAP maddabk_popart503a);
+DO_LIB_IF cPOPART503b  	ap_dbclc(DNAME daddabk_popart503b,DCOMMAND ADD,DFILE abk,DMAP maddabk_popart503b);
+DO_LIB_IF cPOPART503c  	ap_dbclc(DNAME daddabk_popart503c,DCOMMAND ADD,DFILE abk,DMAP maddabk_popart503c);
+DO_LIB_IF cPOPART503d  	ap_dbclc(DNAME daddabk_popart503d,DCOMMAND ADD,DFILE abk,DMAP maddabk_popart503d);
+DO_LIB_IF cPOPART503e  	ap_dbclc(DNAME daddabk_popart503e,DCOMMAND ADD,DFILE abk,DMAP maddabk_popart503e);
+DO_LIB_IF cPOPART503f  	ap_dbclc(DNAME daddabk_popart503f,DCOMMAND ADD,DFILE abk,DMAP maddabk_popart503f);
+DO_LIB_IF cPOPART503tkd ap_dbclc(DNAME daddtkd_popart503,DCOMMAND ADD, DFILE tkd,DMAP maddtkd_perpanjangJTP);
+
+dmapawal_ahs
+/*********** ADD BIR UE **************/
+DO_LIB_IF cjoinbirahass_ueall0 ap_dbclc(DNAME daddbirahass_ueall,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_ueall);
+DO_LIB_IF cjoinbirahass_uekpb0 ap_dbclc(DNAME daddbirahass_uekpb,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_uekpb);
+DO_LIB_IF cjoinbirahass_uenonkpb0 ap_dbclc(DNAME daddbirahass_uenonkpb,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_uenonkpb);
+DO_LIB_IF cjoinbirahass_ueservice0 ap_dbclc(DNAME daddbirahass_ueservice,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_ueservice);
+DO_LIB_IF cjoinbirahass_ueservicelkp0 ap_dbclc(DNAME daddbirahass_ueservicelkp,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_ueservicelkp);
+DO_LIB_IF cjoinbirahass_ueservicering0 ap_dbclc(DNAME daddbirahass_ueservicering,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_ueservicering);
+DO_LIB_IF cjoinbirahass_uehr0 ap_dbclc(DNAME daddbirahass_uehr,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_uehr);
+DO_LIB_IF cjoinbirahass_uelr0 ap_dbclc(DNAME daddbirahass_uelr,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_uelr);
+DO_LIB_IF cjoinbirahass_uego0 ap_dbclc(DNAME daddbirahass_uego,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_uego);
+DO_LIB_IF cjoinbirahass_uebelipart0 ap_dbclc(DNAME daddbirahass_uebelipart,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_uebelipart);
+
+/*********** ADD BIR OMZ *************/
+DO_LIB_IF cjoinbirahass_omzall0 ap_dbclc(DNAME daddbirahass_omzall,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_omzall);
+DO_LIB_IF cjoinbirahass_omzjasa0 ap_dbclc(DNAME daddbirahass_omzjasa,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_omzjasa);
+DO_LIB_IF cjoinbirahass_omzpart0 ap_dbclc(DNAME daddbirahass_omzpart,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_omzpart);
+DO_LIB_IF cjoinbirahass_omzoli0 ap_dbclc(DNAME daddbirahass_omzoli,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_omzoli);
+DO_LIB_IF cjoinbirahass_omztire0 ap_dbclc(DNAME daddbirahass_omztire,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_omztire);
+DO_LIB_IF cjoinbirahass_omzbatt0 ap_dbclc(DNAME daddbirahass_omzbatt,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_omzbatt);
+
+/*********** ADD BIR LK **************/
+DO_LIB_IF cjoinbirahass_lkall0 ap_dbclc(DNAME daddbirahass_lkall,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_lkall);
+DO_LIB_IF cjoinbirahass_lkjasa0 ap_dbclc(DNAME daddbirahass_lkjasa,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_lkjasa);
+DO_LIB_IF cjoinbirahass_lkpart0 ap_dbclc(DNAME daddbirahass_lkpart,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_lkpart);
+DO_LIB_IF cjoinbirahass_lkoli0 ap_dbclc(DNAME daddbirahass_lkoli,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_lkoli);
+DO_LIB_IF cjoinbirahass_lktire0 ap_dbclc(DNAME daddbirahass_lktire,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_lktire);
+DO_LIB_IF cjoinbirahass_lkbatt0 ap_dbclc(DNAME daddbirahass_lkbatt,DCOMMAND ADD,DFILE bir,DMAP maddbirahass_lkbatt);
+
+DO_LIB_IF cpmtmeka0  ap_dbclc(DNAME daddaktpmt, DCOMMAND ADD, DFILE akt, DMAP maddaktpmt);
+DO_LIB_IF cpmtmeka1  ap_dbclc(DNAME dupdaktpmt, DCOMMAND UPDATE_RANGE,DTARGET aktkodtypidx mtdlok lPMTMEKA lPMTMEKA21 mtdtglfak, DMAP mupdaktpmt);
+
+DO_LIB_IF cdjoinrmd1 ap_dbclc(DNAME ddelrmd1,DCOMMAND DELETE_RANGE,DTARGET rmdstskodgab gv_INPG mtdbrg);
+DO_LIB_IF cmasterrmd ap_dbclc(DNAME daddmasterrmd, DCOMMAND ADD, DFILE rmd, DMAP maddmaster_rmd);
+DO_LIB_IF cremindkpb ap_dbclc(DNAME ddelakt_reminderkpb,DCOMMAND DELETE_RANGE,DTARGET aktkod2typid mtdbrg lREMINDKPB mtdkat);
+DO_LIB_IF cremindkpbjtp  ap_dbclc(DNAME dupdaktjtp, DCOMMAND UPDATE_RANGE,DTARGET aktkod2typid mtdbrg lREMINDKPB mtdkat, DMAP mupdaktjtp);
+
+DO_LIB			 ap_dbclc(DNAME dmapdum5,DCOMMAND MAPMAP, DMAP mdum);
+DO_LIB ap_dbclc(DNAME dupdmts1,DCOMMAND UPDATE,DTARGET mtsbukidx lmtsnobuk,DMAP mupdmts);
+
+/***************** TGT UE AHASS **************************/
+DO_LIB_IF cdtthahs  ap_dbclc(DNAME dmaptgtue,DCOMMAND MAPMAP, DMAP mmaptgtue);
+DO_LIB_IF cdtthahs0  ap_dbclc(DNAME daddrpttgt, DCOMMAND ADD, DFILE rpt, DMAP maddrpttgt);
+DO_LIB_IF cdtthahs1 ap_dbclc(DNAME dupdrpttgt, DCOMMAND UPDATE_RANGE,DTARGET rptdttypkod lDTTHAHASS lmtdket11 lmtdket lmtdhrg lmtdbrg mtdcab,DMAP mupdrpttgt);
+
+/****************** STOK BARANG AHASS **********************/
+DO_LIB_IF cmtdahs  ap_dbclc(DNAME dmapstbahass,DCOMMAND MAPMAP, DMAP mmapstbahass);
+DO_LIB_IF cmtdahs  ap_dbclc(DNAME daddrptstbahass, DCOMMAND ADD, DFILE rpt, DMAP maddrptstbahass);
+
+/****************** TGT SALES IN AHASS **************************/
+DO_LIB_IF ctgtslinahs		ap_dbclc(DNAME daddtgtslinahs,DCOMMAND ADD, DFILE cad,DMAP maddcadtgtslinahs); 
+
+
+/****************** UPL UBR ************************************/
+DO_LIB_IF cuplubr		ap_dbclc(DNAME daddubr,DCOMMAND ADD, DFILE ubr,DMAP maddubr); 
+
+/****************** UPL IBD ************************************/
+DO_LIB_IF cuplibd		ap_dbclc(DNAME daddibd,DCOMMAND ADD, DFILE tld,DMAP maddibd); 
+
+/****************** MASTER VOLUME BARANG AHASS *************************/
+DO_LIB_IF  cuplmvbrg   ap_dbclc(DNAME dmaptbdmvbrg,DCOMMAND MAPMAP, DMAP mmapmaptbdbrg);
+DO_LIB_IF  cuplmvbrg1  ap_dbclc(DNAME dupdtbdmvbrg,DCOMMAND UPDATE,DTARGET tbddatkodidx ltbddata ltbddtmkode ltbdtblkode ltbdkode,DMAP mupdtbdbrg);
+DO_LIB_IF  cuplmvbrg0  ap_dbclc(DNAME daddtbdmvbrg,DCOMMAND ADD,DFILE tbd , DMAP maddtbdbrg);
+
+/***************** MASTER PAKET SERVIS AHASS  **********************************/
+DO_LIB_IF cuplmserv    ap_dbclc(DNAME dmaptbdmpart,DCOMMAND MAPMAP, DMAP mmapmaptbdmservis);
+DO_LIB_IF cuplmserv1   ap_dbclc(DNAME dupdtbdmpart,DCOMMAND UPDATE, DTARGET tbddatkodidx ltbddata ltbddtmkode ltbdtblkode ltbdkode,DMAP mupdtbdmservis);
+DO_LIB_IF cuplmserv0   ap_dbclc(DNAME daddtbdmpart,DCOMMAND ADD,DFILE tbd ,DMAP maddtbdmservis);
+
+/**************** MASTER PAKET PART AHASS ********************************/
+DO_LIB_IF cuplmpart  ap_dbclc(DNAME dmaptbdmservice,DCOMMAND MAPMAP, DMAP mmapmaptbdmpart);
+DO_LIB_IF cuplmpart1  ap_dbclc(DNAME dupdtbdmservice,DCOMMAND UPDATE, DTARGET tbddatkodidx ltbddata ltbddtmkode ltbdtblkode ltbdkode,DMAP mupdtbdmpart);
+DO_LIB_IF cuplmpart0  ap_dbclc(DNAME daddtbdmservice,DCOMMAND ADD,DFILE tbd ,DMAP maddtbdmpart);
+
+/*************** MASTER TARGET MAEN DEALER PERCABANG *********************/ 
+DO_LIB_IF cuplmomzcabahass   ap_dbclc(DNAME dmaptbdmomzcabahass,DCOMMAND MAPMAP, DMAP mmapmaptbdmomzcabahass);
+DO_LIB_IF cuplmomzcabahass1  ap_dbclc(DNAME dupdtbdmomzcabahass,DCOMMAND UPDATE, DTARGET tbddatkodidx ltbddata ltbddtmkode ltbdtblkode ltbdkode,DMAP mupdtbdmomzcabahass);
+DO_LIB_IF cuplmomzcabahass0  ap_dbclc(DNAME daddtbdmomzcabahass,DCOMMAND ADD,DFILE tbd ,DMAP maddtbdmomzcabahass);
+
+/*************** MASTER UPLOAD STOK BARANG AUDIT ************************/
+DO_LIB_IF cuplstokaudit   ap_dbclc(DNAME dmaptldstok,DCOMMAND MAPMAP, DMAP mmapmaptldstok);
+DO_LIB_IF cuplstokaudit1  ap_dbclc(DNAME dupdtldstok,DCOMMAND UPDATE_RANGE, DTARGET tldbukbrgoto ltldnobuk ltldsts ltldbrg,DMAP mupdtldstok);
+DO_LIB_IF cuplstokaudit0  ap_dbclc(DNAME daddtldstok,DCOMMAND ADD,DFILE tld ,DMAP maddtldstok);
+
+
+
+/**** DEL BRD KOSONG ******/
+DO_LIB_IF cbrdkosong ap_dbclc(DNAME delbrdoto,DCOMMAND DELETE,DTARGET brdotoidx mtdbrg);
+
+ 
+DO_LIB                    ap_dbclc(DNAME dmapmapcbd,DCOMMAND MAPMAP,DMAP mmapmapcbd);
+DO_LIB_IF cuplclaimbonus  ap_dbclc(DNAME dupdketcbd,DCOMMAND UPDATE,DTARGET ketdatbukkod gt_CX lnobukbd gt_CX21 ,DMAP mupdketclaimbd);
+
+SPCALCS(sptr2)
+DO_LIB_IF cbrc0 ap_dbclc(DNAME daddbrc,DCOMMAND ADD,DFILE brc,DMAP maddbrc);
+DO_LIB_IF cbrc1 ap_dbclc(DNAME dupdbrc,DCOMMAND UPDATE_RANGE,DTARGET brcdatstskod gv_dtbarang gv_INPG cadkdcab lDTBARANG lPARTSPM mtdbrg, DMAP mupdbrc);
+DO_LIB ap_dbclc(DNAME dupdmts2,DCOMMAND UPDATE,DTARGET mtsbukidx lmtsnobuk,DMAP mupdmts);
+
+DO_LIB_IF chet0 ap_dbclc(DNAME daddbrc5,DCOMMAND ADD,DFILE brc,DMAP maddbrc5);
+DO_LIB_IF chet1 ap_dbclc(DNAME dupdbrc5,DCOMMAND UPDATE_RANGE,DTARGET brcdatstskod gv_dtbarang gv_INPG cadkdcab lDTBARANG lPARTSPM mtdbrg,DMAP mupdbrc5);
+
+
+
+
+POSTING(trans)
+	PST_COMMAND	sptr1
+
+POSTING(trans2)
+	PST_COMMAND	sptr2
+
+END_SCREEN
+
