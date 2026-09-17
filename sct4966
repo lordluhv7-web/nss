@@ -119,7 +119,6 @@ lastno2		STRING		21
 lnopol		STRING		21
 lkpb		STRING		21
 ltanggal	DATE		4
-ltanggal2	DATE		4
 
 ltkmnobuk       STRING          21
 ltkmkode        STRING          21
@@ -340,9 +339,6 @@ lreqmstfields        	INIT   "lname+lappId+lchannelId+ltemplateId+ltext"
 lapi_key		INIT	"dgi-key-live:d872d8b55d2bc71a1def"
 lBLANKS			INIT	BLANKS
 
-CALCS()
-cplus23			ltanggal + 23
-cKondRemindAuto   	lftmkode2 == "REMINDKPB" && ltkmtype == "AUTO"
 
 MAP(mdum)
 cthbl		lthbl		DO_CALC
@@ -361,9 +357,6 @@ tkmplg          ltkmplg         REPLACE
 tkmdf1		ltkmdf1		REPLACE
 tkmtype		ltkmtype	REPLACE
 tkmtgl		ltkmtgl		REPLACE
-lBLANKS		ltanggal2	REPLACE
-ltanggal	ltanggal2	REPLACE
-cplus23		ltanggal2	DO_CALC_IF cKondRemindAuto
 
 CALCS()
 c1		1
@@ -440,10 +433,10 @@ SFL_LINES(10)
 SFL_TITLE(transt)
 SFL_COND cremindkpb
 SFL_SELECT cbisareminder
-SFL_TARGET_GTE_IF ckondRemind2
-akttgltypidx    ltanggal lREMINDKPB11 {ltanggal2} {lREMINDKPB11}
-SFL_TARGET_GTE_IF ckondRemind3
-akttgltypidx    ltanggal lREMINDKPB11 ltkmplg {ltanggal2} {lREMINDKPB11} {ltkmplg}
+SFL_TARGET_IF ckondRemind2
+akttgltypidx    ltanggal lREMINDKPB11
+SFL_TARGET_IF ckondRemind3
+akttgltypidx    ltanggal lREMINDKPB11 ltkmplg
 
 IMAGE(transg1t)
 /--------------------t------------------t--------------t----------------t---------------t---------------\
