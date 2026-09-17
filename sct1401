@@ -733,7 +733,8 @@ cadaakt1     	tkmkode == "REMINDERKPB"
 ckondRemind1	(((tkmdf1 == 30 && (aktjml < 1 || aktjml == 0)) ||
 		(tkmdf1 == 14 && (aktdf4 < 1 || aktdf4 == 0)) ||
 		(tkmdf1 == 7 && (aktdf5 < 1 || aktdf5 == 0)) || 
-		(tkmdf1 == 0 || tkmdf1 == BLANKS)) &&
+		(tkmdf1 == 0 || tkmdf1 == BLANKS) ||
+		(tkmtype == "AUTO" && aktjml < 1 && aktdf4 < 1 && aktdf5 < 1)) &&
 		((tkmlokjl=="CABANG" && (tkmlok1 == aktcab || tkmlok1 == BLANKS)) || 
 		(tkmlokjl=="DCOOHMC" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2) || 
 		(tkmlokjl=="KAWIL" && djoinsgmDCOO==1 && lnipsgmDCOO==tkmlok2) ||
@@ -749,12 +750,12 @@ SFL_LINES(10)
 SFL_TITLE(transg7t)
 SFL_COND cadaakt1
 SFL_SELECT ckondRemind1
+SFL_TARGET_GTE_IF ckondRemindAuto
+akttgltypidx	tkmtgl1	lREMINDKPB11 tkmplg {tkmtgl2} {lREMINDKPB11} {tkmplg}
 SFL_TARGET_GTE_IF ckondRemind2
 akttgltypidx 	tkmtgl1 lREMINDKPB11 {tkmtgl1} {lREMINDKPB11}
 SFL_TARGET_GTE_IF ckondRemind3
 akttgltypidx	tkmtgl1	lREMINDKPB11 tkmplg {tkmtgl1} {lREMINDKPB11} {tkmplg}
-SFL_TARGET_GTE_IF ckondRemindAuto
-akttgltypidx	tkmtgl1	lREMINDKPB11 tkmplg {tkmtgl2} {lREMINDKPB11} {tkmplg}
 
 /**********************************************************************/
 IMAGE(transg8t)
@@ -1039,11 +1040,18 @@ SFL_LINES(10)
 SFL_TITLE(transat)
 SFL_COND cadaakt1
 SFL_SELECT ckondRemind1a
+SFL_TARGET_GTE_IF ckondRemindAuto
+akttgltypidx    tkmtgl1 lREMINDKPB11 tkmplg {tkmtgl2} {lREMINDKPB11} {tkmplg}
+SFL_TARGET_GTE_IF ckondRemind2
+akttgltypidx    tkmtgl1 lREMINDKPB11 {tkmtgl1} {lREMINDKPB11}
+SFL_TARGET_GTE_IF ckondRemind3
+akttgltypidx    tkmtgl1 lREMINDKPB11 tkmplg {tkmtgl1} {lREMINDKPB11} {tkmplg}
+/*
 SFL_TARGET_IF ckondRemind2
 akttgltypidx    tkmtgl1 lREMINDKPB11
 SFL_TARGET_IF ckondRemind3
 akttgltypidx    tkmtgl1 lREMINDKPB11 tkmplg
-
+*/
 
 IMAGE(transag1t)
 /--------------------t------------------t--------------t----------------t---------------t---------------t---------------\

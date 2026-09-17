@@ -211,7 +211,10 @@ lakhm1		        INIT		{ctglakhm1}
 lpil                DFALT_SCAN	1 "PROSESAN 198 UAT"
                                 2 "PROSESAN BAHAN RO M2W4W"
                                 3 "PROSESAN SPK RO COUNTER M2W4W"
-				4 "PROSESAN REMIND SERVICEKPB1"
+				4 "PROSESAN REMIND PKTSERVICEKPB1"
+				5 "PROSESAN REMIND PKTSERVICEKPB2"
+				6 "PROSESAN REMIND PKTSERVICEKPB3"
+				7 "PROSESAN REMIND PKTSERVICEKPB4"
 					
 ltgl1               INIT        {cawlbln}
 ltgl2               INIT        {g_tgltrn}	
@@ -486,10 +489,14 @@ tgmtype         NOCHANGE        INPUTRI 1
 tgmtgl          NOCHANGE        INPUTRI 2
 
 CALCS()
+cpil4567       lpil == 4 || lpil == 5 || lpil == 6 || lpil == 7
 cpil4          lpil == 4
+cpil5          lpil == 5
+cpil6          lpil == 6
+cpil7          lpil == 7
 
 SUBFILE(transg3)
-SFL_COND        cpil4
+SFL_COND        cpil4567
 SFL_LINES(15)
 SFL_TARGET
 tgmdattglidx   gv_TGL ltgl2
@@ -729,7 +736,10 @@ lCABANG                 tkmlokjl                REPLACE
 lSYSTIME                tkmjam                  REPLACE
 ctambah7                tkmtgl1                 DO_CALC
 ctambah30               tkmtgl2                 DO_CALC
-lPKTSERVICEKPB1         tkmplg                  REPLACE
+lPKTSERVICEKPB1         tkmplg                  REPLACE_IF cpil4
+lPKTSERVICEKPB2         tkmplg                  REPLACE_IF cpil5
+lPKTSERVICEKPB3         tkmplg                  REPLACE_IF cpil6
+lPKTSERVICEKPB4         tkmplg                  REPLACE_IF cpil7
 DEBUG lAUTO             tkmtype                 REPLACE
 /*l7                    tkmdf1                  REPLACE*/
 
