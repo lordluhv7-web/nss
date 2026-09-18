@@ -142,8 +142,8 @@ lbkmtgl                 DATE            4
 l301                    STRING          11
 l303                    STRING          11
 l309                    STRING          11   
-lcabangBlm				INT2			2
-
+lcabangBlm              INT2            2
+l0                      DFLOAT          2
 
 MAP(muplok)
 	gv_ok		mtstypbrg	REPLACE
@@ -629,7 +629,7 @@ mtsdata                 INIT_QUERY_F11	"mtsdata=="CLAIMBD2""
 l301                    INIT            301
 l303                    INIT            303
 l309                    INIT            309
-
+l0                      INIT            0
 
 mtsgrup			DFALT_SCAN	HO_TO_MD	CABANG_TO_MD
 mtsdvs			DFALT_SCAN	SUDAH		BELUM
@@ -1945,7 +1945,11 @@ PERMIT(transa2)
 MAP(maddmtdnom)
         mtdnobuk        mtdnobuk        REPLACE
         mtdjml          mtsjml          REPLACE
-        mtdhrg          mtsjml2         REPLACE     
+        mtdhrg          mtsjml2         REPLACE
+        mtdjml          mtstothrg       REPLACE
+        l0              mtstotdis       REPLACE             
+        mtdhrg          mtsperdis       REPLACE
+        l0              mtsperdisd      REPLACE
 
 SPCALCS(sptrans)
 DO_LIB          ap_dbclc(DNAME daddtlmnom,DCOMMAND UPDATE_BUF3,DTARGET mtsbukidx mtdkat,DMAP maddmtdnom);
