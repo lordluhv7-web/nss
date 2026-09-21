@@ -13,6 +13,8 @@ lnobukreview_V3	        STRING  21
 lnobukreview_V4	        STRING  21
 lnobukreview_V5	        STRING  21
 lnobukreview_V6	        STRING  21
+lnobukreview_V7	        STRING  21
+lnobukreview_V8	        STRING  21
 lcab		        STRING  21
 lsts		        STRING  5
 lsts2		        STRING  5
@@ -36,6 +38,10 @@ lnipnetwork             STRING  21
 lgrpnipnetwork          STRING  21
 lnippeople              STRING  21
 lgrpnippeople           STRING  21
+lnippromotion           STRING  21
+lgrpnippromotion        STRING  21
+lnipcustvoice           STRING  21
+lgrpnipcustvoice        STRING  21
 
 lnipHOHMC	        STRING  21
 lnipMKTG	        STRING  21
@@ -161,6 +167,8 @@ ltotaldcaopr            INT2    2
 ltotalcxcrm             INT2    2
 ltotalcxpeople          INT2    2
 ltotalcxnetwork         INT2    2
+ltotalcxpromotion       INT2    2
+ltotalcxcustvoice       INT2    2
 
 ltldtgl2h1 		INT2	2
 ltldtgl2h2 		INT2	2
@@ -235,7 +243,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "150926v3"				/* VERSI APLIKASI */
+lversi			INIT		        "160926v1"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -1046,6 +1054,16 @@ DBCALCS(dabdnetwork)
         DBC_COMMAND     JOIN
         DBC_TARGET      abdkymtglidx    lnipnetwork ltglh1
         DBC_SELECT      cdabdnip
+
+DBCALCS(dabdpromotion)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      abdkymtglidx    lnippromotion ltglh1
+        DBC_SELECT      cdabdnip
+
+DBCALCS(dabdcustvoice)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      abdkymtglidx    lnipcustvoice ltglh1
+        DBC_SELECT      cdabdnip
        
 DBCALCS(dabdpeople)
         DBC_COMMAND     JOIN
@@ -1064,6 +1082,8 @@ clbh14h1		SYSTIME > ljam14 && ltgmkeh1 == "6"
 clbh14dca		SYSTIME > ljam14 && dabddca == 1 && dabdmktg == 1
 clbh14crm		SYSTIME > ljam14 && dabdcrm == 1
 clbh14network		SYSTIME > ljam14 && dabdnetwork == 1
+clbh14promotion		SYSTIME > ljam14 && dabdpromotion == 1
+clbh14custvoice		SYSTIME > ljam14 && dabdcustvoice == 1
 clbh14people		SYSTIME > ljam14 && dabdpeople == 1
 chmin2		        SYSTIME > ljam && dhariefektif >= 0 && dtglakhirbulan >= 0 && lbesok >= lclosing
 ctgl1		        DO_LIB ap_tambl(g_tgltrn,l1,&lawlblndpn);
@@ -1211,17 +1231,17 @@ DBCALCS(dscanjmlabkHOCX2)
 
 CALCS()
 clusa                   g_tgltrn + 2
-ckrg16_new1             SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && ljmlHMCINPG < 2 /*30*/
-ckrg16_new2krg          SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && dscanjmlabkHMC2 >= 0 && ljmlHMCINPG >= 2 && ljmlHMCBESOK < 2 /*30*/
-ckrg16_new2lbh          SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && dscanjmlabkHMC2 >= 0 && ljmlHMCINPG >= 2 && ljmlHMCBESOK >= 2 /*30*/
-clbh16_new1             SYSTIME > ljam && dscanjmlabkHMC2 >= 0 && ljmlHMCBESOK < 2 /*30*/
-clbh16_new2             SYSTIME > ljam && dscanjmlabkHMC2 >= 0 && ljmlHMCBESOK >= 2 /*30*/
+ckrg16_new1             SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && ljmlHMCINPG < 30
+ckrg16_new2krg          SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && dscanjmlabkHMC2 >= 0 && ljmlHMCINPG >= 30 && ljmlHMCBESOK < 30
+ckrg16_new2lbh          SYSTIME <= ljam && dscanjmlabkHMC1 >= 0 && dscanjmlabkHMC2 >= 0 && ljmlHMCINPG >= 30 && ljmlHMCBESOK >= 30
+clbh16_new1             SYSTIME > ljam && dscanjmlabkHMC2 >= 0 && ljmlHMCBESOK < 30
+clbh16_new2             SYSTIME > ljam && dscanjmlabkHMC2 >= 0 && ljmlHMCBESOK >= 30
 
-ckrg16_new1b            SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && ljmlHOCXINPG < 2 /*30*/
-ckrg16_new2bkrg         SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && dscanjmlabkHOCX2 >= 0 && ljmlHOCXINPG >= 2 && ljmlHOCXBESOK < 2 /*30*/ 
-ckrg16_new2blbh         SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && dscanjmlabkHOCX2 >= 0 && ljmlHOCXINPG >= 2 && ljmlHOCXBESOK >= 2 /*30*/ 
-clbh16_new1b            SYSTIME > ljam && dscanjmlabkHOCX2 >= 0 && ljmlHOCXBESOK < 2 /*30*/
-clbh16_new2b            SYSTIME > ljam && dscanjmlabkHOCX2 >= 0 && ljmlHOCXBESOK >= 2 /*30*/
+ckrg16_new1b            SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && ljmlHOCXINPG < 30
+ckrg16_new2bkrg         SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && dscanjmlabkHOCX2 >= 0 && ljmlHOCXINPG >= 30 && ljmlHOCXBESOK < 30 
+ckrg16_new2blbh         SYSTIME <= ljam && dscanjmlabkHOCX1 >= 0 && dscanjmlabkHOCX2 >= 0 && ljmlHOCXINPG >= 30 && ljmlHOCXBESOK >= 30 
+clbh16_new1b            SYSTIME > ljam && dscanjmlabkHOCX2 >= 0 && ljmlHOCXBESOK < 30
+clbh16_new2b            SYSTIME > ljam && dscanjmlabkHOCX2 >= 0 && ljmlHOCXBESOK >= 30
 
 /* KUNCIAN HO HMC*/
 MAP(maddabkHOHMC)
@@ -1876,6 +1896,8 @@ cselectcxhead		tbdkettype == "CXDIVHEAD"
 cselectcxcrm            tbdkettype == "CXCRM"
 cselectcxnetwork        tbdkettype == "CXNETWORK"
 cselectcxpeople         tbdkettype == "CXPEOPLE"
+cselectcxpromotion	tbdkettype == "CXPROMOTION"
+cselectcustvoice	tbdkettype == "CUSTOMERVOICE"
 cselectreview		tlmtype2 == lTHBL
 cabkdetail2ho	        abkkym2 == lCEKREVIEW2 && abkkym == lnipHOHMC
 cabkdetail2homkt        abkkym2 == lCEKREVIEW2 && abkkym == lnipMKTG
@@ -1902,6 +1924,18 @@ DBCALCS(djoinreview_V4)
         DBC_COMMAND	JOIN
         DBC_TARGET	tlmbukidx       lnobukreview_V4    
         DBC_SELECT	cselectreview    
+
+DBCALCS(djoinreview_V7)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tlmbukidx       lnobukreview_V7
+        DBC_SELECT      cselectreview
+
+DBCALCS(djoinreview_V8)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tlmbukidx       lnobukreview_V8
+        DBC_SELECT      cselectreview
+
+
 
 DBCALCS(djoinreview_V5)
         DBC_COMMAND	JOIN
@@ -1970,6 +2004,14 @@ MAP(mcxpeople)
 tbdkode                 lnippeople              REPLACE
 tbdkettype              lgrpnippeople           REPLACE
 
+MAP(mcxpromotion)
+tbdkode                 lnippromotion           REPLACE
+tbdkettype              lgrpnippromotion        REPLACE
+
+MAP(mcxcustvoice)
+tbdkode                 lnipcustvoice           REPLACE
+tbdkettype              lgrpnipcustvoice        REPLACE
+
 
 
 DBCALCS(dnipcxhead)
@@ -1996,6 +2038,19 @@ DBCALCS(dnipcxpeople)
         DBC_SELECT      cselectcxpeople
         DBC_MAP         mcxpeople
 
+DBCALCS(dnipcxpromotion)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tbddatkodidx    gv_dttabel lCUSTOMEREXPERIENCE lHOCX
+        DBC_SELECT      cselectcxpromotion
+        DBC_MAP         mcxpromotion
+
+DBCALCS(dnipcxcustvoice)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tbddatkodidx    gv_dttabel lCUSTOMEREXPERIENCE lHOCX
+        DBC_SELECT      cselectcustvoice
+        DBC_MAP         mcxcustvoice
+
+
 
 
 
@@ -2008,11 +2063,15 @@ cnobukreview_V3         "RBD" + THBLS(g_tgltrn) + lcab + "V003"
 cnobukreview_V4         "RBD" + THBLS(g_tgltrn) + lcab + "V004"
 cnobukreview_V5         "RBD" + THBLS(g_tgltrn) + lcab + "V005"
 cnobukreview_V6         "RBD" + THBLS(g_tgltrn) + lcab + "V006"
+cnobukreview_V7         "RBD" + THBLS(g_tgltrn) + lcab + "V007"
+cnobukreview_V8         "RBD" + THBLS(g_tgltrn) + lcab + "V008"
 cdatareview             "REVBNSDLR"
 ckondisireview_V1	lWeekString == "5" && djoinreview_V1 == 0 && tldsatbsr == 5 && (dscandetail1051 == 0 || dscandetail1051 != 0) && lpenghitungdetail == ltotaldetail && (lpersentflgsg < 75 || tlmtotal < 100)
 ckondisireview_V2	lWeekString == "5" && djoinreview_V2 == 0 && tldsatbsr == 5 && (dscandetail1051 == 0 || dscandetail1051 != 0) && lpenghitungdetail == ltotaldetail && ltotaldcaopr > 0 && (lpersentflgsg < 75 || tlmtotal < 100)
 ckondisireview_V3	lWeekString == "5" && djoinreview_V3 == 0 && tldsatbsr == 5 && (dscandetail1051 == 0 || dscandetail1051 != 0) && lpenghitungdetail == ltotaldetail && ltotalcxcrm > 0 && (lpersentflgsg < 75 || tlmtotal < 100)
 ckondisireview_V4	lWeekString == "5" && djoinreview_V4 == 0 && tldsatbsr == 5 && (dscandetail1051 == 0 || dscandetail1051 != 0) && lpenghitungdetail == ltotaldetail && ltotalcxnetwork > 0 && (lpersentflgsg < 75 || tlmtotal < 100)
+ckondisireview_V7	lWeekString == "5" && djoinreview_V7 == 0 && tldsatbsr == 5 && (dscandetail1051 == 0 || dscandetail1051 != 0) && lpenghitungdetail == ltotaldetail && ltotalcxpromotion > 0 && (lpersentflgsg < 75 || tlmtotal < 100)
+ckondisireview_V8	lWeekString == "5" && djoinreview_V8 == 0 && tldsatbsr == 5 && (dscandetail1051 == 0 || dscandetail1051 != 0) && lpenghitungdetail == ltotaldetail && ltotalcxcustvoice > 0 && (lpersentflgsg < 75 || tlmtotal < 100)
 ckondisireview_V5	lWeekString == "5" && djoinreview_V5 == 0 && tldsatbsr == 5 && (dscandetail1051 == 0 || dscandetail1051 != 0) && lpenghitungdetail == ltotaldetail && ltotalcxpeople > 0 && (lpersentflgsg < 75 || tlmtotal < 100)
 ckondisiabkreview	lWeekString == "5" && tldsatbsr == 5 && (dscandetail1051 == 0 || dscandetail1051 != 0) && lpenghitungdetail == ltotaldetail && lpersentflgsg < 75
 ckondisireview2		lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS))
@@ -2031,6 +2090,8 @@ cdjoinabk2dmkt          djoinabk2dmkt == 1
 cdnipcxcrm              dnipcxcrm == 1
 cdnipcxnetwork          dnipcxnetwork == 1
 cdnipcxpeople           dnipcxpeople == 1
+cdnipcxpromotion        dnipcxpromotion == 1
+cdnipcxcustvoice        dnipcxcustvoice == 1
 cxdivhead		dnipcxhead == 1
 
 
@@ -2042,10 +2103,14 @@ cpenghitungdco	        ltotaldcaopr + 1
 cpenghitungcrm	        ltotalcxcrm + 1
 cpenghitungpeople	ltotalcxpeople + 1
 cpenghitungnetwork	ltotalcxnetwork + 1
+cpenghitungpromotion	ltotalcxpromotion + 1
+cpenghitungcustvoice	ltotalcxcustvoice + 1
 cjoindcaopr             (djoindptnl == 1 || djoinperfom == 1) && ((/*ltldbrg == "PERFORMANCE" &&*/ ljabperfome == "DCAMKT") || (/*ltldbrg == "POTENTIAL" && */ljabpotential == "DCAMKT")) && tldsatbsr == 5 && tldsubtot < 100    
 cjoincxcrm              (djoindptnl == 1 || djoinperfom == 1) && ((/*ltldbrg == "PERFORMANCE" &&*/ ljabperfome == "CXCRM") ||  (/*ltldbrg == "POTENTIAL" && */ljabpotential == "CXCRM")) && tldsatbsr == 5 && tldsubtot < 100    
 cjoincxpeople           (djoindptnl == 1 || djoinperfom == 1) && ((/*ltldbrg == "PERFORMANCE" &&*/ ljabperfome == "CXPEOPLE") || (/*ltldbrg == "POTENTIAL" && */ljabpotential == "CXPEOPLE")) && tldsatbsr == 5 && tldsubtot < 100    
 cjoincxnetwork          (djoindptnl == 1 || djoinperfom == 1) && ((/*ltldbrg == "PERFORMANCE" &&*/ ljabperfome == "CXNETWORK") || (/*ltldbrg == "POTENTIAL" && */ljabpotential == "CXNETWORK")) && tldsatbsr == 5 && tldsubtot < 100    
+cjoincxpromotion        (djoindptnl == 1 || djoinperfom == 1) && ((/*ltldbrg == "PERFORMANCE" &&*/ ljabperfome == "CXPROMOTION") || (/*ltldbrg == "POTENTIAL" && */ljabpotential == "CXPROMOTION")) && tldsatbsr == 5 && tldsubtot < 100    
+cjoincxcustvoice        (djoindptnl == 1 || djoinperfom == 1) && ((/*ltldbrg == "PERFORMANCE" &&*/ ljabperfome == "CXCUSTVOICE") || (/*ltldbrg == "POTENTIAL" && */ljabpotential == "CXCUSTVOICE")) && tldsatbsr == 5 && tldsubtot < 100    
 cdjoincxhocrm           (/*tldbrg == "PERFORMANCE" &&*/ djoinperfom == 1 && ljabperfome == "CXCRM") || (/*tldbrg == "POTENTIAL" &&*/ djoindptnl == 1 && ljabpotential == "CXCRM")
 cdjoincxhopeople        (/*tldbrg == "PERFORMANCE" &&*/ djoinperfom == 1 && ljabperfome == "CXNETWORK") || (/*tldbrg == "POTENTIAL" &&*/ djoindptnl == 1 && ljabpotential == "CXNETWORK")  
 cdjoincxhonetwork       (/*tldbrg == "PERFORMANCE" &&*/ djoinperfom == 1 && ljabperfome == "CXPEOPLE") || (/*tldbrg == "POTENTIAL" &&*/ djoindptnl == 1 && ljabpotential == "CXPEOPLE")  
@@ -2071,11 +2136,15 @@ cpenghitungdco          ltotaldcaopr            DO_CALC_IF cjoindcaopr
 cpenghitungcrm          ltotalcxcrm             DO_CALC_IF cjoincxcrm
 cpenghitungpeople       ltotalcxpeople          DO_CALC_IF cjoincxpeople
 cpenghitungnetwork      ltotalcxnetwork         DO_CALC_IF cjoincxnetwork
+cpenghitungpromotion    ltotalcxpromotion       DO_CALC_IF cjoincxpromotion
+cpenghitungcustvoice    ltotalcxcustvoice       DO_CALC_IF cjoincxcustvoice
 lnipHOHMC               lnipHOHMC               REPLACE_IF creviewhohmc
 lnipMKTG                lnipMKTG                REPLACE_IF creviewmktg
 lnipcrm                 lnipcrm                 REPLACE_IF cdnipcxcrm              
 lnipnetwork             lnipnetwork             REPLACE_IF cdnipcxnetwork          
 lnippeople              lnippeople              REPLACE_IF cdnipcxpeople           
+lnippromotion           lnippromotion           REPLACE_IF cdnipcxpromotion           
+lnipcustvoice           lnipcustvoice           REPLACE_IF cdnipcxcustvoice           
 DEBUG   ldum            ldum                    REPLACE_IF cdjoinabk2ddca
 cnobukreview_V1         lnobukreview_V1         DO_CALC
 cnobukreview_V2         lnobukreview_V2         DO_CALC
@@ -2083,6 +2152,8 @@ cnobukreview_V3         lnobukreview_V3         DO_CALC
 cnobukreview_V4         lnobukreview_V4         DO_CALC
 cnobukreview_V5         lnobukreview_V5         DO_CALC
 cnobukreview_V6         lnobukreview_V6         DO_CALC
+cnobukreview_V7         lnobukreview_V7         DO_CALC
+cnobukreview_V8         lnobukreview_V8         DO_CALC
 DEBUG   ldum            ldum                    REPLACE_IF cdjoinabk2dmkt
 ldum                    ldum                    REPLACE_IF cdjointgm330h1
 ldum                    ldum                    REPLACE_IF cdjointgmakhblnh1
@@ -2166,6 +2237,42 @@ lnipKawil               tlmdari                 REPLACE
 lnobuk                  tlmnoasal               REPLACE
 tldth			tlmtype2		REPLACE
 lgrpnipnetwork       	tlmpst                  REPLACE_IF cdnipcxnetwork
+DEBUG   ldum            ldum                    REPLACE
+
+MAP(maddmasterreview_V7)
+lnobukreview_V7         tlmnobuk                REPLACE
+cdatareview             tlmdata                 DO_CALC
+g_tgltrn                tlmtgl                  REPLACE_IF ckrg14
+ltglh1                  tlmtgl                  REPLACE_IF clbh14
+ltglh2                  tlmtgl                  REPLACE_IF clbh14promotion
+gv_OPEN                 tlmsts                  REPLACE
+ltglh1                  tlmtgljtp               REPLACE_IF ckrg14
+ltglh2                  tlmtgljtp               REPLACE_IF clbh14
+ltglh3                  tlmtgljtp               REPLACE_IF clbh14promotion
+lcab                    tlmcab                  REPLACE
+lnippromotion           tlmplg                  REPLACE
+lnipKawil               tlmdari                 REPLACE
+lnobuk                  tlmnoasal               REPLACE
+tldth                   tlmtype2                REPLACE
+lgrpnippromotion        tlmpst                  REPLACE_IF cdnipcxpromotion
+DEBUG   ldum            ldum                    REPLACE
+
+MAP(maddmasterreview_V8)
+lnobukreview_V8         tlmnobuk                REPLACE
+cdatareview             tlmdata                 DO_CALC
+g_tgltrn                tlmtgl                  REPLACE_IF ckrg14
+ltglh1                  tlmtgl                  REPLACE_IF clbh14
+ltglh2                  tlmtgl                  REPLACE_IF clbh14custvoice
+gv_OPEN                 tlmsts                  REPLACE
+ltglh1                  tlmtgljtp               REPLACE_IF ckrg14
+ltglh2                  tlmtgljtp               REPLACE_IF clbh14
+ltglh3                  tlmtgljtp               REPLACE_IF clbh14custvoice
+lcab                    tlmcab                  REPLACE
+lnipcustvoice           tlmplg                  REPLACE
+lnipKawil               tlmdari                 REPLACE
+lnobuk                  tlmnoasal               REPLACE
+tldth                   tlmtype2                REPLACE
+lgrpnipcustvoice        tlmpst                  REPLACE_IF cdnipcxcustvoice
 DEBUG   ldum            ldum                    REPLACE
 
 
@@ -2395,6 +2502,8 @@ DO_LIB_IF ckondisireview_V1     ap_dbclc(DNAME daddmasterreview_V1,DCOMMAND ADD,
 DO_LIB_IF ckondisireview_V2     ap_dbclc(DNAME daddmasterreview_V2,DCOMMAND ADD,DFILE tlm,DMAP maddmasterreview_V2);
 DO_LIB_IF ckondisireview_V3     ap_dbclc(DNAME daddmasterreview_V3,DCOMMAND ADD,DFILE tlm,DMAP maddmasterreview_V3);
 DO_LIB_IF ckondisireview_V4     ap_dbclc(DNAME daddmasterreview_V4,DCOMMAND ADD,DFILE tlm,DMAP maddmasterreview_V4);
+DO_LIB_IF ckondisireview_V7     ap_dbclc(DNAME daddmasterreview_V7,DCOMMAND ADD,DFILE tlm,DMAP maddmasterreview_V7);
+DO_LIB_IF ckondisireview_V8     ap_dbclc(DNAME daddmasterreview_V8,DCOMMAND ADD,DFILE tlm,DMAP maddmasterreview_V8);
 DO_LIB_IF ckondisireview_V5     ap_dbclc(DNAME daddmasterreview_V5,DCOMMAND ADD,DFILE tlm,DMAP maddmasterreview_V5);
 /*
 DO_LIB_IF ckondisireview_V3     ap_dbclc(DNAME daddmasterreview_V3,DCOMMAND ADD,DFILE tlm,DLTARGET tlmbukidx tlmnobuk, DLLEN {stspjbuk},DMAP maddmasterreview_V3);
