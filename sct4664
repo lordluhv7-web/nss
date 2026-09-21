@@ -243,7 +243,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "160926v1"				/* VERSI APLIKASI */
+lversi			INIT		        "210926v1"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -1903,6 +1903,8 @@ cabkdetail2ho	        abkkym2 == lCEKREVIEW2 && abkkym == lnipHOHMC
 cabkdetail2homkt        abkkym2 == lCEKREVIEW2 && abkkym == lnipMKTG
 cabkdetail2cxcrm        abkkym2 == lCEKREVIEW2 && abkkym == lnipcrm 
 cabkdetail2network      abkkym2 == lCEKREVIEW2 && abkkym == lnipnetwork 
+cabkdetail2promotion    abkkym2 == lCEKREVIEW2 && abkkym == lnippromotion
+cabkdetail2custvoice    abkkym2 == lCEKREVIEW2 && abkkym == lnipcustvoice
 cabkdetail2people       abkkym2 == lCEKREVIEW2 && abkkym == lnippeople 
 
 DBCALCS(djoinreview_V1)
@@ -1966,6 +1968,16 @@ DBCALCS(djoinabk2dnetwork)
         DBC_COMMAND     JOIN
         DBC_SELECT      cabkdetail2network
         DBC_TARGET      abkdatbukidx    lKUNCIABSEN lnobukreview_V4
+
+DBCALCS(djoinabk2dpromotion)
+        DBC_COMMAND     JOIN
+        DBC_SELECT      cabkdetail2promotion
+        DBC_TARGET      abkdatbukidx    lKUNCIABSEN lnobukreview_V7
+
+DBCALCS(djoinabk2dcustvoice)
+        DBC_COMMAND     JOIN
+        DBC_SELECT      cabkdetail2custvoice
+        DBC_TARGET      abkdatbukidx    lKUNCIABSEN lnobukreview_V8
 
 DBCALCS(djoinabk2dpeople)
         DBC_COMMAND     JOIN
@@ -2082,6 +2094,8 @@ ckondisireview4		djoinabk2ddca == 0 && lWeekString == "5" && tldsatbsr == 5 && (
 ckondisireview5		djoinabk2dmkt == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "DCAMKT" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "DCAMKT"/* && tldbrg == "POTENTIAL"*/))
 ckondisireview6		djoinabk2dcxcrm == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "CXCRM" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "CXCRM"/* && tldbrg == "POTENTIAL"*/))
 ckondisireview7		djoinabk2dnetwork == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "CXNETWORK" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "CXNETWORK"/* && tldbrg == "POTENTIAL"*/))
+ckondisireview9		djoinabk2dpromotion == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "CXPROMOTION" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "CXPROMOTION"/* && tldbrg == "POTENTIAL"*/))
+ckondisireview10	djoinabk2dcustvoice == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "CXCUSTVOICE" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "CXCUSTVOICE"/* && tldbrg == "POTENTIAL"*/))
 ckondisireview8		djoinabk2dpeople == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS)) && ((djoinperfom == 1 && ljabperfome == "CXPEOPLE" /*&& tldbrg == "PERFORMANCE"*/) || (djoindptnl == 1 && ljabpotential == "CXPEOPLE"/* && tldbrg == "POTENTIAL"*/))
 /*ckondisireview3	djointldmaster == 0 && lWeekString == "5" && tldsatbsr == 5 && ((tldjml3 < tldhrg && tldperdism == BLANKS) || (tldperdism < tldhrg && tldperdism != BLANKS))*/
 creviewhohmc		djoinHOHMC2 == 1
@@ -2114,6 +2128,8 @@ cjoincxcustvoice        (djoindptnl == 1 || djoinperfom == 1) && ((/*ltldbrg == 
 cdjoincxhocrm           (/*tldbrg == "PERFORMANCE" &&*/ djoinperfom == 1 && ljabperfome == "CXCRM") || (/*tldbrg == "POTENTIAL" &&*/ djoindptnl == 1 && ljabpotential == "CXCRM")
 cdjoincxhopeople        (/*tldbrg == "PERFORMANCE" &&*/ djoinperfom == 1 && ljabperfome == "CXNETWORK") || (/*tldbrg == "POTENTIAL" &&*/ djoindptnl == 1 && ljabpotential == "CXNETWORK")  
 cdjoincxhonetwork       (/*tldbrg == "PERFORMANCE" &&*/ djoinperfom == 1 && ljabperfome == "CXPEOPLE") || (/*tldbrg == "POTENTIAL" &&*/ djoindptnl == 1 && ljabpotential == "CXPEOPLE")  
+cdjoincxhopromotion     (/*tldbrg == "PERFORMANCE" &&*/ djoinperfom == 1 && ljabperfome == "CXPROMOTION") || (/*tldbrg == "POTENTIAL" &&*/ djoindptnl == 1 && ljabpotential == "CXPROMOTION")  
+cdjoincxhocustvoice     (/*tldbrg == "PERFORMANCE" &&*/ djoinperfom == 1 && ljabperfome == "CXCUSTVOICE") || (/*tldbrg == "POTENTIAL" &&*/ djoindptnl == 1 && ljabpotential == "CXCUSTVOICE")  
 
 
 MAP(mmap2g3)
@@ -2364,6 +2380,32 @@ ltglh1                  abktgl                  REPLACE_IF clbh14
 ltglh2                  abktgl                  REPLACE_IF clbh14network
 DEBUG   ldum            ldum                    REPLACE
 
+MAP(maddabkhohmcreview7)
+lKUNCIABSEN             abkdata                 REPLACE
+lscr1052                abkscr                  REPLACE
+gv_INPG                 abksts                  REPLACE_IF ckrg14
+gt_RINP                 abksts                  REPLACE_IF clbh14
+lnobukreview_V7         abknobuk                REPLACE
+lnippromotion           abkkym                  REPLACE
+lCEKREVIEW2             abkkym2                 REPLACE
+g_tgltrn                abktgl                  REPLACE_IF ckrg14
+ltglh1                  abktgl                  REPLACE_IF clbh14
+ltglh2                  abktgl                  REPLACE_IF clbh14promotion
+DEBUG   ldum            ldum                    REPLACE
+
+MAP(maddabkhohmcreview8)
+lKUNCIABSEN             abkdata                 REPLACE
+lscr1052                abkscr                  REPLACE
+gv_INPG                 abksts                  REPLACE_IF ckrg14
+gt_RINP                 abksts                  REPLACE_IF clbh14
+lnobukreview_V8         abknobuk                REPLACE
+lnipcustvoice           abkkym                  REPLACE
+lCEKREVIEW2             abkkym2                 REPLACE
+g_tgltrn                abktgl                  REPLACE_IF ckrg14
+ltglh1                  abktgl                  REPLACE_IF clbh14
+ltglh2                  abktgl                  REPLACE_IF clbh14custvoice
+DEBUG   ldum            ldum                    REPLACE
+
 
 MAP(maddabkhohmcreview5)
 lKUNCIABSEN             abkdata                 REPLACE
@@ -2461,6 +2503,8 @@ lnobukreview_V6		tldnobuk	        REPLACE
 lnobukreview_V3		tldnobuk	        REPLACE_IF cdjoincxhocrm 
 lnobukreview_V4		tldnobuk	        REPLACE_IF cdjoincxhopeople 
 lnobukreview_V5		tldnobuk	        REPLACE_IF cdjoincxhonetwork 
+lnobukreview_V7		tldnobuk	        REPLACE_IF cdjoincxhopromotion
+lnobukreview_V8		tldnobuk	        REPLACE_IF cdjoincxhocustvoice
 ltglh1                  tldtgl2                 REPLACE_IF ckrg14
 ltglh2                  tldtgl2                 REPLACE_IF clbh14
 lREVIEWKAWIL		tlddata		        REPLACE
@@ -2520,6 +2564,8 @@ DO_LIB_IF ckondisireview4       ap_dbclc(DNAME dAddABK3Review,DCOMMAND ADD,DFILE
 DO_LIB_IF ckondisireview5       ap_dbclc(DNAME dAddABK3Review2,DCOMMAND ADD,DFILE abk,DMAP maddabkhohmcreview2);
 DO_LIB_IF ckondisireview6       ap_dbclc(DNAME dAddABK3Review3,DCOMMAND ADD,DFILE abk,DMAP maddabkhohmcreview3);
 DO_LIB_IF ckondisireview7       ap_dbclc(DNAME dAddABK3Review4,DCOMMAND ADD,DFILE abk,DMAP maddabkhohmcreview4);
+DO_LIB_IF ckondisireview9       ap_dbclc(DNAME dAddABK3Review7,DCOMMAND ADD,DFILE abk,DMAP maddabkhohmcreview7);
+DO_LIB_IF ckondisireview10      ap_dbclc(DNAME dAddABK3Review8,DCOMMAND ADD,DFILE abk,DMAP maddabkhohmcreview8);
 DO_LIB_IF ckondisireview8       ap_dbclc(DNAME dAddABK3Review5,DCOMMAND ADD,DFILE abk,DMAP maddabkhohmcreview5);
 
 
