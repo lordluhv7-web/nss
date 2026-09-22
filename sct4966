@@ -291,7 +291,7 @@ lreturnlabel         	INIT   	""
 lexpectedreturnvalue 	INIT   	""
 lurl			INIT 	"https://api.kliknss.co.id/campaign"
 /*lurl_kpb		INIT 	"https://api.kliknss.co.id/ahass/kpb"*/
-lurl_kpb		INIT 	"http://172.23.63.233:8000/api/data-masuk"
+lurl_kpb		INIT 	"http://172.23.63.60:8000/api/data-masuk"
 
 /*lmsttitle            	INIT   	""*/
 lmstlabels           	INIT   	""
@@ -317,7 +317,7 @@ lAFTERSVC11		INIT	AFTERSVC
 lAFTERSVC		INIT	AFTERSVC
 lAFTERKPB11		INIT	AFTERKPB
 lAFTERKPB		INIT	AFTERKPB
-lVERSI			INIT	17092026
+lVERSI			INIT	21092026
 
 
 lrequestreply   	INIT    "reply"
@@ -803,7 +803,7 @@ DO_LIB	ap_dbclc(DNAME dupdtkm,DCOMMAND UPDATE, DTARGET tkmbukidx lNobuk, DMAP mu
 SPCALCS(sptrans)
 DO_LIB		ap_dbclc(DNAME dmapmap,DCOMMAND MAPMAP,DMAP mmapmap);
 DO_LIB		ap_astra(lapi_key,lsecret_key);
-DO_LIB		ap_rqjsp(lurl_kpb,g_strksg,lmstlabeltransg9,lmstfieldtransg9,lreturnlabel,lexpectedreturnvalue);
+DO_LIB		ap_rqjsp(lurl_kpb,ldettitle_kpb,lmstlabeltransg9,lmstfieldtransg9,lreturnlabel,lexpectedreturnvalue);
 DO_LIB		ap_dbclc(DNAME dupdakt_sdhreminder1,DCOMMAND UPDATE ,DTARGET aktprmidx aktprm ,DMAP mupdakt_sdhreminder);
 
 SPCALCS(sptransg1)
