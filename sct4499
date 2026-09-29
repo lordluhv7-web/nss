@@ -1,0 +1,808 @@
+SCREEN 4499 APP_TYPE s.NxtPst643
+
+
+LOCAL
+PGM_FIELDS
+lversi			STRING	21
+ldum			STRING	4
+lurut			INT2	2
+lbtmnopj                STRING  21
+lDTPIU			STRING	11
+lANGSURAN		STRING	11
+/*lkat1			STRING	21*/
+lamtdf1			INT2	2
+lamtdf2			INT2	2
+lkatfak			STRING	21
+lbisnis			STRING	21
+lcab			STRING	21
+lAWLBLN                 DATE    4
+lAKHBLN                 DATE    4
+l1			INT2	2
+lmin1			INT2	3
+lTOTALTARGET		INT2	2
+lTGT969AO21		STRING	21
+lTGT969AO		STRING	11
+lscr			STRING	11
+l969			STRING	11
+lACTBNSDLR              STRING  11
+lnobuk1051              STRING  21
+lnobuk1051min1          STRING  21
+lthbl1051               STRING  21
+lthbl1051min1           STRING  21
+ltglms1                	DATE    8
+lKIRIMAN		STRING	21
+lP2NOHLPTGT		DATE	4
+lTGLAOM1		DATE	4
+lNIPAO          	STRING  21
+laktdkAO		STRING	2
+lCROM2W4W       	STRING  11
+lCROM2W4W21     	STRING  21
+lDTCRO          	STRING  21
+lRO1            	STRING  21
+lM2W4W          	STRING  21
+lpikplgCRO      	STRING  21
+lpikstsCRO      	STRING  21
+lpikketkonCRO   	STRING  21
+lpsmgenderCRO   	STRING  21
+lconhpCRO       	STRING  21
+lCL             	STRING  21
+l17             	INT2    2
+lSCRPRN			STRING	21
+lDateP2NoHL		DATE	4
+lDTKPICX                STRING  11
+lDTKPI                  STRING  11
+lthbl                   STRING  11
+lCX                     STRING  21
+lthblrpt                STRING  11
+lSMSC                 STRING  21
+lDTPSD                   STRING  11
+ltotACTPerformance      DFLOAT  8
+ltotACTPotential        DFLOAT  8
+ltotbonus               DFLOAT  8
+lfinalpoint             DFLOAT  8
+lesttrflgsg             DFLOAT  8
+lestbondev              DFLOAT  8
+lestbontac              DFLOAT  8
+lpersentflgsg           DFLOAT  8
+ltgttrflgsg             DFLOAT  8
+lMS1nobuk               STRING  21
+lMS2nobuk               STRING  21
+lhasilms1               DFLOAT  8
+lhasilms2               DFLOAT  8
+
+CALCS()
+cTGLAWL         DO_LIB ap_awlbl(g_tgltrn,&lAWLBLN);
+cTGLAKH         DO_LIB ap_akhbl(g_tgltrn,&lAKHBLN);
+cthbl           THBLS(lP2NOHLPTGT)
+cSalesAO	btmsales == psikode
+
+DBCALCS(djoinpik)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	pikdatbukidx 	gv_dtpiu lbtmnopj
+
+DBCALCS(djoinbtmAO)
+	DBC_COMMAND	JOIN
+	DBC_SELECT	cSalesAO
+	DBC_TARGET	btmbukidx 	bkmnobs
+
+DBCALCS(djoinaktTGTAO)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      aktbrgtglidx    psikode lTGT969AO lcab lP2NOHLPTGT
+
+DBCALCS(djoinkpicx)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      rptdttypkod     lDTKPI  lthblrpt lCX brcbrg brckode lCX         
+
+MAP(maktTGTAO2)
+	aktdk		laktdkAO	REPLACE
+	
+DBCALCS(djoinaktTGTAO2)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      aktbrgtglidx    psikode lTGT969AO lcab lDateP2NoHL
+	DBC_MAP		maktTGTAO2
+
+
+	MAP(mPikCRO)
+        pikplg          lpikplgCRO      REPLACE
+        piksts          lpikstsCRO      REPLACE
+        pikketkon	lpikketkonCRO	REPLACE
+
+DBCALCS(djoinpikCRO)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      pikdatbukidx    gv_dtpiu aktnobuk
+        DBC_MAP         mPikCRO
+
+CALCS()
+        cJoinPikCRO     djoinpikCRO == 1
+
+MAP(mPsmCRO)
+        psmgender       lpsmgenderCRO   REPLACE
+
+DBCALCS(djoinpsmCRO)
+        DBC_COMMAND     JOIN
+        DBC_COND        cJoinPikCRO
+        DBC_TARGET      psmplgstsktp    gv_dtkonsumen gv_INPG lpikplgCRO
+        DBC_MAP         mPsmCRO
+
+MAP(mConCRO)
+        conhp           lconhpCRO       REPLACE
+
+DBCALCS(djoinconCRO)
+        DBC_COMMAND     JOIN
+        DBC_COND        cJoinPikCRO
+        DBC_TARGET      conkodstsidx    lpikplgCRO gv_INPG
+        DBC_MAP         mConCRO
+
+
+IMAGE(master)
+/--------------------------------------------------------------------------------------------------\
+| /----------------------------------------------------------------------------------------------\ |
+| |            i.NoBuk    : ______________________                                               | |
+| \----------------------------------------------------------------------------------------------/ |
+\--------------------------------------------------------------------------------------------------/
+
+FIELD(master)
+lbtmnopj		ALLCAPS	INPUTRI 1
+
+DEFAULTS(master)
+lversi			INIT		2609.29v9
+lbisnis			INIT		{r_string1}
+lcab			INIT		{r_string2}
+lscr			INIT		{r_string3}
+lbtmnopj		INIT		{r_string4}
+lKIRIMAN		INIT		{r_string5}
+lNIPAO          	INIT		{r_string6}
+lSCRPRN          	INIT		{r_string10}
+lP2NOHLPTGT		INIT		{r_date1}
+lTGLAOM1		INIT		{r_date2}
+lDateP2NoHL		INIT		{r_date3}
+lDTPIU			INIT		DTPIU
+lACTBNSDLR              INIT            ACTBNSDLR
+lANGSURAN		INIT		ANG
+lurut			INIT		1
+lAWLBLN                 INIT    	{cTGLAWL}
+lAKHBLN                 INIT    	{cTGLAKH}
+l1			INIT		1
+lmin1			INIT		-1
+lTGT969AO21		INIT		TGT969AO
+lTGT969AO		INIT		TGT969AO
+l969			INIT		969
+lCROM2W4W       	INIT            CROM2W4W
+lCROM2W4W21     	INIT            CROM2W4W
+lDTCRO          	INIT            DTCRO
+lRO1            	INIT            RO1
+lM2W4W          	INIT            M2W4W
+lCL             	INIT            CL
+l17             	INIT            17
+lDTKPICX                INIT            DTKPICX
+lDTKPI                  INIT            DTKPI
+lthbl                   INIT            {cthbl}
+lCX                     INIT            CX
+lSMSC                   INIT            SMSC
+lDTPSD                   INIT            DTJBMD
+
+CALCS()
+cNoM2W4w	lbisnis != "M2W4W" && lSCRPRN != "1443"
+cM2W4WPROS1	lbisnis == "M2W4W" && lscr == "969" && lKIRIMAN == "PROS1"
+cM2W4WPROS2	lbisnis == "M2W4W" && lscr == "969" && lKIRIMAN == "PROS2"
+cM2W4WPRN	lbtmnopj == "CROM2W4W" && lSCRPRN == "1443"
+cJABATANAO      psijabatan == "AOM2W4W" || psijabatan == "MKTAOM2W4W"
+cJoinBtmAO	djoinbtmAO == 1
+cJoinTgtAO	djoinaktTGTAO == 0
+cdjoinkpicx0    djoinkpicx == 0
+cdjoinkpicx1    djoinkpicx == 1
+cJoinTgtAO2	djoinaktTGTAO2 == 1 && laktdkAO != "U"
+cPlus1AKTAO2    aktdf2 + 1
+
+IMAGE(trans)
+|_________________|__________________|
+
+FIELDS(trans)
+pikdata		NOCHANGE	INPUTRI 1
+piknobuk	NOCHANGE	INPUTRI 2
+
+/*CALCS()
+cpikini		(piknobuk == "03190300206" || piknobuk == "03190300211")*/
+
+SUBFILE(trans)
+SFL_LINES(6)
+/*SFL_SELECT	cpikini*/
+SFL_COND	cNoM2W4w
+SFL_TARGET
+        pikdatbukidx gv_dtpiu lbtmnopj
+
+
+IMAGE(transg1) 	
+|____________________ |____________________ |____________________ |
+
+FIELD(transg1)
+        psikode         NOCHANGE                        INPUTRI 1
+        psijabatan      NOCHANGE                        INPUTRI 2
+        psinama         NOCHANGE        SCROLL          INPUTRI 3
+
+SUBFILE(transg1)
+SFL_COND                cM2W4WPROS1
+SFL_SELECT              cJABATANAO
+SFL_LINES(15)
+SFL_TARGET
+        psicbskrsts     lcab gv_INPG
+
+IMAGE(transg2) 	
+|____________________ |____________________ |____________________ |
+
+FIELD(transg2)
+        akttgl         	NOCHANGE                        INPUTRI 1
+        aktbrg      	NOCHANGE                        INPUTRI 2
+        akttype         NOCHANGE        SCROLL          INPUTRI 3
+
+SUBFILE(transg2)
+SFL_COND                cM2W4WPROS2
+SFL_LINES(15)
+SFL_TARGET_GTE
+	aktbrgtglidx 	lNIPAO lTGT969AO lcab lDateP2NoHL {lNIPAO} {lTGT969AO} {lcab} {lTGLAOM1}
+
+/* POSTING KE 2 CRMM2W4W */
+IMAGE(transg3)
+|________________|____________|____________|___________|
+
+FIELD(transg3)	
+aktnobuk	NOCHANGE	INPUTRI		1
+aktkode		NOCHANGE	INPUTRI		2
+akttype		NOCHANGE	INPUTRI		3
+akttgl          NOCHANGE	INPUTRI		4
+	
+SUBFILE(transg3)
+SFL_COND                cM2W4WPRN
+SFL_LINES(10)
+SFL_TARGET
+	aktkodtypidx    lbisnis lCROM2W4W lCROM2W4W21
+
+IMAGE(trans2)
+|_______________|__________________|________|
+
+FIELD(trans2)
+angdata         NOCHANGE INPUTRI 1
+angnobuk        NOCHANGE INPUTRI 2
+angke           NOCHANGE INPUTRI 2
+
+CALCS()
+cangke  angke <= pikke /*&& (angnobuk == "03190300206" || angnobuk == "03190300211")*/
+
+SUBFILE(trans2)
+SFL_LINES(6)
+SFL_SORT_BY_FIELD angke
+SFL_COND	cNoM2W4w
+SFL_SELECT 	cangke
+SFL_TARGET
+angbukstsidx piknobuk lANGSURAN
+
+
+IMAGE(transg4)
+|_______________|___________________|___________.__|__________.__|
+
+
+FIELD(transg4)
+brckode		PROTECT 	SCROLL	INPUTRI 1
+brcbrg		PROTECT 	SCROLL	INPUTRI 2
+brcdf1		PROTECT			INPUTRI 3
+brcdf2		PROTECT 		INPUTRI 4
+
+
+CALCS()
+ckpicx          lbtmnopj == "KPICX"
+
+SUBFILE(transg4)
+SFL_LINES(6)
+SFL_COND        ckpicx
+SFL_TARGET
+brcdatkod2id   lDTKPICX lbisnis
+
+
+IMAGE(transg5)
+|_____________|_____________|______________|
+
+FIELD(transg5)
+aktkode2        PROTECT         INPUTRI 1
+aktdata         PROTECT         INPUTRI 2
+aktnobuk        PROTECT         INPUTRI 3
+
+
+DBCALCS(djoinpsiID)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      psikodidx       aktkode2
+
+DBCALCS(djoinpsdID)                                                                                                                                                                                         
+        DBC_COMMAND     JOIN
+        DBC_TARGET      psddatpsmkod    lDTPSD  aktkode2
+
+
+CALCS()
+cjkID   lbtmnopj== "UPDHONDAID"
+cdjoinpsiID     djoinpsiID == 1                                                                                                                                                                             
+cdjoinpsdID     djoinpsdID == 0 &&  djoinpsiID == 1
+
+    SUBFILE(transg5)
+    SFL_LINES(6)
+    SFL_COND    cjkID
+    SFL_TARGET
+    aktkodtypidx        lSMSC   lDTPSD 
+
+
+IMAGE(transg6)
+_____________  ________________  ______________ ________ _____
+
+FIELD(transg6)
+mtdnobuk		PROTECT  	INPUTRI 1
+mtdcab			PROTECT  	INPUTRI 2
+mtdthnstr		PROTECT  	INPUTRI 3
+mtdket			PROTECT  	INPUTRI 4	
+mtdnomesin		PROTECT  	INPUTRI 5
+
+
+CALCS()
+cPRNACTBD       lbtmnopj == "PRNACTBD"
+ctlm11051       mtdcab == tlmcab
+cBLANKS         BLANKS
+
+MAP(mtlm1051)
+tlmnobuk        lnobuk1051      REPLACE
+
+DBCALCS(djointlm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tlmdataslsts   lACTBNSDLR lthbl1051
+        DBC_SELECT      ctlm11051
+        DBC_MAP         mtlm1051
+
+MAP(mtlm1051min1)
+tlmnobuk        lnobuk1051min1  REPLACE
+
+DBCALCS(djointlmmin1)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tlmdataslsts   lACTBNSDLR lthbl1051min1
+        DBC_SELECT      ctlm11051
+        DBC_MAP         mtlm1051min1
+
+CALCS()
+cdjointlm       djointlm == 1 
+cdjointlmmin1	djointlmmin1 == 1
+cthblms1        DO_LIB ap_tambl(lTGLAOM1,lmin1,&ltglms1);
+cthbls1051min1	THBLS(ltglms1)
+
+MAP(mdum)
+cBLANKS         lnobuk1051      DO_CALC
+cBLANKS		lthbl1051min1   DO_CALC
+cBLANKS         lthbl1051       DO_CALC
+cBLANKS		lthbl1051min1	DO_CALC
+cthblms1	ltglms1		DO_CALC
+cthbls1051min1	lthbl1051min1	DO_CALC
+mtdthnstr       lthbl1051       REPLACE
+
+lnobuk1051      lnobuk1051      REPLACE_IF      cdjointlm
+lnobuk1051min1	lnobuk1051min1	REPLACE_IF	cdjointlmmin1
+DEBUG   ldum    ldum            REPLACE
+
+MAP(mupdmtdActBD)
+gv_CLSD         mtdsts          REPLACE
+DEBUG   ldum    ldum            REPLACE
+
+SUBFILE(transg6)
+SFL_LINES(15)
+SFL_COND        	cPRNACTBD
+SFL_TARGET      
+        mtddatlltgl    lACTBNSDLR gv_INPG lbisnis
+
+IMAGE(trans2g1)
+_____________  ________________  ______________ ________ _____
+
+FIELD(trans2g1)
+tldnobuk		PROTECT  	INPUTRI 1
+tldstr4			PROTECT  	INPUTRI 2
+tldth		        PROTECT  	INPUTRI 3
+tldukrwrn		PROTECT  	INPUTRI 4	
+tldtotdis		PROTECT  	INPUTRI 5
+
+CALCS()
+cMSmin1                 tldstr4 == "3"
+cMSmin2                 tldstr4 == "3"
+
+MAP(mMSmin1)
+tldnobuk                lMS1nobuk               REPLACE
+tldsubtot               lhasilms1               REPLACE
+
+DBCALCS(dMSmin1)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tldbukurtidx	lnobuk1051min1
+        DBC_SELECT      cMSmin1
+        DBC_MAP         mMSmin1
+
+MAP(mMSmin2)
+tldnobuk                lMS2nobuk               REPLACE
+tldsubtot               lhasilms2               REPLACE
+
+DBCALCS(dMSmin2)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tldbukurtidx    lnobuk1051min1
+        DBC_SELECT      cMSmin2
+        DBC_MAP         mMSmin2
+
+CALCS()
+cselectactperformance  tldcab == mtdcab && tlddata == "ACTBNSDLR" && tldth == mtdthnstr && tldsatbsr == mtdjml && tldstr4 == mtdket
+c0			0
+c50                     50
+c75                     75
+c90                     90
+c95                     95
+c100                    100
+cach                    tldjml3 / tldtmp1 * 100
+cachmd1                 tldsubtot >= 0 && tldsubtot < 70 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D")
+cachmd2                 tldsubtot >= 70 && tldsubtot < 80 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D")
+cachmd3                 tldsubtot >= 80 && tldsubtot < 90 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D")
+cachmd4                 tldsubtot >= 90 && tldsubtot < 100 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D")
+cachmd5                 tldsubtot >= 100 && (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C" || tldstr4 == "2A" || tldstr4 == "2B" || tldstr4 == "2C" || tldstr4 == "2D")
+cachmd6                 ((tldstr4 != "1A" && tldstr4 != "1B" && tldstr4 != "1C" && tldstr4 != "2A" && tldstr4 != "2B" && tldstr4 != "2C" && tldstr4 != "2D"))
+ctarget0                tldtmp1 == 0 && tldstr4 != "8B"
+ctarget1                tldtmp1 != 0 && tldstr4 != "8B"
+ctarget8Ba              tldjml3 == 0 && tldstr4 == "8B"
+ctarget8Bb              tldjml3 != 0 && tldstr4 == "8B"
+cMS1                    tldstr4 == "3" && dMSmin1 == 1 && tldsubtot == lhasilms1
+cMS2                    tldstr4 == "3" && dMSmin2 == 1 && (tldsubtot < lhasilms2 || (dMSmin1 == 1 && tldsubtot >= lhasilms1))
+cMS3                    tldstr4 == "3" && dMSmin1 == 1 && dMSmin2 == 1 && tldsubtot >= lhasilms2 && tldsubtot < lhasilms1 
+cMS4                    tldstr4 == "3" && dMSmin1 == 1 && tldsubtot >= lhasilms1 && tldsubtot < tldhrg
+cMS5                    tldstr4 == "3" && dMSmin1 == 1 && tldsubtot >= lhasilms1 && tldsubtot > tldhrg
+
+cpoint                  tldhrgnet * tldtotdis / 100
+cachmdlbh100            tldhrgnet > 100
+
+MAP(mupdtldActBD)
+mtdnomesin      	tldukrwrn       	REPLACE
+mtdnomesin		tldjml3			REPLACE
+cach                    tldsubtot               DO_CALC_IF ctarget1
+c100                    tldsubtot               DO_CALC_IF ctarget0
+c100                    tldsubtot               DO_CALC_IF ctarget8Ba
+c0                      tldsubtot               DO_CALC_IF ctarget8Bb
+c0                      tldhrgnet               DO_CALC_IF cachmd1
+c50                     tldhrgnet               DO_CALC_IF cachmd2
+c75                     tldhrgnet               DO_CALC_IF cachmd3
+c90                     tldhrgnet               DO_CALC_IF cachmd4
+tldsubtot               tldhrgnet               REPLACE_IF cachmd5
+tldsubtot               tldhrgnet               REPLACE_IF cachmd6
+c0                      tldhrgnet               DO_CALC_IF cMS1
+c75                     tldhrgnet               DO_CALC_IF cMS2
+c90                     tldhrgnet               DO_CALC_IF cMS3
+c95                     tldhrgnet               DO_CALC_IF cMS4
+c100                    tldhrgnet               DO_CALC_IF cMS5
+cpoint                  tldperdis               DO_CALC
+cpoint                  tldtmp2                 DO_CALC
+tldtotdis               tldperdis               REPLACE_IF cachmdlbh100
+tldtotdis               tldtmp2                 REPLACE_IF cachmdlbh100
+DEBUG   ldum   	        ldum            	REPLACE
+
+SUBFILE(trans2g1)
+SFL_LINES(18)
+SFL_COND        	cPRNACTBD
+SFL_SELECT 		cselectactperformance
+SFL_TARGET
+tldbukbrglok		lnobuk1051
+
+CALCS()
+cjoinpik	djoinpik == 1
+cPLATINUM       "PLATINUM"
+cGOLD           "GOLD"
+cSILVER         "SILVER"
+cTDKGARAP       "TDKGARAP"
+cNON		"NON"
+
+cmaxnunggak     angtglbyr - angtgljtp
+c6bulanpertama  angke >= 1 && angke <= 6 && angtglbyr - angtgljtp > lamtdf1
+cmaxnunggak_blmbyr      g_tgltrn - piktgljtp
+ctotal_blmbyr           g_tgltrn - piktgljtp > lamtdf2 && piksts == "INPG" && pikke!=piklama
+
+/*ctotal          angtglbyr - angtgljtp > lamtdf2*/
+ckat1           piklama - pikke <= 12 && lamtdf1 <= 7 && lamtdf2 <= 30
+ckat2           piklama - pikke <= 12 && lamtdf1 >  7 && lamtdf2 <= 20
+ckat3           piklama - pikke <= 12 && lamtdf1 <= 7 && lamtdf2 >= 31 && lamtdf2 <= 60
+ckat4           piklama - pikke <= 12 && lamtdf1 >  7 && lamtdf2 >= 21 && lamtdf2 <= 30
+ckat5           piklama - pikke <= 12 && lamtdf1 <= 7 && lamtdf2 >= 61 && lamtdf2 <= 90
+ckat6           piklama - pikke <= 12 && lamtdf1 >  7 && lamtdf2 >= 31 && lamtdf2 <= 90
+ckat7           piklama - pikke <= 12 && lamtdf1 <= 7 && lamtdf2 > 90
+ckat8           piklama - pikke <= 12 && lamtdf1 >  7 && lamtdf2 > 90
+c2kat1          piklama - pikke >  12 && lamtdf1 <= 7 && lamtdf2 <= 30
+c2kat2          piklama - pikke >  12 && lamtdf1 >  7 && lamtdf2 <= 20
+c2kat3          piklama - pikke >  12 && lamtdf1 <= 7 && lamtdf2 >= 31 && lamtdf2 <= 60
+c2kat4          piklama - pikke >  12 && lamtdf1 >  7 && lamtdf2 >= 21 && lamtdf2 <= 30
+c2kat5          piklama - pikke >  12 && lamtdf1 <= 7 && lamtdf2 >= 61 && lamtdf2 <= 90
+c2kat6          piklama - pikke >  12 && lamtdf1 >  7 && lamtdf2 >= 31 && lamtdf2 <= 90
+c2kat7          piklama - pikke >  12 && lamtdf1 <= 7 && lamtdf2 > 90
+c2kat8          piklama - pikke >  12 && lamtdf1 >  7 && lamtdf2 > 90
+
+
+curut		lurut + 1
+
+MAP(mmapmaster)
+brctype         lthblrpt        REPLACE
+DEBUG	ldum	ldum		REPLACE
+
+MAP(mmapldum)
+ldum		ldum		REPLACE
+curut		lurut		DO_CALC
+
+MAP(mmap)
+cmaxnunggak     lamtdf1          DO_CALC_IF c6bulanpertama
+/*cmaxnunggak     lamtdf2          DO_CALC_IF ctotal*/
+cmaxnunggak_blmbyr lamtdf2 	DO_CALC_IF ctotal_blmbyr
+cPLATINUM       lkatfak         DO_CALC_IF ckat1
+cPLATINUM       lkatfak         DO_CALC_IF ckat2
+cGOLD           lkatfak         DO_CALC_IF ckat3
+cGOLD           lkatfak         DO_CALC_IF ckat4
+cSILVER         lkatfak         DO_CALC_IF ckat5
+cSILVER         lkatfak         DO_CALC_IF ckat6
+cTDKGARAP       lkatfak         DO_CALC_IF ckat7
+cTDKGARAP       lkatfak         DO_CALC_IF ckat8
+cNON            lkatfak  	DO_CALC_IF c2kat1
+cNON            lkatfak         DO_CALC_IF c2kat2
+cNON            lkatfak         DO_CALC_IF c2kat3
+cNON            lkatfak         DO_CALC_IF c2kat4
+cNON            lkatfak         DO_CALC_IF c2kat5
+cNON            lkatfak         DO_CALC_IF c2kat6
+cTDKGARAP       lkatfak         DO_CALC_IF c2kat7
+cTDKGARAP       lkatfak         DO_CALC_IF c2kat8
+
+
+MAP(mupdpsm)
+lkatfak		pikketkon	REPLACE
+
+DEBUG		ldum	ldum	REPLACE
+
+MAP(mscanbkmAO)
+l1 		lTOTALTARGET	REPLACE_IF cJoinBtmAO
+
+MAP(maddaktTGTAO)
+lTGT969AO21     aktkode         REPLACE
+lTGT969AO       aktdata         REPLACE
+psicabskr     	akttype         REPLACE
+psikode      	aktbrg          REPLACE
+lP2NOHLPTGT     akttgl          REPLACE
+l969            aktscr          REPLACE
+lTOTALTARGET	aktjml		REPLACE
+DEBUG ldum	ldum		REPLACE
+
+MAP(mupdaktAO)
+cPlus1AKTAO2    aktdf2          DO_CALC
+DEBUG ldum	ldum		REPLACE
+
+MAP(mupdaktAOTGT)
+lTOTALTARGET	aktjml		REPLACE
+gv_U		aktdk		REPLACE
+
+CALCS()
+cNomorBuktiCRO  "CRO2W4" + THBLS(g_tgltrn) + "-"
+cJoinPsmCRO     djoinpsmCRO == 1
+cJoinConCRO     djoinconCRO == 1
+
+MAP(mmapmapCRO)
+cNomorBuktiCRO 	tlmnobuk       DO_CALC
+DEBUG		ldum	ldum	REPLACE
+
+
+MAP(maddtlmCRO)
+tlmnobuk        tlmnobuk                REPLACE
+lDTCRO          tlmdata                 REPLACE
+aktnobuk        tlmnoasal               REPLACE
+gv_OPEN         tlmsts                  REPLACE
+lRO1            tlmsts2                 REPLACE
+g_tgltrn        tlmtgl                  REPLACE
+lM2W4W          tlmbisnis               REPLACE
+lpikplgCRO      tlmplg                  REPLACE_IF cJoinPikCRO
+aktcab          tlmcab                  REPLACE
+lpikstsCRO      tlmtypbrg               REPLACE_IF cJoinPikCRO
+lpikketkonCRO   tlmtype2                REPLACE_IF cJoinPikCRO
+lpsmgenderCRO   tlmgrup2                REPLACE_IF cJoinPsmCRO
+lconhpCRO       tlmket                  REPLACE_IF cJoinConCRO
+lCROM2W4W       tlmtype1                REPLACE
+l969            tlmscr                  REPLACE
+
+
+MAP(maddrptKPICX)
+lDTKPI          rptdata         REPLACE
+brctype         rptth           REPLACE
+lCX     	rpttype1        REPLACE
+brcbrg      	rptkode1        REPLACE
+brckode         rptkode2        REPLACE
+lCX             rptkode3        REPLACE
+brcdf1          rptbl1          REPLACE
+brcdf2          rptbl2          REPLACE
+DEBUG ldum	ldum		REPLACE
+
+MAP(mupdrptKPICX)
+brcdf1          rptbl1          REPLACE
+brcdf2          rptbl2          REPLACE
+
+MAP(mupdpsiID)
+aktlok        psinoidll2      REPLACE 
+DEBUG           ldum    ldum    REPLACE
+
+MAP(maddpsdID)
+aktdata         psddata         REPLACE /*DATA*/
+aktkode         psdpsmkode      REPLACE /*SMSC*/
+aktkode2        psdkode         REPLACE /*NIP*/
+akttype         psdtype         REPLACE /*JABATAN*/
+akttgl          psdtgl1         REPLACE /*TGLAKTIF*/
+DEBUG           ldum    ldum    REPLACE
+
+
+MAP(mupdaktCRO)
+lCL             akttype2                REPLACE
+
+MAP(mupdtlm)
+gv_CLSD        	tlmsts                  REPLACE
+
+CALCS()
+cACT1                   tldperdis != 0 && tldperdis != BLANKS && tldsatbsr == mtdjml                      				/* KONDISI ACT PERFORMANCE */
+cACT2                   tldperdis != 0 && tldperdis != BLANKS && tldsatbsr == mtdjml                        				/* KONDISI ACT POTENTIAL */
+ccondTotBonus           (tldstr4 == "1A" || tldstr4 == "1B" || tldstr4 == "1C") && tldsatbsr == mtdjml    				/* KONDISI TOTAL BONUS */
+ccondfinalpoint         tldsatbsr == mtdjml                                                                                             /* KONDISI FINAL POINT */
+cpersentflgsgtdknol     lesttrflgsg != 0 && lesttrflgsg != BLANKS                                                                       /* KONDISI TRANSFER LANGSUNG TIDAK NOL */
+cpersentflgsgnol        lesttrflgsg == 0 || lesttrflgsg == BLANKS                                                                       /* KONDISI TRANSFER LANGSUNG NOL */
+
+cnol                    0
+cTotACTPerformance      ltotACTPerformance + tldperdis                                                                                  /* ACT PERFORMANCE */
+cTotACTPotential        ltotACTPotential + tldperdis                                                                                    /* ACT POTENTIAL */
+cTotBonus               ltotbonus + (tldtmp1 * 100000)                                                                                  /* ESTIMASI TOT BONUS */
+cfinalpoint             lfinalpoint + tldperdis                                                                                         /* FINAL POINT */
+cTgtTrfLgsg             ltotbonus * 0.9                                                                                                 /* TGT TRF LANGSUNG */
+cesttrflgsg             lfinalpoint / 100 * ltgttrflgsg                                                                                 /* EST TRF LANGSUNG */
+cestbondev              ltotbonus * 0.1                                                                                                 /* EST BONUS DEV */
+cestbontac              ltotbonus - lestbondev - lesttrflgsg                                                                                            /* EST BONUS TAC */
+cpersentflgsg           lesttrflgsg / ltotbonus * 100                                                                                   /* PERSEN TRF LANGSUNG*/
+
+MAP(mhitungact)
+cBLANKS      		ltotACTPerformance      DO_CALC
+cBLANKS        		ltotACTPotential        DO_CALC
+cBLANKS               	ltotbonus               DO_CALC                                                                
+cBLANKS             	lfinalpoint             DO_CALC                                                              
+cBLANKS             	ltgttrflgsg             DO_CALC                                                                                 
+cBLANKS             	lesttrflgsg             DO_CALC                                                                                 
+cBLANKS              	lestbondev              DO_CALC                                                                                 
+cBLANKS              	lestbontac              DO_CALC                                                                                 
+cBLANKS                 lpersentflgsg           DO_CALC                                                             
+
+cTotACTPerformance      ltotACTPerformance      DO_CALC_IF cACT1
+cTotACTPotential        ltotACTPotential        DO_CALC_IF cACT2
+cTotBonus               ltotbonus               DO_CALC_IF ccondTotBonus        							/* est tot bonus */
+cfinalpoint             lfinalpoint             DO_CALC_IF ccondfinalpoint      							/* final point */
+cTgtTrfLgsg             ltgttrflgsg             DO_CALC                         							/* tgt tf langsung */
+cesttrflgsg             lesttrflgsg             DO_CALC                         							/* est tf langsung */
+cestbondev              lestbondev              DO_CALC                         							/* est bonus dev */
+cestbontac              lestbontac              DO_CALC                         							/* est bonus tac */
+cpersentflgsg           lpersentflgsg           DO_CALC_IF cpersentflgsgtdknol  							/* % tf langsung */
+cnol                    lpersentflgsg           DO_CALC_IF cpersentflgsgnol     							/* % tf langsung */
+MAP(mjoinnilaimaster)
+tlmtotal	lfinalpoint		REPLACE
+DBCALCS(djoinnilaimaster)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tlmbukidx	lnobuk1051
+	DBC_MAP		mjoinnilaimaster
+
+MAP(mjoinnilaimaster2)
+nhmmaxcair        lesttrflgsg             REPLACE
+DBCALCS(djoinnilaimaster2)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      nhmdatbukidx   gt_extra lnobuk1051
+        DBC_MAP         mjoinnilaimaster2
+
+CALCS()
+cltotACTPerformance	ltotACTPerformance + tlmtotppn
+cltotbonus		ltotbonus + tlmtothrg
+clfinalpoint		lfinalpoint + tlmtotal
+clestbondev		lestbondev + tlmtotdis
+clestbontac		tlmtothrg - tlmtotdis - lesttrflgsg
+cltotACTPotential	ltotACTPotential + nhmhrgpasar
+cltgttrflgsg		ltgttrflgsg + nhmcairpinj
+/*clesttrflgsg		lesttrflgsg + nhmmaxcair*/
+clesttrflgsg		(lfinalpoint / 100 * nhmcairpinj)
+/*clpersentflgsg	lpersentflgsg + tlmjml2*/
+clpersentflgsg		lesttrflgsg / tlmtothrg * 100
+cdjoinnilaimaster	djoinnilaimaster == 1
+cdjoinnilaimaster2	djoinnilaimaster2 == 1
+
+MAP(mupdTotACT)
+cltotACTPerformance     tlmtotppn               DO_CALC
+cltotbonus              tlmtothrg               DO_CALC         									/* est tot bonus */
+clfinalpoint            tlmtotal                DO_CALC         									/* final point */
+clestbondev             tlmtotdis               DO_CALC         									/* est bonus dev */
+
+MAP(mupdTotACTa)
+clpersentflgsg          tlmjml2                 DO_CALC_IF cdjoinnilaimaster2         									/* % tf langsung */
+clestbontac             tlmperdisd              DO_CALC_IF cdjoinnilaimaster2         									/* est bonus tac */
+DEBUG   ldum            ldum                    REPLACE
+
+MAP(mupdTotACT2)
+cltotACTPotential       nhmhrgpasar             DO_CALC
+cltgttrflgsg            nhmcairpinj             DO_CALC         									/* tgt tf langsung */
+clesttrflgsg            nhmmaxcair              DO_CALC_IF cdjoinnilaimaster         									/* est tf langsung */
+
+
+
+SPCALCS(spmaster)
+	DO_LIB 			ap_dbclc(DNAME dmapmaster,DCOMMAND MAPMAP,DMAP mmapmaster);
+
+SPCALCS(sptrans)
+	DO_LIB 			ap_dbclc(DNAME dmapmap2,DCOMMAND MAPMAP,DMAP mmapldum);
+
+SPCALCS(sptransg1)
+	DO_LIB 			ap_dbclc(DNAME dbscanbkmAO,DCOMMAND SCANSCAN,DBC_TARGET bkmdattglidx gv_cairpinj gv_CLSD lAWLBLN,DBC_LAST_TARGET bkmdattglidx gv_cairpinj gv_CLSD lAKHBLN,DBC_SUM_MAP mscanbkmAO);
+	DO_LIB_IF cJoinTgtAO   	ap_dbclc(DNAME daddaktTGTAO,DCOMMAND ADD,DFILE akt,DMAP maddaktTGTAO);
+	DO_LIB_IF cJoinTgtAO2	ap_dbclc(DNAME dupdaktAOTGT,DCOMMAND UPDATE,DTARGET aktbrgtglidx psikode lTGT969AO lcab lDateP2NoHL,DMAP mupdaktAOTGT);
+
+SPCALCS(sptransg2)
+	DO_LIB       		ap_dbclc(DNAME dupdaktAO,DCOMMAND UPDATE,DTARGET aktprmidx aktprm,DMAP mupdaktAO);
+
+SPCALCS(sptransg3)
+	DO_LIB                  ap_dbclc(DNAME dmapmapCRO,DCOMMAND MAPMAP, DMAP mmapmapCRO);
+	DO_LIB 			ap_dbclc(DNAME daddtlmCRO,DCOMMAND ADD,DFILE tlm,DLTARGET tlmbukidx tlmnobuk,DLLEN {l17},DMAP maddtlmCRO);
+	DO_LIB 			ap_dbclc(DNAME dupdaktCRO,DCOMMAND UPDATE,DTARGET aktprmidx aktprm,DMAP mupdaktCRO);
+	DO_LIB                  ap_dbclc(DNAME dupdtlm,DCOMMAND UPDATE,DTARGET tlmbukidx lbisnis,DMAP mupdtlm);
+
+SPCALCS(sptrans2)
+	DO_LIB 			ap_dbclc(DNAME dmapmap,DCOMMAND MAPMAP,DMAP mmap);
+	DO_LIB_IF cjoinpik 	ap_dbclc(DNAME dupdpsm,DCOMMAND UPDATE,DTARGET pikdatbukidx gv_dtpiu lbtmnopj,DMAP mupdpsm);
+
+SPCALCS(sptransg4)
+        DO_LIB 			ap_dbclc(DNAME dmapmaster1,DCOMMAND MAPMAP,DMAP mmapmaster);
+	DO_LIB_IF cdjoinkpicx1	        ap_dbclc(DNAME dupdrptKPICX,DCOMMAND UPDATE_RANGE,DTARGET rptdttypkod lDTKPI lthblrpt lCX brcbrg brckode lCX,DMAP mupdrptKPICX);
+	DO_LIB_IF cdjoinkpicx0   	ap_dbclc(DNAME daddrptKPICX,DCOMMAND ADD,DFILE rpt,DMAP maddrptKPICX);
+	DO_LIB 			ap_dbclc(DNAME ddelftm,DCOMMAND DELETE,DTARGET brcprmidx   brcprm);
+        DO_LIB                  ap_dbclc(DNAME dupdtlm2,DCOMMAND UPDATE,DTARGET tlmbukidx lbisnis,DMAP mupdtlm);
+
+SPCALCS(sptransg5)
+        DO_LIB_IF cdjoinpsiID         ap_dbclc(DNAME dupdpsiID,DCOMMAND UPDATE_RANGE,DTARGET psikodidx aktkode2  ,DMAP mupdpsiID);
+        DO_LIB_IF cdjoinpsdID         ap_dbclc(DNAME daddpsdID,DCOMMAND ADD,DFILE psd,DMAP maddpsdID);
+        DO_LIB                  ap_dbclc(DNAME dupdtlm3,DCOMMAND UPDATE,DTARGET tlmbukidx lbisnis,DMAP mupdtlm);
+
+SPCALCS(spTransg6)
+DO_LIB 		                ap_dbclc(DNAME dmapTransg1,DCOMMAND MAPMAP,DMAP mdum);
+DO_LIB                          ap_dbclc(DNAME dupdactBDg1,DCOMMAND UPDATE,DTARGET mtdotoidx   mtdoto,DMAP mupdmtdActBD);
+DO_LIB                          ap_dbclc(DNAME dupdtlmg6,DCOMMAND UPDATE,DTARGET tlmbukidx lbisnis,DMAP mupdtlm);
+
+SPCALCS(sptrans2g1)
+DO_LIB 		                ap_dbclc(DNAME dmapTrans2g6,DCOMMAND MAPMAP,DMAP mmapldum);
+DO_LIB                          ap_dbclc(DNAME dupdactBD2g6,DCOMMAND UPDATE,DTARGET tldotoidx   tldoto,DMAP mupdtldActBD);
+
+DO_LIB                          ap_dbclc(DNAME dmaphitungact,DCOMMAND MAPMAP,DMAP mhitungact);
+DO_LIB                          ap_dbclc(DNAME dupdTotACT,DCOMMAND UPDATE,DTARGET tlmbukidx lnobuk1051,DMAP mupdTotACT);
+DO_LIB                          ap_dbclc(DNAME dupdTotACT2,DCOMMAND UPDATE,DTARGET nhmdatbukidx gt_extra lnobuk1051,DMAP mupdTotACT2);
+DO_LIB                          ap_dbclc(DNAME dupdTotACTa,DCOMMAND UPDATE,DTARGET tlmbukidx lnobuk1051,DMAP mupdTotACTa);
+
+POSTING(master)
+	PST_COMMAND spmaster
+
+POSTING(trans)
+	PST_COMMAND sptrans
+
+POSTING(transg1)
+	PST_COMMAND sptransg1
+
+POSTING(transg2)
+	PST_COMMAND sptransg2
+
+POSTING(transg3)
+	PST_COMMAND sptransg3
+
+POSTING(trans2)
+	PST_COMMAND sptrans2
+
+POSTING(transg4)
+        PST_COMMAND sptransg4
+
+POSTING(transg5)
+        PST_COMMAND sptransg5
+
+POSTING(transg6)
+        PST_COMMAND spTransg6
+
+POSTING(trans2g1)
+        PST_COMMAND sptrans2g1
+
+
+END_SCREEN
+
