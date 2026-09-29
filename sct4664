@@ -6,6 +6,7 @@ ltldtmp2	        DFLOAT  8
 ltldstr4	        STRING  21
 ltldbrg		        STRING  21
 lnobuk		        STRING  21
+lnobuk1051min1		STRING	21
 lnobukbaru	        STRING  21
 lnobukreview_V1	        STRING  21
 lnobukreview_V2	        STRING  21
@@ -97,8 +98,8 @@ lmin2			INT2    3
 ltlmtgl			DATE    8
 lthblms1                DATE    8
 lthblms2                DATE    8
-lthblms1s               STRING  5
-lthblms2s               STRING  5
+lthblms1s               STRING  21
+lthblms2s               STRING  21
 lMS1nobuk               STRING  21
 lMS2nobuk               STRING  21
 lhasilms1               DFLOAT  8
@@ -243,7 +244,7 @@ lCXDIVHEAD2             INIT                    CXDIVHEAD2
 lKODEMATRIKSIBDA        INIT                    "MATRIKSPERFORMANCE"
 lKODEMATRIKSIBDB        INIT                    "MATRIKSPOTENTIAL"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT		        "210926v1"				/* VERSI APLIKASI */
+lversi			INIT		        "290926v1"				/* VERSI APLIKASI */
 
 lDEALERWING		INIT		        "DEALERWING"
 lnobuk      	        INIT                    {r_string1}				/* NOBUK YANG DIPROSES */
@@ -2794,8 +2795,8 @@ dupdtlmtandabaca
 /******************************************************** HITUNG *******************************************************/
 /* PERHITUNGAN */
 CALCS()
-cMSmin1                 tldcab == lcab && tldth == lthblms1s && tldstr4 == "3"
-cMSmin2                 tldcab == lcab && tldth == lthblms2s && tldstr4 == "3"
+cMSmin1                 tldstr4 == "3"
+cMSmin2                 tldstr4 == "3"
 
 MAP(mMSmin1)
 tldnobuk                lMS1nobuk               REPLACE
@@ -2803,7 +2804,7 @@ tldsubtot               lhasilms1               REPLACE
 
 DBCALCS(dMSmin1)
         DBC_COMMAND     JOIN
-        DBC_TARGET      tldstsbrgukr    lACTBNSDLR /*lBLANKS5 lPERFORMANCE*/
+        DBC_TARGET      tldbukurtidx    	lnobuk1051min1
         DBC_SELECT      cMSmin1
         DBC_MAP         mMSmin1
 
@@ -2813,7 +2814,7 @@ tldsubtot               lhasilms2               REPLACE
 
 DBCALCS(dMSmin2)
         DBC_COMMAND     JOIN
-        DBC_TARGET      tldstsbrgukr    lACTBNSDLR /*lBLANKS5 lPERFORMANCE*/
+        DBC_TARGET      tldbukurtidx            lnobuk1051min1
         DBC_SELECT      cMSmin2
         DBC_MAP         mMSmin2
 
@@ -2975,6 +2976,16 @@ cpoint                  tldtmp2               	DO_CALC
 tldtotdis               tldperdis               REPLACE_IF cachmdlbh100
 tldtotdis               tldtmp2                 REPLACE_IF cachmdlbh100
 
+CALCS()
+ctlm11051		tlmcab == lcab
+
+MAP(mtlm1051)
+tlmnobuk        	lnobuk1051min1      	REPLACE
+DBCALCS(djoinactmin1)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tlmdataslsts   lACTBNSDLR lthblms1s
+	DBC_SELECT      ctlm11051
+        DBC_MAP         mtlm1051
 
 CALCS()
 cthblms1                DO_LIB ap_tambl(ltlmtgl,lmin1,&lthblms1);
@@ -2982,13 +2993,14 @@ cthblms2                DO_LIB ap_tambl(ltlmtgl,lmin2,&lthblms2);
 
 cthblms1s               THBLS(lthblms1)
 cthblms2s               THBLS(lthblms2)
-
+cdjoinactmin1		djoinactmin1 == 1
 
 MAP(mapg13)
 cthblms1                lthblms1                DO_CALC
 cthblms2                lthblms2                DO_CALC
 cthblms1s               lthblms1s               DO_CALC
 cthblms2s               lthblms2s               DO_CALC
+lnobuk1051min1		lnobuk1051min1		REPLACE_IF cdjoinactmin1
 
 SPCALCS(sptransg13) /* saat tekan tombol selesai di detail */
 DO_LIB			        ap_dbclc(DNAME dmapg13,DCOMMAND MAPMAP,DMAP mapg13);
