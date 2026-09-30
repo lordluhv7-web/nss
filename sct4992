@@ -1600,7 +1600,7 @@ CALCS()
 cjktikpd                (lPENUGASANUNTUK == "SALESCOUNTER" || lPENUGASANUNTUK == "KDH-COUNTER" || lPENUGASANUNTUK == "NSOH" || lPENUGASANUNTUK == "AM") && lTYPEQUIZ == "TIKTOKSIPEDE" && lsdhkebntuk == BLANKS
 cjkface                 (lPENUGASANUNTUK == "SALESCOUNTER" || lPENUGASANUNTUK == "KDH-COUNTER" || lPENUGASANUNTUK == "NSOH" || lPENUGASANUNTUK == "AM") && lTYPEQUIZ == "FACEBOOK" && lsdhkebntuk == BLANKS
 cjkintikwa              (lPENUGASANUNTUK == "SALESCOUNTER" || lPENUGASANUNTUK == "KDH-COUNTER" || lPENUGASANUNTUK == "NSOH" || lPENUGASANUNTUK == "AM") && (lTYPEQUIZ == "TIKTOK" || lTYPEQUIZ == "INSTAGRAM" || lTYPEQUIZ == "WA") && lsdhkebntuk == BLANKS
-cnobukspksosmed		"SD" + THBLS(g_tgltrn)
+cnobukspksosmed		"SD" + cabtwr + THBLS(g_tgltrn)
 cnobukspksosmedtiktok   "SDT" + cabtwr + THBLS(g_tgltrn)
 cnobukspksosmedface     "SDC" + cabtwr + THBLS(g_tgltrn)
 cnobukspksosmedintikwa  "SDI" + cabtwr + THBLS(g_tgltrn)
