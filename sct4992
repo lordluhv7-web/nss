@@ -161,6 +161,8 @@ PGM_FIELDS
         lHJ                     STRING  11
         lI                      STRING  11
 
+	lnipflp			STRING	21
+
 CALCS()
         cSelectHSO      tbdkode2  == "HSO"
        /*cSelectReview   aktbrg == lNIP && aktdata == lRVWMYHERO && akttype == lDEALER*/
@@ -608,10 +610,11 @@ CALCS()
 	c965SOSMEDCABflp5 lLAYAR == "965" && lTYPE == "SOSMEDCABANG" && lPILSOSMED == 5 && (lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM")
         c965SOSMEDCABflp6 lLAYAR == "965" && lTYPE == "SOSMEDCABANG" && lPILSOSMED == 6 && (lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM")
         c965SOSMEDCABflp7 lLAYAR == "965" && lTYPE == "SOSMEDCABANG" && lPILSOSMED == 7 && (lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM")
+        c965SOSMEDCABflp567 lLAYAR == "965" && lTYPE == "SOSMEDCABANG" && (lPILSOSMED == 5 || lPILSOSMED == 6 || lPILSOSMED == 7) && (lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM")
         
-	c965SOSMEDCAB	lLAYAR == "965" && lTYPE == "SOSMEDCABANG" && lPILSOSMED == 5
-        c965SOSMEDCAB6	lLAYAR == "965" && lTYPE == "SOSMEDCABANG" && lPILSOSMED == 6
-        c965SOSMEDCAB7	lLAYAR == "965" && lTYPE == "SOSMEDCABANG" && lPILSOSMED == 7
+	c965SOSMEDCAB	lLAYAR == "965" && lTYPE == "SOSMEDCABANG" && lPILSOSMED == 5 && lPENUGASANUNTUK != "FLP" && lPENUGASANUNTUK != "CRM" && lPENUGASANUNTUK != "FLP_DAN_CRM"
+        c965SOSMEDCAB6	lLAYAR == "965" && lTYPE == "SOSMEDCABANG" && lPILSOSMED == 6 && lPENUGASANUNTUK != "FLP" && lPENUGASANUNTUK != "CRM" && lPENUGASANUNTUK != "FLP_DAN_CRM"
+        c965SOSMEDCAB7	lLAYAR == "965" && lTYPE == "SOSMEDCABANG" && lPILSOSMED == 7 && lPENUGASANUNTUK != "FLP" && lPENUGASANUNTUK != "CRM" && lPENUGASANUNTUK != "FLP_DAN_CRM"
 	c965SOSMED_DEP	lLAYAR == "965" && lTYPE == "SOSMED" && (lPILSOSMED == 1 || lPILSOSMED == 3)
 	c965SOSMED_DIV	lLAYAR == "965" && lTYPE == "SOSMED" && lPILSOSMED == 2
 	c965SOSMED_JAB	lLAYAR == "965" && lTYPE == "SOSMED" && lPILSOSMED == 4
@@ -1215,8 +1218,8 @@ DBCALCS(djointld)
 CALCS()
 cSEL2G3                 (lPENUGASANUNTUK != "KDH-COUNTER" && lPENUGASANUNTUK != "NSOH" && lPENUGASANUNTUK != "AM" && lPENUGASANUNTUK != "FLP" && lPENUGASANUNTUK != "CRM" && lPENUGASANUNTUK != "FLP_DAN_CRM" && (psijabatan == "COUNTERSALESNMC" || psijabatan == "MKTCOUNTERHMC")) || (lPENUGASANUNTUK == "KDH-COUNTER" && (psijabatan == "KDHCOUNTERNMCOFF" || psijabatan == "PLTKDHCOUNTERNMCOFF")) || (lPENUGASANUNTUK == "NSOH" && (psijabatan == "NSOHEAD" || psijabatan == "PLTNSOHEAD")) || (lPENUGASANUNTUK == "AM" && (psijabatan == "AMHMC" || psijabatan == "PLTAMHMC")) || ((lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM") && (psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSKEPALABENGOFF" || psijabatan == "PLTAHASSKEPALABENGOF" || psijabatan == "AHASSAREASPV" || psijabatan == "ADMPART" || psijabatan == "ADMAHASS" || psijabatan == "NSOHEAD" || psijabatan == "PLTNSOHEAD" || psijabatan == "AHASSFRONTDESK"))
 cdjoinabd               (g_tgltrn > psitglawl + 30 && psitglawl != BLANKS) && ((lTGL == g_tgltrn && SYSTIME < ljam11) || lTGL > g_tgltrn || (djoin32slsabk == 1 || djoin129slsabk == 1 || djoin160slsabk == 1))    
-cjkfacetdkada           (lPENUGASANUNTUK == "SALESCOUNTER" || lPENUGASANUNTUK == "KDH-COUNTER" || lPENUGASANUNTUK == "NSOH" || lPENUGASANUNTUK == "AM") && lTYPEQUIZ == "FACEBOOK" && djointld == 0   
-cjkfaceada              (lPENUGASANUNTUK == "SALESCOUNTER" || lPENUGASANUNTUK == "KDH-COUNTER" || lPENUGASANUNTUK == "NSOH" || lPENUGASANUNTUK == "AM") && lTYPEQUIZ == "FACEBOOK" && djointld == 1  
+cjkfacetdkada           (lPENUGASANUNTUK == "SALESCOUNTER" || lPENUGASANUNTUK == "KDH-COUNTER" || lPENUGASANUNTUK == "NSOH" || lPENUGASANUNTUK == "AM" || lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM") && lTYPEQUIZ == "FACEBOOK" && djointld == 0   
+cjkfaceada              (lPENUGASANUNTUK == "SALESCOUNTER" || lPENUGASANUNTUK == "KDH-COUNTER" || lPENUGASANUNTUK == "NSOH" || lPENUGASANUNTUK == "AM" || lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM") && lTYPEQUIZ == "FACEBOOK" && djointld == 1  
 
 SUBFILE(trans2g3)
 SFL_COND		c965SOSMEDCAB
@@ -1300,6 +1303,24 @@ SFL_LINES(10)
 SFL_SELECT		cSEL2G5
 SFL_TARGET
 	psicbskrsts	cabkode gv_INPG
+
+IMAGE(trans2g6)
+|__________|_______________|_______________|
+
+FIELD(trans2g6)
+        psists          NOCHANGE                        INPUTRI 1
+        psikode         NOCHANGE                        INPUTRI 2
+        psicabskr       NOCHANGE                        INPUTRI 3
+
+CALCS()
+cSEL2G6                 ((lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM") && (psijabatan == "CRMWINGS" || psijabatan == "CRMDEALER" || psijabatan == "PLTCRMDEALER" || psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK"))
+
+SUBFILE(trans2g6)
+SFL_COND                c965SOSMEDCABflp567
+SFL_LINES(10)
+SFL_SELECT              cSEL2G6
+SFL_TARGET
+        psicbskrsts     cabkode gv_INPG
 /* ----------------------------------- BATAS TRANS2 ----------------------------------- */
 
 
@@ -1772,15 +1793,17 @@ lnipnsohcab             lnipnsohcab     REPLACE_IF cdjoinnsohjam11
 lnipnsohcab             lnipnsohcab     REPLACE_IF cdjoinnsoheadjam11
 DEBUG lnipcrmcab        lnipcrmcab      REPLACE_IF cdjoincrmcabjam11*/
 
-MAP(mmapmapgblanks)
-DEBUG cblanks                 lsdhkebntuk     DO_CALC
-
 CALCS()
-csatu           1
-cdua            2
-ctiga           3
-cempat          4
-clima           5
+csatu           	1
+cdua            	2
+ctiga           	3
+cempat          	4
+clima           	5
+
+
+MAP(mmapmapgblanks)
+DEBUG cblanks           lsdhkebntuk     	DO_CALC
+
 
 MAP(maddmasterg4)
 lSPKSOSMED		tlmdata		REPLACE
@@ -2333,6 +2356,84 @@ SPCALCS(sptrans2g5)
         DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME dadddetail5g6,DCOMMAND ADD,DFILE tld,DMAP madddetail5g4);
         DO_LIB_IF cjkfaceada_7		ap_dbclc(DNAME daddket5g6,DCOMMAND ADD,DFILE ket,DMAP maddketdetail5g4);
 
+CALCS()
+cabsenflp		(djoinsls32 == 1 || djoinsls129 == 1 || djoinsls160 == 1)
+cselflpsa4		(psijabatan == "NSOHEAD" || psijabatan == "PLTNSOHEAD") && (djoinsls32 == 1 || djoinsls129 == 1 || djoinsls160 == 1)
+cselflpsa3		(psijabatan == "ADMPART" || psijabatan == "ADMAHASS") && (djoinsls32 == 1 || djoinsls129 == 1 || djoinsls160 == 1)
+cselflpsa2		(psijabatan == "AHASSKEPALABENGOFF" || psijabatan == "PLTAHASSKEPALABENGOF" || psijabatan == "AHASSAREASPV") && (djoinsls32 == 1 || djoinsls129 == 1 || djoinsls160 == 1)
+
+MAP(mjoinflp)
+psikode			lnipflp		REPLACE
+
+DBCALCS(djoinflpsa4)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	psicbskrsts     cabkode gv_INPG
+	DBC_SELECT	cselflpsa4
+	DBC_MAP		mjoinflp
+
+DBCALCS(djoinflpsa3)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      psicbskrsts     cabkode gv_INPG
+        DBC_SELECT      cselflpsa3
+        DBC_MAP         mjoinflp
+
+DBCALCS(djoinflpsa2)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      psicbskrsts     cabkode gv_INPG
+        DBC_SELECT      cselflpsa2
+        DBC_MAP         mjoinflp
+
+CALCS()
+cjkfaceflp              (lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM") && lTYPEQUIZ == "FACEBOOK"
+cjkintikwaflp           (lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM") && (lTYPEQUIZ == "TIKTOK" || lTYPEQUIZ == "INSTAGRAM" || lTYPEQUIZ == "WA")
+
+cabsenflpcab		(psijabatan == "CRMDEALER" || psijabatan == "CRMWINGS" || psijabatan == "PLTCRMDEALER")
+/*cabsenflpcab2		(djoinsls32 == 0 && djoinsls129 == 0 && djoinsls160 == 0) && (psijabatan == "CRMDEALER" || psijabatan == "CRMWINGS" || psijabatan == "PLTCRMDEALER")*/
+
+cabsenflpsa4		(djoinsls32 == 0 && djoinsls129 == 0 && djoinsls160 == 0) && (psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK") && djoinflpsa4 == 1
+cabsenflpsa3		(djoinsls32 == 0 && djoinsls129 == 0 && djoinsls160 == 0) && (psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK") && djoinflpsa3 == 1
+cabsenflpsa2		(djoinsls32 == 0 && djoinsls129 == 0 && djoinsls160 == 0) && (psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK") && djoinflpsa2 == 1
+
+
+MAP(mmapmapgflp)  
+cnobukspksosmedface	tlmnobuk	DO_CALC_IF cjkfaceflp
+cnobukspksosmedintikwa	tlmnobuk	DO_CALC_IF cjkintikwaflp
+lDESKPENUGASAN          lDESKPENUGASAN  REPLACE_IF cjoinCAPTION
+lCAPTION                lCAPTION        REPLACE_IF cjoinCAPTION
+lLINKSOSMED             lLINKSOSMED     REPLACE_IF cjoinLINKSOSMED
+
+lnipflp			lnipflp		REPLACE_IF cabsenflpsa4
+lnipflp			lnipflp		REPLACE_IF cabsenflpsa3
+lnipflp			lnipflp		REPLACE_IF cabsenflpsa2
+psikode			lnipflp		REPLACE_IF cabsenflp
+psikode			lnipflp		REPLACE_IF cabsenflpcab
+
+CALCS()
+cdjoinpsi_7flp          ((g_tgltrn > psitglawl + 30 && psitglawl != BLANKS) || (psijabatan == "CRMWINGS" || psijabatan == "CRMDEALER" || psijabatan == "PLTCRMDEALER")) && ((lTGL == g_tgltrn && SYSTIME < ljam11) || lTGL > g_tgltrn || (djoinsls32_7 == 1 || djoinsls129_7 == 1 || djoinsls160_7 == 1))
+cdjoinabd_7flp          ((g_tgltrn > psitglawl + 30 && psitglawl != BLANKS) || (psijabatan == "CRMWINGS" || psijabatan == "CRMDEALER" || psijabatan == "PLTCRMDEALER")) && ((lTGL == g_tgltrn && SYSTIME < ljam11) || lTGL > g_tgltrn || (djoin32slsabk_7 == 1 || djoin129slsabk_7 == 1 || djoin160slsabk_7 == 1))
+
+SPCALCS(sptrans2g6)
+        DO_LIB                          ap_dbclc(DNAME dmapmapg7,DCOMMAND MAPMAP,DMAP mmapmapgflp);
+        DO_LIB_IF cdjoinpsi_7flp           ap_dbclc(DNAME daddmasterg7,DCOMMAND ADD,DFILE tlm,DLTARGET tlmbukidx tlmnobuk,DLLEN {l20},DMAP maddmasterg4);
+        DO_LIB_IF cdjoinpsi_7flp        ap_dbclc(DNAME daddketg7,DCOMMAND ADD,DFILE ket,DMAP maddketg4);
+        DO_LIB_IF cdjoinpsi_7flp        ap_dbclc(DNAME daddspkg7,DCOMMAND ADD,DFILE spk,DMAP maddspkg4);
+        DO_LIB_IF cdjoinabd_7flp        ap_dbclc(DNAME daddabkg7,DCOMMAND ADD,DFILE abk,DMAP maddabkg4);
+
+        DO_LIB_IF cjkfacetdkada_7       ap_dbclc(DNAME dadddetail1g7,DCOMMAND ADD,DFILE tld,DMAP madddetail1g4);
+        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME daddket1g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail1g4);
+
+        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME dadddetail2g7,DCOMMAND ADD,DFILE tld,DMAP madddetail2g4);
+        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME daddket2g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail2g4);
+
+        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME dadddetail3g7,DCOMMAND ADD,DFILE tld,DMAP madddetail3g4);
+        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME daddket3g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail3g4);
+
+        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME dadddetail4g7,DCOMMAND ADD,DFILE tld,DMAP madddetail4g4);
+        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME daddket4g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail4g4);
+
+        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME dadddetail5g7,DCOMMAND ADD,DFILE tld,DMAP madddetail5g4);
+        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME daddket5g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail5g4);
+
 /* ---------------------------------- BATAS SP TRANS2G2-TRANS2G5 --------------------------------- */
 
 POSTING(master)
@@ -2388,6 +2489,9 @@ PST_COMMAND sptrans2g4
 
 POSTING(trans2g5)
 PST_COMMAND sptrans2g5
+
+POSTING(trans2g6)
+PST_COMMAND sptrans2g6
 
 END_SCREEN
 
