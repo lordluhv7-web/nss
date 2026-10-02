@@ -1,0 +1,1014 @@
+SCREEN 965 QUERY_TYPE t.MasterPenugasanCX
+SCR_FILE                tlm
+SCR_LOGFLD              tlmnobuk
+SCR_NXT_MAP             mnext
+SCR_NXT_COND            cbisapost
+SCR_NXT_MSG     IF      cTidakPost1     Yang Bisa Posting Hanya Yang Jenisnya MYHEROCX Dan APPLECX
+                IF      cTidakPost2     Status sudah CLSD
+                IF      cTidakPost3     Posting Hanya Pada Saat Status INPG Dan Harus Upload Foto Terlebih Dahulu
+                /*IF      cTidakPost4     Tanggal Materi Tidak Boleh Lebih Kecil Dari Tanggal Hari Ini*/
+                IF      cTidakPost5     Saat Tanggal Materi Adalah Hari Ini, Posting Tidak Boleh Lebih Dari Jam 14:00 WIB
+                IF      cCXQZ           Belum Bisa Buat Penugasan Untuk Jenis Quiz
+                IF      cLewatJam       Penugasan tidak boleh diatas jam 12.00 WIB
+                IF      cLewatJamPil5   Penugasan tidak boleh diatas jam 16.00 WIB
+SCR_NXT_POSTING         4992
+SCR_JOIN_FILE1          ketdatbukkod	gv_dtkkumum	tlmnobuk
+SCR_JOIN_FILE2		spkdatbuktyp	gv_dtkkumum	tlmnobuk
+SCR_UPL_DIRFLD	        tlmbrdoto 
+SCR_UPLFLD              tlmnobuk tlmgrup
+SCR_UPL_DELCOND         c0
+SCR_UPLFLD_DBCALCS      dupdtlmuplCX
+SCR_UPL_COND            cAddCX_1
+SCR_UPL_COND_MSG IF     cNoCX           Hanya Jenis MYHEROCX Dan APPLECX Yang Bisa Upload
+SCR_DOCUPLFLD           tlmnobuk  
+SCR_DOCUPLFLD_READONLY    
+SCR_DOCUPLFLD_DBCALCS   dupdtlmmst
+SCR_QRY_INDEX_IF        csops tlmdatstsbuk csop2 tlmbukidx
+
+
+
+CALCS()
+csops		tlmdata != BLANKS && tlmsts != BLANKS 
+csop2		tlmnobuk != BLANKS
+cpil5		tlmjml == 5 || tlmjml == 6 || tlmjml == 7
+cpil5live	tlmjml == 5 && tlmtype1 != "LIVETIKTOK" && tlmtype1 != "UPLKONTEN" 
+
+LOCAL
+PGM_FIELDS
+lAKTIF		        STRING	21
+lok21                   STRING  21
+lupload                 STRING  21
+l4616		        INT2	2
+lversi		        STRING	21
+lDIVISI		        STRING	21
+lJABATAN	        STRING	21
+lDEPARTEMEN	        STRING	21
+lMASTERKONTENCX	        STRING	21
+lUBHSTSSOP              STRING  11
+lUBHSTSSOP21            STRING  21
+lnama1		        STRING	21
+ldivisi21               STRING  21
+lUPLSOP		        STRING	11
+lUPLSOP21	        STRING	21
+lPilJabatan             STRING  21
+lBANKSOP                STRING  11
+lgrupsop	        STRING	21
+ldum		        STRING	5
+lBLANKS		        STRING	11
+
+lTombolOK               STRING  21
+lSYSTIME                TIME    4
+ljam1400	        TIME	4
+ljam1200	        TIME	4
+ljam1600	        TIME	4
+lTHBLHK                 STRING  5
+lTglAkh                 DATE    4
+l1                      INT2    2
+lHK                     STRING  11
+lTOTALHK                INT2    2
+lHKMin3                 INT2    21
+ltgmtgl                 DATE    4
+lCUSTOMEREXPERIENCE     STRING  21
+lNIPPICSOSMED	        STRING  21
+lNIPPICSOSMEDCAB        STRING  21
+lCRMNSOHAM              STRING  21
+lSALESCOUNTER           STRING  21
+lSOSMEDAHASS           STRING  21
+lUSERREVIEW930          STRING  21
+/*lUserReview             STRING  21*/
+lBATALSPKMYHERO         STRING  21
+lNamaBatal              STRING  61
+lEnter                  STRING  21
+lSPKMYHERO              STRING  11
+lKUNCIABSEN             STRING  11
+lpsicabskr_Rev          STRING  21
+lMATRIKS                STRING  21
+lMAINDEALER		STRING  21
+lListPeserta		STRING	21
+lVoidPenugasan		STRING	21
+lMD			STRING	161
+lketjenis		STRING	161
+lMASTERHERO		STRING	11
+lKSFORM         STRING  11    
+lAKUNSOSMED		STRING	21
+lBISNIS			STRING	21
+ljmlbisnis		INT2	2
+lSPKSOSMED		STRING	11
+lENTER                  STRING  12
+lpenuntcrm              STRING  21
+lpenuntsls              STRING  21
+lCXPROMOTIONSPV		STRING	21
+lH2			STRING	7
+lpanjangcaption		INT2	7
+
+MAP(mnext)
+tlmnobuk        r_string1       REPLACE
+g_scrnumstr     r_string2       REPLACE
+tlmgrup         r_string11      REPLACE
+lMD             r_string12      REPLACE
+tlmtype1        r_string13      REPLACE
+tlmgrup2        r_string14      REPLACE
+tlmket		r_string16	REPLACE /* link */
+ketstr3_1	r_string17	REPLACE /* desk penugasan */
+tlmkode		r_string18	REPLACE
+ketstr1_1	r_string19	REPLACE /* bisnis */
+ketstr2_1	r_string20	REPLACE /* akun */
+ketstr4_1	r_string21	REPLACE /* akun */
+tlmsts		r_string22	REPLACE
+tlmbrdoto	r_string23	REPLACE
+spknote_2	r_string24	REPLACE /* caption */ 
+tlmjml		r_double1	REPLACE
+tlmtgljtp       r_date1         REPLACE
+
+CALCS()
+cUserLogin		g_usrkode == tbtkode
+cUserLoginbisnis	g_usrkode == tbtkode && tbttbdkode == ketstr1_1
+cCXPROMOTIONSPV		psijabatan == "CXPROMOTIONSPV"
+
+DBCALCS(djoinmastersosmed)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbtdattypkod	gv_dttabel gv_dttabel21 lCUSTOMEREXPERIENCE lNIPPICSOSMED
+	DBC_SELECT	cUserLogin
+
+DBCALCS(djoinmastersosmedcab)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbtdattypkod	gv_dttabel gv_dttabel21 lCUSTOMEREXPERIENCE lNIPPICSOSMEDCAB
+	DBC_SELECT	cUserLogin
+
+MAP(mjoinmastersosmedcabcna)
+tbttbdkode              lpenuntcrm REPLACE
+DBCALCS(djoinmastersosmedcabcna)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbtdattypkod	gv_dttabel gv_dttabel21 lCUSTOMEREXPERIENCE lNIPPICSOSMEDCAB lCRMNSOHAM g_usrkode
+        DBC_MAP         mjoinmastersosmedcabcna
+
+DBCALCS(djoinmastersosmedcabahass)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tbtdattypkod    gv_dttabel gv_dttabel21 lCUSTOMEREXPERIENCE lNIPPICSOSMEDCAB lSOSMEDAHASS g_usrkode
+
+MAP(mjoinmastersosmedcabsls)
+tbttbdkode              lpenuntsls REPLACE        
+DBCALCS(djoinmastersosmedcabsls)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbtdattypkod	gv_dttabel gv_dttabel21 lCUSTOMEREXPERIENCE lNIPPICSOSMEDCAB lSALESCOUNTER g_usrkode        
+        DBC_MAP         mjoinmastersosmedcabsls
+
+DBCALCS(djoinmasterbisnis)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbtdattypkod	gv_dttabel gv_dttabel21 lCUSTOMEREXPERIENCE lNIPPICSOSMED
+	DBC_SELECT	cUserLoginbisnis
+
+DBCALCS(dcxpromotionspv)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	psikodidx	g_usrkode
+	DBC_SELECT	cCXPROMOTIONSPV
+
+CALCS()
+cLOGINCXPROMOTION	(dcxpromotionspv == 1 || djoinmastersosmedcab == 1) || g_grpnam == "IT" || g_grpnam == "RI"
+cLOGINCXPROMOTIONCAB	(dcxpromotionspv == 1 || djoinmastersosmedcab == 1) || g_grpnam == "IT" || g_grpnam == "RI" && tlmgrup == "SOSMEDCABANG"
+cBknSosmed	tlmgrup != "SOSMED" && tlmgrup != "SOSMEDCABANG"
+/*cintikwa        tlmkode == "SALESCOUNTER" && (tlmgrup2 == "TIKTOK" || tlmgrup2 == "INSTAGRAM" || tlmgrup2 == "WA")*/
+cjklive         tlmtype1 == "LIVETIKTOK" 
+cSosmed		tlmgrup == "SOSMED" && tlmjml != 5
+cSosmed2	tlmgrup == "SOSMED" && tlmjml == 5
+cBknSosmedcab   tlmgrup != "SOSMEDCABANG"
+cSosmed2cab     tlmgrup == "SOSMEDCABANG"
+cSosmedcab      tlmgrup == "SOSMEDCABANG" && (tlmjml == 5 || tlmjml == 6 || tlmjml == 7) && (djoinmastersosmedcabcna == 1/* || djoinmastersosmedcabsls == 1*/)
+cSosmed2cabupl   tlmgrup == "SOSMEDCABANG" && (tlmjml == 5 || tlmjml == 6 || tlmjml == 7) && tlmgrup2 != "TIKTOKSIPEDE"
+cSosmed2cabtt   tlmgrup == "SOSMEDCABANG" && (tlmjml == 5 || tlmjml == 6 || tlmjml == 7) && tlmgrup2 == "TIKTOKSIPEDE"
+cSosmed2cabsls   tlmgrup == "SOSMEDCABANG" && (tlmjml == 5 || tlmjml == 6 || tlmjml == 7) && (tlmkode == "SALESCOUNTER" || tlmkode == "KDH-COUNTER" || tlmkode == "NSOH" || tlmkode == "AM" || tlmkode == "FLP" || tlmkode == "CRM" || tlmkode == "FLP_DAN_CRM")
+cSosmed2cabslsa   tlmgrup == "SOSMEDCABANG" && (tlmjml == 5 || tlmjml == 6 || tlmjml == 7) && tlmkode == "SALESCOUNTER"
+cbisapost	(tlmsts == "INPG" && (tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX") && (/*(tlmtgljtp > g_tgltrn) ||*/ (/*(tlmtgljtp == g_tgltrn) &&*/ (lSYSTIME < ljam1400))) && tlmtype1!="QUIZ") ||
+		(tlmsts == "INPG" && ((SYSTIME <= ljam1200 && tlmtgljtp == g_tgltrn) || tlmtgljtp > g_tgltrn) && tlmgrup == "SOSMED" && tlmjml != 5) ||
+		(tlmsts == "INPG" && ((SYSTIME <= ljam1600 && tlmtgljtp == g_tgltrn) || tlmtgljtp > g_tgltrn) && tlmgrup == "SOSMED" && tlmjml == 5) || 
+                (tlmsts != "CLSD" && 
+                        (
+                                (SYSTIME <= ljam1600 && tlmtgljtp == g_tgltrn) || 
+                                tlmtgljtp > g_tgltrn
+                        ) && 
+                tlmgrup == "SOSMEDCABANG" && (tlmjml == 5 || tlmjml == 6 || tlmjml == 7))
+
+cTidakPost1     tlmgrup != "MYHEROCX" && tlmgrup != "APPLECX" && tlmgrup != "SOSMED"
+cTidakPost2     tlmsts == "CLSD"
+cTidakPost3     tlmsts != "INPG" && (tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX") && tlmgrup != "SOSMED"
+/*cTidakPost4     tlmsts == "INPG" && (tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX") && (tlmtgljtp < g_tgltrn)*/
+cTidakPost5     tlmsts == "INPG" && (tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX") && (/*(tlmtgljtp == g_tgltrn) &&*/ (lSYSTIME > ljam1400))
+
+c1		1
+
+MAP(mupdtlmmst)
+        c1      	tlmtothrg	DO_CALC
+
+DBCALCS(dupdtlmmst)
+	DBC_COMMAND	UPDATE
+	DBC_TARGET	tlmprmidx tlmprm
+	DBC_MAP		mupdtlmmst
+
+MAP(mupdtlmCX)
+        gv_INPG		tlmsts		REPLACE
+	gv_ok		tlmtypbrg	REPLACE_IF cSosmed	
+	gv_ok		tlmtypbrg	REPLACE_IF cSosmed2
+
+DBCALCS(dupdtlmuplCX)
+	DBC_COMMAND	UPDATE
+	DBC_TARGET	tlmprmidx	tlmprm
+	DBC_MAP		mupdtlmCX
+
+
+
+
+CALCS()
+cTanggalAkhir   DO_LIB ap_akhbl(g_tgltrn,&lTglAkh);
+cSelectHKMin3   tgmhreff == lHKMin3
+
+MAP(mscantgmHKCx)
+        l1              lTOTALHK        REPLACE
+
+DBCALCS(dscantgmHKCx)
+	DBC_COMMAND	SCANSCAN
+	DBC_TARGET	tgmdattypidx gv_TGL lHK lTHBLHK
+	DBC_LAST_TARGET	tgmdattypidx gv_TGL lHK lTHBLHK
+	DBC_SUM_MAP	mscantgmHKCx
+
+MAP(mjoinHKMin3)
+        tgmtgl          ltgmtgl         REPLACE
+
+DBCALCS(djoinHKMin3)
+        DBC_COMMAND     JOIN
+        DBC_SELECT      cSelectHKMin3
+        DBC_TARGET      tgmdattypidx gv_TGL lHK lTHBLHK
+        DBC_MAP         mjoinHKMin3
+/*
+MAP(mjoinUserReview)
+        tbdkode		lUserReview	REPLACE
+
+DBCALCS(djoinUserReview)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddatkodidx	gv_dttabel lCUSTOMEREXPERIENCE lUSERREVIEW930 g_usrkode
+	DBC_MAP		mjoinUserReview
+*/
+MAP(mPsiReview)
+        psicabskr       lpsicabskr_Rev  REPLACE
+        
+DBCALCS(djoinPsiReview)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	psikodidx	g_usrkode
+	DBC_MAP		mPsiReview
+
+DBCALCS(djoincxprospv)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	psistsjabkod	gv_INPG lCXPROMOTIONSPV g_usrkode
+
+CALCS()
+call		"ALL"
+cdivisi		"DIVISI"
+cdepartemen	"DEPARTEMEN"
+cjabatan	"JABATAN"
+ccabdealer	"DEALER"
+cgrup1		tlmjml == 1
+cgrup2		tlmjml == 2
+cgrup3		tlmjml == 3
+cgrup4		tlmjml == 4
+cgrup5		tlmjml == 5
+cgrup5sos       tlmgrup == "SOSMED" && tlmjml == 5
+
+/* KONDISI UNTUK COSTUMER EXPERIENCE */
+/*cAddCX          (djoinUserReview == 1 && g_usrkode == lUserReview) || (g_grpnam == "IT" || g_grpnam == "RI")*/
+
+cAddCX          (((g_grpnam == "CRMHO" || g_grpnam == "CRMDVH" || g_grpnam == "CRM" || g_grpnam == "DGTLMKTG") && djoinPsiReview == 1 && lpsicabskr_Rev == "PST30")) || (g_grpnam == "IT" || g_grpnam == "RI") || (djoinmastersosmed == 1 || djoinmastersosmedcab == 1)  
+
+cAddCX_img          ((((g_grpnam == "CRMHO" || g_grpnam == "CRMDVH" || g_grpnam == "CRM" || g_grpnam == "DGTLMKTG") && djoinPsiReview == 1 && lpsicabskr_Rev == "PST30")) || (g_grpnam == "IT" || g_grpnam == "RI") || (djoinmastersosmed == 1 || djoinmastersosmedcab == 1)) && tlmsts == "OPEN"
+cAddCX_pil1          (((g_grpnam == "CRMHO" || g_grpnam == "CRMDVH" || g_grpnam == "CRM" || g_grpnam == "DGTLMKTG") && djoinPsiReview == 1 && lpsicabskr_Rev == "PST30"))
+cAddCX_pil2          djoinmastersosmed == 1
+cAddCX_pil2s         djoinmastersosmedcab == 1 || g_grpnam == "IT" || g_grpnam == "RI" || djoincxprospv == 1
+ccna                 djoinmastersosmedcabcna == 1 
+/*csales               djoinmastersosmedcabsls == 1  */
+cAddCX_pil3          g_grpnam == "IT" || g_grpnam == "RI" || djoinmastersosmedcabsls == 1
+cAddCX_pil3a         (g_grpnam == "IT" || g_grpnam == "RI" || djoinmastersosmedcabsls == 1) && tlmgrup == "SOSMEDCABANG"
+cAddCX_pil4          (g_grpnam == "IT" || g_grpnam == "RI" || djoinmastersosmedcabahass == 1/* || djoincxprospv == 1*/) && tlmgrup == "SOSMEDCABANG"
+cAddCX_pil4a         djoinmastersosmedcabahass == 1
+
+cAddCX_1        (tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX" || tlmgrup == "SOSMED" || tlmgrup == "SOSMEDCABANG")
+cCxMinHari      ((tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX") && (tlmtgljtp >= g_tgltrn)) || (tlmgrup != "MYHEROCX" && tlmgrup != "APPLECX")
+/*cCxMax7Hari     ((tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX") && (tlmtgljtp <= (g_tgltrn + 7))) || (tlmgrup != "MYHEROCX" && tlmgrup != "APPLECX")*/
+
+cNobukCX    	"CXMH" + THBLS_YY(g_tgltrn) + THBLS_MM(g_tgltrn) + THBLS_DD(g_tgltrn)
+cNoCX           tlmgrup != "MYHEROCX" && tlmgrup != "APPLECX" && tlmgrup != "SOSMED" && (tlmgrup != "SOSMEDCABANG" && tlmtype1 == "BUATKONTEN" )
+cCXQZ           (tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX") && tlmtype1=="QUIZ"
+cLewatJam	SYSTIME > ljam1200 && tlmjml != 5
+cLewatJamPil5	SYSTIME > ljam1600 && tlmjml == 5
+cNoCXQZ           (tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX") && tlmtype1!="QUIZ"
+cTHBLHK         THBLS(g_tgltrn)
+cDirektori      THBLS(tlmtgljtp)
+cpoin           tlmtype1=="POIN"
+
+cScanHK         (dscantgmHKCx == 0 || dscantgmHKCx != 0)
+cHKMin3         lTOTALHK - 3
+cJoinTGMMin3    ((tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX") && ((djoinHKMin3 == 1 && tlmtgljtp < ltgmtgl) || tlmtgljtp > lTglAkh)) || (tlmgrup != "MYHEROCX" && tlmgrup != "APPLECX")
+cubah		((((tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX") && ((((g_grpnam == "CRMHO" || g_grpnam == "CRMDVH" || g_grpnam == "CRM" || g_grpnam == "DGTLMKTG") && djoinPsiReview == 1 && lpsicabskr_Rev == "PST30")) || (g_grpnam == "IT" || g_grpnam == "RI"))) && (tlmsts == "OPEN" || tlmsts == "INPG"))) || ((tlmsts == "OPEN" || tlmsts == "INPG") && (tlmgrup == "SOSMED" || tlmgrup == "SOSMEDCABANG"))
+c0		0
+cdjoinHKMin3     djoinHKMin3==1
+cdscantgmHKCx     dscantgmHKCx==1
+ctype2nblnks     tlmgrup2!=BLANKS
+cjnsquiz         tlmtype1=="QUIZ"     
+
+IMAGE(master)
+/--------------------------------------------------------------------------\
+ /------------------------------------------------------------------------\
+  t.NoBuk	: __________________  t.Sts     _______  t.Tgl ___________	     _
+  t.Pengaju	: __________________  t.Namaaju ________________________ 
+  t.Type	: __________________               
+  t.PesTugas      ____ _____________
+  t.PenUtk  	: __________________
+  t.Bisnis      : __________________
+  t.Type2       : __________________  t.AkunSosmed  ____________________
+  t.Jenis       : _____	 ___________
+  t.MD          : __________________  t.NamaMD      ____________________
+  t.TglBerlaku	: __________________                  
+  t.NamaKonten	: __________________  t.LinkKonten  ____________________
+  t.DeskTugas	: __________________  t.Caption	    ____________________
+                  ______
+ \------------------------------------------------------------------------/ 
+ /------------------------------------------------------------------------\
+ | t.UplPenugasan                                                         |
+ \------------------------------------------------------------------------/
+ /-------------------------------s.UPLOAD---------------------------------\
+ |                                                                        |
+ |                                                                        |
+ |                                                                        |
+ |                                                                        |
+ |                                                                        |
+ |                                                                        |
+ \------------------------------------------------------------------------/
+  ________________ ________________
+\--------------------------------------------------------------------------/
+
+FIELD(master)
+tlmnobuk	PROTECT 	                        INPUTRI	1       /* Nobuk */
+tlmsts   	PROTECT 	                        INPUTRI	1       /* Nobuk */
+tlmtgl		PROTECT 	{DD-MM-YYYY}            INPUTRI	2       /* Tanggal */
+tlmdata         PROTECT UNSEEN  QPROTECT                INPUTRI	1 
+tlmplg		PROTECT		                        INPUTRI	3       /* User */
+lnama1		PROTECT		                        INPUTRI	4
+tlmgrup		NOCHANGE 	                        INPUTRI	5 	/* Type */
+tlmjml		NOCHANGE				INPUTRI	6	/* Peserta Penugasan */
+lgrupsop	PROTECT					INPUTRI	7
+tlmkode		NOCHANGE				INPUTRI	8	/* Penugasan Untuk */
+ketstr1_1	NOCHANGE		                INPUTRI	9     	/* Bisnis */
+tlmgrup2	NOCHANGE		                INPUTRI	10     	/* Type2 */
+ketstr2_1	NONE			                INPUTRI	11     	/* Akun Sosmed */
+tlmtype1	NOCHANGE	                        INPUTRI	12       /* Jenis */
+lketjenis	PROTECT					INPUTRI	13
+tlmuntuk        ALLCAPS                                 INPUTRI	14       /* KODEMD */
+lMD		PROTECT				        INPUTRI	15 	/* MD */
+tlmtgljtp	NONE            {DD-MM-YYYY}    NOLIMIT INPUTRI	16	/* Tanggal Berlaku */
+
+ketstr4_1	ALLCAPS					INPUTRI	17	/* Nama Konten */
+tlmket		NONE					INPUTRI	18	/* Link Konten */
+ketstr3_1	TEXTAREA				INPUTRI	19	/* Deskripsi Penugasan */
+spknote_2	TEXTAREA				INPUTRI	20	/* Caption */
+lENTER          NOCHANGE                                INPUTRI 21      
+
+lListPeserta	TOMBOL	NOCHANGE			INPUTRI	21
+lVoidPenugasan	TOMBOL	NOCHANGE			INPUTRI	22
+
+
+DEFAULTS(master)
+lBANKSOP        INIT            BANKSOP
+lAKTIF		INIT		AKTIF
+lok21           INIT            OK
+lupload         INIT            UPLOAD
+l4616           INIT		4616
+lversi		INIT		28092026v1
+lDIVISI		INIT		DIVISI
+lDEPARTEMEN	INIT		DEPARTEMEN
+lJABATAN	INIT		JABATAN
+lMASTERKONTENCX	INIT		MASTERKONTENCX
+tlmsts		INIT_QUERY	OPEN
+lUBHSTSSOP      INIT            UBHSTSSOP
+lUBHSTSSOP21    INIT            UBHSTSSOP
+lUPLSOP         INIT            UPLSOP
+lUPLSOP21       INIT            UPLSOP
+ldivisi21       INIT            DIVISI
+lPilJabatan     INIT            JABATAN
+lBLANKS		INIT		BLANKS
+lSPKSOSMED	INIT		"SPKSOSMED"
+lCXPROMOTIONSPV	INIT		"CXPROMOTIONSPV"
+lH2		INIT		"H2"
+lListPeserta	INIT		"1d. List Peserta"
+lVoidPenugasan	INIT		"2d. Void Penugasan"
+
+
+IF cBknSosmedcab   tlmjml DFALT_SCAN_BLANKS	1 "ALL"
+					2 "DIVISI"
+					3 "DEPARTEMEN"
+					4 "JABATAN"
+IF cLOGINCXPROMOTION tlmjml DFALT_SCAN_BLANKS	5 "DEALER"
+
+IF cLOGINCXPROMOTIONCAB tlmjml DFALT_SCAN_BLANKS   6 "POS"
+                                                7 " DEALER DAN POS"
+ketstr1_1	DFALT_SCAN_BLANKS	HMC_ADS
+                                        HMC
+					M2W    
+					KLIKNSS
+					KLIKNSC
+					KLIKDLP
+					DLP
+					GADAI_SAKTI
+					IVARO_FURNITURE
+					MERAH_POETIH
+					LIFE_AT_NSS
+					KARIR_NSS
+					M4W
+/* KONDISI DEFAULTS COSTUMER EXPERIENCE */
+IF      cAddCX  tlmnobuk        INIT_ADD        {cNobukCX}
+IF      cAddCX  tlmdata         INIT_QUERY      MASTERHERO
+IF      cAddCX  tlmdata         INIT_ADD        MASTERHERO
+IF      cAddCX  tlmdvs          INIT_ADD        CUSTOMEREXPERIENCE
+IF      cAddCX  tlmsts          INIT_ADD        OPEN
+IF      cAddCX  tlmtgl          INIT_ADD        {g_tgltrn}
+IF      cAddCX  tlmplg          INIT_ADD        {g_usrkode}
+/*IF      cAddCX  tlmgrup         INIT_ADD        MYHEROCX*/
+IF 	cAddCX_pil1	tlmgrup DFALT_SCAN_BLANKS      MYHEROCX 
+                                               APPLECX
+
+IF 	cAddCX_pil2	tlmgrup DFALT_SCAN_BLANKS      SOSMED
+                                                       
+                                                       
+IF 	cAddCX_pil2s	tlmgrup DFALT_SCAN_BLANKS      SOSMEDCABANG                                                        
+
+IF 	cAddCX_pil3	tlmgrup DFALT_SCAN_BLANKS      MYHEROCX
+							APPLECX
+							SOSMED
+IF	cBknSosmed tlmtype1     DFALT_SCAN_BLANKS      POIN 
+                                                       QUIZ
+IF	cSosmed	   tlmtype1	DFALT_SCAN_BLANKS      LIKE
+						       KOMEN
+						       SHARE
+                                                       FOLLOW
+						       ALL
+IF	cSosmed2   tlmtype1	DFALT_SCAN_BLANKS      LIKE
+						       KOMEN
+						       SHARE
+                                                       FOLLOW
+IF	cSosmed2cabupl   tlmtype1	DFALT_SCAN_BLANKS      UPLKONTEN
+IF	cSosmed2cabtt   tlmtype1	DFALT_SCAN_BLANKS      BUATKONTEN
+                                                               LIVETIKTOK
+
+IF	cBknSosmed tlmgrup2     DFALT_SCAN_BLANKS      Product_Knowledge
+                                                       NOS 
+                                                       Situational
+IF	cSosmed	   tlmgrup2	DFALT_SCAN_BLANKS      INSTAGRAM
+						       FACEBOOK
+						       TIKTOK
+                                                       LINKEDIN
+IF	cSosmed2   tlmgrup2	DFALT_SCAN_BLANKS      INSTAGRAM
+						       FACEBOOK
+						       TIKTOK
+IF      cSosmed2cab tlmgrup2    DFALT_SCAN_BLANKS      INSTAGRAM
+						       FACEBOOK
+						       TIKTOK
+IF      cSosmed2cabslsa tlmgrup2    DFALT_SCAN_BLANKS   TIKTOKSIPEDE
+IF      cSosmed2cabsls tlmgrup2    DFALT_SCAN_BLANKS   WA
+
+tlmusrapr			DFALT_SCAN_BLANKS	DEPARTEMEN
+							DIVISI
+							JABATAN
+							ALL_SDM
+IF      cBknSosmedcab tlmkode	DFALT_SCAN_BLANKS	HO
+							CABANG
+							ALL
+IF      cAddCX_pil3a   tlmkode	DFALT_SCAN_BLANKS	CRM-NSOH-AM     
+                                                        SALESCOUNTER
+                                                        KDH-COUNTER
+                                                        NSOH
+                                                        AM
+IF      cAddCX_pil4   tlmkode	DFALT_SCAN_BLANKS	FLP
+							CRM
+							FLP_DAN_CRM
+IF      cAddCX_img  tlmbrdoto       INIT_UPDATE     {cDirektori}
+lTombolOK                       INIT            SUDAH_OK
+lSYSTIME                        INIT            SYSTIME
+ljam1400     	                INIT            200000
+ljam1200     	                INIT            1200
+ljam1600     	                INIT            1600
+lHK                             INIT            HK
+l1                              INIT            1
+lTHBLHK                         INIT            {cTHBLHK}
+IF      cScanHK lHKMin3         INIT            {cHKMin3}
+lTglAkh                         INIT            {cTanggalAkhir}
+lCUSTOMEREXPERIENCE             INIT            CUSTOMEREXPERIENCE
+lNIPPICSOSMED			INIT		NIPPICSOSMED
+lNIPPICSOSMEDCAB		INIT		NIPPICSOSMEDCAB
+lCRMNSOHAM                      INIT            "CRM-NSOH-AM"
+lSALESCOUNTER                   INIT            SALESCOUNTER
+lSOSMEDAHASS                   	INIT            SOSMEDAHASS
+lMASTERHERO			INIT		MASTERHERO
+lKSFORM                         INIT            KSFORM
+lUSERREVIEW930                  INIT            USERREVIEW930
+lBATALSPKMYHERO                 INIT            BATALSPKMYHERO
+lSPKMYHERO                      INIT            SPKMYHERO
+lKUNCIABSEN                     INIT            KUNCIABSEN
+lMATRIKS                        INIT            MATRIKS
+lMAINDEALER                     INIT            MAINDEALER
+lAKUNSOSMED			INIT		AKUNSOSMED
+lENTER                          INIT            ENTER
+
+CALCS()
+/*cxFLPCRM	tlmkode != "FLP" && tlmkode != "CRM" && tlmkode != "FLP_DAN_CRM"*/
+cFLPCRM		tlmkode == "FLP" || tlmkode == "CRM" || tlmkode == "FLP_DAN_CRM"
+
+EDITS(master)
+e.Validate	tlmplg		VALIDATE psikodidx mpsi1 0	
+e.Validate      tlmuntuk        VALIDATE_IF ctype2nblnks tbtdatkodtyp mtbt stbt  {Pgv_dttabel} {PlCUSTOMEREXPERIENCE} {PlMAINDEALER} {PlMATRIKS} {Pgv_dttabel21}
+e.AkunSosmedTidakAda tlmgrup2	VALIDATE_IF cSosmed tbtdatkodtyp   makunsosmed stbt {Pgv_dttabel} {PlCUSTOMEREXPERIENCE} {PlAKUNSOSMED} {PlBISNIS} {Pgv_dttabel21}
+/*e.AkunSosmedTidakAda tlmgrup2	VALIDATE_IF cSosmed2 tbtdatkodtyp   makunsosmed stbt {Pgv_dttabel} {PlCUSTOMEREXPERIENCE} {PlAKUNSOSMED} {PlBISNIS} {Pgv_dttabel21}*/
+
+
+/* KONDISI EDITS COSTUMER EXPERIENCE */
+/*t.Mandatory     lMD          MANDATORY_IF cCXQZ */
+t.Mandatory     tlmtgljtp       MANDATORY_IF cAddCX_1 
+t.Mandatory     tlmtype1        MANDATORY/*_IF cxFLPCRM*/
+t.Mandatory     tlmgrup2        MANDATORY_IF cjnsquiz
+t.Mandatory     tlmuntuk        MANDATORY_IF cjnsquiz
+
+t.IsiType2		tlmgrup2        MANDATORY_IF cSosmed
+t.IsiTglBerlaku		tlmtgljtp       MANDATORY_IF cSosmed
+t.IsiNamaKonten		ketstr4_1      	MANDATORY_IF cSosmed
+t.IsiDeskripsiTugas	ketstr3_1        MANDATORY_IF cSosmed
+t.IsiCaption		spknote_2	MANDATORY_IF cpil5live
+t.IsiLinkKonten		tlmket        	MANDATORY_IF cSosmed
+t.IsiPesertaPenugasan	tlmjml        	MANDATORY_IF cSosmed
+t.IsiPenugasanUntuk	tlmkode        	MANDATORY_IF cSosmed
+
+t.IsiType2              tlmgrup2        MANDATORY_IF cSosmed2
+t.IsiTglBerlaku         tlmtgljtp       MANDATORY_IF cSosmed2
+t.IsiNamaKonten         ketstr4_1       MANDATORY_IF cSosmed2
+t.IsiDeskripsiTugas     ketstr3_1        MANDATORY_IF cSosmed2
+t.IsiLinkKonten         tlmket          MANDATORY_IF cSosmed2
+t.IsiPesertaPenugasan   tlmjml          MANDATORY_IF cSosmed2
+t.IsiPesertaPenugasan   tlmjml          MANDATORY_IF cSosmed2cab
+t.IsiPesertaPenugasan   tlmkode         MANDATORY_IF cSosmed2cab
+t.IsiPesertaPenugasan   tlmgrup2        MANDATORY_IF cSosmed2cab
+t.TypeWajibDiisi   	tlmgrup        	MANDATORY
+
+
+MAP(makunsosmed)
+tbtket          ketstr2_1       REPLACE
+
+CALCS()
+cJenisAll	tlmtype1 == "ALL"
+cketjenisall	"LIKE, KOMEN, SHARE, FOLLOW"
+
+
+MAP(mpsi1)
+psikode		tlmplg		REPLACE
+psinama		lnama1		REPLACE
+ltgmtgl         ltgmtgl         REPLACE_IF cdjoinHKMin3
+lTOTALHK        lTOTALHK       REPLACE_IF cdscantgmHKCx
+call		lgrupsop	DO_CALC_IF cgrup1
+cdivisi		lgrupsop	DO_CALC_IF cgrup2
+cdepartemen	lgrupsop	DO_CALC_IF cgrup3
+cjabatan	lgrupsop	DO_CALC_IF cgrup4
+ccabdealer	lgrupsop	DO_CALC_IF cgrup5
+cketjenisall	lketjenis	DO_CALC_IF cJenisAll	
+
+MAP(mtbt)
+tbtkode            tlmuntuk  REPLACE
+tbtket             lMD    REPLACE
+
+CALCS()
+cgot		g_curcmd == 1 || g_curcmd == 2
+cMaks2mg	tlmgrup != "SOSMED" || (tlmgrup == "SOSMED" && tlmtgljtp <= (g_tgltrn + 14)) || (tlmgrup == "SOSMED" && tlmjml == 5)
+cMaks2mgu	tlmgrup != "SOSMED" || (tlmgrup == "SOSMED" && tlmtgljtp >= g_tgltrn) || (tlmgrup == "SOSMED" && tlmjml == 5 && tlmtgljtp >= g_tgltrn)
+
+MAP(mdumCx)
+ldum		ldum		REPLACE
+
+MAP(mCXBrdoto)
+cDirektori      tlmbrdoto       DO_CALC_IF cAddCX_img
+
+MAP(mpenunt)
+lpenuntcrm          tlmkode         REPLACE_IF ccna
+/*lpenuntsls          tlmkode         REPLACE_IF csales*/
+
+MAP(mblanksmd)
+lBLANKS         tlmgrup2        REPLACE
+lBLANKS         tlmuntuk        REPLACE
+lBLANKS         lMD          REPLACE
+
+DBCALCS(djointbd1)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tbddatkodidx   gv_dttabel lMASTERKONTENCX tlmnobuk lDIVISI
+
+DBCALCS(djointbd2)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tbddatkodidx   gv_dttabel lMASTERKONTENCX tlmnobuk lDEPARTEMEN
+
+DBCALCS(djointbd3)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tbddatkodidx   gv_dttabel lMASTERKONTENCX tlmnobuk lJABATAN
+
+
+IMAGE(master2)
+/---------------------------------------\
+ t.NoBuk ________________________
+ t.Sts	 ________________ 
+ t.Type	 ________________
+ t.Jenis ________________
+ t.NamaKonten	____________
+ t.TglBerlaku 	____________
+\---------------------------------------/
+
+FIELD(master2)
+tlmnobuk	PROTECT		INPUTRI	1
+tlmsts		PROTECT		INPUTRI	2
+tlmgrup		PROTECT		INPUTRI	3
+tlmtype1	PROTECT		INPUTRI	4
+ketstr4_1	PROTECT		INPUTRI	5
+tlmtgljtp	PROTECT		INPUTRI	6
+
+
+
+CALCS()
+cbentuk1	tlmgrup == "SOSMED" && djointbd1 == 0
+cbentuk2	tlmgrup == "SOSMED" && djointbd2 == 0
+cbentuk3	tlmgrup == "SOSMED" && djointbd3 == 0
+cbisnisNIPPIC   djoinmasterbisnis == 1 || tlmgrup == "APPLECX" || tlmgrup == "MYHEROCX" || (tlmjml == 5 || tlmjml == 6 || tlmjml == 7)
+
+
+MAP(maddtbd1)
+gv_dttabel      tbddata         REPLACE
+gv_dttabel      tbdtype         REPLACE
+lDIVISI         tbdkode         REPLACE
+lMASTERKONTENCX tbddtmkode      REPLACE
+DEBUG tlmnobuk  tbdtblkode      REPLACE
+
+MAP(maddtbd2)
+gv_dttabel      tbddata         REPLACE
+gv_dttabel      tbdtype         REPLACE
+lDEPARTEMEN     tbdkode         REPLACE
+lMASTERKONTENCX tbddtmkode      REPLACE
+DEBUG tlmnobuk  tbdtblkode      REPLACE
+
+MAP(maddtbd3)
+gv_dttabel      tbddata         REPLACE
+gv_dttabel      tbdtype         REPLACE
+lJABATAN        tbdkode         REPLACE
+lMASTERKONTENCX tbddtmkode      REPLACE
+DEBUG tlmnobuk  tbdtblkode      REPLACE
+
+SPCALCS(sAddDetail)
+DO_LIB_IF	cbentuk1 ap_dbclc(DNAME dTbdDivisi,DCOMMAND ADD,DFILE tbd,DMAP maddtbd1);
+DO_LIB_IF	cbentuk2 ap_dbclc(DNAME dTbdDepartemen,DCOMMAND ADD,DFILE tbd,DMAP maddtbd2);
+DO_LIB_IF	cbentuk3 ap_dbclc(DNAME dTbdJabatan,DCOMMAND ADD,DFILE tbd,DMAP maddtbd3);
+
+CALCS()
+cselbisnis	    aktket == ketstr1_1 && aktbrg != "VOID"
+
+MAP(mscanbisnis)
+c1		ljmlbisnis	DO_CALC_IF cselbisnis
+
+DBCALCS(dcekbisnis)
+	DBC_COMMAND	SCANSCAN
+	DBC_TARGET	akttgltypidx   tlmtgljtp lMASTERHERO tlmgrup
+	DBC_SUM_MAP	mscanbisnis
+
+CALCS()
+cbisnisbisa	                  dcekbisnis >= 0 && ((ketstr1_1 != "HMC" && ljmlbisnis == 0) || (ketstr1_1 == "HMC" && ljmlbisnis < 2))
+cpanjang        DO_LIB ap_strln(spknote_2,&lpanjangcaption);
+cpanjangcukup		lpanjangcaption <= 500 || (tlmkode != "FLP" && tlmkode != "CRM" && tlmkode != "FLP_DAN_CRM")
+
+MAP(mReplacebisnis)
+ketstr1_1		lBISNIS		REPLACE
+
+MAP(mH2)
+lH2			ketstr1_1	REPLACE_IF cFLPCRM
+
+MAP(mpanjang)
+cpanjang		lpanjangcaption	DO_CALC
+
+HOOKS(master)
+AFTER_INPUT		cur_field=spknote_2	DO_MAP SHOW mpanjang
+AFTER_INPUT             cur_field=spknote_2     DO_MAP SHOW
+                        IF cpanjangcukup                mdum
+                        ELSE HKCURSOR STAY
+                        HKMSG Caption maksimal 500 karakter
+AFTER_INPUT		        cur_field=ketstr1_1	    DO_MAP SHOW mReplacebisnis
+BEFORE_INPUT		    cur_field=tlmsts	    DO_SKIP_IF cgot  	
+AFTER_INPUT             cur_keybd=EN            DO_SPCALCS sAddDetail
+AFTER_INPUT             cur_field=ketstr1_1     DO_MAP SHOW 
+                        IF cbisnisNIPPIC   mdum
+                        ELSE HKCURSOR STAY
+                        HKMSG Pilih Bisnis Sesuai Yang Di Tanggung Jawabkan
+ 
+
+/* KONDISI HOOKS COSTUMER EXPERIENCE */
+
+AFTER_INPUT             cur_field=tlmtgljtp     DO_MAP SHOW
+                        IF cCxMinHari           mdumCx
+                        ELSE HKCURSOR STAY
+                        HKMSG Tanggal Tidak Boleh Lebih Kecil Dari Hari Ini
+
+AFTER_INPUT             cur_keybd=EN            DO_MAP SHOW
+                        IF cCxMinHari           mdumCx
+                        ELSE HKCURSOR STAY
+                        HKMSG Tanggal Tidak Boleh Lebih Kecil Dari Hari Ini
+
+AFTER_INPUT             cur_field=tlmtgljtp     DO_MAP SHOW
+                        IF cJoinTGMMin3         mdumCx
+                        ELSE HKCURSOR STAY
+                        HKMSG Tanggal Tidak Boleh H - 3 Dari Closingan "HARI KERJA"
+
+AFTER_INPUT             cur_keybd=EN            DO_MAP SHOW
+                        IF cJoinTGMMin3         mdumCx
+                        ELSE HKCURSOR STAY
+                        HKMSG Tanggal Tidak Boleh H - 3 Dari Closingan "HARI KERJA"
+
+/*AFTER_INPUT             cur_field=tlmtgljtp     DO_MAP SHOW
+                        IF cCxMax7Hari          mdumCx
+                        ELSE HKCURSOR STAY
+                        HKMSG Tanggal Tidak Boleh Lebih Dari 7 Hari
+
+AFTER_INPUT             cur_keybd=EN            DO_MAP SHOW
+                        IF cCxMax7Hari          mdumCx
+                        ELSE HKCURSOR STAY
+                        HKMSG Tanggal Tidak Boleh Lebih Dari 7 Hari*/
+
+AFTER_INPUT             cur_field=tlmtgljtp     DO_MAP          SHOW
+                        IF      cMaks2mg        mdumCx
+                        ELSE    HKCURSOR STAY
+                        HKMSG   Maksimal H+14
+
+AFTER_INPUT             cur_field=tlmtgljtp     DO_MAP          SHOW
+                        IF      cMaks2mgu       mdumCx
+                        ELSE    HKCURSOR STAY
+                        HKMSG   Tanggal tidak boleh lebih kecil dari tanggal hari ini
+
+AFTER_INPUT		cur_field=tlmtgljtp	DO_MAP		SHOW
+			IF	cbisnisbisa	mdumCx
+			ELSE	HKCURSOR STAY
+			HKMSG	Penugasan dengan bisnis tersebut sudah ada pada tanggal berlaku yang dipilih, pilih tanggal yang lain
+                        
+BEFORE_INPUT		cur_field=tlmgrup2	DO_SKIP_IF cNoCXQZ
+BEFORE_INPUT		cur_field=tlmuntuk	DO_SKIP_IF cNoCXQZ
+BEFORE_INPUT		cur_field=tlmtgljtp	DO_SKIP_IF cNoCX
+BEFORE_INPUT		cur_field=tlmuntuk	DO_SKIP_IF cSosmed
+BEFORE_INPUT		cur_field=tlmuntuk	DO_SKIP_IF cSosmed2cab
+BEFORE_INPUT		cur_field=tlmuntuk	DO_SKIP_IF cSosmed2
+
+BEFORE_INPUT		cur_field=ketstr4_1	DO_SKIP_IF cBknSosmed
+/*BEFORE_INPUT		cur_field=ketstr4_1	DO_SKIP_IF cintikwa*/
+BEFORE_INPUT		cur_field=ketstr3_1	DO_SKIP_IF cBknSosmed
+BEFORE_INPUT		cur_field=tlmket	DO_SKIP_IF cBknSosmed
+BEFORE_INPUT		cur_field=tlmket	DO_SKIP_IF cjklive
+/*BEFORE_INPUT		cur_field=tlmket	DO_SKIP_IF cintikwa*/
+BEFORE_INPUT		cur_field=tlmjml	DO_SKIP_IF cBknSosmed
+BEFORE_INPUT		cur_field=tlmkode	DO_SKIP_IF cBknSosmed
+BEFORE_INPUT		cur_field=tlmkode	DO_SKIP_IF cSosmedcab
+BEFORE_INPUT		cur_field=ketstr1_1	DO_SKIP_IF cBknSosmed
+BEFORE_INPUT		cur_field=ketstr1_1	DO_SKIP_IF cpil5
+BEFORE_INPUT		cur_field=ketstr2_1	DO_SKIP_IF cBknSosmed
+BEFORE_INPUT		cur_field=ketstr2_1	DO_SKIP_IF cpil5
+BEFORE_INPUT		cur_field=tlmkode	DO_SKIP_IF cgrup5sos
+AFTER_INPUT             cur_field=tlmtgljtp     DO_MAP SHOW
+                        IF cAddCX               mCXBrdoto
+AFTER_INPUT             cur_field=tlmjml        DO_MAP SHOW
+                        IF cSosmed2cab          mpenunt                        
+BEFORE_INPUT		cur_field=spknote_2	DO_SKIP_IF cSosmed
+BEFORE_INPUT		cur_field=spknote_2	DO_SKIP_IF cBknSosmed
+BEFORE_INPUT		cur_field=spknote_2	DO_SKIP_IF cjklive
+
+
+AFTER_INPUT             cur_field=tlmtype1     DO_MAP SHOW 
+                        IF cpoin               mblanksmd
+BEFORE_INPUT		cur_field=tlmtype1	DO_SKIP_IF cAddCX_pil4a
+AFTER_INPUT		cur_field=tlmkode	DO_MAP SHOW mH2
+
+MAP(mdum)
+	ldum		ldum	REPLACE
+/******************************************************************/
+IMAGE(transt)
+/--------------------t------\
+|   t.Keterangan     |      |
+\--------------------.------/
+
+IMAGE(trans)
+|____________________|
+
+FIELD(trans)
+tbdkode         NOCHANGE        INPUTRI 1
+
+CALCS()
+cKondDetail	tlmgrup == "SOSMED" && tlmtypbrg == "OK" && tlmjml != 1 && tlmjml != 5
+cSelTbd		(tlmjml == 1 && (tbdkode == "DIVISI" || tbdkode == "DEPARTEMEN" || tbdkode == "JABATAN")) ||
+		(tlmjml == 2 && tbdkode == "DIVISI") ||
+		(tlmjml == 3 && tbdkode == "DEPARTEMEN") ||
+		(tlmjml == 4 && tbdkode == "JABATAN")
+SUBFILE(trans)
+SFL_LINES(3)
+SFL_TITLE(transt)
+SFL_COND        cKondDetail
+SFL_SELECT	cSelTbd
+SFL_TARGET      tbddatkodidx    gv_dttabel lMASTERKONTENCX tlmnobuk
+
+IMAGE(transat)
+/------------------------------------------------\
+|/----------------------------------------------\|
+||t.BatalkanSPKMYHERO                           ||
+|\----------------------------------------------/|
+|/----------------------------------------------\|
+||t.Nobuk     ________________                  ||
+||t.Pilihan   _______________                   ||
+||t.YgDiganti ________________                  ||
+||t.Menjadi   _______________                   ||
+||t.NipGanti  _______  ________________________ ||
+||t.Alasan                                      ||
+||  ___________________________________________ ||
+||                   __________                 ||
+|\----------------------------------------------/|
+\------------------------------------------------/
+
+IMAGE(transa)
+
+FIELD(transat)
+        tldnobuk                PROTECT         INPUTRI 1
+        tldsat                  NOCHANGE        INPUTRI 2
+        tldstr1                 PROTECT         INPUTRI 3
+        tldkat                  NOCHANGE        INPUTRI 4
+        tldplg                  PROTECT         INPUTRI 5
+        lNamaBatal              PROTECT         INPUTRI 6
+        tldket                  TEXTAREA 3      INPUTRI 7
+        lEnter                  NOCHANGE        INPUTRI 8
+
+DEFAULTS(transat)
+        tldsat                  DFALT_SCAN      BLANKS
+                                                UBAH_STATUS
+
+        tldkat                  DFALT_SCAN      BLANKS
+                                                VOID
+
+        lEnter                  INIT_LABEL      ENTER
+
+CALCS()
+        cBatalSPKMyHERO         ((g_grpnam == "RI" || g_grpnam == "IT") || (g_usrkode == "2470348" || g_usrkode == tlmplg)) && ((tlmsts == "CLSD" || tlmsts == "VOID") && (tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX" || tlmgrup == "SOSMED"))
+        cPBtlSPK                ((g_grpnam == "RI" || g_grpnam == "IT") || g_usrkode == "2470348") && (tlmsts == "CLSD" && (tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX"))
+        cPBtlSOS                ((g_grpnam == "RI" || g_grpnam == "IT") || (g_usrkode == "2470348" || g_usrkode == tlmplg)) && tlmsts == "CLSD" && tlmgrup == "SOSMED"
+        cPBtlSOS_pil5           ((g_grpnam == "RI" || g_grpnam == "IT") || (g_usrkode == "2470348" || g_usrkode == tlmplg)) && tlmsts == "CLSD" && tlmgrup == "SOSMED" && tlmjml == 5
+        cKet                    tldket == BLANKS
+
+EDITS(transat)
+        e.Mandatory             tldsat          MANDATORY
+        e.Mandatory             tldkat          MANDATORY
+        e.Mandatory             tldket          MANDATORY
+
+        e.ValidateNip           tldplg          VALIDATE psmdtkodidx mpsmnip 0 {Pgv_dtkaryawan} {Pgv_INPG}
+
+MAP(mpsmnip)
+        psmnama                 lNamaBatal      REPLACE
+
+MAP(mIsiField)
+        tlmnobuk                tldnobuk        REPLACE
+        tlmsts                  tldstr1         REPLACE
+        g_usrkode               tldplg          REPLACE
+
+HOOKS(transat)
+        BEFORE_INPUT            cur_field=tldsat                DO_MAP  mIsiField
+
+        AFTER_INPUT             cur_field=tldket                DO_MAP  SHOW
+                                IF cKet                                 mdum
+                                ELSE
+                                HKMSG Yakin Ingin Membatalkan SPK MY HERO Atau APPLE ?, Tekan Enter Jika Yakin, Jika Tidak Tekan Esc !
+
+SUBFILE(transa)
+SFL_TITLE(transat)
+SFL_LINES(1)
+SFL_COND                cBatalSPKMyHERO
+SFL_TARGET
+        tldbukbrgoto    tlmnobuk gv_INPG lBATALSPKMYHERO
+
+SFL_MAP
+        tlmdata                 tlddata         REPLACE
+        tlmnobuk                tldnobuk        REPLACE
+        gv_INPG                 tldsts          REPLACE
+        lBATALSPKMYHERO         tldbrg          REPLACE
+
+
+
+IMAGE(trans2t)
+/-----------------------t---------------------------------\
+| t.Tipe                | t.Keterangan                    |
+\-----------------------.---------------------------------/
+
+IMAGE(trans2)
+|_______________________|_________________________________|
+
+
+FIELD(trans2)
+tbtkode         ALLCAPS         INPUTRI 1
+tbtket          PROTECT         INPUTRI 2
+
+CALCS()
+cdvs            tbdkode == "DIVISI"
+cdep            tbdkode == "DEPARTEMEN"
+cjab            tbdkode == "JABATAN"
+cnip            tbdkode == "NIP"
+
+EDITS(trans2)
+e.ValidateDiv   tbtkode         VALIDATE_BUF3_IF cdvs   tbddatkodidx mtbd stbd {Pgv_dttabel} {Pgv_personal} {PlDIVISI}
+e.ValidateDep   tbtkode         VALIDATE_BUF3_IF cdep   tbddatkodidx mtbd stbd {Pgv_dttabel} {Pgv_personal} {Pgv_DEP}
+e.ValidateJab   tbtkode         VALIDATE_BUF3_IF cjab   tbddatkodidx mtbd stbd {Pgv_dttabel} {Pgv_personal} {Pgv_jabatan}
+e.ValidateNip   tbtkode         VALIDATE_IF      cnip   psikodidx mpsinip 0
+
+MAP(mtbd)
+gv_dttabel	tbtdata		REPLACE
+gv_dttabel21	tbttype		REPLACE
+lMASTERKONTENCX	tbtdtmkode	REPLACE
+tlmnobuk	tbttblkode	REPLACE
+tbdkode		tbttbdkode	REPLACE
+#tbdkode        tbtkode         REPLACE
+#tbdket         tbtket          REPLACE
+
+MAP(mpsinip)
+gv_dttabel      tbtdata         REPLACE
+gv_dttabel21    tbttype         REPLACE
+lMASTERKONTENCX tbtdtmkode      REPLACE
+tlmnobuk        tbttblkode      REPLACE
+tbdkode         tbttbdkode      REPLACE
+psikode         tbtkode         REPLACE
+psinama         tbtket          REPLACE
+
+SUBFILE(trans2)
+SFL_SORT_BY_FIELD tbtkode
+SFL_LINES(10)
+SFL_TITLE(trans2t)
+SFL_TARGET
+        tbtdattypkod    gv_dttabel gv_dttabel21 lMASTERKONTENCX tlmnobuk tbdkode
+
+
+/******************************************************************/
+
+
+
+
+
+/*KONDISI COSTUMER EXPERIENCE*/
+CALCS()
+        cTLMSelect963SOS        tlmgrup ==  "SOSMED" && tlmscr == "963"
+        cABKSelect963SOS        abkdata == lKUNCIABSEN && abkscr == "963"
+        cTLMSelect930SPK        (tlmgrup == "MYHEROCX" || tlmgrup == "APPLECX") && tlmscr == "930"
+        cABKSelect930SPK        abkdata == lKUNCIABSEN && (abkkym2 == "SPK MY HERO 930" || abkkym2 == "SPK APPLE 930") && abkscr == "930"
+
+MAP(maddCx)
+tlmnobuk        tlmnobuk        REPLACE
+
+SPCALCS(spCX)
+DO_LIB_IF cAddCX_1      ap_dbclc(DNAME dCX,DCOMMAND ADD_SUB,DFILE tlm,DLTARGET tlmbukidx tlmnobuk,DLLEN {stspjbuk},DMAP maddCx);
+
+MAP(mupdtlm930SPK)
+gv_VOID         tlmsts          REPLACE
+
+MAP(mupdabk930SPK)
+gv_VOID         abksts          REPLACE
+
+MAP(maktvoid)
+gv_VOID		aktbrg		REPLACE
+
+MAP(mupdtlm333)
+gv_VOID		tlmsts		REPLACE
+
+SPCALCS(spBatalSPKMYHERO)
+DO_LIB_IF cPBtlSOS	ap_dbclc(DNAME dupdaktvoid,DCOMMAND UPDATE_RANGE,DTARGET aktbukotoidx tlmnobuk,DMAP maktvoid);
+DO_LIB_IF cPBtlSOS      ap_dbclc(DNAME dupdtlm963SOS,DCOMMAND UPDATE_RANGE,DTARGET tlmdataslsts lKSFORM tlmnobuk,DBC_SELECT cTLMSelect963SOS,DMAP mupdtlm930SPK);
+DO_LIB_IF cPBtlSOS      ap_dbclc(DNAME dupdabk963SOS,DCOMMAND UPDATE_RANGE,DTARGET abktyp2tglid tlmnobuk,DBC_SELECT cABKSelect963SOS,DMAP mupdabk930SPK);
+DO_LIB_IF cPBtlSOS      ap_dbclc(DNAME dupdtlm965SOS,DCOMMAND UPDATE,DTARGET tlmotoidx tlmoto,DMAP mupdtlm930SPK);
+DO_LIB_IF cPBtlSOS_pil5 ap_dbclc(DNAME dupdtlm965SOS_5,DCOMMAND UPDATE_RANGE,DTARGET tlmdataslsts lSPKSOSMED tlmnobuk,DMAP mupdtlm333);
+
+DO_LIB_IF cPBtlSPK      ap_dbclc(DNAME dupdtlm930SPK,DCOMMAND UPDATE_RANGE,DTARGET tlmdataslsts lSPKMYHERO tlmnobuk,DBC_SELECT cTLMSelect930SPK,DMAP mupdtlm930SPK);
+DO_LIB_IF cPBtlSPK      ap_dbclc(DNAME dupdabk930SPK,DCOMMAND UPDATE_RANGE,DTARGET abktyp2tglid tlmnobuk,DBC_SELECT cABKSelect930SPK,DMAP mupdabk930SPK);
+DO_LIB_IF cPBtlSPK      ap_dbclc(DNAME dupdtlm903SPK,DCOMMAND UPDATE,DTARGET tlmotoidx tlmoto,DMAP mupdtlm930SPK);
+
+POSTING(master)
+PST_SUB_ADDCMD  spCX
+PST_ADDCMD	sAddDetail
+
+POSTING(transa)
+PST_ADDCMD	spBatalSPKMYHERO
+
+PERMIT(master)
+PMT_ADD_COND	cAddCX
+PMT_UPDALL_COND	cubah
+PMT_DEL_COND	c0
+
+PERMIT(trans)
+PMT_ADD_COND	c0
+PMT_UPDALL_COND	c0
+PMT_DEL_COND	c0
+
+PERMIT(transa)
+PMT_ADD_COND	cAddCX
+PMT_UPDALL_COND	c0
+PMT_DEL_COND	c0
+
+
+END_SCREEN
