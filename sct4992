@@ -161,7 +161,12 @@ PGM_FIELDS
         lHJ                     STRING  11
         lI                      STRING  11
 
+	lnipflptmp		STRING	21
 	lnipflp			STRING	21
+	lnipflpl1		STRING	21
+	lpsijabatan		STRING	21
+	lRESMICAB		STRING	21
+	lSOSAHASS		STRING	11
 
 CALCS()
         cSelectHSO      tbdkode2  == "HSO"
@@ -496,7 +501,7 @@ FIELD(master)
 	lTGL			ALLCAPS		INPUTRI	3
 
 DEFAULTS(master)
-        lversi                  INIT            28092026_V2
+        lversi                  INIT            02102026_V4
         lNOBUK       	        INIT            {r_string1}
         lLAYAR       	        INIT            {r_string2}
         lSTATUS                 INIT            {r_string3}
@@ -597,6 +602,8 @@ DEFAULTS(master)
         lHC                     INIT            "HC"
         lHJ                     INIT            "HJ"
         lI                      INIT            "I"
+	lRESMICAB		INIT		"RESMICAB"
+	lSOSAHASS		INIT		"SOSAHASS"
 
 CALCS()
         c903POSTING     lLAYAR == "965" && lTYPE != "SOSMED" && lTYPE != "SOSMEDCABANG"
@@ -1313,8 +1320,11 @@ FIELD(trans2g6)
         psicabskr       NOCHANGE                        INPUTRI 3
 
 CALCS()
-cSEL2G6                 ((lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM") && (psijabatan == "CRMWINGS" || psijabatan == "CRMDEALER" || psijabatan == "PLTCRMDEALER" || psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK"))
-
+cSEL2G6 (
+		(lPENUGASANUNTUK == "FLP" && ((psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK"))) || 
+		(lPENUGASANUNTUK == "CRM" && (psijabatan == "CRMWINGS" || psijabatan == "CRMDEALER" || psijabatan == "PLTCRMDEALER")) || 
+		(lPENUGASANUNTUK == "FLP_DAN_CRM" && (psijabatan == "CRMWINGS" || psijabatan == "CRMDEALER" || psijabatan == "PLTCRMDEALER" || psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK"))
+	)
 SUBFILE(trans2g6)
 SFL_COND                c965SOSMEDCABflp567
 SFL_LINES(10)
@@ -1875,6 +1885,13 @@ tlmnobuk		ketnobuk	REPLACE
 lNAMAKONTEN		ketstr4		REPLACE
 DEBUG lDESKPENUGASAN	ketstr3		REPLACE
 
+MAP(maddketg4flp)
+gv_dtkkumum             ketdata         REPLACE
+tlmnobuk                ketnobuk        REPLACE
+lNAMAKONTEN             ketstr4         REPLACE
+lBISNISSOSMED           ketstr1         REPLACE
+DEBUG lDESKPENUGASAN    ketstr3         REPLACE
+
 MAP(maddspkg4)
 gv_dtkkumum             spkdata         REPLACE
 tlmnobuk                spknobuk        REPLACE
@@ -2356,11 +2373,34 @@ SPCALCS(sptrans2g5)
         DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME dadddetail5g6,DCOMMAND ADD,DFILE tld,DMAP madddetail5g4);
         DO_LIB_IF cjkfaceada_7		ap_dbclc(DNAME daddket5g6,DCOMMAND ADD,DFILE ket,DMAP maddketdetail5g4);
 
+DBCALCS(djoinsls32flp)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      abdtglkymidx    g_tgltrn  lnipflpl1 lDATANG
+
+DBCALCS(djoinsls129flp)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      abdtglkymidx    g_tgltrn  lnipflpl1 lHADIR129
+
+DBCALCS(djoinsls160flp)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      hrmdatniptgl    lTERLAMBAT lnipflpl1 g_tgltrn
 CALCS()
-cabsenflp		(djoinsls32 == 1 || djoinsls129 == 1 || djoinsls160 == 1)
-cselflpsa4		(psijabatan == "NSOHEAD" || psijabatan == "PLTNSOHEAD") && (djoinsls32 == 1 || djoinsls129 == 1 || djoinsls160 == 1)
-cselflpsa3		(psijabatan == "ADMPART" || psijabatan == "ADMAHASS") && (djoinsls32 == 1 || djoinsls129 == 1 || djoinsls160 == 1)
-cselflpsa2		(psijabatan == "AHASSKEPALABENGOFF" || psijabatan == "PLTAHASSKEPALABENGOF" || psijabatan == "AHASSAREASPV") && (djoinsls32 == 1 || djoinsls129 == 1 || djoinsls160 == 1)
+cabkflp         abkcab == cabkode && abktgl == lTGL && abktype == lSOSAHASS
+DBCALCS(djoinflpabksa4INPG)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      abkdatstskym   lKUNCIABSEN gv_INPG psikode l1055
+        DBC_SELECT      cabkflp
+
+DBCALCS(djoinflpabksa4RINP)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      abkdatstskym   lKUNCIABSEN gt_RINP psikode l1055
+        DBC_SELECT      cabkflp
+
+
+CALCS()
+cselflpsa4		(psijabatan == "NSOHEAD" || psijabatan == "PLTNSOHEAD")
+cselflpsa3		(psijabatan == "ADMPART" || psijabatan == "ADMAHASS")
+cselflpsa2		(psijabatan == "AHASSKEPALABENGOFF" || psijabatan == "PLTAHASSKEPALABENGOF" || psijabatan == "AHASSAREASPV")
 
 MAP(mjoinflp)
 psikode			lnipflp		REPLACE
@@ -2383,56 +2423,113 @@ DBCALCS(djoinflpsa2)
         DBC_SELECT      cselflpsa2
         DBC_MAP         mjoinflp
 
+DBCALCS(djoinsls32flplayer)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      abdtglkymidx    g_tgltrn  lnipflp lDATANG
+
+DBCALCS(djoinsls129flplayer)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      abdtglkymidx    g_tgltrn  lnipflp lHADIR129
+
+DBCALCS(djoinsls160flplayer)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      hrmdatniptgl    lTERLAMBAT lnipflp g_tgltrn
+
+
 CALCS()
 cjkfaceflp              (lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM") && lTYPEQUIZ == "FACEBOOK"
 cjkintikwaflp           (lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM") && (lTYPEQUIZ == "TIKTOK" || lTYPEQUIZ == "INSTAGRAM" || lTYPEQUIZ == "WA")
-
+cabsenflpsa4		(djoinsls32 == 0 && djoinsls129 == 0 && djoinsls160 == 0) && (psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK") && djoinflpsa4 == 1 && (djoinsls32flplayer == 1 || djoinsls129flplayer == 1 || djoinsls160flplayer == 1) && djoinflpabksa4INPG == 0 && djoinflpabksa4RINP == 0
+cabsenflpsa3		(djoinsls32 == 0 && djoinsls129 == 0 && djoinsls160 == 0) && (psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK") && djoinflpsa3 == 1 && (djoinsls32flplayer == 1 || djoinsls129flplayer == 1 || djoinsls160flplayer == 1) && djoinflpabksa4INPG == 0 && djoinflpabksa4RINP == 0
+cabsenflpsa2		(djoinsls32 == 0 && djoinsls129 == 0 && djoinsls160 == 0) && (psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK") && djoinflpsa2 == 1 && (djoinsls32flplayer == 1 || djoinsls129flplayer == 1 || djoinsls160flplayer == 1) && djoinflpabksa4INPG == 0 && djoinflpabksa4RINP == 0
+cabsenflp		(djoinsls32flp == 1 || djoinsls129flp == 1 || djoinsls160flp == 1) && psijabatan != "CRMDEALER" && psijabatan != "CRMWINGS" && psijabatan != "PLTCRMDEALER"
 cabsenflpcab		(psijabatan == "CRMDEALER" || psijabatan == "CRMWINGS" || psijabatan == "PLTCRMDEALER")
-/*cabsenflpcab2		(djoinsls32 == 0 && djoinsls129 == 0 && djoinsls160 == 0) && (psijabatan == "CRMDEALER" || psijabatan == "CRMWINGS" || psijabatan == "PLTCRMDEALER")*/
 
-cabsenflpsa4		(djoinsls32 == 0 && djoinsls129 == 0 && djoinsls160 == 0) && (psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK") && djoinflpsa4 == 1
-cabsenflpsa3		(djoinsls32 == 0 && djoinsls129 == 0 && djoinsls160 == 0) && (psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK") && djoinflpsa3 == 1
-cabsenflpsa2		(djoinsls32 == 0 && djoinsls129 == 0 && djoinsls160 == 0) && (psijabatan == "AHASSSERVICEADVOFF" || psijabatan == "AHASSFRONTDESK") && djoinflpsa2 == 1
-
-
-MAP(mmapmapgflp)  
-cnobukspksosmedface	tlmnobuk	DO_CALC_IF cjkfaceflp
-cnobukspksosmedintikwa	tlmnobuk	DO_CALC_IF cjkintikwaflp
+MAP(mmapmapgflp)
+cblanks			lnipflp		DO_CALC
+cblanks			lnipflpl1	DO_CALC
+psikode                 lnipflpl1       REPLACE
+cnobukspksosmedface     tlmnobuk        DO_CALC_IF cjkfaceflp
+cnobukspksosmedintikwa  tlmnobuk        DO_CALC_IF cjkintikwaflp
 lDESKPENUGASAN          lDESKPENUGASAN  REPLACE_IF cjoinCAPTION
 lCAPTION                lCAPTION        REPLACE_IF cjoinCAPTION
 lLINKSOSMED             lLINKSOSMED     REPLACE_IF cjoinLINKSOSMED
 
-lnipflp			lnipflp		REPLACE_IF cabsenflpsa4
-lnipflp			lnipflp		REPLACE_IF cabsenflpsa3
-lnipflp			lnipflp		REPLACE_IF cabsenflpsa2
-psikode			lnipflp		REPLACE_IF cabsenflp
-psikode			lnipflp		REPLACE_IF cabsenflpcab
+lnipflp                 lnipflptmp      REPLACE_IF cabsenflpsa4
+lnipflp                 lnipflptmp      REPLACE_IF cabsenflpsa3
+lnipflp                 lnipflptmp      REPLACE_IF cabsenflpsa2
+lnipflptmp		lnipflp		REPLACE
+lnipflpl1               lnipflp         REPLACE_IF cabsenflp
+lnipflpl1               lnipflp         REPLACE_IF cabsenflpcab
+
+MAP(maddabkg4flp)
+tlmnobuk        abknobuk        REPLACE
+lKUNCIABSEN     abkdata         REPLACE
+lnipflp         abkkym          REPLACE
+ckettiktok      abkkym2         DO_CALC_IF cbuattiktok
+cketlive        abkkym2         DO_CALC_IF clivetiktok
+cketface        abkkym2         DO_CALC_IF cfacebook
+cketintiktwa    abkkym2         DO_CALC_IF cintikwa
+lTGL            abktgl          REPLACE
+gv_INPG         abksts          REPLACE_IF cTGLHRINI
+gt_RINP         abksts          REPLACE_IF cTGLBKNHR
+cabkode		abkcab		REPLACE
+lRESMICAB	abktype2	REPLACE_IF cabsenflpcab
+lSOSAHASS	abktype		REPLACE
+DEBUG l1055     abkscr          REPLACE
+
+MAP(maddmasterg4flp)
+lSPKSOSMED              tlmdata         REPLACE
+tlmnobuk                tlmnobuk        REPLACE
+lTYPEQUIZ               tlmgrup2        REPLACE
+lnipflp                 tlmplg          REPLACE
+lJENIS                  tlmtype1        REPLACE
+lLINKSOSMED             tlmket          REPLACE
+lNOBUK                  tlmnoasal       REPLACE
+lTGL                    tlmtgl          REPLACE
+cabkode                 tlmcab          REPLACE
+lPENUGASANUNTUK         tlmkode         REPLACE
+lTYPE                   tlmgrup         REPLACE
+DEBUG gv_OPEN           tlmsts          REPLACE
+
+MAP(mjoinjab)
+psijabatan		lpsijabatan	REPLACE
+DBCALCS(djoinjab)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	psikodidx lnipflp
+	DBC_MAP		mjoinjab
+
+DBCALCS(djoinabkresmi)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	abktyp2tglid   lRESMICAB lTGL
+	DBC_SELECT	cabkflp
 
 CALCS()
-cdjoinpsi_7flp          ((g_tgltrn > psitglawl + 30 && psitglawl != BLANKS) || (psijabatan == "CRMWINGS" || psijabatan == "CRMDEALER" || psijabatan == "PLTCRMDEALER")) && ((lTGL == g_tgltrn && SYSTIME < ljam11) || lTGL > g_tgltrn || (djoinsls32_7 == 1 || djoinsls129_7 == 1 || djoinsls160_7 == 1))
-cdjoinabd_7flp          ((g_tgltrn > psitglawl + 30 && psitglawl != BLANKS) || (psijabatan == "CRMWINGS" || psijabatan == "CRMDEALER" || psijabatan == "PLTCRMDEALER")) && ((lTGL == g_tgltrn && SYSTIME < ljam11) || lTGL > g_tgltrn || (djoin32slsabk_7 == 1 || djoin129slsabk_7 == 1 || djoin160slsabk_7 == 1))
+cjkfacetdkada_7flp         (lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM") && lTYPEQUIZ == "FACEBOOK" && djointld_7 == 0 && lnipflp != BLANKS
+cjkfaceada_7flp            (lPENUGASANUNTUK == "FLP" || lPENUGASANUNTUK == "CRM" || lPENUGASANUNTUK == "FLP_DAN_CRM") && lTYPEQUIZ == "FACEBOOK" && djointld_7 == 1 && lnipflp != BLANKS
+cbentukflp		lnipflp != BLANKS && djoinjab == 1 && (((lpsijabatan == "CRMWINGS" || lpsijabatan == "CRMDEALER" || lpsijabatan == "PLTCRMDEALER") && djoinabkresmi == 0) || (psijabatan != "CRMWINGS" && lpsijabatan != "CRMDEALER" && lpsijabatan != "PLTCRMDEALER"))
 
 SPCALCS(sptrans2g6)
-        DO_LIB                          ap_dbclc(DNAME dmapmapg7,DCOMMAND MAPMAP,DMAP mmapmapgflp);
-        DO_LIB_IF cdjoinpsi_7flp           ap_dbclc(DNAME daddmasterg7,DCOMMAND ADD,DFILE tlm,DLTARGET tlmbukidx tlmnobuk,DLLEN {l20},DMAP maddmasterg4);
-        DO_LIB_IF cdjoinpsi_7flp        ap_dbclc(DNAME daddketg7,DCOMMAND ADD,DFILE ket,DMAP maddketg4);
-        DO_LIB_IF cdjoinpsi_7flp        ap_dbclc(DNAME daddspkg7,DCOMMAND ADD,DFILE spk,DMAP maddspkg4);
-        DO_LIB_IF cdjoinabd_7flp        ap_dbclc(DNAME daddabkg7,DCOMMAND ADD,DFILE abk,DMAP maddabkg4);
+        DO_LIB                  ap_dbclc(DNAME dmapmapg7,DCOMMAND MAPMAP,DMAP mmapmapgflp);
+        DO_LIB_IF cbentukflp	ap_dbclc(DNAME daddmasterg7,DCOMMAND ADD,DFILE tlm,DLTARGET tlmbukidx tlmnobuk,DLLEN {l20},DMAP maddmasterg4flp);
+        DO_LIB_IF cbentukflp	ap_dbclc(DNAME daddketg7,DCOMMAND ADD,DFILE ket,DMAP maddketg4flp);
+        DO_LIB_IF cbentukflp	ap_dbclc(DNAME daddspkg7,DCOMMAND ADD,DFILE spk,DMAP maddspkg4);
+        DO_LIB_IF cbentukflp	ap_dbclc(DNAME daddabkg7,DCOMMAND ADD,DFILE abk,DMAP maddabkg4flp);
 
-        DO_LIB_IF cjkfacetdkada_7       ap_dbclc(DNAME dadddetail1g7,DCOMMAND ADD,DFILE tld,DMAP madddetail1g4);
-        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME daddket1g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail1g4);
+        DO_LIB_IF cjkfacetdkada_7flp       ap_dbclc(DNAME dadddetail1g7,DCOMMAND ADD,DFILE tld,DMAP madddetail1g4);
+        DO_LIB_IF cjkfaceada_7flp          ap_dbclc(DNAME daddket1g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail1g4);
 
-        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME dadddetail2g7,DCOMMAND ADD,DFILE tld,DMAP madddetail2g4);
-        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME daddket2g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail2g4);
+        DO_LIB_IF cjkfaceada_7flp          ap_dbclc(DNAME dadddetail2g7,DCOMMAND ADD,DFILE tld,DMAP madddetail2g4);
+        DO_LIB_IF cjkfaceada_7flp          ap_dbclc(DNAME daddket2g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail2g4);
 
-        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME dadddetail3g7,DCOMMAND ADD,DFILE tld,DMAP madddetail3g4);
-        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME daddket3g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail3g4);
+        DO_LIB_IF cjkfaceada_7flp          ap_dbclc(DNAME dadddetail3g7,DCOMMAND ADD,DFILE tld,DMAP madddetail3g4);
+        DO_LIB_IF cjkfaceada_7flp          ap_dbclc(DNAME daddket3g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail3g4);
 
-        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME dadddetail4g7,DCOMMAND ADD,DFILE tld,DMAP madddetail4g4);
-        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME daddket4g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail4g4);
+        DO_LIB_IF cjkfaceada_7flp          ap_dbclc(DNAME dadddetail4g7,DCOMMAND ADD,DFILE tld,DMAP madddetail4g4);
+        DO_LIB_IF cjkfaceada_7flp          ap_dbclc(DNAME daddket4g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail4g4);
 
-        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME dadddetail5g7,DCOMMAND ADD,DFILE tld,DMAP madddetail5g4);
-        DO_LIB_IF cjkfaceada_7          ap_dbclc(DNAME daddket5g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail5g4);
+        DO_LIB_IF cjkfaceada_7flp       ap_dbclc(DNAME dadddetail5g7,DCOMMAND ADD,DFILE tld,DMAP madddetail5g4);
+        DO_LIB_IF cjkfaceada_7flp       ap_dbclc(DNAME daddket5g7,DCOMMAND ADD,DFILE ket,DMAP maddketdetail5g4);
 
 /* ---------------------------------- BATAS SP TRANS2G2-TRANS2G5 --------------------------------- */
 
