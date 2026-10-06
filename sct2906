@@ -5182,7 +5182,7 @@ ccekmasterstdgmb2       dcekmastergmb == 1 && lspksts == "INPG"
 ccekmasterstdgmb3a      dcekmastergmb == 1 && lspksts == "INPG" && lspknama != lnamagmb
 ccekmasterstdgmb3b      dcekmastergmb == 1 && lspksts == "INPG" && lspknama2 != lemailgmb
 ccekmasterstdgmb3c      dcekmastergmb == 1 && lspksts == "INPG" && lspkket != llinktree
-ccekmasterstdgmb3d      dcekmastergmb == 1 && lspksts == "INPG" && lspkkat != ljamopr
+ccekmasterstdgmb3d      dcekmastergmb == 1 && lspksts == "INPG" && (lspkkat != ljamopr || lspkkat3 != ljamopr2 || lspkkat4 != ljamopr3 || lspkkat5 != ljamopr4 || lspkkat6 != ljamopr5 || lspkkat7 != ljamopr6 || lspkkat8 != ljamopr7)
 ccekmasterstdgmb3e      dcekmastergmb == 1 && lspksts == "INPG" && lspkket2 != ltitiklokasi
 ccekmasterstdgmb3f      dcekmastergmb == 1 && lspksts == "INPG" && lspknohp != lnotelp
 ccekmasterstdgmb3g      dcekmastergmb == 1 && lspksts == "INPG" && lspkket3 != lsitusweb
@@ -5392,6 +5392,15 @@ llinktree               tldket2                 REPLACE_IF cdcekmastergmb
 lspkcab		        tldcab		        REPLACE
 DEBUG   cBLANKS         tldket2                 DO_CALC_IF cdxcekmastergmb
 
+CALCS()
+cjamopr1		lspkkat != ljamopr
+cjamopr2		lspkkat3 != ljamopr2
+cjamopr3		lspkkat4 != ljamopr3
+cjamopr4		lspkkat5 != ljamopr4
+cjamopr5		lspkkat6 != ljamopr5
+cjamopr6		lspkkat7 != ljamopr6
+cjamopr7		lspkkat8 != ljamopr7
+
 MAP(madddetail1d)
 cnourut                 tldnourt                DO_CALC_IF cjoindetail1stdgmb1
 l1                      tldnourt                REPLACE_IF cjoindetail1stdgmb0
@@ -5399,10 +5408,29 @@ lSTDGMB1                tlddata                 REPLACE
 lSTDGMB121              tldnobbm                REPLACE
 lnobukmtgmb             tldnobuk                REPLACE
 cindikatorjamopr        tldbrg                  DO_CALC
+lSENIN			tldppdoto		REPLACE_IF cjamopr1
+lSELASA			tldppdoto		REPLACE_IF cjamopr2
+lRABU			tldppdoto		REPLACE_IF cjamopr3
+lKAMIS			tldppdoto		REPLACE_IF cjamopr4
+lJUMAT			tldppdoto		REPLACE_IF cjamopr5
+lSABTU			tldppdoto		REPLACE_IF cjamopr6
+lMINGGU			tldppdoto		REPLACE_IF cjamopr7
 lspktgl		        tldtglfak	        REPLACE
-lspkkat		        tldket		        REPLACE
+lspkkat		        tldket		        REPLACE_IF cjamopr1
+lspkkat3	        tldket		        REPLACE_IF cjamopr2
+lspkkat4	        tldket		        REPLACE_IF cjamopr3
+lspkkat5	        tldket		        REPLACE_IF cjamopr4
+lspkkat6	        tldket		        REPLACE_IF cjamopr5
+lspkkat7	        tldket		        REPLACE_IF cjamopr6
+lspkkat8	        tldket		        REPLACE_IF cjamopr7
 gv_OPEN		        tldsts		        REPLACE
 ljamopr                 tldket2                 REPLACE_IF cdcekmastergmb
+ljamopr2		tldket2			REPLACE_IF cjamopr2
+ljamopr3		tldket2			REPLACE_IF cjamopr3
+ljamopr4		tldket2			REPLACE_IF cjamopr4
+ljamopr5		tldket2			REPLACE_IF cjamopr5
+ljamopr6		tldket2			REPLACE_IF cjamopr6
+ljamopr7		tldket2			REPLACE_IF cjamopr7
 lspkcab		        tldcab		        REPLACE
 DEBUG   cBLANKS         tldket2                 DO_CALC_IF cdxcekmastergmb
 
