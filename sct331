@@ -1,0 +1,378 @@
+SCREEN 331 QUERY_TYPE t.StandarisasiGMB
+SCR_FILE        		spk
+SCR_LOGFLD      		spknobuk
+SCR_AUTO_QRYFLD         	spknobuk
+SCR_AUTO_EQLFLD         	r_string1
+SCR_AUTO_QRYFLD_FLYONLY
+
+
+SCR_NXT_POSTING		4726
+
+SCR_NXT_COND            cgyok
+SCR_NXT_MSG		IF		cstsclsd		t.CabangCLSD
+			IF		cblmuploaddetail1	t.UploadBukti1
+			IF		cblmuploaddetail2	t.UploadBukti2
+			IF		cTidakAdaKuncian	t.TidakAdaKuncian
+			IF		cblmuploadmaster	t.BelumUploadFile
+			IF		cblmjawabberhasilberubah	t.BelumJawabFieldBerhasilBerubah
+SCR_NXT_MAP		mnext
+
+SCR_UPL_DIRFLD			spkdata
+SCR_UPLFLD			spknobuk
+SCR_UPL_DELCOND			cMasterOPEN
+SCR_UPL_COND			cPICGMB
+/*
+SCR_UPL_COND_MSG IF 		cxPICGMB  t.SelainPICGMBtidakbolehupload
+SFL_UPL_COND_MSG IF      	cxPICGMB  Selain PIC GMB tidak boleh upload
+*/
+SCR_UPLFLD_DBCALCS		duplok
+/*SCR_UPL_READONLY*/
+
+
+
+
+
+LOCAL
+PGM_FIELDS
+ldetail1		STRING	50
+ldetail2		STRING	50
+ldetail3		STRING	50
+lhapustandapst		STRING	3
+l1			INT2	2
+lKUNCIABSEN		STRING	11
+lthbl			STRING	5
+lSTDGMB1        STRING          11
+lSTDGMB2        STRING          11
+lSTDGMB3        STRING          11
+lSTDGMB121      STRING          21
+lSTDGMB221      STRING          21
+lSTDGMB321      STRING          21
+lnipNSOH	STRING		21
+lnipCRM		STRING		21
+lnipAM		STRING		21
+lversi		STRING		21
+lenter		STRING		7
+lisi		STRING		351
+lCX		STRING		21
+lPICGMB		STRING		21
+
+
+
+CALCS()
+cMasterOPEN		spktype == "OPEN"
+cselectNSOH1            sgmtype == "NSOHEAD" && sgmbrg == spkcab && sgmstr2 == lthbl && sgmplg == "H1"
+cselectCRM1            sgmtype == "CRM" && sgmbrg == spkcab && sgmstr2 == lthbl && sgmplg == "H1" 
+cselectAM1            sgmtype == "HMCAM" && sgmbrg == spkcab && sgmstr2 == lthbl && sgmplg == "H1"
+
+
+MAP(mnipNSOH)
+sgmstr5			lnipNSOH		REPLACE
+MAP(mnipCRM)
+sgmstr5			lnipCRM			REPLACE
+MAP(mnipAM)
+sgmstr5			lnipAM			REPLACE
+
+DBCALCS(djoinNSOH1)
+        DBC_COMMAND             JOIN
+        DBC_TARGET              sgmdabrplgtb    gv_dtpiccab
+        DBC_SELECT              cselectNSOH1
+	DBC_MAP			mnipNSOH
+DBCALCS(djoinCRM1)
+        DBC_COMMAND             JOIN
+        DBC_TARGET              sgmdabrplgtb    gv_dtpiccab
+        DBC_SELECT              cselectCRM1
+	DBC_MAP			mnipCRM
+DBCALCS(djoinAM1)
+        DBC_COMMAND             JOIN
+        DBC_TARGET              sgmdabrplgtb    gv_dtpiccab
+        DBC_SELECT              cselectAM1
+	DBC_MAP			mnipAM
+DBCALCS(dpicgmb1)
+	DBC_COMMAND     JOIN
+	DBC_TARGET      tbddatkodidx    gv_dttabel      lCX     lPICGMB	g_usrkode
+
+MAP(muplokmaster)
+gv_ok			spkfoto		REPLACE
+DBCALCS(duplok)
+	DBC_COMMAND	UPDATE
+	DBC_TARGET	spkprmidx	spkprm
+	DBC_MAP		muplokmaster
+
+CALCS()
+cnipNSOH		djoinNSOH1 == 1
+cnipCRM			djoinCRM1 == 1
+cnipAM			djoinAM1 == 1
+cPICGMB			dpicgmb1 == 1 && spktype == "OPEN"
+cPICGMBdetail		dpicgmb1 == 1
+/*cxPICGMB		dpicgmb1 == 0*/
+
+MAP(mnext)
+spknobuk		r_string1		REPLACE
+spktype			r_string2		REPLACE
+spkkat2			r_string3		REPLACE
+spkcab			r_string4		REPLACE
+lnipNSOH		r_string5		REPLACE_IF cnipNSOH
+lnipCRM			r_string6		REPLACE_IF cnipCRM
+lnipAM			r_string7		REPLACE_IF cnipAM
+
+
+
+IMAGE(master)
+/-----------------------------------------------------------------\
+ /---------------------------------------------------------------\
+  t.Cab		   ________________
+  t.NoBuk	   __________________
+  t.TglUpdAPI	   ___________		 t.JamUpdAPI    _________
+  t.Sts		   _______		 t.TotPerubahan _________
+  t.Nama	   _____________________ t.SdhSesuaiAPI _________
+  t.Email	   _____________________	        _____
+  t.Linktree	   _____________________
+  t.JamOpr1	   _____________________
+  t.JamOpr2	   _____________________
+  t.JamOpr3	   _____________________
+  t.JamOpr4	   _____________________
+  t.JamOpr5	   _____________________
+  t.JamOpr6	   _____________________
+  t.JamOpr7	   _____________________
+  t.TitikLokasi	   _____________________
+  t.NoTelp	   _____________________
+  t.SitusWeb	   _____________________
+  t.TotUlasan	   _______		   
+  t.TotBalasan	   _______		   
+  t.RatingGMB	   ____.__		   
+   /-------------------------------------------------------------\
+    t.UplSSGMB
+   \-------------------------------------------------------------/
+   /--------------------s.UPLOAD---------------------------------\
+
+
+
+
+
+
+
+
+
+   \-------------------------------------------------------------/
+  						
+	spasi
+
+ \---------------------------------------------------------------/
+  ___________	___________   ___________	___ t.StsUpl  ___
+\-----------------------------------------------------------------/
+
+FIELD(master)
+spkcab			NOCHANGE		INPUTRI	1		/* cabang */
+spknobuk		PROTECT			INPUTRI	2		/* nobuk */
+spktgl			PROTECT {DD-MM-YYYY}	INPUTRI	3		/* tgl update */
+spkjam			PROTECT {DD-MM-YYYY}	INPUTRI	4		/* jam update */
+spktype			PROTECT			INPUTRI	5		/* status 1 */
+spkjrk2			PROTECT			INPUTRI	6		/* total perubahan */
+spknama			PROTECT			INPUTRI	7		/* nama */
+spkkat2			NOCHANGE		INPUTRI	8		/* sudah sesuai */
+spknama2		PROTECT			INPUTRI	9		/* email */
+spkjrk3			PROTECT			INPUTRI	9		/* tanda berapa kali belum */
+spkket			PROTECT			INPUTRI	10		/* linktree */
+spkkat			PROTECT			INPUTRI	11		/* jam operasional senin*/
+spkkat3			PROTECT			INPUTRI	11		/* jam operasional selasa*/
+spkkat4			PROTECT			INPUTRI	11		/* jam operasional rabu*/
+spkkat5			PROTECT			INPUTRI	11		/* jam operasional kamis*/
+spkkat6			PROTECT			INPUTRI	11		/* jam operasional jumat*/
+spkkat7			PROTECT			INPUTRI	11		/* jam operasional sabtu*/
+spkkat8			PROTECT			INPUTRI	11		/* jam operasional minggu*/
+spkket2			PROTECT			INPUTRI	12		/* titik lokasi */
+spknohp			PROTECT			INPUTRI	13		/* no telpon */
+spkket3			PROTECT			INPUTRI	14		/* situs web */
+spkgaji			PROTECT			INPUTRI	15		/* total ulasan */
+spkssgaji		PROTECT			INPUTRI	16		/* total balasan */
+spkjrk			PROTECT			INPUTRI	17		/* rating GMB */
+ldetail1		TOMBOL			INPUTRI	18
+ldetail2		TOMBOL			INPUTRI	19
+ldetail3		TOMBOL			INPUTRI	20
+lhapustandapst		TOMBOL			INPUTRI	21
+spkfoto			PROTECT			INPUTRI	22
+
+
+
+CALCS()
+c0			0
+cok			"OK"
+cstsclsd		spktype == "CLSD"
+cBLANKS			BLANKS
+cupdate			g_curcmd == 2
+cabkinpg		(abksts == "INPG" || abksts == "RINP") && abkkym == g_usrkode
+cabkinpgdetail		(abksts == "INPG" || abksts == "RINP") && abkkym == g_usrkode
+cthbl			THBLS(g_tgltrn)
+
+DEFAULT(master)
+lthbl			INIT			{cthbl}
+ldetail1		INIT			"1d. Aktivitas"
+ldetail2		INIT			"2d. Informasi"
+ldetail3		INIT			"3d. Historis Perubahan"
+lhapustandapst		INIT			"|"
+spkdata                 INIT			"STDGMB"
+spkdata                 INIT_QUERY_F11		"spkdata=="STDGMB""
+lKUNCIABSEN		INIT			"KUNCIABSEN"
+l1			INIT			1
+spkkat2			DFALT_SCAN_BLANKS	SUDAH
+						BELUM
+lSTDGMB1                INIT                    "STDGMB1"
+lSTDGMB2                INIT                    "STDGMB2"
+lSTDGMB3                INIT                    "STDGMB3"
+lSTDGMB121              INIT                    "STDGMB1"
+lSTDGMB221              INIT                    "STDGMB2"
+lSTDGMB321              INIT                    "STDGMB3"
+lversi			INIT			"06102026v2"
+lenter			INIT			BLANKS
+lCX			INIT			CUSTOMEREXPERIENCE
+lPICGMB			INIT			PICGMB
+
+
+
+
+
+DBCALCS(dcekkuncianmaster)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	abkdatbukidx	lKUNCIABSEN	spknobuk
+	DBC_SELECT	cabkinpg
+
+DBCALCS(dcekkunciandetail)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      abkdatbukidx    lKUNCIABSEN     spknobuk
+        DBC_SELECT      cabkinpgdetail
+
+EDITS(master)
+Field sudah sesuai harus diisi		spkkat2		MANDATORY
+t.ValidateCab           spkcab  	VALIDATE	cabstskodidx	mcab	scabSV	{Pgv_INPG}
+
+MAP(mcab)
+cabkode			spkcab		REPLACE
+
+CALCS()
+cblmupload		tldstr4 == BLANKS && tldkirim == "SUDAH" && tldkat == "YA" && tlddata == "STDGMB1"
+cblmupload2		tldstr5 == BLANKS && tldsat == "BERHASIL" && tldkat == "YA" && tlddata == "STDGMB1"
+cdetailtldsat		tldkirim == "SUDAH" && tldsat == BLANKS
+
+DBCALCS(ddetailblmupload1)
+DBC_COMMAND		JOIN
+DBC_TARGET		tldbukurtidx	spknobuk
+DBC_SELECT		cblmupload
+
+DBCALCS(ddetailblmupload2)
+DBC_COMMAND             JOIN
+DBC_TARGET              tldbukurtidx    spknobuk
+DBC_SELECT              cblmupload2
+
+DBCALCS(ddetailtldsat)
+DBC_COMMAND             JOIN
+DBC_TARGET              tldbukurtidx    spknobuk
+DBC_SELECT              cdetailtldsat
+
+CALCS()
+cxOPEN			spktype != "OPEN"
+cblmuploaddetail1	ddetailblmupload1 == 1
+cblmuploaddetail2	ddetailblmupload2 == 1
+cblmuploadmaster	spkfoto == BLANKS
+cblmjawabberhasilberubah	ddetailtldsat == 1
+cgyok			spktype != "CLSD" && (dcekkuncianmaster == 1 || dcekkunciandetail == 1) &&
+			(
+				((spktype == "INPG" && ddetailblmupload1 == 0 && ddetailblmupload2 == 0) && (ddetailtldsat == 0 || dpicgmb1 == 0) ) ||
+				(spktype == "OPEN" && (spkfoto == "OK"/* || spkkat2 == "BELUM"*/))
+			)
+cTidakAdaKuncian	dcekkuncianmaster == 0 || dcekkunciandetail == 0
+
+HOOKS(master)
+BEFORE_INPUT		cur_field=spkcab		DO_SKIP_IF	cupdate
+BEFORE_INPUT		cur_field=spkkat2		DO_SKIP_IF	cxOPEN
+
+
+IMAGE(master2)
+/-----------------------------------------------------------------\
+|/---------------------------------------------------------------\|
+| t.Cab          ________________				  |
+| t.NoBuk        ________________				  |
+| t.Sts          ________________        t.TotPerubahan  _______  |
+| t.Nama         ________________				  |
+| t.Email        ________________				  |
+| t.TotUlasan    _______					  |
+| t.TotBalasan   _______					  |
+| t.RatingGMB    _______					  |
+|								  |
+|\---------------------------------------------------------------/|
+\-----------------------------------------------------------------/
+
+FIELD(master2)
+spkcab                  NOCHANGE                INPUTRI 1              
+spknobuk                PROTECT                 INPUTRI 2              
+spktype                 PROTECT                 INPUTRI 3              
+spkjrk2                 PROTECT                 INPUTRI 4              
+spknama                 PROTECT                 INPUTRI 5              
+spknama2               	PROTECT                 INPUTRI 6              
+spkgaji                 PROTECT                 INPUTRI 7              
+spkssgaji               PROTECT                 INPUTRI 8              
+spkjrk                	PROTECT                 INPUTRI 9              
+
+CALCS()
+cselectNSOH            sgmtype == "NSOHEAD" && sgmbrg == spkcab && sgmstr2 == lthbl && sgmplg == "H1" && sgmstr5 == g_usrkode
+cselectCRM            sgmtype == "CRM" && sgmbrg == spkcab && sgmstr2 == lthbl && sgmplg == "H1" && sgmstr5 == g_usrkode
+cselectAM            sgmtype == "HMCAM" && sgmbrg == spkcab && sgmstr2 == lthbl && sgmplg == "H1" && sgmstr5 == g_usrkode
+
+
+DBCALCS(djoinNSOH)
+        DBC_COMMAND             JOIN
+        DBC_TARGET              sgmdabrplgtb    gv_dtpiccab
+        DBC_SELECT              cselectNSOH
+
+DBCALCS(djoinCRM)
+        DBC_COMMAND             JOIN
+        DBC_TARGET              sgmdabrplgtb    gv_dtpiccab
+        DBC_SELECT              cselectCRM
+
+DBCALCS(djoinAM)
+        DBC_COMMAND             JOIN
+        DBC_TARGET              sgmdabrplgtb    gv_dtpiccab
+        DBC_SELECT              cselectAM
+
+CALCS()
+cupdatemaster		dcekkuncianmaster == 1 && spktype == "OPEN"
+cupdatedetail		dcekkunciandetail == 1 && tldsts != "CLSD" && ((tldsts == "INPG" && (djoinNSOH == 1 || djoinCRM == 1 || djoinAM == 1)) || tldsts != "INPG")
+
+cbukancx        djoinNSOH == 1 || djoinCRM == 1 || djoinAM == 1
+cbukanNSOH      djoinNSOH == 0 || tldsts == "OPEN"
+cbukanCRM       djoinCRM == 0 || tldsts == "OPEN"
+cbukanAM        djoinAM == 0 || tldsts == "OPEN"
+
+PERMIT(master)
+	PMT_UPDALL_COND	cupdatemaster
+	PMT_ADD_COND    c0
+        PMT_DEL_COND    c0
+
+PERMIT(trans)
+	PMT_UPDALL_COND cupdatedetail
+	PMT_ADD_COND	c0
+	PMT_DEL_COND	c0
+
+
+PERMIT(transa)
+	PMT_UPDALL_COND c0
+	PMT_ADD_COND	c0
+	PMT_DEL_COND	c0
+
+PERMIT(transb)
+	PMT_UPDALL_COND c0
+	PMT_ADD_COND	c0
+	PMT_DEL_COND	c0
+
+SUBFILE(trans)
+SFL_TEMPLATE(tmp_stdgmb1)
+
+SUBFILE(transa)
+SFL_TEMPLATE(tmp_stdgmb2)
+
+SUBFILE(transb)
+SFL_TEMPLATE(tmp_stdgmb3)
+
+
+
+
+END_SCREEN

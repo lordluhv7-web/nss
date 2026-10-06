@@ -120,6 +120,13 @@ lindikatorjamopr        STRING	21
 lindikatorttklok        STRING	21
 lindikatornotelp        STRING	21
 lindikatorsitusweb      STRING	21
+lSENIN			STRING	21
+lSELASA			STRING	21
+lRABU			STRING	21
+lKAMIS			STRING	21
+lJUMAT			STRING	21
+lSABTU			STRING	21
+lMINGGU			STRING	21
 
 lstandarisasigmb        STRING  21
 ljam11                  TIME    4
@@ -1157,7 +1164,7 @@ lindikatorsitusweb      INIT			"SITUS WEB"
 lindikatortotulasan	INIT			"ULASAN"
 lindikatortotbalasan	INIT			"BALASAN"
 lindikatorratinggmb	INIT			"RATING"
-lversi			INIT			2609-sholev1
+lversi			INIT			2610-06Andrev2
 lstandarisasigmb        INIT                    "STANDARISASI GMB"
 lACTBNSDLR		INIT			"ACTBNSDLR"
 lTGTBNSDLR		INIT			"TGTBNSDLR"
@@ -1460,6 +1467,14 @@ lMETAADS21              INIT                    METAADS
 lORGANIK                INIT                    ORGANIK
 lPAIDADS                INIT                    PAIDADS
 lREVIEWIT		INIT			REVIEWIT
+
+lSENIN			INIT			"SENIN"
+lSELASA			INIT			"SELASA"
+lRABU			INIT			"RABU"
+lKAMIS			INIT			"KAMIS"
+lJUMAT			INIT			"JUMAT"
+lSABTU			INIT			"SABTU"
+lMINGGU			INIT			"MINGGU"
 
 EDITS(master)
 
@@ -5088,6 +5103,12 @@ lspknama	        spknama		        REPLACE
 lspknama2	        spknama2	        REPLACE
 lspkket		        spkket		        REPLACE
 lspkkat		        spkkat		        REPLACE
+lspkkat3	        spkkat3		        REPLACE
+lspkkat4	        spkkat4		        REPLACE
+lspkkat5	        spkkat5		        REPLACE
+lspkkat6	        spkkat6		        REPLACE
+lspkkat7	        spkkat7		        REPLACE
+lspkkat8	        spkkat8		        REPLACE
 lspkket2	        spkket2		        REPLACE
 lspknohp	        spknohp		        REPLACE
 lspkket3	        spkket3		        REPLACE
@@ -5182,7 +5203,13 @@ ccekmasterstdgmb2       dcekmastergmb == 1 && lspksts == "INPG"
 ccekmasterstdgmb3a      dcekmastergmb == 1 && lspksts == "INPG" && lspknama != lnamagmb
 ccekmasterstdgmb3b      dcekmastergmb == 1 && lspksts == "INPG" && lspknama2 != lemailgmb
 ccekmasterstdgmb3c      dcekmastergmb == 1 && lspksts == "INPG" && lspkket != llinktree
-ccekmasterstdgmb3d      dcekmastergmb == 1 && lspksts == "INPG" && (lspkkat != ljamopr || lspkkat3 != ljamopr2 || lspkkat4 != ljamopr3 || lspkkat5 != ljamopr4 || lspkkat6 != ljamopr5 || lspkkat7 != ljamopr6 || lspkkat8 != ljamopr7)
+ccekmasterstdgmb3d      dcekmastergmb == 1 && lspksts == "INPG" && lspkkat != ljamopr
+ccekmasterstdgmb3d_2    dcekmastergmb == 1 && lspksts == "INPG" && lspkkat3 != ljamopr2
+ccekmasterstdgmb3d_3    dcekmastergmb == 1 && lspksts == "INPG" && lspkkat4 != ljamopr3
+ccekmasterstdgmb3d_4    dcekmastergmb == 1 && lspksts == "INPG" && lspkkat5 != ljamopr4
+ccekmasterstdgmb3d_5    dcekmastergmb == 1 && lspksts == "INPG" && lspkkat6 != ljamopr5
+ccekmasterstdgmb3d_6    dcekmastergmb == 1 && lspksts == "INPG" && lspkkat7 != ljamopr6
+ccekmasterstdgmb3d_7    dcekmastergmb == 1 && lspksts == "INPG" && lspkkat8 != ljamopr7
 ccekmasterstdgmb3e      dcekmastergmb == 1 && lspksts == "INPG" && lspkket2 != ltitiklokasi
 ccekmasterstdgmb3f      dcekmastergmb == 1 && lspksts == "INPG" && lspknohp != lnotelp
 ccekmasterstdgmb3g      dcekmastergmb == 1 && lspksts == "INPG" && lspkket3 != lsitusweb
@@ -5409,29 +5436,107 @@ lSTDGMB121              tldnobbm                REPLACE
 lnobukmtgmb             tldnobuk                REPLACE
 cindikatorjamopr        tldbrg                  DO_CALC
 lSENIN			tldppdoto		REPLACE_IF cjamopr1
-lSELASA			tldppdoto		REPLACE_IF cjamopr2
-lRABU			tldppdoto		REPLACE_IF cjamopr3
-lKAMIS			tldppdoto		REPLACE_IF cjamopr4
-lJUMAT			tldppdoto		REPLACE_IF cjamopr5
-lSABTU			tldppdoto		REPLACE_IF cjamopr6
-lMINGGU			tldppdoto		REPLACE_IF cjamopr7
 lspktgl		        tldtglfak	        REPLACE
 lspkkat		        tldket		        REPLACE_IF cjamopr1
-lspkkat3	        tldket		        REPLACE_IF cjamopr2
-lspkkat4	        tldket		        REPLACE_IF cjamopr3
-lspkkat5	        tldket		        REPLACE_IF cjamopr4
-lspkkat6	        tldket		        REPLACE_IF cjamopr5
-lspkkat7	        tldket		        REPLACE_IF cjamopr6
-lspkkat8	        tldket		        REPLACE_IF cjamopr7
 gv_OPEN		        tldsts		        REPLACE
 ljamopr                 tldket2                 REPLACE_IF cdcekmastergmb
-ljamopr2		tldket2			REPLACE_IF cjamopr2
-ljamopr3		tldket2			REPLACE_IF cjamopr3
-ljamopr4		tldket2			REPLACE_IF cjamopr4
-ljamopr5		tldket2			REPLACE_IF cjamopr5
-ljamopr6		tldket2			REPLACE_IF cjamopr6
-ljamopr7		tldket2			REPLACE_IF cjamopr7
 lspkcab		        tldcab		        REPLACE
+DEBUG   cBLANKS         tldket2                 DO_CALC_IF cdxcekmastergmb
+
+MAP(madddetail1d_2)
+cnourut                 tldnourt                DO_CALC_IF cjoindetail1stdgmb1
+l1                      tldnourt                REPLACE_IF cjoindetail1stdgmb0
+lSTDGMB1                tlddata                 REPLACE
+lSTDGMB121              tldnobbm                REPLACE
+lnobukmtgmb             tldnobuk                REPLACE
+cindikatorjamopr        tldbrg                  DO_CALC
+lSELASA                 tldppdoto               REPLACE_IF cjamopr2
+lspktgl                 tldtglfak               REPLACE
+lspkkat3                tldket                  REPLACE_IF cjamopr2
+gv_OPEN                 tldsts                  REPLACE
+ljamopr                 tldket2                 REPLACE_IF cdcekmastergmb
+ljamopr2                tldket2                 REPLACE_IF cjamopr2
+lspkcab                 tldcab                  REPLACE
+DEBUG   cBLANKS         tldket2                 DO_CALC_IF cdxcekmastergmb
+
+MAP(madddetail1d_3)
+cnourut                 tldnourt                DO_CALC_IF cjoindetail1stdgmb1
+l1                      tldnourt                REPLACE_IF cjoindetail1stdgmb0
+lSTDGMB1                tlddata                 REPLACE
+lSTDGMB121              tldnobbm                REPLACE
+lnobukmtgmb             tldnobuk                REPLACE
+cindikatorjamopr        tldbrg                  DO_CALC
+lRABU                   tldppdoto               REPLACE_IF cjamopr3
+lspktgl                 tldtglfak               REPLACE
+lspkkat4                tldket                  REPLACE_IF cjamopr3
+gv_OPEN                 tldsts                  REPLACE
+ljamopr                 tldket2                 REPLACE_IF cdcekmastergmb
+ljamopr3                tldket2                 REPLACE_IF cjamopr3
+lspkcab                 tldcab                  REPLACE
+DEBUG   cBLANKS         tldket2                 DO_CALC_IF cdxcekmastergmb
+
+MAP(madddetail1d_4)
+cnourut                 tldnourt                DO_CALC_IF cjoindetail1stdgmb1
+l1                      tldnourt                REPLACE_IF cjoindetail1stdgmb0
+lSTDGMB1                tlddata                 REPLACE
+lSTDGMB121              tldnobbm                REPLACE
+lnobukmtgmb             tldnobuk                REPLACE
+cindikatorjamopr        tldbrg                  DO_CALC
+lKAMIS                  tldppdoto               REPLACE_IF cjamopr4
+lspktgl                 tldtglfak               REPLACE
+lspkkat5                tldket                  REPLACE_IF cjamopr4
+gv_OPEN                 tldsts                  REPLACE
+ljamopr                 tldket2                 REPLACE_IF cdcekmastergmb
+ljamopr4                tldket2                 REPLACE_IF cjamopr4
+lspkcab                 tldcab                  REPLACE
+DEBUG   cBLANKS         tldket2                 DO_CALC_IF cdxcekmastergmb
+
+MAP(madddetail1d_5)
+cnourut                 tldnourt                DO_CALC_IF cjoindetail1stdgmb1
+l1                      tldnourt                REPLACE_IF cjoindetail1stdgmb0
+lSTDGMB1                tlddata                 REPLACE
+lSTDGMB121              tldnobbm                REPLACE
+lnobukmtgmb             tldnobuk                REPLACE
+cindikatorjamopr        tldbrg                  DO_CALC
+lJUMAT                  tldppdoto               REPLACE_IF cjamopr5
+lspktgl                 tldtglfak               REPLACE
+lspkkat6                tldket                  REPLACE_IF cjamopr5
+gv_OPEN                 tldsts                  REPLACE
+ljamopr                 tldket2                 REPLACE_IF cdcekmastergmb
+ljamopr5                tldket2                 REPLACE_IF cjamopr5
+lspkcab                 tldcab                  REPLACE
+DEBUG   cBLANKS         tldket2                 DO_CALC_IF cdxcekmastergmb
+
+MAP(madddetail1d_6)
+cnourut                 tldnourt                DO_CALC_IF cjoindetail1stdgmb1
+l1                      tldnourt                REPLACE_IF cjoindetail1stdgmb0
+lSTDGMB1                tlddata                 REPLACE
+lSTDGMB121              tldnobbm                REPLACE
+lnobukmtgmb             tldnobuk                REPLACE
+cindikatorjamopr        tldbrg                  DO_CALC
+lSABTU                  tldppdoto               REPLACE_IF cjamopr6
+lspktgl                 tldtglfak               REPLACE
+lspkkat7                tldket                  REPLACE_IF cjamopr6
+gv_OPEN                 tldsts                  REPLACE
+ljamopr                 tldket2                 REPLACE_IF cdcekmastergmb
+ljamopr6                tldket2                 REPLACE_IF cjamopr6
+lspkcab                 tldcab                  REPLACE
+DEBUG   cBLANKS         tldket2                 DO_CALC_IF cdxcekmastergmb
+
+MAP(madddetail1d_7)
+cnourut                 tldnourt                DO_CALC_IF cjoindetail1stdgmb1
+l1                      tldnourt                REPLACE_IF cjoindetail1stdgmb0
+lSTDGMB1                tlddata                 REPLACE
+lSTDGMB121              tldnobbm                REPLACE
+lnobukmtgmb             tldnobuk                REPLACE
+cindikatorjamopr        tldbrg                  DO_CALC
+lMINGGU                 tldppdoto               REPLACE_IF cjamopr7
+lspktgl                 tldtglfak               REPLACE
+lspkkat8                tldket                  REPLACE_IF cjamopr7
+gv_OPEN                 tldsts                  REPLACE
+ljamopr                 tldket2                 REPLACE_IF cdcekmastergmb
+ljamopr7                tldket2                 REPLACE_IF cjamopr7
+lspkcab                 tldcab                  REPLACE
 DEBUG   cBLANKS         tldket2                 DO_CALC_IF cdxcekmastergmb
 
 MAP(madddetail1e)
@@ -9197,6 +9302,24 @@ DO_LIB_IF ccekmasterstdgmb3c	ap_dbclc(DNAME daddabk1c3,DCOMMAND ADD,DFILE abk,DM
 */
 DO_LIB_IF ccekmasterstdgmb3d	ap_dbclc(DNAME dadddetail1d,DCOMMAND ADD,DFILE tld,DMAP madddetail1d);
 DO_LIB_IF ccekmasterstdgmb3d	ap_dbclc(DNAME daddabk1d1,DCOMMAND ADD,DFILE abk,DMAP maddabk1a1);
+
+DO_LIB_IF ccekmasterstdgmb3d_2	ap_dbclc(DNAME dadddetail1d_2,DCOMMAND ADD,DFILE tld,DMAP madddetail1d_2);
+DO_LIB_IF ccekmasterstdgmb3d_2	ap_dbclc(DNAME daddabk1d1_2,DCOMMAND ADD,DFILE abk,DMAP maddabk1a1);
+
+DO_LIB_IF ccekmasterstdgmb3d_3	ap_dbclc(DNAME dadddetail1d_3,DCOMMAND ADD,DFILE tld,DMAP madddetail1d_3);
+DO_LIB_IF ccekmasterstdgmb3d_3	ap_dbclc(DNAME daddabk1d1_3,DCOMMAND ADD,DFILE abk,DMAP maddabk1a1);
+
+DO_LIB_IF ccekmasterstdgmb3d_4	ap_dbclc(DNAME dadddetail1d_4,DCOMMAND ADD,DFILE tld,DMAP madddetail1d_4);
+DO_LIB_IF ccekmasterstdgmb3d_4	ap_dbclc(DNAME daddabk1d1_4,DCOMMAND ADD,DFILE abk,DMAP maddabk1a1);
+
+DO_LIB_IF ccekmasterstdgmb3d_5	ap_dbclc(DNAME dadddetail1d_5,DCOMMAND ADD,DFILE tld,DMAP madddetail1d_5);
+DO_LIB_IF ccekmasterstdgmb3d_5	ap_dbclc(DNAME daddabk1d1_5,DCOMMAND ADD,DFILE abk,DMAP maddabk1a1);
+
+DO_LIB_IF ccekmasterstdgmb3d_6	ap_dbclc(DNAME dadddetail1d_6,DCOMMAND ADD,DFILE tld,DMAP madddetail1d_6);
+DO_LIB_IF ccekmasterstdgmb3d_6	ap_dbclc(DNAME daddabk1d1_6,DCOMMAND ADD,DFILE abk,DMAP maddabk1a1);
+
+DO_LIB_IF ccekmasterstdgmb3d_7	ap_dbclc(DNAME dadddetail1d_7,DCOMMAND ADD,DFILE tld,DMAP madddetail1d_7);
+DO_LIB_IF ccekmasterstdgmb3d_7	ap_dbclc(DNAME daddabk1d1_7,DCOMMAND ADD,DFILE abk,DMAP maddabk1a1);
 /*
 DO_LIB_IF ccekmasterstdgmb3d	ap_dbclc(DNAME daddabk1d2,DCOMMAND ADD,DFILE abk,DMAP maddabk1a2);
 DO_LIB_IF ccekmasterstdgmb3d	ap_dbclc(DNAME daddabk1d3,DCOMMAND ADD,DFILE abk,DMAP maddabk1a3);
