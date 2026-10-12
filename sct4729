@@ -1,0 +1,80 @@
+SCREEN 4729 APP_TYPE api_hasilGMB
+
+
+LOCAL
+PGM_FIELDS
+lstatus                         STRING          61
+   lTipeRequest                 STRING                  21
+   lnamfil                      STRING                 31
+   lrequestreply                STRING                 31
+   lmsttitle                    STRING                 31
+   ldettitle                    STRING                 31
+   linplabels                   STRING                501
+   linpfields                   STRING                801
+   linpmap                      STRING                  21
+   lsavedata                    INT2                    2
+lmstlabel    STRING          100
+lmstfields  STRING          100
+ldetlabels	STRING		251
+ldetfields	STRING		251
+ldetnamamap	STRING		31
+lversi		STRING		11
+lketUpdate	STRING		100
+lSTDGMBAPI	STRING		11
+lSYSTIME	TIME		4
+
+IMAGE(master)
+/--------------------------------------------------------\
+| /----------------------------------------------------\ |
+| |i.NoBuk   : ____________________                    | |
+| \----------------------------------------------------/ |
+\--------------------------------------------------------/
+
+FIELDS(master)
+   lTipeRequest NONE           INPUTRI          1
+
+DEFAULTS(master)
+lSTDGMBAPI	INIT	STDGMBAPI
+lversi		INIT    06102026v1
+lketUpdate	INIT	"Tambah field jam update"
+lnamfil   	INIT    "spk"
+lrequestreply   INIT 	        "reply"
+lmsttitle    	INIT            ""
+ldettitle    	INIT            "Details"
+lstatus		INIT		"OK"
+lsavedata    	INIT            1
+linplabels	INIT		"cabang+nama+email+linktree+jamoprSenin+jamoprSelasa+jamoprRabu+jamoprKamis+jamoprJumat+jamoprSabtu+jamoprMinggu+titiklokasi+notelp+situsweb+link+totulasan+totbalasan+rategmb+foto+tglUpd+jamUpd"
+linpfields	INIT		"spkcab+spknama+spknama2+spkket+spkkat+spkkat2+spkkat3+spkkat4+spkkat5+spkkat6+spkkat7+spkket2+spknohp+spkket3+spkreview+spkgaji+spkssgaji+spkjrk+spkreview3+spktgl+spkjam"
+ldetlabels	INIT		"cabang+nama+email+linktree+jamoprSenin+jamoprSelasa+jamoprRabu+jamoprKamis+jamoprJumat+jamoprSabtu+jamoprMinggu+titiklokasi+notelp+situsweb+link+totulasan+totbalasan+rategmb+foto+tglUpd+jamUpd"
+ldetfields	INIT		"spkcab+spknama+spknama2+spkket+spkkat+spkkat2+spkkat3+spkkat4+spkkat5+spkkat6+spkkat7+spkket2+spknohp+spkket3+spkreview+spkgaji+spkssgaji+spkjrk+spkreview3+spktgl+spkjam"
+lmstlabel	INIT		"status"
+lmstfields	INIT		"lstatus"
+linpmap		INIT		"mspk"
+ldetnamamap	INIT		"mspk"
+lSYSTIME	INIT		SYSTIME
+
+CALCS()
+cnofak		"STDGMB" + STRIP(spkcab) + "-"  + THBLS_DD(g_tgltrn) + THBLS_MM(g_tgltrn) + THBLS_YYYY(g_tgltrn)
+
+MAP(mspk)
+lSTDGMBAPI	spkdata		REPLACE
+cnofak		spknobuk	DO_CALC
+lSYSTIME	spkjam		REPLACE
+g_tgltrn	spktgl		REPLACE
+
+HOOKS(master)
+/* untuk nerima API, linplabels & linpfields untuk master, linpmap untuk jalanin map ke field tujuan, ldetlabels & ldetfields untuk data detail (kosongin kalau gak perlu) */
+
+BEFORE_INPUT cur_field=lTipeRequest DO_LIB ap_rdjsn(lnamfil,linplabels,linpfields,linpmap,ldetlabels,ldetfields,ldetnamamap,lsavedata);
+
+SPCALCS(spmaster)
+        DO_LIB	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields); /* untuk reply, labelnya apa, isinya apa (dalam local), ntar jadinya "namalabel" : fields*/
+
+
+POSTING(master)
+   PST_COMMAND  spmaster
+
+
+END_SCREEN
+
+
