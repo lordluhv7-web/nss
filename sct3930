@@ -28,6 +28,8 @@ lnomesin		STRING		21
 lnopol			STRING		21
 liddebitur		STRING		21
 lnamadebitur		STRING		61
+ltenor			INT4		12
+ltanggaltrans		DATE		8
 lnopk			STRING		21
 
 IMAGE(master)
@@ -38,11 +40,11 @@ IMAGE(master)
 \--------------------------------------------------------/
 
 FIELDS(master)
-   lTipeRequest NONE           INPUTRI          1
+lTipeRequest	NONE		INPUTRI		1
 
 DEFAULTS(master)
 lOPTKLIKNSS	INIT		OPTKLIKNSS
-lversi		INIT    	12102026v1
+lversi		INIT    	12102026v2
 lketUpdate	INIT		"Bentuk tarikan data opt kliknss"
 lnamfil   	INIT    	"spk"
 lrequestreply   INIT 	        "reply"
@@ -54,8 +56,8 @@ linplabels	INIT		"nomorPK"
 linpfields	INIT		"lnopk"
 ldetlabels	INIT		"nomorPK"
 ldetfields	INIT		"lnopk"
-lmstlabel	INIT		"status+namaDebitur+namaMotor+noPolisi+noMesin"
-lmstfields	INIT		"lstatus+lnamadebitur+lnamamtr+lnopol+lnomesin"
+lmstlabel	INIT		"status+namaDebitur+namaMotor+noPolisi+noMesin+noFaktur+tenor+tanggalTransaksi"
+lmstfields	INIT		"lstatus+lnamadebitur+lnamamtr+lnopol+lnomesin+lnobuk614+ltenor+ltanggaltrans"
 linpmap		INIT		"mspk"
 ldetnamamap	INIT		"mspk"
 lSYSTIME	INIT		SYSTIME
@@ -63,6 +65,7 @@ lSYSTIME	INIT		SYSTIME
 
 MAP(mjoinbtm)
 	btmtypmtr2	lnamamtr	REPLACE
+	btmtgl		ltanggaltrans	REPLACE
 DBCALCS(djoinbtm)
 	DBC_COMMAND	JOIN
 	DBC_TARGET	btmbukidx lnopk
@@ -71,6 +74,7 @@ DBCALCS(djoinbtm)
 MAP(mjoinppm)
 	ppmnobuk	lnobuk614	REPLACE
 	ppmplg		liddebitur	REPLACE
+	ppmlamabln	ltenor		REPLACE
 DBCALCS(djoinppm)
 	DBC_COMMAND	JOIN
 	DBC_TARGET	ppmnollidx   lnopk
