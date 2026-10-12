@@ -1,0 +1,136 @@
+SCREEN 3930 APP_TYPE api_optkliknss
+
+
+LOCAL
+PGM_FIELDS
+lstatus			STRING		61
+lTipeRequest		STRING		21
+lnamfil			STRING		31
+lrequestreply		STRING		31
+lmsttitle		STRING		31
+ldettitle		STRING		31
+linplabels		STRING		501
+linpfields		STRING		801
+linpmap			STRING		21
+lsavedata		INT2		2
+lmstlabel		STRING		100
+lmstfields		STRING		100
+ldetlabels		STRING		251
+ldetfields		STRING		251
+ldetnamamap		STRING		31
+lversi			STRING		11
+lketUpdate		STRING		100
+lOPTKLIKNSS		STRING		11
+lSYSTIME		TIME		4
+lnobuk614		STRING		21
+lnamamtr		STRING		31
+lnomesin		STRING		21
+lnopol			STRING		21
+liddebitur		STRING		21
+lnamadebitur		STRING		61
+lnopk			STRING		21
+
+IMAGE(master)
+/--------------------------------------------------------\
+| /----------------------------------------------------\ |
+| |i.NoBuk   : ____________________                    | |
+| \----------------------------------------------------/ |
+\--------------------------------------------------------/
+
+FIELDS(master)
+   lTipeRequest NONE           INPUTRI          1
+
+DEFAULTS(master)
+lOPTKLIKNSS	INIT		OPTKLIKNSS
+lversi		INIT    	12102026v1
+lketUpdate	INIT		"Bentuk tarikan data opt kliknss"
+lnamfil   	INIT    	"spk"
+lrequestreply   INIT 	        "reply"
+lmsttitle    	INIT            ""
+ldettitle    	INIT            "Details"
+lstatus		INIT		"OK"
+lsavedata    	INIT            1
+linplabels	INIT		"nomorPK"
+linpfields	INIT		"lnopk"
+ldetlabels	INIT		"nomorPK"
+ldetfields	INIT		"lnopk"
+lmstlabel	INIT		"status+namaDebitur+namaMotor+noPolisi+noMesin"
+lmstfields	INIT		"lstatus+lnamadebitur+lnamamtr+lnopol+lnomesin"
+linpmap		INIT		"mspk"
+ldetnamamap	INIT		"mspk"
+lSYSTIME	INIT		SYSTIME
+
+
+MAP(mjoinbtm)
+	btmtypmtr2	lnamamtr	REPLACE
+DBCALCS(djoinbtm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	btmbukidx lnopk
+	DBC_MAP		mjoinbtm
+
+MAP(mjoinppm)
+	ppmnobuk	lnobuk614	REPLACE
+	ppmplg		liddebitur	REPLACE
+DBCALCS(djoinppm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	ppmnollidx   lnopk
+	DBC_MAP		mjoinppm
+
+MAP(mjoinppd)
+	ppdnomesin	lnomesin	REPLACE
+DBCALCS(djoinppd)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	ppdbukurtidx  lnobuk614 gv_int1 gv_int1
+	DBC_MAP		mjoinppd
+
+MAP(mjoinssu)
+	ssunopol	lnopol		REPLACE
+DBCALCS(djoinssu)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	ssumridx   lnomesin
+	DBC_MAP		mjoinssu
+
+MAP(mjoinpsm)
+	psmnama         lnamadebitur	REPLACE
+
+DBCALCS(djoinpsm)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      psmktpidx	liddebitur
+        DBC_MAP         mjoinpsm
+
+CALCS()
+cnofak		"OPTKLIK" + FLD_TO_STRING(spkprm)
+cdjoinbtm	djoinbtm == 1
+cdjoinppm	djoinppm == 1
+cdjoinppd	djoinppd == 1
+cdjoinssu	djoinssu == 1
+cdjoinpsm	djoinpsm == 1
+
+MAP(mspk)
+lOPTKLIKNSS	spkdata		REPLACE
+cnofak		spknobuk	DO_CALC
+lSYSTIME	spkjam		REPLACE
+g_tgltrn	spktgl		REPLACE
+
+MAP(map)
+	lnobuk614	lnobuk614	REPLACE_IF cdjoinppm
+	lnamamtr	lnamamtr	REPLACE_IF cdjoinbtm
+	lnomesin	lnomesin	REPLACE_IF cdjoinppd
+	lnopol		lnopol		REPLACE_IF cdjoinssu
+	lnamadebitur	lnamadebitur	REPLACE_IF cdjoinpsm
+
+HOOKS(master)
+BEFORE_INPUT cur_field=lTipeRequest DO_LIB ap_rdjsn(lnamfil,linplabels,linpfields,linpmap,ldetlabels,ldetfields,ldetnamamap,lsavedata);
+
+SPCALCS(spmaster)
+	DO_LIB	ap_dbclc(DNAME dmap,DCOMMAND MAPMAP,DMAP map);
+        DO_LIB	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields);
+
+
+POSTING(master)
+   PST_COMMAND  spmaster
+
+
+END_SCREEN
+
+
