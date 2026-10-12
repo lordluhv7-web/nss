@@ -138,6 +138,17 @@ lSPKSOSMED		STRING	11
 lBISNISSOSMED		STRING	101
 lNAMAKONTEN   		STRING	251 
 
+/*============== OPTIMALISASI KLIKNSS ==================*/      
+langka0			INT2	2
+lreqtitle               STRING  31
+lreqlabel               STRING  801
+lreqfields              STRING  801
+lreturnlabel            STRING  51
+lexpectedreturnvalue    STRING  51
+lurl                    STRING  101
+lOPTKLIKNSS		STRING	11
+/*============== OPTIMALISASI KLIKNSS ==================*/      
+
 
 
 
@@ -274,6 +285,7 @@ lpil            DFALT_SCAN	1 "PROSESAN 198 UAT"
                             9 "PROSESAN 198 REVIEW PENUGASAN"
 			    10 "PROSESAN 196 SISA INPG"
                             11 "PROSESAN HOLD 1055"
+			    12 "PROSESAN KIRIM CEK DOKUMEN KLIKNSS"
 					
 ltgl1           INIT            {cawlbln}
 ltgl2           INIT            {g_tgltrn}	
@@ -333,6 +345,12 @@ lSOSAHASS           INIT        "SOSAHASS"
 l1055               INIT        "1055"
 lRESMICAB           INIT        "RESMICAB"
 lSPKSOSMED          INIT        "SPKSOSMED"
+langka0		    INIT	0
+lurl                INIT    	"http://172.23.63.180:8080"
+lreqtitle           INIT    	"CekDokumenKlik"
+lreqlabel           INIT    	"namaMotor+nomorPolisi+nomorFaktur+nomorKontrak+progress+tenor+tanggalTransaksi+statusAktif"
+lreqfields          INIT    	"lnotifjtp+piknobuk+pikangbl+piktgljtp+lnokliknss+pikke"
+lOPTKLIKNSS	    INIT	"OPTKLIKNSS"
 
 MAP(mpil2)
 cakhbln         ltgl3           DO_CALC
@@ -1066,6 +1084,59 @@ SFL_SELECT              cSELG7
 SFL_TARGET
         akttgltypidx   ltgl2 lSPKSOSMED
 
+IMAGE(transg8)
+|___________|___________|_________|_________|
+
+FIELD(transg8)
+btmnobuk	NOCHANGE          INPUTRI     1
+btmtgl		NOCHANGE          INPUTRI     2
+btmcabjl	NOCHANGE          INPUTRI     3
+btmdvsjl	NOCHANGE          INPUTRI     4
+
+
+MAP(mmapmapg8)
+DEBUG	ldum	ldum	REPLACE
+
+MAP(mmapmap2g3)
+DEBUG	ldum	ldum	REPLACE
+
+MAP(mAddAktOptKliknss)
+    lOPTKLIKNSS		aktdata		REPLACE
+    btmnobuk		aktkode		REPLACE
+    btmcabjl		akttype		REPLACE
+    ppmplg		aktlok		REPLACE
+    g_tgltrn		akttgl		REPLACE
+    lSYSTIME		aktjam		REPLACE
+    g_usrkode		aktcrtusr	REPLACE
+
+CALCS()
+cpil12          lpil == 12
+cselg8		btmdvsjl == "H1"
+
+SUBFILE(transg8)
+SFL_LINES(10)
+SFL_COND cpil12
+SFL_SELECT cselg8
+SFL_TARGET_GTE
+btmdattglidx   gv_bukutamu ltgl1 {gv_bukutamu} {ltgl2}
+
+IMAGE(trans2g3)
+|___________|___________|_________|_________|
+
+FIELD(trans2g3)
+ppmnobuk        NOCHANGE          INPUTRI     1
+ppmplg          NOCHANGE          INPUTRI     2
+ppmsts        	NOCHANGE          INPUTRI     3
+ppmcabinduk     NOCHANGE          INPUTRI     4
+
+
+SUBFILE(trans2g3)
+SFL_LINES(10)
+SFL_COND cpil12
+SFL_TARGET
+ppmnollidx	btmnobuk
+
+
 MAP(mapmap)
 cBLANKS		lnipPM		DO_CALC
 cBLANKS		lnipPM2		DO_CALC
@@ -1524,6 +1595,14 @@ DO_LIB_IF cjkfaceada_7flp       ap_dbclc(DNAME daddket5g7,DCOMMAND ADD,DFILE ket
 DO_LIB_IF ctdkbentukflp         ap_dbclc(DNAME updaktg6, DCOMMAND UPDATE, DTARGET aktprmidx   aktprm, DMAP mupdpaktg6);
 DO_LIB_IF cbentukflp         	ap_dbclc(DNAME delaktg6, DCOMMAND DELETE, DTARGET aktprmidx   aktprm);
 
+SPCALCS(sptransg8)
+DO_LIB                          ap_dbclc(DNAME dmapmapg8,DCOMMAND MAPMAP,DMAP mmapmapg8);
+
+SPCALCS(sptrans2g3)
+DO_LIB				ap_rqjsp(lurl,lreqtitle,lreqlabel,lreqfields,lreturnlabel,lexpectedreturnvalue,g_strksg,g_strksg,g_strksg,g_strksg,g_strksg,g_strksg,langka0);
+DO_LIB				ap_dbclc(DNAME dmapdebug,DCOMMAND MAPMAP,DMAP mmapmap2g3);
+DO_LIB				ap_dbclc(DNAME daddaktopt,DCOMMAND ADD,DFILE akt,DMAP mAddAktOptKliknss);
+
 /*
 DBCALCS(dharikerja)
 	DBC_COMMAND	JOIN
@@ -1555,6 +1634,9 @@ PST_COMMAND     sptrans2g1
 POSTING(trans2g2)
 PST_COMMAND     sptrans2g2
 
+POSTING(trans2g3)
+PST_COMMAND     sptrans2g3
+
 POSTING(transg4)
 PST_COMMAND     sptransg4
 
@@ -1569,5 +1651,8 @@ PST_COMMAND     sptransg6
 
 POSTING(transg7)
 PST_COMMAND     sptransg7
+
+POSTING(transg8)
+PST_COMMAND     sptransg8
 
 END_SCREEN
