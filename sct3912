@@ -83,7 +83,7 @@ lpikplg			STRING	21
 lnobukKLIK		STRING	21
 
 /* ======== TAMBAHAN ======== */
-l1			INT2	2
+lmin1			INT2	2
 lawlbln			DATE	4
 lakhbln			DATE	4
 lawlblnkemarin		DATE	4
@@ -271,8 +271,8 @@ DBCALCS(djoinast_m4w)
 CALCS()
 cawlbln		DO_LIB ap_awlbl(g_tgltrn,&lawlbln);
 cakhbln		DO_LIB ap_akhbl(g_tgltrn,&lakhbln);
-cawlblnkemarin	DO_LIB ap_tambl(lawlbln,l1,&lawlblnkemarin);
-cakhblnkemarin	DO_LIB ap_tambl(lakhbln,l1,&lakhblnkemarin);
+cawlblnkemarin	DO_LIB ap_tambl(lawlbln,lmin1,&lawlblnkemarin);
+cakhblnkemarin	DO_LIB ap_tambl(lakhbln,lmin1,&lakhblnkemarin);
 
 
 IMAGE(master) 
@@ -315,7 +315,7 @@ linpfields	INIT    "ftmnofak"
 
 linpmap		INIT	mmapftm  
 lsavedata	INIT		 1
-lVERSI	        INIT	13102026v2
+lVERSI	        INIT	13102026v3
 ljamskrng	INIT	SYSTIME
 lmodel		INIT	MODEL
 lKLIKNSS	INIT	KLIKNSS
@@ -323,9 +323,7 @@ lasset		INIT	ASSET
 lbpkb		INIT	BPKB
 
 /* ======== TAMBAHAN ======== */
-l1		INIT	1
-lawlbln		INIT	{cawlbln}
-lakhbln		INIT	{cakhbln}
+lmin1		INIT	-1
 
 
 CALCS()
@@ -472,6 +470,8 @@ chrterlambat1	g_tgltrn - ltgljtp
 chrterlambat2	lHariTerlambat <= 0
 
 MAP(mmapmap2)
+cawlbln		lawlbln		DO_CALC
+cakhbln		lakhbln		DO_CALC
 cawlblnkemarin	lawlblnkemarin	DO_CALC
 cakhblnkemarin	lakhblnkemarin	DO_CALC
 cblanks		lppmtglfak	DO_CALC
