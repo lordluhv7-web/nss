@@ -5,19 +5,19 @@ LOCAL
 PGM_FIELDS
 lstatus			STRING		61
 lTipeRequest		STRING		21
-lnamfil			STRING		31
+lnamafile		STRING		31
 lrequestreply		STRING		31
 lmsttitle		STRING		31
 ldettitle		STRING		31
-linplabels		STRING		501
-linpfields		STRING		801
-linpmap			STRING		21
+llabelmaster		STRING		501
+lfieldmaster		STRING		801
+lmapmaster		STRING		21
 lsavedata		INT2		2
 lmstlabel		STRING		100
 lmstfields		STRING		100
-ldetlabels		STRING		251
-ldetfields		STRING		251
-ldetnamamap		STRING		31
+llabeldetail		STRING		251
+lfielddetail		STRING		251
+lmapdetail		STRING		31
 lversi			STRING		11
 lketUpdate		STRING		100
 lOPTKLIKNSS		STRING		11
@@ -35,7 +35,7 @@ lnopk			STRING		21
 IMAGE(master)
 /--------------------------------------------------------\
 | /----------------------------------------------------\ |
-| |i.NoBuk   : ____________________                    | |
+| |t.NoPk   : ____________________                     | |
 | \----------------------------------------------------/ |
 \--------------------------------------------------------/
 
@@ -44,24 +44,32 @@ lTipeRequest	NONE		INPUTRI		1
 
 DEFAULTS(master)
 lOPTKLIKNSS	INIT		OPTKLIKNSS
-lversi		INIT    	12102026v2
+lversi		INIT    	13102026v1
 lketUpdate	INIT		"Bentuk tarikan data opt kliknss"
-lnamfil   	INIT    	"spk"
+lnamafile   	INIT    	"spk"
 lrequestreply   INIT 	        "reply"
-lmsttitle    	INIT            ""
+lmsttitle    	INIT            ""		/* judul struktur respon json */
 ldettitle    	INIT            "Details"
 lstatus		INIT		"OK"
 lsavedata    	INIT            1
-linplabels	INIT		"nomorPK"
-linpfields	INIT		"lnopk"
-ldetlabels	INIT		"nomorPK"
-ldetfields	INIT		"lnopk"
+llabelmaster	INIT		"nomorPK"
+lfieldmaster	INIT		"lnopk"
+llabeldetail	INIT		"nomorPK"
+lfielddetail	INIT		"lnopk"
 lmstlabel	INIT		"status+namaDebitur+namaMotor+noPolisi+noMesin+noFaktur+tenor+tanggalTransaksi"
 lmstfields	INIT		"lstatus+lnamadebitur+lnamamtr+lnopol+lnomesin+lnobuk614+ltenor+ltanggaltrans"
-linpmap		INIT		"mspk"
-ldetnamamap	INIT		"mspk"
+lmapmaster	INIT		"mspk"
+lmapdetail	INIT		"mspk"
 lSYSTIME	INIT		SYSTIME
 
+CALCS()
+cnofak		"OPTKLIK" + FLD_TO_STRING(spkprm)
+
+MAP(mspk)
+lOPTKLIKNSS	spkdata		REPLACE
+cnofak		spknobuk	DO_CALC
+lSYSTIME	spkjam		REPLACE
+g_tgltrn	spktgl		REPLACE
 
 MAP(mjoinbtm)
 	btmtypmtr2	lnamamtr	REPLACE
@@ -103,18 +111,11 @@ DBCALCS(djoinpsm)
         DBC_MAP         mjoinpsm
 
 CALCS()
-cnofak		"OPTKLIK" + FLD_TO_STRING(spkprm)
 cdjoinbtm	djoinbtm == 1
 cdjoinppm	djoinppm == 1
 cdjoinppd	djoinppd == 1
 cdjoinssu	djoinssu == 1
 cdjoinpsm	djoinpsm == 1
-
-MAP(mspk)
-lOPTKLIKNSS	spkdata		REPLACE
-cnofak		spknobuk	DO_CALC
-lSYSTIME	spkjam		REPLACE
-g_tgltrn	spktgl		REPLACE
 
 MAP(map)
 	lnobuk614	lnobuk614	REPLACE_IF cdjoinppm
@@ -124,7 +125,7 @@ MAP(map)
 	lnamadebitur	lnamadebitur	REPLACE_IF cdjoinpsm
 
 HOOKS(master)
-BEFORE_INPUT cur_field=lTipeRequest DO_LIB ap_rdjsn(lnamfil,linplabels,linpfields,linpmap,ldetlabels,ldetfields,ldetnamamap,lsavedata);
+BEFORE_INPUT cur_field=lTipeRequest DO_LIB ap_rdjsn(lnamafile,llabelmaster,lfieldmaster,lmapmaster,llabeldetail,lfielddetail,lmapdetail,lsavedata);
 
 SPCALCS(spmaster)
 	DO_LIB	ap_dbclc(DNAME dmap,DCOMMAND MAPMAP,DMAP map);

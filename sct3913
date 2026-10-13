@@ -1,0 +1,273 @@
+SCREEN 3913 APP_TYPE api_cekbyrkliknss
+
+LOCAL
+PGM_FIELDS
+lnamfil               	STRING  31
+linplabels             	STRING  3000
+linpfields             	STRING  3000
+linpmap			STRING	21
+ldatetype             	INT2    2
+lsavedata	  	INT2	2
+lnobuk			STRING	21
+
+lNoFaktur              	STRING  21
+lDataDiterima		STRING	21
+
+l16			INT2	2
+lVERSI			STRING	21
+ljamskrng		TIME	4
+lrequestreply           STRING  31
+lmsttitle               STRING  31
+lmstlabel           	STRING  100
+lmstfields              STRING  100
+lmstfields2		STRING  100
+lmstfields3		STRING  100
+lmstfields4		STRING  100
+ldettitle               STRING  31
+ldetlabel           	STRING  100
+ldetfields              STRING  100
+lreturnlabel		STRING	50
+lexpectedreturnvalue	STRING	50
+lstatus			STRING	61
+lstatus2		STRING	61
+lstatus3		STRING	61
+lstatus4		STRING	61
+
+lcekbyrklik		STRING	11
+ldum			STRING	2
+lurl			STRING	101
+lpiklama		INT2	2
+lpikangbl		DFLOAT	8
+lanhsisa		INT2	2
+lanhtotden		DFLOAT	8
+lanhtotbyr		DFLOAT	8
+lnobuk2			STRING	21
+lscrmetod		STRING	11
+lnipterima		STRING	21
+lhuruf4			INT2	2
+lhuruf3			INT2	2
+lhuruf2			INT2	2
+lhuruf1			INT2	2
+lnipterimaoke3		STRING	21
+lnipterimaoke2		STRING	21
+lnipterimaoke		STRING	21
+lmetodbyr		STRING	21
+
+CALCS()
+cblanks		BLANKS
+
+MAP(mjoinpik)
+piklama		lpiklama	REPLACE
+pikangbl	lpikangbl	REPLACE
+
+DBCALCS(djoinpik)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	pikdatbukidx	gv_dtpiu ftmnofak
+	DBC_MAP		mjoinpik
+
+CALCS()
+cbyr_ang	anhsts == "CLSD" && anhtype == "F"
+
+DBCALCS(djoinanh)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	anhbukotourt	ftmnofak
+	DBC_SELECT	cbyr_ang
+
+MAP(mjoinbkmbyr)
+bkmscr          lscrmetod       REPLACE
+bkmkode2        lnipterima      REPLACE
+
+DBCALCS(djoinbkmbyr)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      bkmbukidx 	anhnobyr
+        DBC_MAP         mjoinbkmbyr
+
+DBCALCS(djoinpsibyr)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      psikodidx 	lnipterima
+
+IMAGE(master) 
+/--------------------------------------------------------\
+| /----------------------------------------------------\ |
+| |i.NoBuk   : ____________________                    | |
+| \----------------------------------------------------/ |
+\--------------------------------------------------------/
+
+FIELDS(master)
+   lNoFaktur            NONE           INPUTRI          1 
+
+DEFAULTS(master)
+lrequestreply	INIT	"reply"
+lmstlabel       INIT    "Status"
+lmstfields	INIT    "lstatus"
+lmstfields2	INIT    "lstatus2"
+lmstfields3	INIT    "lstatus3"
+lmstfields4	INIT    "lstatus4"
+lmsttitle       INIT    ""
+l16		INIT	16
+lDataDiterima	INIT	"Data Diterima"
+lnamfil		INIT     {r_string1}
+ldatetype 	INIT	1
+lcekbyrklik	INIT	CEKBYRKLIK
+lurl			INIT	"https://172.17.0.1/ksapisvr"
+lreturnlabel          	INIT     "error"
+lexpectedreturnvalue  	INIT     "false"
+
+linplabels	INIT    "NoFaktur" 
+linpfields	INIT    "ftmnofak"
+
+linpmap		INIT	mmapftm  
+lsavedata	INIT		 1
+lVERSI	        INIT	08082025
+ljamskrng	INIT	SYSTIME
+lstatus		INIT	"Historis OK"
+lstatus2	INIT	"Faktur ini belum ada historis pembayaran angsuran"
+lstatus3	INIT	"Nomor Faktur ini tidak ada di database"
+lstatus4	INIT	"Nomor Faktur tidak ada isinya"
+lhuruf1		INIT	1
+lhuruf2		INIT	2
+lhuruf3		INIT	3
+lhuruf4		INIT	4
+
+MAP(mmapftm)
+lcekbyrklik	ftmdata		REPLACE
+gv_INPG		ftmsts		REPLACE
+ftmnofak	lnobuk		REPLACE
+
+HOOKS(master)
+BEFORE_INPUT cur_field=lNoFaktur DO_LIB ap_rdjsn(lnamfil,linplabels,linpfields,linpmap,g_strksg,g_strksg,g_strksg,lsavedata);
+
+CALCS()
+ckond1		ftmnofak != BLANKS && djoinpik == 1 && djoinanh == 1
+ckond2		ftmnofak != BLANKS && djoinpik == 1 && djoinanh == 0
+ckond3		ftmnofak != BLANKS && djoinpik == 0
+ckond4		ftmnofak == BLANKS
+
+IMAGE(trans)
+|__________________|____________|__________|_________|
+
+FIELD(trans)
+anhnobuk	NOCHANGE				INPUTRI	1
+anhtglbyr	PROTECT NOLIMIT {DD-MM-YYYY}		INPUTRI	2
+anhsts		PROTECT					INPUTRI	3
+anhdata		PROTECT					INPUTRI	4
+
+
+DEFAULTS(trans)
+ldettitle	INIT    "DetailByrAng"
+ldetlabel	INIT    "TotAng+SisAng+BsrAng+Denda+TotByr+TglByr+MetodePembayaran"
+ldetfields	INIT    "anhke+lanhsisa+lpikangbl+lanhtotden+lanhtotbyr+anhtglbyr+lmetodbyr"
+
+SUBFILE(trans)
+SFL_LINES(10)
+/*SFL_COND ckond1*/
+SFL_SELECT cbyr_ang
+SFL_SORT_BY_FIELD anhke
+SFL_SORT_UPDOWN DOWN
+SFL_TARGET
+anhbukotourt	ftmnofak
+
+MAP(mmapmap0)
+DEBUG ldum	ldum	REPLACE
+
+CALCS()
+cjoinpik	ftmnofak != BLANKS && djoinpik == 1
+canhsisa	lpiklama - anhke
+canhtotden	anhbyrden + anhbyradm
+canhtotbyr	lpikangbl + anhbyrden + anhbyradm
+cproc		lnobuk2 != anhnobuk
+cjoinbkmbyr	djoinbkmbyr==1
+cbankmetod0	DO_LIB ap_amstr(anhnobyr,lhuruf1,lhuruf2,&lnipterimaoke);
+cbankmetod1	DO_LIB ap_amstr(anhnobyr,lhuruf1,lhuruf3,&lnipterimaoke2);
+cbankmetod2	DO_LIB ap_amstr(anhnobyr,lhuruf1,lhuruf4,&lnipterimaoke3);
+cmetod203_1	lscrmetod=="203" && djoinpsibyr == 1
+cmetod203_2	lscrmetod=="203" && djoinpsibyr == 0 && lnipterima != BLANKS
+cmetod203_3	lscrmetod=="203" && djoinpsibyr == 0 && lnipterima == BLANKS
+cmetod206_1	lscrmetod=="206" && lnipterimaoke == "PA"
+cmetod206_2	lscrmetod=="206" && lnipterimaoke != "PA"
+cmetod765	lscrmetod=="765"
+cmetod204	lscrmetod=="204"
+cmetod305	lscrmetod=="305"
+cmetodlama	djoinbkmbyr==0 && lnipterimaoke3 == "ALFA"
+cmetodlama2	djoinbkmbyr==0 && lnipterimaoke3 == "INDO"
+cmetodlama3	djoinbkmbyr==0 && lnipterimaoke == "TY"
+cmetodlama4	djoinbkmbyr==0 && lnipterimaoke == "BX"
+cmetodlama5	djoinbkmbyr==0 && lnipterimaoke == "RS"
+cmetodlama6	djoinbkmbyr==0 && lnipterimaoke2 == "POS"
+cbyr203_1	"KASIR"
+cbyr203_3	"POTONG GAJI"
+cbyr206		"TRANSFER"
+cbyr765		"KOLEKTOR"
+cbyr204		"PELUNASAN"
+cbyr305		"PENCAIRAN TOPUP"
+cbyrlama	"ALFAMART/ALFAMIDI"
+cbyrlama2	"INDOMARET"
+cbyrlama3	"RESTRUKTUR KASIR"
+cbyrlama4	"KANTORPOS"
+
+
+MAP(mmapmap)
+lpiklama	lpiklama	REPLACE_IF cjoinpik
+lpikangbl	lpikangbl	REPLACE_IF cjoinpik
+canhsisa	lanhsisa	DO_CALC
+canhtotden	lanhtotden	DO_CALC
+canhtotbyr	lanhtotbyr	DO_CALC
+cblanks		lscrmetod       DO_CALC
+cblanks		lmetodbyr       DO_CALC
+cblanks		lnipterima      DO_CALC
+cblanks		lnipterimaoke   DO_CALC
+cblanks		lnipterimaoke2  DO_CALC
+cblanks		lnipterimaoke3  DO_CALC
+cbankmetod0	lnipterimaoke   DO_CALC
+cbankmetod1	lnipterimaoke2  DO_CALC
+cbankmetod2	lnipterimaoke3  DO_CALC
+lscrmetod	lscrmetod       REPLACE_IF cjoinbkmbyr
+lnipterima	lnipterima      REPLACE_IF cjoinbkmbyr
+cbyr203_1	lmetodbyr       DO_CALC_IF cmetod203_1
+lnipterima	lmetodbyr       REPLACE_IF cmetod203_2
+cbyr203_3	lmetodbyr       DO_CALC_IF cmetod203_3
+cbyr206		lmetodbyr       DO_CALC_IF cmetod206_1
+lnipterimaoke2	lmetodbyr       REPLACE_IF cmetod206_2
+cbyr765		lmetodbyr       DO_CALC_IF cmetod765
+cbyrlama	lmetodbyr       DO_CALC_IF cmetodlama
+cbyrlama2	lmetodbyr       DO_CALC_IF cmetodlama2
+cbyr765		lmetodbyr       DO_CALC_IF cmetodlama3
+cbyr203_1	lmetodbyr       DO_CALC_IF cmetodlama4
+cbyrlama3	lmetodbyr       DO_CALC_IF cmetodlama5
+cbyrlama4	lmetodbyr       DO_CALC_IF cmetodlama6
+cbyr204		lmetodbyr	DO_CALC_IF cmetod204
+cbyr305		lmetodbyr	DO_CALC_IF cmetod305
+
+MAP(maddaktcekbyrklik)
+lcekbyrklik	aktdata		REPLACE
+anhnobuk	aktkode		REPLACE
+lcekbyrklik	akttype		REPLACE
+g_tgltrn	akttgl		REPLACE
+ljamskrng	aktjam		REPLACE
+ftmnofak	aktkode2	REPLACE
+
+MAP(mmapend)
+anhnobuk	lnobuk2		REPLACE
+
+/*---------------------------------------------------------------*/
+SPCALCS(spmaster)
+	DO_LIB			ap_dbclc(DNAME dmapmap0,DCOMMAND MAPMAP,DMAP mmapmap0);
+	DO_LIB_IF ckond1	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields);
+	DO_LIB_IF ckond2	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields2);
+	DO_LIB_IF ckond3	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields3);
+	DO_LIB_IF ckond4	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields4);
+
+SPCALCS(sptrans)
+	DO_LIB			ap_dbclc(DNAME dmapmap,DCOMMAND MAPMAP,DMAP mmapmap);
+	/*DO_LIB			ap_snjsp(lurl,lreturnlabel,lexpectedreturnvalue);*/
+	DO_LIB			ap_jsndt(ldettitle,ldetlabel,ldetfields);
+	DO_LIB_IF cproc		ap_dbclc(DNAME daddaktcekangklik,DCOMMAND ADD,DFILE akt,DMAP maddaktcekbyrklik);
+	DO_LIB			ap_dbclc(DNAME dmapend,DCOMMAND MAPMAP,DMAP mmapend);
+
+POSTING(master)
+   PST_COMMAND		spmaster
+
+POSTING(trans)
+   PST_COMMAND		sptrans
+
+END_SCREEN

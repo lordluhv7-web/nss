@@ -1,0 +1,576 @@
+SCREEN 3912 APP_TYPE api_cekfakturkliknss
+
+LOCAL
+PGM_FIELDS
+lnamfil               	STRING  31
+linplabels             	STRING  3000
+linpfields             	STRING  3000
+linpmap			STRING	21
+ldatetype             	INT2    2
+lsavedata	  	INT2	2
+lnobuk			STRING	21
+
+lNoFaktur              	STRING  21
+lDataDiterima		STRING	21
+
+l16			INT2	2
+lVERSI			STRING	21
+ljamskrng		TIME	4
+lrequestreply           STRING  31
+lmsttitle               STRING  31
+lmstlabel           	STRING  100
+lmstfields		STRING  100
+lmstfields2		STRING  100
+lmstfields3		STRING  100
+lmstfields4		STRING  100
+lmstfields5		STRING  100
+lmstfields6		STRING  100
+ldettitle               STRING  31
+ldetlabel           	STRING  500
+ldetfields              STRING  500
+lreturnlabel		STRING	50
+lexpectedreturnvalue	STRING	50
+lstatus			STRING	61
+lstatus2		STRING	61
+lstatus3		STRING	61
+lstatus4		STRING	61
+lstatus5		STRING	61
+lstatus6		STRING	61
+
+lcekfktklik		STRING	11
+ldum			STRING	2
+lurl			STRING	101
+lnobuk2			STRING	21
+lpsmnama		STRING	61
+lmodel			STRING	11
+ljmlang			INT2	2
+ljmlbyr			DFLOAT	8
+lbtmtypmtr		STRING	21
+lbrgnama_hmc		STRING	61
+lbrgnama_m2w		STRING	61
+lbrgnama_ok		STRING	61
+ltotden			DFLOAT	8
+ltglfak_ok		DATE	4
+ltipebayar		STRING	21
+lalmjalan		STRING	101
+lalmprop		STRING	21
+lalmkota		STRING	21
+lalmkec			STRING	21
+lalmkel			STRING	21
+lalmrw			STRING	21
+lalmrt			STRING	21
+lprovinsi		STRING	61
+lkota			STRING	61
+lkecamatan		STRING	61
+lkelurahan		STRING	61
+lkodepos		STRING	21
+lppmtglfak		DATE	4
+lbkmtgl			DATE	4
+lnhmtotpok		DFLOAT	8
+
+ladmlalu		DFLOAT	8
+ldendalalu		DFLOAT	8
+ladmjalan		DFLOAT	8
+ldendajalan		DFLOAT	8
+
+lKLIKNSS		STRING	11
+lnhmjns			STRING	21
+lasset			STRING	11
+lbpkb			STRING	11
+lastnama_m4w		STRING	61
+llen_target		INT2	2
+lpikplg			STRING	21
+lnobukKLIK		STRING	21
+
+/* ======== TAMBAHAN ======== */
+l1			INT2	2
+lawlbln			DATE	4
+lakhbln			DATE	4
+lawlblnkemarin		DATE	4
+lakhblnkemarin		DATE	4
+lSisaAng		DFLOAT	21
+lDendaBlnIni		DFLOAT	21
+lDendaBlnLalu		DFLOAT	21
+lHariTerlambat		INT2	7
+lCabang			STRING	251
+lTglTransaksi		DATE	4	
+lJenisJaminan		STRING	251
+lNoPol			STRING	21
+lNoRangka		STRING	21
+lNoMesin		STRING	21
+lTahun			STRING	5
+lDokAsuransi		STRING	251
+lDokFidusia		STRING	251
+ltgljtp			DATE	4
+
+MAP(mjoinpsm)
+psmnama		lpsmnama	REPLACE
+
+DBCALCS(djoinpsm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	psmktpidx	pikplg
+	DBC_MAP		mjoinpsm
+
+CALCS()
+cfaktur_aktif	piksts == "INPG" || piksts == "CLSD" || piksts == "PLNS" || piksts == BLANKS
+
+DBCALCS(djoinpik)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	pikplgstsidx	pikplg
+	DBC_SELECT	cfaktur_aktif
+
+MAP(mjoinpik2)
+pikplg		lpikplg		REPLACE
+
+DBCALCS(djoinpik2)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	pikdatbukidx	gv_dtpiu ftmnofak
+	DBC_SELECT	cfaktur_aktif
+	DBC_MAP		mjoinpik2
+
+MAP(mjoinbtm)
+btmtypmtr	lbtmtypmtr	REPLACE
+
+DBCALCS(djoinbtm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	btmbukidx	piknobtm
+	DBC_MAP		mjoinbtm
+
+MAP(mjoinbrg_hmc)
+brgnama		lbrgnama_hmc	REPLACE
+
+DBCALCS(djoinbrg_hmc)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	brgdatkodidx	gv_dtbarang lbtmtypmtr
+	DBC_MAP		mjoinbrg_hmc
+
+MAP(mjoinbrg_m2w)
+brgnama		lbrgnama_m2w	REPLACE
+
+DBCALCS(djoinbrg_m2w)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	brgdatkodidx	lmodel lbtmtypmtr
+	DBC_MAP		mjoinbrg_m2w
+
+CALCS()
+c1	1
+
+MAP(mscanang)
+c1		ljmlang		DO_CALC
+
+DBCALCS(dscanang)
+	DBC_COMMAND	SCANSCAN
+	DBC_TARGET	angbukstsidx	piknobuk gv_ANG gv_INPG
+	DBC_SUM_MAP	mscanang
+
+MAP(mjoinppm)
+ppmtglfak	lppmtglfak	REPLACE
+
+DBCALCS(djoinppm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	ppmbukidx	piknobuk
+	DBC_MAP		mjoinppm
+
+MAP(mjoinbkm)
+bkmtgl		lbkmtgl		REPLACE
+
+DBCALCS(djoinbkm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	bkmbukidx	piknobuk
+	DBC_MAP		mjoinbkm
+
+MAP(mjoinalmtinggal)
+almjalan	lalmjalan	REPLACE
+almprop		lalmprop	REPLACE
+almkota		lalmkota	REPLACE
+almkec		lalmkec		REPLACE
+almkel		lalmkel		REPLACE
+almrw		lalmrw		REPLACE
+almrt		lalmrt		REPLACE
+
+DBCALCS(djoinalmtinggal)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	almotodatidx	pikplg gt_psmtinggal
+	DBC_MAP		mjoinalmtinggal
+
+MAP(mjoindtmprop)
+dtmket		lprovinsi	REPLACE
+
+DBCALCS(djoindtmprop)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	dtmdtkodidx	gv_dtkota lalmprop
+	DBC_MAP		mjoindtmprop
+
+MAP(mjointblkota)
+tblket		lkota		REPLACE
+
+DBCALCS(djointblkota)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbldtdtmkod	gv_dtkota lalmprop lalmkota
+	DBC_MAP		mjointblkota
+
+MAP(mjointbdkec)
+tbdket		lkecamatan	REPLACE
+
+DBCALCS(djointbdkec)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddatkodidx	gv_dtkota lalmprop lalmkota lalmkec
+	DBC_MAP		mjointbdkec
+
+MAP(mjointbtkel)
+tbtket		lkelurahan	REPLACE
+tbtkat		lkodepos	REPLACE
+
+DBCALCS(djointbtkel)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbtdattypkod	gv_dtkota gv_dtkota21 lalmprop lalmkota lalmkec lalmkel
+	DBC_MAP		mjointbtkel
+
+MAP(mjoinnhm)
+nhmtotpok	lnhmtotpok	REPLACE
+nhmjns		lnhmjns		REPLACE
+
+DBCALCS(djoinnhm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	nhmdatbukidx	gv_bukutamu piknobtm
+	DBC_MAP		mjoinnhm
+
+CALCS()
+cangnonCLSD	angsts == "OPEN" || angsts == "INPG"
+
+MAP(mscanang2)
+angsisadm	ladmjalan	REPLACE_IF cangnonCLSD
+angsisden	ldendajalan	REPLACE_IF cangnonCLSD
+
+DBCALCS(dscanang2)
+	DBC_COMMAND	SCANSCAN
+	DBC_TARGET	angbukstsidx	piknobuk gv_ANG
+	DBC_SUM_MAP	mscanang2
+
+MAP(mscanangCLSD)
+angsisadm	ladmlalu	REPLACE
+angsisden	ldendalalu	REPLACE
+
+DBCALCS(dscanangCLSD)
+	DBC_COMMAND	SCANSCAN
+	DBC_TARGET	angbukstsidx	piknobuk gv_ANG gv_CLSD
+	DBC_SUM_MAP	mscanangCLSD
+
+/*DBCALCS(djointlm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tlmdatstsbuk	lKLIKNSS gv_INPG lnobukKLIK*/
+
+MAP(mjoinast_m4w)
+astnama		lastnama_m4w	REPLACE
+
+DBCALCS(djoinast_m4w)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	astdatkodidx	lasset pikplg lbpkb lnhmjns
+	DBC_MAP		mjoinast_m4w
+
+CALCS()
+cawlbln		DO_LIB ap_awlbl(g_tgltrn,&lawlbln);
+cakhbln		DO_LIB ap_akhbl(g_tgltrn,&lakhbln);
+cawlblnkemarin	DO_LIB ap_tambl(lawlbln,l1,&lawlblnkemarin);
+cakhblnkemarin	DO_LIB ap_tambl(lakhbln,l1,&lakhblnkemarin);
+
+
+IMAGE(master) 
+/--------------------------------------------------------\
+| /----------------------------------------------------\ |
+| |i.NoBuk   : ____________________                    | |
+| \----------------------------------------------------/ |
+\--------------------------------------------------------/
+
+FIELDS(master)
+   lNoFaktur            NONE           INPUTRI          1 
+
+DEFAULTS(master)
+lrequestreply	INIT	"reply"
+lmstlabel       INIT    "Status"
+lmstfields	INIT    "lstatus"
+lmstfields2	INIT    "lstatus2"
+lmstfields3	INIT    "lstatus3"
+lmstfields4	INIT    "lstatus4"
+lmstfields5	INIT    "lstatus5"
+lmstfields6	INIT    "lstatus6"
+lmsttitle       INIT    ""
+l16		INIT	16
+lDataDiterima	INIT	"Data Diterima"
+lnamfil		INIT     {r_string1}
+ldatetype 	INIT	1
+lcekfktklik	INIT	CEKFKTKLIK
+lurl			INIT	"https://172.17.0.1/ksapisvr"
+lreturnlabel          	INIT     "error"
+lexpectedreturnvalue  	INIT     "false"
+lstatus		INIT	"KTP OK"
+lstatus2	INIT	"KTP ini tidak punya faktur penjualan"
+lstatus3	INIT	"Nomor KTP ini tidak ada di database"
+lstatus4	INIT	"Faktur OK"
+lstatus5	INIT	"Nomor Faktur ini tidak ada di database"
+lstatus6	INIT	"Mohon isi Nomor KTP Pemohon / Faktur yang diajukan"
+
+linplabels	INIT    "Ktp" 
+linpfields	INIT    "ftmnofak"
+
+linpmap		INIT	mmapftm  
+lsavedata	INIT		 1
+lVERSI	        INIT	13102026v2
+ljamskrng	INIT	SYSTIME
+lmodel		INIT	MODEL
+lKLIKNSS	INIT	KLIKNSS
+lasset		INIT	ASSET
+lbpkb		INIT	BPKB
+
+/* ======== TAMBAHAN ======== */
+l1		INIT	1
+lawlbln		INIT	{cawlbln}
+lakhbln		INIT	{cakhbln}
+
+
+CALCS()
+clen_target	DO_LIB ap_strln(ftmnofak,&llen_target);
+ctarget_ktp	llen_target >= 15
+ctarget_fkt	llen_target >= 1 && llen_target < 15
+ctarget_null	llen_target <= 0
+cktp		"KTP"
+cfaktur		"FAKTUR"
+ckosong		"KOSONG"
+cjoinpik2	ftmnofak != BLANKS && ftmkode7 == "FAKTUR" && djoinpik2 == 1
+ctarget_ktp2	ftmkode7 == "KTP"
+ctarget_fkt2	ftmkode7 == "FAKTUR"
+
+MAP(mmapftm)
+ftmnofak	lnobuk		REPLACE
+clen_target	llen_target	DO_CALC
+cktp		ftmkode7	DO_CALC_IF ctarget_ktp
+cfaktur		ftmkode7	DO_CALC_IF ctarget_fkt
+ckosong		ftmkode7	DO_CALC_IF ctarget_null
+lcekfktklik	ftmdata		REPLACE
+gv_INPG		ftmsts		REPLACE
+
+CALCS()
+ckond1		ftmnofak != BLANKS && ftmkode7 == "KTP" && djoinpsm == 1 && djoinpik == 1
+ckond2		ftmnofak != BLANKS && ftmkode7 == "KTP" && djoinpsm == 1 && djoinpik == 0
+ckond3		ftmnofak != BLANKS && ftmkode7 == "KTP" && djoinpsm == 0 && djoinpik == 0
+ckond4		ftmnofak != BLANKS && ftmkode7 == "FAKTUR" && djoinpik2 == 1
+ckond5		ftmnofak != BLANKS && ftmkode7 == "FAKTUR" && djoinpik2 == 0
+ckond6		ftmnofak == BLANKS
+ckond7		ftmkode7 != "KOSONG"
+cproc		ftmnofak != lnobuk2
+
+HOOKS(master)
+BEFORE_INPUT cur_field=lNoFaktur DO_LIB ap_rdjsn(lnamfil,linplabels,linpfields,linpmap,g_strksg,g_strksg,g_strksg,lsavedata);
+
+IMAGE(trans)
+|__________________|__________|_________|
+
+FIELD(trans)
+piknobuk	NOCHANGE		INPUTRI	1
+piksts		PROTECT			INPUTRI	2
+pikdvs		PROTECT			INPUTRI	3
+
+DEFAULTS(trans)
+ldettitle	INIT	"DetailFaktur"
+ldetlabel       INIT    "NoFaktur+Status+Bisnis+NamaDebitur+TglJtp+JmlByr+CicilKe+NamaBarang+TotalDenda+TglPengajuan+MetodePembayaran+Harga+Cicilan+Tenor+Alamat+Propinsi+Kota+Kecamatan+Kelurahan+KodePos+Rt+Rw+SisaAngsuran+DendaBlnIni+DendaBlnLalu+HariTerlambat+Cabang+TglTransaksi+JenisJaminan+NoPolisi+NoRangka+NoMesin+Tahun+DokAsuransi+DokFidusia+TglAwl+TglAkh+TglAwlKemarin+TglAkhKemarin"
+ldetfields      INIT    "piknobuk+piksts+pikdvs+lpsmnama+piktgljtp+ljmlbyr+pikke+lbrgnama_ok+ltotden+ltglfak_ok+ltipebayar+lnhmtotpok+pikangbl+piklama+lalmjalan+lprovinsi+lkota+lkecamatan+lkelurahan+lkodepos+lalmrt+lalmrw+lSisaAng+lDendaBlnIni+lDendaBlnLalu+lHariTerlambat+lCabang+lTglTransaksi+lJenisJaminan+lNoPol+lNoRangka+lNoMesin+lTahun+lDokAsuransi+lDokFidusia+lawlbln+lakhbln+lawlblnkemarin+lakhblnkemarin"
+
+SUBFILE(trans)
+SFL_LINES(10)
+/*SFL_COND ckond1*/
+SFL_SELECT cfaktur_aktif
+SFL_TARGET_IF ctarget_ktp2
+pikplgstsidx	ftmnofak
+SFL_TARGET_IF ctarget_fkt2
+pikdatbukidx	gv_dtpiu ftmnofak
+
+MAP(mmapmap)
+DEBUG ldum		ldum		REPLACE
+
+
+MAP(mjoinmotor)
+	ssunopol	lNoPol		REPLACE
+	ssurangka	lNoRangka	REPLACE
+	ssumesin	lNoMesin	REPLACE
+DBCALCS(djoinmotor)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	ssubuk2idx	piknobuk
+	DBC_MAP		mjoinmotor
+
+
+CALCS()
+cblnini			angtgljtp >= lawlbln && angtgljtp <= lakhbln
+cblnkemarin		angtgljtp >= lawlblnkemarin && angtgljtp <= lakhblnkemarin
+cstatustelat		angsts == "OPEN" || angsts == "INPG"
+
+MAP(mjoindenda1)
+	angsisden	lDendaBlnIni	REPLACE
+DBCALCS(djoindenda1)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	angbukstsidx	piknobuk gv_ANG
+	DBC_SELECT	cblnini
+	DBC_MAP		mjoindenda1
+
+MAP(mjoindenda2)
+        angsisden       lDendaBlnLalu    REPLACE
+DBCALCS(djoindenda2)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      angbukstsidx    piknobuk gv_ANG
+	DBC_SELECT	cblnkemarin
+        DBC_MAP         mjoindenda2
+
+MAP(mjointelat)
+        angtgljtp       ltgljtp    REPLACE
+DBCALCS(djointelat)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      angbukstsidx    piknobuk gv_ANG
+        DBC_SELECT      cstatustelat
+        DBC_MAP         mjointelat
+
+CALCS()
+cblanks		BLANKS
+cjoinpsm	djoinpsm == 1
+cscanang	dscanang >= 0
+cjoinbtm	djoinbtm == 1
+cjoinnhm	djoinnhm == 1
+cjoinbrg_hmc	(pikdvs == "HMC" || pikdvs == "H1" || (pikdvs == "MGA" && pikscr == "305")) && djoinbtm == 1 && lbtmtypmtr != BLANKS && djoinbrg_hmc == 1
+cjoinbrg_m2w	(pikdvs == "M2W" || pikdvs == "M2W4W") && djoinbtm == 1 && lbtmtypmtr != BLANKS && djoinbrg_m2w == 1
+cjoinast_m4w	pikdvs == "M4W" && djoinnhm == 1 && lnhmjns != BLANKS && djoinast_m4w == 1
+cjoinppm	(pikdvs == "HMC" || pikdvs == "H1") && djoinppm == 1
+cjoinbkm	(pikdvs == "M2W" || pikdvs == "M2W4W" || pikdvs == "M4W" || (pikdvs == "MGA" && pikscr == "305")) && djoinbkm == 1
+cjoinalmtinggal	djoinalmtinggal == 1
+cjoindtmprop	djoinalmtinggal == 1 && lalmprop != BLANKS && djoindtmprop == 1
+cjointblkota	djoinalmtinggal == 1 && lalmprop != BLANKS && lalmkota != BLANKS && djointblkota == 1
+cjointbdkec	djoinalmtinggal == 1 && lalmprop != BLANKS && lalmkota != BLANKS && lalmkec != BLANKS && djointbdkec == 1
+cjointbtkel	djoinalmtinggal == 1 && lalmprop != BLANKS && lalmkota != BLANKS && lalmkec != BLANKS && lalmkel != BLANKS && djointbtkel == 1
+cbrg_hmc	(pikdvs == "HMC" || pikdvs == "H1" || (pikdvs == "MGA" && pikscr == "305"))
+cbrg_m2w	(pikdvs == "M2W" || pikdvs == "M2W4W")
+cbrg_m4w	(pikdvs == "M4W")
+cbrg_null	(pikdvs != "HMC" && pikdvs != "H1" && (pikdvs != "MGA" || (pikdvs == "MGA" && pikscr != "305")) && pikdvs != "M2W" && pikdvs != "M2W4W" && pikdvs != "M4W")
+ctgl_614	(pikdvs == "HMC" || pikdvs == "H1")
+ctgl_305	(pikdvs == "M2W" || pikdvs == "M2W4W" || pikdvs == "M4W" || (pikdvs == "MGA" && pikscr == "305"))
+cstrip		"-"
+cjmlbyr		ljmlang * pikangbl
+cCASH		"CASH"
+cKREDIT		"KREDIT"
+/*cfktinpg	piksts == "INPG"
+cfktclsd	piksts == "CLSD" || piksts == "PLNS" || piksts == BLANKS*/
+cfktT		piktypjl == "T"
+cfktK		piktypjl == "K"
+cscanang2	dscanang2 >= 0
+cscanangCLSD	dscanangCLSD >= 0
+ctotden		ladmlalu + ldendalalu + ladmjalan + ldendajalan
+c0		0
+ctlmnobuk	"KLIK"+STRIP(piknobuk)
+/*caddtlm		lnobukKLIK != BLANKS && djointlm == 0*/
+cSisaAngsuran	piklama - pikke
+cdjoinmotor	djoinmotor == 1
+cdjoindenda1	djoindenda1 == 1
+cdjoindenda2	djoindenda2 == 1
+cdjointelat	djointelat == 1
+chrterlambat1	g_tgltrn - ltgljtp
+chrterlambat2	lHariTerlambat <= 0
+
+MAP(mmapmap2)
+cawlblnkemarin	lawlblnkemarin	DO_CALC
+cakhblnkemarin	lakhblnkemarin	DO_CALC
+cblanks		lppmtglfak	DO_CALC
+cblanks		lbkmtgl		DO_CALC
+lpsmnama	lpsmnama	REPLACE_IF cjoinpsm
+ljmlang		ljmlang		REPLACE_IF cscanang
+lbtmtypmtr	lbtmtypmtr	REPLACE_IF cjoinbtm
+lnhmtotpok	lnhmtotpok	REPLACE_IF cjoinnhm
+lnhmjns		lnhmjns		REPLACE_IF cjoinnhm
+lbrgnama_hmc	lbrgnama_hmc	REPLACE_IF cjoinbrg_hmc
+lbrgnama_m2w	lbrgnama_m2w	REPLACE_IF cjoinbrg_m2w
+lastnama_m4w	lastnama_m4w	REPLACE_IF cjoinast_m4w
+lppmtglfak	lppmtglfak	REPLACE_IF cjoinppm
+lbkmtgl		lbkmtgl		REPLACE_IF cjoinbkm
+lalmjalan	lalmjalan	REPLACE_IF cjoinalmtinggal
+lalmprop	lalmprop	REPLACE_IF cjoinalmtinggal
+lalmkota	lalmkota	REPLACE_IF cjoinalmtinggal
+lalmkec		lalmkec		REPLACE_IF cjoinalmtinggal
+lalmkel		lalmkel		REPLACE_IF cjoinalmtinggal
+lalmrw		lalmrw		REPLACE_IF cjoinalmtinggal
+lalmrt		lalmrt		REPLACE_IF cjoinalmtinggal
+lprovinsi	lprovinsi	REPLACE_IF cjoindtmprop
+lkota		lkota		REPLACE_IF cjointblkota
+lkecamatan	lkecamatan	REPLACE_IF cjointbdkec
+lkelurahan	lkelurahan	REPLACE_IF cjointbtkel
+lkodepos	lkodepos	REPLACE_IF cjointbtkel
+lbrgnama_hmc	lbrgnama_ok	REPLACE_IF cbrg_hmc
+lbrgnama_m2w	lbrgnama_ok	REPLACE_IF cbrg_m2w
+lastnama_m4w	lbrgnama_ok	REPLACE_IF cbrg_m4w
+cstrip		lbrgnama_ok	DO_CALC_IF cbrg_null
+lppmtglfak	ltglfak_ok	REPLACE_IF ctgl_614
+lbkmtgl		ltglfak_ok	REPLACE_IF ctgl_305
+cjmlbyr		ljmlbyr		DO_CALC
+cCASH		ltipebayar	DO_CALC_IF cfktT
+cKREDIT		ltipebayar	DO_CALC_IF cfktK
+c0		ladmlalu	DO_CALC
+c0		ldendalalu	DO_CALC
+c0		ladmjalan	DO_CALC
+c0		ldendajalan	DO_CALC
+ladmlalu	ladmlalu	REPLACE_IF cscanangCLSD
+ldendalalu	ldendalalu	REPLACE_IF cscanangCLSD
+ladmjalan	ladmjalan	REPLACE_IF cscanang2
+ldendajalan	ldendajalan	REPLACE_IF cscanang2
+ctotden		ltotden		DO_CALC
+ctlmnobuk	lnobukKLIK	DO_CALC
+/* ======== TAMBAHAN ======== */
+piksispok	lSisaAng	REPLACE
+lNoPol    	lNoPol		REPLACE_IF cdjoinmotor
+lNoMesin    	lNoMesin	REPLACE_IF cdjoinmotor
+lNoRangka    	lNoRangka	REPLACE_IF cdjoinmotor
+lDendaBlnIni	lDendaBlnIni	REPLACE_IF cdjoindenda1
+lDendaBlnLalu	lDendaBlnLalu	REPLACE_IF cdjoindenda2
+ltgljtp		ltgljtp		REPLACE_IF cdjointelat
+chrterlambat1	lHariTerlambat	DO_CALC
+c0		lHariTerlambat	DO_CALC_IF chrterlambat2
+
+MAP(maddaktcekfktklik)
+lcekfktklik	aktdata		REPLACE
+pikplg		aktkode		REPLACE
+lcekfktklik	akttype		REPLACE
+g_tgltrn	akttgl		REPLACE
+ljamskrng	aktjam		REPLACE
+
+MAP(mmapend)
+pikplg		lnobuk2		REPLACE
+
+/*MAP(maddtlm)
+lKLIKNSS	tlmdata		REPLACE
+ctlmnobuk	tlmnobuk	DO_CALC
+gv_INPG		tlmsts		REPLACE
+piknobuk	tlmnoasal	REPLACE
+pikplg		tlmplg		REPLACE*/
+
+
+/*---------------------------------------------------------------*/
+SPCALCS(spmaster)
+	DO_LIB			ap_dbclc(DNAME dmapmap,DCOMMAND MAPMAP,DMAP mmapmap);
+	/*DO_LIB			ap_snjsp(lurl,lreturnlabel,lexpectedreturnvalue);*/
+	DO_LIB_IF ckond1	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields);
+	DO_LIB_IF ckond2	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields2);
+	DO_LIB_IF ckond3	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields3);
+	DO_LIB_IF ckond4	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields4);
+	DO_LIB_IF ckond5	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields5);
+	DO_LIB_IF ckond6	ap_jsnmt(lrequestreply,lmsttitle,lmstlabel,lmstfields6);
+
+SPCALCS(sptrans)
+	DO_LIB			ap_dbclc(DNAME dmapmap2,DCOMMAND MAPMAP,DMAP mmapmap2);
+	DO_LIB			ap_jsndt(ldettitle,ldetlabel,ldetfields);
+	/*DO_LIB_IF caddtlm	ap_dbclc(DNAME daddtlm,DCOMMAND ADD,DFILE tlm,DMAP maddtlm);*/
+	DO_LIB_IF cproc		ap_dbclc(DNAME daddaktcekfktklik,DCOMMAND ADD,DFILE akt,DMAP maddaktcekfktklik);
+	DO_LIB			ap_dbclc(DNAME dmapend,DCOMMAND MAPMAP,DMAP mmapend);
+
+POSTING(master)
+   PST_COMMAND		spmaster      
+
+POSTING(trans)
+   PST_COMMAND		sptrans
+
+POSTING(transg1)
+   PST_COMMAND		sptrans
+
+END_SCREEN
