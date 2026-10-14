@@ -53,6 +53,8 @@ lnipterimaoke2		STRING	21
 lnipterimaoke		STRING	21
 lmetodbyr		STRING	21
 
+ltgljtp			DATE	4
+
 CALCS()
 cblanks		BLANKS
 
@@ -67,6 +69,7 @@ DBCALCS(djoinpik)
 
 CALCS()
 cbyr_ang	anhsts == "CLSD" && anhtype == "F"
+cstatustelat		angsts == "OPEN" || angsts == "INPG"
 
 DBCALCS(djoinanh)
 	DBC_COMMAND	JOIN
@@ -85,6 +88,14 @@ DBCALCS(djoinbkmbyr)
 DBCALCS(djoinpsibyr)
         DBC_COMMAND     JOIN
         DBC_TARGET      psikodidx 	lnipterima
+
+MAP(mjointelat)
+        angtgljtp       ltgljtp    REPLACE
+DBCALCS(djointelat)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      angbukstsidx    piknobuk gv_ANG
+        DBC_SELECT      cstatustelat
+        DBC_MAP         mjointelat
 
 IMAGE(master) 
 /--------------------------------------------------------\
@@ -155,8 +166,8 @@ anhdata		PROTECT					INPUTRI	4
 
 DEFAULTS(trans)
 ldettitle	INIT    "DetailByrAng"
-ldetlabel	INIT    "TotAng+SisAng+BsrAng+Denda+TotByr+TglByr+MetodePembayaran"
-ldetfields	INIT    "anhke+lanhsisa+lpikangbl+lanhtotden+lanhtotbyr+anhtglbyr+lmetodbyr"
+ldetlabel	INIT    "TotAng+SisAng+BsrAng+Denda+TotByr+TglByr+MetodePembayaran+TanggalJatuhTempo"
+ldetfields	INIT    "anhke+lanhsisa+lpikangbl+lanhtotden+lanhtotbyr+anhtglbyr+lmetodbyr+ltgljtp"
 
 SUBFILE(trans)
 SFL_LINES(10)
@@ -204,7 +215,7 @@ cbyrlama	"ALFAMART/ALFAMIDI"
 cbyrlama2	"INDOMARET"
 cbyrlama3	"RESTRUKTUR KASIR"
 cbyrlama4	"KANTORPOS"
-
+cdjointelat	djointelat == 1
 
 MAP(mmapmap)
 lpiklama	lpiklama	REPLACE_IF cjoinpik
@@ -237,6 +248,8 @@ cbyrlama3	lmetodbyr       DO_CALC_IF cmetodlama5
 cbyrlama4	lmetodbyr       DO_CALC_IF cmetodlama6
 cbyr204		lmetodbyr	DO_CALC_IF cmetod204
 cbyr305		lmetodbyr	DO_CALC_IF cmetod305
+/* ======== TAMBAHAN ======== */
+ltgljtp		ltgljtp		REPLACE_IF cdjointelat
 
 MAP(maddaktcekbyrklik)
 lcekbyrklik	aktdata		REPLACE
