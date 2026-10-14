@@ -102,6 +102,8 @@ lTahun			STRING	5
 lDokAsuransi		STRING	251
 lDokFidusia		STRING	251
 ltgljtp			DATE	4
+lNamaMotor		STRING	251
+lppmnoll		STRING	21
 
 MAP(mjoinpsm)
 psmnama		lpsmnama	REPLACE
@@ -130,6 +132,7 @@ DBCALCS(djoinpik2)
 
 MAP(mjoinbtm)
 btmtypmtr	lbtmtypmtr	REPLACE
+btmtypmtr2	lNamaMotor	REPLACE
 
 DBCALCS(djoinbtm)
 	DBC_COMMAND	JOIN
@@ -165,6 +168,7 @@ DBCALCS(dscanang)
 
 MAP(mjoinppm)
 ppmtglfak	lppmtglfak	REPLACE
+ppmnoll		lppmnoll	REPLACE
 
 DBCALCS(djoinppm)
 	DBC_COMMAND	JOIN
@@ -315,7 +319,7 @@ linpfields	INIT    "ftmnofak"
 
 linpmap		INIT	mmapftm  
 lsavedata	INIT		 1
-lVERSI	        INIT	13102026v3
+lVERSI	        INIT	14102026v2
 ljamskrng	INIT	SYSTIME
 lmodel		INIT	MODEL
 lKLIKNSS	INIT	KLIKNSS
@@ -370,8 +374,8 @@ pikdvs		PROTECT			INPUTRI	3
 
 DEFAULTS(trans)
 ldettitle	INIT	"DetailFaktur"
-ldetlabel       INIT    "NoFaktur+Status+Bisnis+NamaDebitur+TglJtp+JmlByr+CicilKe+NamaBarang+TotalDenda+TglPengajuan+MetodePembayaran+Harga+Cicilan+Tenor+Alamat+Propinsi+Kota+Kecamatan+Kelurahan+KodePos+Rt+Rw+SisaAngsuran+DendaBlnIni+DendaBlnLalu+HariTerlambat+Cabang+TglTransaksi+JenisJaminan+NoPolisi+NoRangka+NoMesin+Tahun+DokAsuransi+DokFidusia+TglAwl+TglAkh+TglAwlKemarin+TglAkhKemarin"
-ldetfields      INIT    "piknobuk+piksts+pikdvs+lpsmnama+piktgljtp+ljmlbyr+pikke+lbrgnama_ok+ltotden+ltglfak_ok+ltipebayar+lnhmtotpok+pikangbl+piklama+lalmjalan+lprovinsi+lkota+lkecamatan+lkelurahan+lkodepos+lalmrt+lalmrw+lSisaAng+lDendaBlnIni+lDendaBlnLalu+lHariTerlambat+lCabang+lTglTransaksi+lJenisJaminan+lNoPol+lNoRangka+lNoMesin+lTahun+lDokAsuransi+lDokFidusia+lawlbln+lakhbln+lawlblnkemarin+lakhblnkemarin"
+ldetlabel       INIT    "NoFaktur+Status+Bisnis+NamaDebitur+TglJtp+JmlByr+CicilKe+NamaBarang+TotalDenda+TglPengajuan+MetodePembayaran+Harga+Cicilan+Tenor+Alamat+Propinsi+Kota+Kecamatan+Kelurahan+KodePos+Rt+Rw+SisaAngsuran+DendaBulanIni+DendaBulanLalu+HariTerlambat+Cabang+TanggalTransaksi+JenisJaminan+NomorPolisi+NomorRangka+NomorMesin+Tahun+DokumenAsuransi+DokumenFidusia+TanggalJatuhTempo+Motor"
+ldetfields      INIT    "piknobuk+piksts+pikdvs+lpsmnama+piktgljtp+ljmlbyr+pikke+lbrgnama_ok+ltotden+ltglfak_ok+ltipebayar+lnhmtotpok+pikangbl+piklama+lalmjalan+lprovinsi+lkota+lkecamatan+lkelurahan+lkodepos+lalmrt+lalmrw+lSisaAng+lDendaBlnIni+lDendaBlnLalu+lHariTerlambat+lCabang+lTglTransaksi+lJenisJaminan+lNoPol+lNoRangka+lNoMesin+lTahun+lDokAsuransi+lDokFidusia+ltgljtp+lNamaMotor"
 
 SUBFILE(trans)
 SFL_LINES(10)
@@ -425,6 +429,14 @@ DBCALCS(djointelat)
         DBC_SELECT      cstatustelat
         DBC_MAP         mjointelat
 
+	
+MAP(mjoinppd614)
+ppdthbrg	lTahun	REPLACE
+DBCALCS(djoinppd614)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	ppdbukurtidx  piknobuk gv_int1 gv_int1
+	DBC_MAP		mjoinppd614
+
 CALCS()
 cblanks		BLANKS
 cjoinpsm	djoinpsm == 1
@@ -468,6 +480,7 @@ cdjoindenda2	djoindenda2 == 1
 cdjointelat	djointelat == 1
 chrterlambat1	g_tgltrn - ltgljtp
 chrterlambat2	lHariTerlambat <= 0
+cdjoinppd614	djoinppd614 == 1
 
 MAP(mmapmap2)
 cawlbln		lawlbln		DO_CALC
@@ -527,6 +540,10 @@ lDendaBlnLalu	lDendaBlnLalu	REPLACE_IF cdjoindenda2
 ltgljtp		ltgljtp		REPLACE_IF cdjointelat
 chrterlambat1	lHariTerlambat	DO_CALC
 c0		lHariTerlambat	DO_CALC_IF chrterlambat2
+lppmtglfak	lTglTransaksi	REPLACE_IF cjoinppm
+lNamaMotor	lNamaMotor	REPLACE_IF cjoinbtm
+lTahun		lTahun		REPLACE_IF cdjoinppd614
+
 
 MAP(maddaktcekfktklik)
 lcekfktklik	aktdata		REPLACE
