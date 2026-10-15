@@ -18,14 +18,14 @@ lVERSI			STRING	21
 ljamskrng		TIME	4
 lrequestreply           STRING  31
 lmsttitle               STRING  31
-lmstlabel           	STRING  100
-lmstfields              STRING  100
-lmstfields2		STRING  100
-lmstfields3		STRING  100
-lmstfields4		STRING  100
+lmstlabel           	STRING  1000
+lmstfields              STRING  1000
+lmstfields2		STRING  1000
+lmstfields3		STRING  1000
+lmstfields4		STRING  1000
 ldettitle               STRING  31
-ldetlabel           	STRING  100
-ldetfields              STRING  100
+ldetlabel           	STRING  1000
+ldetfields              STRING  1000
 lreturnlabel		STRING	50
 lexpectedreturnvalue	STRING	50
 lstatus			STRING	61
@@ -53,7 +53,28 @@ lnipterimaoke2		STRING	21
 lnipterimaoke		STRING	21
 lmetodbyr		STRING	21
 
+/*============ TAMBAHAN =============*/
 ltgljtp			DATE	4
+lpikplg			STRING	21
+lpiknobtm		STRING	21
+lcustomerName		STRING	61
+lNoPol                  STRING  21
+lNoRangka               STRING  21
+lNoMesin                STRING  21
+lbtmtypmtr		STRING	21
+lNamaMotor		STRING	21
+lPLAT			STRING	21
+lSTNK			STRING	21
+lBPKB			STRING	21
+lMUTASISTNK		STRING	11
+lpengambilplat  	STRING	161
+ltglambilplat   	DATE	4
+lcabangplat     	STRING	21
+lnamacabang     	STRING	251
+lalamatcabang   	STRING	251
+lcabtwr         	STRING	21
+longitude		DFLOAT	21
+latitude		DFLOAT	21
 
 CALCS()
 cblanks		BLANKS
@@ -61,11 +82,65 @@ cblanks		BLANKS
 MAP(mjoinpik)
 piklama		lpiklama	REPLACE
 pikangbl	lpikangbl	REPLACE
+pikplg		lpikplg		REPLACE
+piknobtm	lpiknobtm	REPLACE
 
 DBCALCS(djoinpik)
 	DBC_COMMAND	JOIN
 	DBC_TARGET	pikdatbukidx	gv_dtpiu ftmnofak
 	DBC_MAP		mjoinpik
+
+MAP(mjoinpsm)
+	psmnama		lcustomerName	REPLACE
+DBCALCS(djoinpsm)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	psmktpidx	lpikplg
+	DBC_MAP		mjoinpsm
+
+MAP(mjoinmotor)
+        ssunopol        lNoPol          REPLACE
+        ssurangka       lNoRangka       REPLACE
+        ssumesin        lNoMesin        REPLACE
+DBCALCS(djoinmotor)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      ssubuk2idx      piknobuk
+        DBC_MAP         mjoinmotor
+
+MAP(mjoinbtm)
+btmtypmtr       lbtmtypmtr      REPLACE
+btmtypmtr2      lNamaMotor      REPLACE
+
+DBCALCS(djoinbtm)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      btmbukidx       lpiknobtm
+        DBC_MAP         mjoinbtm
+
+MAP(mjoinplat)
+	tlmket		lpengambilplat	REPLACE
+	tlmtgl2		ltglambilplat	REPLACE
+	tlmcab		lcabangplat	REPLACE
+	
+DBCALCS(djoinplat)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tlmdataslsts	lMUTASISTNK ftmnofak
+	DBC_MAP		mjoinplat
+
+MAP(mjoincab)
+	cabnama		lnamacabang	REPLACE
+	cabalamat	lalamatcabang	REPLACE
+	cabtwr		lcabtwr		REPLACE
+DBCALCS(djoincab)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	cabkodidx	lcabangplat
+	DBC_MAP		mjoincab		
+
+MAP(mjoinlonglat)
+	tbddf1		longitude	REPLACE
+	tbddf2		latitude	REPLACE
+DBCALCS(djoinlonglat)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddtkodidx   tbddata lcabtwr
+	DBC_MAP		mjoinlonglat
 
 CALCS()
 cbyr_ang	anhsts == "CLSD" && anhtype == "F"
@@ -106,18 +181,19 @@ IMAGE(master)
 
 FIELDS(master)
    lNoFaktur            NONE           INPUTRI          1 
+/*+statusDocument1+statusText1+completedAt1+takenAt1+takenBy1+locationName1+locationAddress1+latitude1+longitude1+typeDocument2+statusDocument2+statusText2+completedAt2+locationName2+locationAddress2+latitude2+longitude2+typeDocument3+statusDocument3+statusText3+estimatedAt+notes+locationName3+locationAddress3+latitude3+longitude3*/
 
 DEFAULTS(master)
 lrequestreply	INIT	"reply"
-lmstlabel       INIT    "Status"
-lmstfields	INIT    "lstatus"
+lmstlabel       INIT    "Status+customerName+ktpNumber+contractNumber+motorName+engineNumber+bodyNumber+typeDocument1+takenAt1+takenBy1+locationName1+locationAddress1+latitude1+longitude1"
+lmstfields	INIT    "lstatus+lcustomerName+lpikplg+ftmnofak+lNamaMotor+lNoMesin+lNoRangka+lPLAT+ltglambilplat+lpengambilplat+lnamacabang+lalamatcabang+latitude+longitude"
 lmstfields2	INIT    "lstatus2"
 lmstfields3	INIT    "lstatus3"
 lmstfields4	INIT    "lstatus4"
 lmsttitle       INIT    ""
 l16		INIT	16
 lDataDiterima	INIT	"Data Diterima"
-lnamfil		INIT     {r_string1}
+lnamfil		INIT    {r_string1}
 ldatetype 	INIT	1
 lcekbyrklik	INIT	CEKBYRKLIK
 lurl			INIT	"https://172.17.0.1/ksapisvr"
@@ -129,7 +205,7 @@ linpfields	INIT    "ftmnofak"
 
 linpmap		INIT	mmapftm  
 lsavedata	INIT		 1
-lVERSI	        INIT	08082025
+lVERSI	        INIT	15102026v8
 ljamskrng	INIT	SYSTIME
 lstatus		INIT	"Historis OK"
 lstatus2	INIT	"Faktur ini belum ada historis pembayaran angsuran"
@@ -139,6 +215,11 @@ lhuruf1		INIT	1
 lhuruf2		INIT	2
 lhuruf3		INIT	3
 lhuruf4		INIT	4
+/* ======== TAMBAHAN ======== */
+lPLAT		INIT	PLAT
+lSTNK		INIT	STNK
+lBPKB		INIT	BPKB
+lMUTASISTNK	INIT	MUTASISTNK
 
 MAP(mmapftm)
 lcekbyrklik	ftmdata		REPLACE
@@ -153,6 +234,13 @@ ckond1		ftmnofak != BLANKS && djoinpik == 1 && djoinanh == 1
 ckond2		ftmnofak != BLANKS && djoinpik == 1 && djoinanh == 0
 ckond3		ftmnofak != BLANKS && djoinpik == 0
 ckond4		ftmnofak == BLANKS
+cjoinpik	ftmnofak != BLANKS && djoinpik == 1
+cjoinpsm	ftmnofak != BLANKS && djoinpsm == 1
+cjoinmotor	ftmnofak != BLANKS && djoinmotor == 1
+cjoinbtm	ftmnofak != BLANKS && djoinbtm == 1
+cjoinplat	ftmnofak != BLANKS && djoinplat == 1
+cjoincab	ftmnofak != BLANKS && djoincab == 1
+cjoinlonglat	ftmnofak != BLANKS && djoinlonglat == 1
 
 IMAGE(trans)
 |__________________|____________|__________|_________|
@@ -179,10 +267,16 @@ SFL_TARGET
 anhbukotourt	ftmnofak
 
 MAP(mmapmap0)
-DEBUG ldum	ldum	REPLACE
+	lpikplg		lpikplg		REPLACE_IF cjoinpik
+	lcustomerName	lcustomerName	REPLACE_IF cjoinpsm
+	lNoMesin	lNoMesin	REPLACE_IF cjoinmotor
+	lNamaMotor	lNamaMotor	REPLACE_IF cjoinbtm
+	lpengambilplat	lpengambilplat	REPLACE_IF cjoinplat
+	lcabtwr		lcabtwr		REPLACE_IF cjoincab
+	longitude	longitude	REPLACE_IF cjoinlonglat
+DEBUG	ldum		ldum		REPLACE
 
 CALCS()
-cjoinpik	ftmnofak != BLANKS && djoinpik == 1
 canhsisa	lpiklama - anhke
 canhtotden	anhbyrden + anhbyradm
 canhtotbyr	lpikangbl + anhbyrden + anhbyradm
@@ -272,7 +366,7 @@ SPCALCS(spmaster)
 
 SPCALCS(sptrans)
 	DO_LIB			ap_dbclc(DNAME dmapmap,DCOMMAND MAPMAP,DMAP mmapmap);
-	/*DO_LIB			ap_snjsp(lurl,lreturnlabel,lexpectedreturnvalue);*/
+	/*DO_LIB		ap_snjsp(lurl,lreturnlabel,lexpectedreturnvalue);*/
 	DO_LIB			ap_jsndt(ldettitle,ldetlabel,ldetfields);
 	DO_LIB_IF cproc		ap_dbclc(DNAME daddaktcekangklik,DCOMMAND ADD,DFILE akt,DMAP maddaktcekbyrklik);
 	DO_LIB			ap_dbclc(DNAME dmapend,DCOMMAND MAPMAP,DMAP mmapend);
