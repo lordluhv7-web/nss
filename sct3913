@@ -73,9 +73,12 @@ lcabangplat     	STRING	21
 lnamacabang     	STRING	251
 lalamatcabang   	STRING	251
 lcabtwr         	STRING	21
-longitude		DFLOAT	21
-latitude		DFLOAT	21
+longitudeplat		DFLOAT	21
+latitudeplat		DFLOAT	21
+longitudestnk		DFLOAT	21
+latitudepstnk		DFLOAT	21
 lplatcompleted		DATE	4
+lstnkcompleted		DATE	4
 
 CALCS()
 cblanks		BLANKS
@@ -103,6 +106,7 @@ MAP(mjoinmotor)
         ssurangka       lNoRangka       REPLACE
         ssumesin        lNoMesin        REPLACE
 	ssutglspes	lplatcompleted	REPLACE
+	ssutglstnkbj	lstnkcompleted	REPLACE
 DBCALCS(djoinmotor)
         DBC_COMMAND     JOIN
         DBC_TARGET      ssubuk2idx      piknobuk
@@ -137,8 +141,8 @@ DBCALCS(djoincab)
 	DBC_MAP		mjoincab		
 
 MAP(mjoinlonglat)
-	tbddf1		longitude	REPLACE
-	tbddf2		latitude	REPLACE
+	tbddf1		longitudeplat	REPLACE
+	tbddf2		latitudeplat	REPLACE
 DBCALCS(djoinlonglat)
 	DBC_COMMAND	JOIN
 	DBC_TARGET	tbddtkodidx   tbddata lcabtwr
@@ -187,8 +191,8 @@ FIELDS(master)
 
 DEFAULTS(master)
 lrequestreply	INIT	"reply"
-lmstlabel       INIT    "Status+customerName+ktpNumber+contractNumber+motorName+engineNumber+bodyNumber+typeDocument1+platCompletedAt+platTakenAt+platTakenBy+platLocationName+platLocationAddress+platLatitude+platLongitude"
-lmstfields	INIT    "lstatus+lcustomerName+lpikplg+ftmnofak+lNamaMotor+lNoMesin+lNoRangka+lPLAT+lplatcompleted+ltglambilplat+lpengambilplat+lnamacabang+lalamatcabang+latitude+longitude"
+lmstlabel       INIT    "Status+customerName+ktpNumber+contractNumber+motorName+engineNumber+bodyNumber+typeDocument1+platNumber+platCompletedAt+platTakenAt+platTakenBy+platLocationName+platLocationAddress+platLatitude+platLongitude+typeDocument2+stnkCompletedAt+stnkLocationName+stnkLocationAddress+stnkLatitude+stnkLongitude"
+lmstfields	INIT    "lstatus+lcustomerName+lpikplg+ftmnofak+lNamaMotor+lNoMesin+lNoRangka+lPLAT+lNoPol+lplatcompleted+ltglambilplat+lpengambilplat+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lSTNK+lstnkcompleted"
 lmstfields2	INIT    "lstatus2"
 lmstfields3	INIT    "lstatus3"
 lmstfields4	INIT    "lstatus4"
