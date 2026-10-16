@@ -75,6 +75,7 @@ lalamatcabang   	STRING	251
 lcabtwr         	STRING	21
 longitude		DFLOAT	21
 latitude		DFLOAT	21
+lplatcompleted		DATE	4
 
 CALCS()
 cblanks		BLANKS
@@ -101,6 +102,7 @@ MAP(mjoinmotor)
         ssunopol        lNoPol          REPLACE
         ssurangka       lNoRangka       REPLACE
         ssumesin        lNoMesin        REPLACE
+	ssutglspes	lplatcompleted	REPLACE
 DBCALCS(djoinmotor)
         DBC_COMMAND     JOIN
         DBC_TARGET      ssubuk2idx      piknobuk
@@ -185,8 +187,8 @@ FIELDS(master)
 
 DEFAULTS(master)
 lrequestreply	INIT	"reply"
-lmstlabel       INIT    "Status+customerName+ktpNumber+contractNumber+motorName+engineNumber+bodyNumber+typeDocument1+takenAt1+takenBy1+locationName1+locationAddress1+latitude1+longitude1"
-lmstfields	INIT    "lstatus+lcustomerName+lpikplg+ftmnofak+lNamaMotor+lNoMesin+lNoRangka+lPLAT+ltglambilplat+lpengambilplat+lnamacabang+lalamatcabang+latitude+longitude"
+lmstlabel       INIT    "Status+customerName+ktpNumber+contractNumber+motorName+engineNumber+bodyNumber+typeDocument1+platCompletedAt+platTakenAt+platTakenBy+platLocationName+platLocationAddress+platLatitude+platLongitude"
+lmstfields	INIT    "lstatus+lcustomerName+lpikplg+ftmnofak+lNamaMotor+lNoMesin+lNoRangka+lPLAT+lplatcompleted+ltglambilplat+lpengambilplat+lnamacabang+lalamatcabang+latitude+longitude"
 lmstfields2	INIT    "lstatus2"
 lmstfields3	INIT    "lstatus3"
 lmstfields4	INIT    "lstatus4"
@@ -205,7 +207,7 @@ linpfields	INIT    "ftmnofak"
 
 linpmap		INIT	mmapftm  
 lsavedata	INIT		 1
-lVERSI	        INIT	15102026v8
+lVERSI	        INIT	16102026v1
 ljamskrng	INIT	SYSTIME
 lstatus		INIT	"Historis OK"
 lstatus2	INIT	"Faktur ini belum ada historis pembayaran angsuran"
