@@ -211,7 +211,7 @@ linpfields	INIT    "ftmnofak"
 
 linpmap		INIT	mmapftm  
 lsavedata	INIT		 1
-lVERSI	        INIT	16102026v1
+lVERSI	        INIT	16102026v2
 ljamskrng	INIT	SYSTIME
 lstatus		INIT	"Historis OK"
 lstatus2	INIT	"Faktur ini belum ada historis pembayaran angsuran"
@@ -279,7 +279,7 @@ MAP(mmapmap0)
 	lNamaMotor	lNamaMotor	REPLACE_IF cjoinbtm
 	lpengambilplat	lpengambilplat	REPLACE_IF cjoinplat
 	lcabtwr		lcabtwr		REPLACE_IF cjoincab
-	longitude	longitude	REPLACE_IF cjoinlonglat
+	longitudeplat	longitudeplat	REPLACE_IF cjoinlonglat
 DEBUG	ldum		ldum		REPLACE
 
 CALCS()
