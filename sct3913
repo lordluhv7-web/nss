@@ -288,9 +288,9 @@ MAP(mmapmap0)
 	lNoMesin	lNoMesin	REPLACE_IF cjoinmotor
 	lNamaMotor	lNamaMotor	REPLACE_IF cjoinbtm
 	lpengambilplat	lpengambilplat	REPLACE_IF cjoinplat
+	lcabangplat	lcabangplat	REPLACE_IF cjoinlokasidok
 	lcabtwr		lcabtwr		REPLACE_IF cjoincab
 	longitudeplat	longitudeplat	REPLACE_IF cjoinlonglat
-	lcabangplat	lcabangplat	REPLACE_IF cjoinlokasidok
 DEBUG	ldum		ldum		REPLACE
 
 CALCS()
