@@ -79,6 +79,7 @@ longitudestnk		DFLOAT	21
 latitudepstnk		DFLOAT	21
 lplatcompleted		DATE	4
 lstnkcompleted		DATE	4
+lssumd			STRING	21
 
 CALCS()
 cblanks		BLANKS
@@ -107,6 +108,7 @@ MAP(mjoinmotor)
         ssumesin        lNoMesin        REPLACE
 	ssutglspes	lplatcompleted	REPLACE
 	ssutglstnkbj	lstnkcompleted	REPLACE
+	ssumd		lssumd		REPLACE
 DBCALCS(djoinmotor)
         DBC_COMMAND     JOIN
         DBC_TARGET      ssubuk2idx      piknobuk
@@ -131,6 +133,13 @@ DBCALCS(djoinplat)
 	DBC_TARGET	tlmdataslsts	lMUTASISTNK ftmnofak
 	DBC_MAP		mjoinplat
 
+MAP(mjoinlokasidok)
+	tbdlv1		lcabangplat	REPLACE
+DBCALCS(djoinlokasidok)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tbddatkodidx	gv_dttabel gv_infoumum gv_areabbn lssumd
+	DBC_MAP		mjoinlokasidok
+
 MAP(mjoincab)
 	cabnama		lnamacabang	REPLACE
 	cabalamat	lalamatcabang	REPLACE
@@ -145,7 +154,7 @@ MAP(mjoinlonglat)
 	tbddf2		latitudeplat	REPLACE
 DBCALCS(djoinlonglat)
 	DBC_COMMAND	JOIN
-	DBC_TARGET	tbddtkodidx   tbddata lcabtwr
+	DBC_TARGET	tbddtkodidx   gv_dttabel lcabtwr
 	DBC_MAP		mjoinlonglat
 
 CALCS()
@@ -247,6 +256,7 @@ cjoinbtm	ftmnofak != BLANKS && djoinbtm == 1
 cjoinplat	ftmnofak != BLANKS && djoinplat == 1
 cjoincab	ftmnofak != BLANKS && djoincab == 1
 cjoinlonglat	ftmnofak != BLANKS && djoinlonglat == 1
+cjoinlokasidok	ftmnofak != BLANKS && djoinlokasidok == 1
 
 IMAGE(trans)
 |__________________|____________|__________|_________|
@@ -280,6 +290,7 @@ MAP(mmapmap0)
 	lpengambilplat	lpengambilplat	REPLACE_IF cjoinplat
 	lcabtwr		lcabtwr		REPLACE_IF cjoincab
 	longitudeplat	longitudeplat	REPLACE_IF cjoinlonglat
+	lcabangplat	lcabangplat	REPLACE_IF cjoinlokasidok
 DEBUG	ldum		ldum		REPLACE
 
 CALCS()
