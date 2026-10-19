@@ -211,9 +211,9 @@ DEFAULTS(master)
 lrequestreply	INIT	"reply"
 lmstlabel       INIT    "Status+customerName+ktpNumber+contractNumber+motorName+engineNumber+bodyNumber+typeDocument1+statusPlat+statusTextPlat+platNumber+platCompletedAt+platTakenAt+platTakenBy+platLocationName+platLocationAddress+platLatitude+platLongitude+typeDocument2+statusSTNK+statusTextSTNK+stnkCompletedAt+stnkLocationName+stnkLocationAddress+stnkLatitude+stnkLongitude+typeDocument3+statusBPKB+statusTextBPKB+bpkbEstimatedAt+bpkbNotes+bpkbLocationName+bpkbLocationAddress+bpkbLatitude+bpkbLongitude"
 lmstfields	INIT    "lstatus+lcustomerName+lpikplg+ftmnofak+lNamaMotor+lNoMesin+lNoRangka+lPLAT+lstatusPlat+lstatusTextPlat+lNoPol+lplatcompleted+ltglambilplat+lpengambilplat+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lSTNK+lstatusSTNK+lstatusTextSTNK+lstnkcompleted+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lBPKB+lstatusBPKB+lstatusTextBPKB+lbpkbestimated+lnotesBPKB+lnamacabang+lalamatcabang+latitudeplat+longitudeplat"
-lmstfields2	INIT    "lstatus2"
-lmstfields3	INIT    "lstatus3"
-lmstfields4	INIT    "lstatus4"
+lmstfields2	INIT    "lstatus2+lcustomerName+lpikplg+ftmnofak+lNamaMotor+lNoMesin+lNoRangka+lPLAT+lstatusPlat+lstatusTextPlat+lNoPol+lplatcompleted+ltglambilplat+lpengambilplat+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lSTNK+lstatusSTNK+lstatusTextSTNK+lstnkcompleted+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lBPKB+lstatusBPKB+lstatusTextBPKB+lbpkbestimated+lnotesBPKB+lnamacabang+lalamatcabang+latitudeplat+longitudeplat"
+lmstfields3	INIT    "lstatus3+lcustomerName+lpikplg+ftmnofak+lNamaMotor+lNoMesin+lNoRangka+lPLAT+lstatusPlat+lstatusTextPlat+lNoPol+lplatcompleted+ltglambilplat+lpengambilplat+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lSTNK+lstatusSTNK+lstatusTextSTNK+lstnkcompleted+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lBPKB+lstatusBPKB+lstatusTextBPKB+lbpkbestimated+lnotesBPKB+lnamacabang+lalamatcabang+latitudeplat+longitudeplat"
+lmstfields4	INIT    "lstatus4+lcustomerName+lpikplg+ftmnofak+lNamaMotor+lNoMesin+lNoRangka+lPLAT+lstatusPlat+lstatusTextPlat+lNoPol+lplatcompleted+ltglambilplat+lpengambilplat+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lSTNK+lstatusSTNK+lstatusTextSTNK+lstnkcompleted+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lBPKB+lstatusBPKB+lstatusTextBPKB+lbpkbestimated+lnotesBPKB+lnamacabang+lalamatcabang+latitudeplat+longitudeplat"
 lmsttitle       INIT    ""
 l16		INIT	16
 lDataDiterima	INIT	"Data Diterima"
@@ -229,7 +229,7 @@ linpfields	INIT    "ftmnofak"
 
 linpmap		INIT	mmapftm  
 lsavedata	INIT		 1
-lVERSI	        INIT	19102026v1
+lVERSI	        INIT	19102026v2
 ljamskrng	INIT	SYSTIME
 lstatus		INIT	"Historis OK"
 lstatus2	INIT	"Faktur ini belum ada historis pembayaran angsuran"
