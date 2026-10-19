@@ -328,6 +328,7 @@ lbpkb		INIT	BPKB
 
 /* ======== TAMBAHAN ======== */
 lmin1		INIT	-1
+lJenisJaminan   INIT    "BPKB MOTOR"
 
 
 CALCS()
@@ -374,8 +375,8 @@ pikdvs		PROTECT			INPUTRI	3
 
 DEFAULTS(trans)
 ldettitle	INIT	"DetailFaktur"
-ldetlabel       INIT    "NoFaktur+Status+Bisnis+NamaDebitur+TglJtp+JmlByr+CicilKe+NamaBarang+TotalDenda+TglPengajuan+MetodePembayaran+Harga+Cicilan+Tenor+Alamat+Propinsi+Kota+Kecamatan+Kelurahan+KodePos+Rt+Rw+SisaAngsuran+DendaBulanIni+DendaBulanLalu+HariTerlambat+Cabang+TanggalTransaksi+JenisJaminan+NomorPolisi+NomorRangka+NomorMesin+Tahun+DokumenAsuransi+DokumenFidusia+TanggalJatuhTempo+Motor"
-ldetfields      INIT    "piknobuk+piksts+pikdvs+lpsmnama+piktgljtp+ljmlbyr+pikke+lbrgnama_ok+ltotden+ltglfak_ok+ltipebayar+lnhmtotpok+pikangbl+piklama+lalmjalan+lprovinsi+lkota+lkecamatan+lkelurahan+lkodepos+lalmrt+lalmrw+lSisaAng+lDendaBlnIni+lDendaBlnLalu+lHariTerlambat+lCabang+lTglTransaksi+lJenisJaminan+lNoPol+lNoRangka+lNoMesin+lTahun+lDokAsuransi+lDokFidusia+ltgljtp+lNamaMotor"
+ldetlabel       INIT    "NoFaktur+Status+Bisnis+NamaDebitur+TglJtp+JmlByr+CicilKe+NamaBarang+TotalDenda+TglPengajuan+MetodePembayaran+Harga+Cicilan+Tenor+Alamat+Propinsi+Kota+Kecamatan+Kelurahan+KodePos+Rt+Rw+SisaAngsuran+DendaBulanIni+DendaBulanLalu+HariTerlambat+Cabang+TanggalTransaksi+JenisJaminan+NomorPolisi+NomorRangka+NomorMesin+Tahun+DokumenAsuransi+DokumenFidusia+/*TanggalJatuhTempo+*/Motor"
+ldetfields      INIT    "piknobuk+piksts+pikdvs+lpsmnama+piktgljtp+ljmlbyr+pikke+lbrgnama_ok+ltotden+ltglfak_ok+ltipebayar+lnhmtotpok+pikangbl+piklama+lalmjalan+lprovinsi+lkota+lkecamatan+lkelurahan+lkodepos+lalmrt+lalmrw+lSisaAng+lDendaBlnIni+lDendaBlnLalu+lHariTerlambat+lCabang+lTglTransaksi+lJenisJaminan+lNoPol+lNoRangka+lNoMesin+lTahun+lDokAsuransi+lDokFidusia+/*ltgljtp+*/lNamaMotor"
 
 SUBFILE(trans)
 SFL_LINES(10)
@@ -421,14 +422,14 @@ DBCALCS(djoindenda2)
 	DBC_SELECT	cblnkemarin
         DBC_MAP         mjoindenda2
 
-MAP(mjointelat)
+/*MAP(mjointelat)
         angtgljtp       ltgljtp    REPLACE
 DBCALCS(djointelat)
         DBC_COMMAND     JOIN
         DBC_TARGET      angbukstsidx    piknobuk gv_ANG
         DBC_SELECT      cstatustelat
         DBC_MAP         mjointelat
-
+*/
 	
 MAP(mjoinppd614)
 ppdthbrg	lTahun	REPLACE
@@ -477,7 +478,7 @@ cSisaAngsuran	piklama - pikke
 cdjoinmotor	djoinmotor == 1
 cdjoindenda1	djoindenda1 == 1
 cdjoindenda2	djoindenda2 == 1
-cdjointelat	djointelat == 1
+/*cdjointelat	djointelat == 1*/
 chrterlambat1	g_tgltrn - ltgljtp
 chrterlambat2	lHariTerlambat <= 0
 cdjoinppd614	djoinppd614 == 1
@@ -531,18 +532,20 @@ ldendajalan	ldendajalan	REPLACE_IF cscanang2
 ctotden		ltotden		DO_CALC
 ctlmnobuk	lnobukKLIK	DO_CALC
 /* ======== TAMBAHAN ======== */
+pikcab		lCabang		REPLACE
 piksispok	lSisaAng	REPLACE
 lNoPol    	lNoPol		REPLACE_IF cdjoinmotor
 lNoMesin    	lNoMesin	REPLACE_IF cdjoinmotor
 lNoRangka    	lNoRangka	REPLACE_IF cdjoinmotor
 lDendaBlnIni	lDendaBlnIni	REPLACE_IF cdjoindenda1
 lDendaBlnLalu	lDendaBlnLalu	REPLACE_IF cdjoindenda2
-ltgljtp		ltgljtp		REPLACE_IF cdjointelat
+/*ltgljtp		ltgljtp		REPLACE_IF cdjointelat*/
 chrterlambat1	lHariTerlambat	DO_CALC
 c0		lHariTerlambat	DO_CALC_IF chrterlambat2
 lppmtglfak	lTglTransaksi	REPLACE_IF cjoinppm
 lNamaMotor	lNamaMotor	REPLACE_IF cjoinbtm
 lTahun		lTahun		REPLACE_IF cdjoinppd614
+lJenisJaminan   lJenisJaminan   REPLACE
 
 
 MAP(maddaktcekfktklik)

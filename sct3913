@@ -79,7 +79,15 @@ longitudestnk		DFLOAT	21
 latitudepstnk		DFLOAT	21
 lplatcompleted		DATE	4
 lstnkcompleted		DATE	4
+lbpkbestimated		DATE	4
 lssumd			STRING	21
+lstatusPlat		STRING	301
+lstatusTextPlat		STRING	301
+lstatusSTNK		STRING	301
+lstatusTextSTNK		STRING	301
+lstatusBPKB		STRING	301
+lstatusTextBPKB		STRING	301
+lnotesBPKB		STRING	3001
 
 CALCS()
 cblanks		BLANKS
@@ -108,6 +116,7 @@ MAP(mjoinmotor)
         ssumesin        lNoMesin        REPLACE
 	ssutglspes	lplatcompleted	REPLACE
 	ssutglstnkbj	lstnkcompleted	REPLACE
+	ssutglbpkb	lbpkbestimated	REPLACE
 	ssumd		lssumd		REPLACE
 DBCALCS(djoinmotor)
         DBC_COMMAND     JOIN
@@ -200,8 +209,8 @@ FIELDS(master)
 
 DEFAULTS(master)
 lrequestreply	INIT	"reply"
-lmstlabel       INIT    "Status+customerName+ktpNumber+contractNumber+motorName+engineNumber+bodyNumber+typeDocument1+platNumber+platCompletedAt+platTakenAt+platTakenBy+platLocationName+platLocationAddress+platLatitude+platLongitude+typeDocument2+stnkCompletedAt+stnkLocationName+stnkLocationAddress+stnkLatitude+stnkLongitude"
-lmstfields	INIT    "lstatus+lcustomerName+lpikplg+ftmnofak+lNamaMotor+lNoMesin+lNoRangka+lPLAT+lNoPol+lplatcompleted+ltglambilplat+lpengambilplat+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lSTNK+lstnkcompleted"
+lmstlabel       INIT    "Status+customerName+ktpNumber+contractNumber+motorName+engineNumber+bodyNumber+typeDocument1+statusPlat+statusTextPlat+platNumber+platCompletedAt+platTakenAt+platTakenBy+platLocationName+platLocationAddress+platLatitude+platLongitude+typeDocument2+statusSTNK+statusTextSTNK+stnkCompletedAt+stnkLocationName+stnkLocationAddress+stnkLatitude+stnkLongitude+typeDocument3+statusBPKB+statusTextBPKB+bpkbEstimatedAt+bpkbNotes+bpkbLocationName+bpkbLocationAddress+bpkbLatitude+bpkbLongitude"
+lmstfields	INIT    "lstatus+lcustomerName+lpikplg+ftmnofak+lNamaMotor+lNoMesin+lNoRangka+lPLAT+lstatusPlat+lstatusTextPlat+lNoPol+lplatcompleted+ltglambilplat+lpengambilplat+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lSTNK+lstatusSTNK+lstatusTextSTNK+lstnkcompleted+lnamacabang+lalamatcabang+latitudeplat+longitudeplat+lBPKB+lstatusBPKB+lstatusTextBPKB+lbpkbestimated+lnotesBPKB+lnamacabang+lalamatcabang+latitudeplat+longitudeplat"
 lmstfields2	INIT    "lstatus2"
 lmstfields3	INIT    "lstatus3"
 lmstfields4	INIT    "lstatus4"
@@ -220,7 +229,7 @@ linpfields	INIT    "ftmnofak"
 
 linpmap		INIT	mmapftm  
 lsavedata	INIT		 1
-lVERSI	        INIT	16102026v2
+lVERSI	        INIT	19102026v1
 ljamskrng	INIT	SYSTIME
 lstatus		INIT	"Historis OK"
 lstatus2	INIT	"Faktur ini belum ada historis pembayaran angsuran"
@@ -235,6 +244,13 @@ lPLAT		INIT	PLAT
 lSTNK		INIT	STNK
 lBPKB		INIT	BPKB
 lMUTASISTNK	INIT	MUTASISTNK
+lstatusPlat	INIT	"STATUS PLAT"
+lstatusTextPlat	INIT	"STATUS TEXT PLAT"
+lstatusSTNK	INIT	"STATUS STNK"
+lstatusTextSTNK	INIT	"STATUS TEXT STNK"
+lstatusBPKB	INIT	"STATUS BPKB"
+lstatusTextBPKB	INIT	"STATUS TEXT BPKB"
+lnotesBPKB	INIT	"CATATAN BPKB"
 
 MAP(mmapftm)
 lcekbyrklik	ftmdata		REPLACE
