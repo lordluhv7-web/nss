@@ -333,14 +333,14 @@ cmshproses		"Masih dalam proses"
 csiapdiambil		"Sudah siap diambil"
 csdhdiambil		"Sudah diambil"
 cJkNoBPKBKsg		lNoBPKB == BLANKS
-cJkBPKBdiK		lLokBPKB == "KONSUMEN" && lCabBPKB == BLANKS
-cJkBPKBdiC		lCabBPKB != BLANKS
+cJkBPKBdiK		lLokBPKB == "KONSUMEN" && lNoBPKB != BLANKS/* && lCabBPKB == BLANKS*/
+cJkBPKBdiC		lCabBPKB != BLANKS && lNoBPKB != BLANKS
 cJkNoSTNKKsg		lNoSTNK == BLANKS
-cJkSTNKdiK		lLokSTNK == "KONSUMEN"
-cJkSTNKdiC		lLokSTNK != "KONSUMEN"
+cJkSTNKdiK		lLokSTNK == "KONSUMEN" && lNoSTNK != BLANKS
+cJkSTNKdiC		lLokSTNK != "KONSUMEN" && lNoSTNK != BLANKS
 cJkNoPlatKsg		lNoPlat == BLANKS
-cJkPlatdiK		lLokPlat == "KONSUMEN"
-cJkPlatdiC		lLokPlat != "KONSUMEN"
+cJkPlatdiK		lLokPlat == "KONSUMEN" && lNoPlat != BLANKS
+cJkPlatdiC		lLokPlat != "KONSUMEN" && lNoPlat != BLANKS
 
 MAP(mmapmap0)
 	lpikplg		lpikplg		REPLACE_IF cjoinpik
@@ -352,6 +352,7 @@ MAP(mmapmap0)
 	lcabangplat	lcabangplat	REPLACE_IF cjoinlokasidok
 	lcabtwr		lcabtwr		REPLACE_IF cjoincab
 	longitudeplat	longitudeplat	REPLACE_IF cjoinlonglat
+
 	cmshproses	lstatusTextBPKB	DO_CALC_IF cJkNoBPKBKsg
 	csiapdiambil	lstatusTextBPKB	DO_CALC_IF cJkBPKBdiC
 	csdhdiambil	lstatusTextBPKB	DO_CALC_IF cJkBPKBdiK
