@@ -366,9 +366,7 @@ MAP(mmapmap0)
 	csdhdiambil	lstatusTextPlat	DO_CALC_IF cJkPlatdiK
 /*
 	lstatusPlat             STRING  301
-	lstatusTextPlat         STRING  301
 	lstatusSTNK             STRING  301
-	lstatusTextSTNK         STRING  301
 	lstatusBPKB             STRING  301
 */
 DEBUG	ldum		ldum		REPLACE
