@@ -57,6 +57,7 @@ lmetodbyr		STRING	21
 ltgljtp			DATE	4
 lpikplg			STRING	21
 lpiknobtm		STRING	21
+lpiknobuk		STRING	21
 lcustomerName		STRING	61
 lNoPol                  STRING  21
 lNoRangka               STRING  21
@@ -88,6 +89,13 @@ lstatusTextSTNK		STRING	301
 lstatusBPKB		STRING	301
 lstatusTextBPKB		STRING	301
 lnotesBPKB		STRING	3001
+lNoBPKB			STRING	300
+lLokBPKB		STRING	300
+lCabBPKB		STRING	300
+lNoSTNK			STRING	300
+lLokSTNK		STRING	300
+lNoPlat			STRING	300
+lLokPlat		STRING	300
 
 CALCS()
 cblanks		BLANKS
@@ -97,6 +105,7 @@ piklama		lpiklama	REPLACE
 pikangbl	lpikangbl	REPLACE
 pikplg		lpikplg		REPLACE
 piknobtm	lpiknobtm	REPLACE
+piknobuk	lpiknobuk	REPLACE
 
 DBCALCS(djoinpik)
 	DBC_COMMAND	JOIN
@@ -110,6 +119,17 @@ DBCALCS(djoinpsm)
 	DBC_TARGET	psmktpidx	lpikplg
 	DBC_MAP		mjoinpsm
 
+CALCS()
+cselbbndast     tlddata == "BBN" && (tldbrg == "DAST" || tldbrg == "BRST")
+
+MAP(mjointldnostnk)
+tldppdoto       lNoSTNK         REPLACE
+DBCALCS(djointldnostnk)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tldllbrgurt ftmnofak
+        DBC_SELECT      cselbbndast
+        DBC_MAP         mjointldnostnk
+
 MAP(mjoinmotor)
         ssunopol        lNoPol          REPLACE
         ssurangka       lNoRangka       REPLACE
@@ -118,9 +138,16 @@ MAP(mjoinmotor)
 	ssutglstnkbj	lstnkcompleted	REPLACE
 	ssutglbpkb	lbpkbestimated	REPLACE
 	ssumd		lssumd		REPLACE
+	ssubpkb		lNoBPKB         REPLACE
+	ssulokbpkb	lLokBPKB        REPLACE
+	ssucabbpkb	lCabBPKB        REPLACE
+	ssulokstnk	lLokSTNK        REPLACE
+	ssunopol	lNoPlat		REPLACE
+	ssulokplat	lLokPlat	REPLACE
+
 DBCALCS(djoinmotor)
         DBC_COMMAND     JOIN
-        DBC_TARGET      ssubuk2idx      piknobuk
+        DBC_TARGET      ssubuk2idx      ftmnofak
         DBC_MAP         mjoinmotor
 
 MAP(mjoinbtm)
@@ -192,7 +219,7 @@ MAP(mjointelat)
         angtgljtp       ltgljtp    REPLACE
 DBCALCS(djointelat)
         DBC_COMMAND     JOIN
-        DBC_TARGET      angbukstsidx    piknobuk gv_ANG
+        DBC_TARGET      angbukstsidx    ftmnofak gv_ANG
         DBC_SELECT      cstatustelat
         DBC_MAP         mjointelat
 
@@ -229,7 +256,7 @@ linpfields	INIT    "ftmnofak"
 
 linpmap		INIT	mmapftm  
 lsavedata	INIT		 1
-lVERSI	        INIT	19102026v2
+lVERSI	        INIT	20102026v1
 ljamskrng	INIT	SYSTIME
 lstatus		INIT	"Historis OK"
 lstatus2	INIT	"Faktur ini belum ada historis pembayaran angsuran"
@@ -244,12 +271,14 @@ lPLAT		INIT	PLAT
 lSTNK		INIT	STNK
 lBPKB		INIT	BPKB
 lMUTASISTNK	INIT	MUTASISTNK
+/*
 lstatusPlat	INIT	"STATUS PLAT"
 lstatusTextPlat	INIT	"STATUS TEXT PLAT"
 lstatusSTNK	INIT	"STATUS STNK"
 lstatusTextSTNK	INIT	"STATUS TEXT STNK"
 lstatusBPKB	INIT	"STATUS BPKB"
 lstatusTextBPKB	INIT	"STATUS TEXT BPKB"
+*/
 lnotesBPKB	INIT	"CATATAN BPKB"
 
 MAP(mmapftm)
@@ -268,6 +297,7 @@ ckond4		ftmnofak == BLANKS
 cjoinpik	ftmnofak != BLANKS && djoinpik == 1
 cjoinpsm	ftmnofak != BLANKS && djoinpsm == 1
 cjoinmotor	ftmnofak != BLANKS && djoinmotor == 1
+cjoinstnk	ftmnofak != BLANKS && djointldnostnk == 1
 cjoinbtm	ftmnofak != BLANKS && djoinbtm == 1
 cjoinplat	ftmnofak != BLANKS && djoinplat == 1
 cjoincab	ftmnofak != BLANKS && djoincab == 1
@@ -298,15 +328,48 @@ SFL_SORT_UPDOWN DOWN
 SFL_TARGET
 anhbukotourt	ftmnofak
 
+CALCS()
+cmshproses		"Masih dalam proses"
+csiapdiambil		"Sudah siap diambil"
+csdhdiambil		"Sudah diambil"
+cJkNoBPKBKsg		lNoBPKB == BLANKS
+cJkBPKBdiK		lLokBPKB == "KONSUMEN" && lCabBPKB == BLANKS
+cJkBPKBdiC		lCabBPKB != BLANKS
+cJkNoSTNKKsg		lNoSTNK == BLANKS
+cJkSTNKdiK		lLokSTNK == "KONSUMEN"
+cJkSTNKdiC		lLokSTNK != "KONSUMEN"
+cJkNoPlatKsg		lNoPlat == BLANKS
+cJkPlatdiK		lLokPlat == "KONSUMEN"
+cJkPlatdiC		lLokPlat != "KONSUMEN"
+
 MAP(mmapmap0)
 	lpikplg		lpikplg		REPLACE_IF cjoinpik
 	lcustomerName	lcustomerName	REPLACE_IF cjoinpsm
 	lNoMesin	lNoMesin	REPLACE_IF cjoinmotor
+	lNoSTNK		lNoSTNK		REPLACE_IF cjoinstnk
 	lNamaMotor	lNamaMotor	REPLACE_IF cjoinbtm
 	lpengambilplat	lpengambilplat	REPLACE_IF cjoinplat
 	lcabangplat	lcabangplat	REPLACE_IF cjoinlokasidok
 	lcabtwr		lcabtwr		REPLACE_IF cjoincab
 	longitudeplat	longitudeplat	REPLACE_IF cjoinlonglat
+	cmshproses	lstatusTextBPKB	DO_CALC_IF cJkNoBPKBKsg
+	csiapdiambil	lstatusTextBPKB	DO_CALC_IF cJkBPKBdiC
+	csdhdiambil	lstatusTextBPKB	DO_CALC_IF cJkBPKBdiK
+
+	cmshproses	lstatusTextSTNK	DO_CALC_IF cJkNoSTNKKsg
+	csiapdiambil	lstatusTextSTNK	DO_CALC_IF cJkSTNKdiC
+	csdhdiambil	lstatusTextSTNK	DO_CALC_IF cJkSTNKdiK
+
+	cmshproses	lstatusTextPlat	DO_CALC_IF cJkNoPlatKsg
+	csiapdiambil	lstatusTextPlat	DO_CALC_IF cJkPlatdiC
+	csdhdiambil	lstatusTextPlat	DO_CALC_IF cJkPlatdiK
+/*
+	lstatusPlat             STRING  301
+	lstatusTextPlat         STRING  301
+	lstatusSTNK             STRING  301
+	lstatusTextSTNK         STRING  301
+	lstatusBPKB             STRING  301
+*/
 DEBUG	ldum		ldum		REPLACE
 
 CALCS()
