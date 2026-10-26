@@ -2,6 +2,11 @@ SCREEN 2916 APP_TYPE t.ProsesTglAbd
 
 LOCAL
 PGM_FIELDS
+ltlmnoasal              STRING  21
+ltlmplg                 STRING  21
+lpsicabskr              STRING  21
+lcadtot1pkkry           DFLOAT  8
+ltlmdatapkkry           STRING  11
 lbtmsales		STRING	21
 lsgmstr4                STRING  11
 lpsdstr5                STRING  11
@@ -26,6 +31,7 @@ ltungbunga              DFLOAT  8
 ldenda                  DFLOAT  8
 ltotnunggak             DFLOAT  8
 lsystime                TIME    4
+ljamstart               TIME    4
 lbtmplg	            	STRING	21
 lbtmass	            	STRING	21
 lbtmkdkms	        STRING	21
@@ -213,6 +219,8 @@ lm4974c          	STRING  15
 lm4974d          	STRING  15
 lm4974e                 STRING  15
 lm4974f                 STRING  15
+lm4974g                 STRING  15
+lm4974h                 STRING  15
 lhasilkatslik1	        STRING	21
 lhasilkatslik2	        STRING	21
 lkualitasakhbaru	STRING	3
@@ -582,6 +590,27 @@ lnobuktgtbd	STRING		21
 lststgtbd	STRING		5
 
 
+/*----- add wa blash 206 (tn/um)------*/
+lwablast	    STRING	    11
+lTN206          STRING      21
+lUM206          STRING      21
+lket_um         STRING      61
+lkodetmp_um     STRING      21
+lket_tn         STRING      61
+lkodetmp_tn     STRING      21
+ltlmnobuk933    STRING      21
+ltldurt933      INT2        2
+lm4708umtn      STRING      11
+lbtmdvsk	STRING		21
+lbtmtypek	STRING		11
+lbtmtypjlk	STRING		5
+lbtmdvsjlk	STRING		21
+lnipspvklik	STRING		21
+lnipatsn1	STRING		21
+lnipatsn2	STRING		21
+lnobukizinklik	STRING		21
+
+
 CALCS()
 cBLANKS		BLANKS
 c0		0
@@ -607,7 +636,7 @@ cketactibd3      "ACT IBD WEEK 3" + " " + STRIP(lsgmstr2ibd)
 cketactibd4      "ACT IBD WEEK 4" + " " + STRIP(lsgmstr2ibd) 
 cketactibdfinal  "ACT IBD WEEK 5" + " " + STRIP(lsgmstr2ibd) 
 ctambl          DO_LIB ap_tambl(g_tgltrn,l1,&ltglblndpn);
-cltglact5blndpn THBLS_YYYY(ltglblndpn) + THBLS_MM(ltglblndpn) + "05"
+cltglact5blndpn THBLS_YYYY(ltglblndpn) + THBLS_MM(ltglblndpn) + "10"
 
 /*1. HL sudah tidak di bentukin abd, sdm yang punya jadwal masuk, input 167 atau gl */
 /*2. sdm yg hari sabtu libur, tidak di bentukin abd*/
@@ -1027,10 +1056,29 @@ DBCALCS(djoinabkhrd)
         DBC_TARGET      abkdatbukidx   lKUNCIABSEN tlmnoasal
         DBC_SELECT      cselkunchrd
 
+MAP(mjointlmpkkry)
+tlmdata          ltlmdatapkkry    REPLACE
+tlmplg          ltlmplg         REPLACE
+tlmsts          ltlmsts         REPLACE
+
+DBCALCS(djointlmpkkry)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tlmbukidx ltlmnoasal
+        DBC_MAP         mjointlmpkkry
+
+MAP(mjoinpsipkkry)
+psicabskr          lpsicabskr    REPLACE
+
+DBCALCS(djoinpsipkkry)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      psikodidx ltlmplg
+        DBC_MAP         mjoinpsipkkry
+
 CALCS()
 csubsidi2       (ppsgrup == tlmgrup || ppstype == tlmgrup) && (ppsstsprc == "OPEN" || ppsstsprc == "INPG") && ppsstsdaf == BLANKS &&
                 djoinbtmpps == 1 && lbtmguna2 != "GC" && lbtmguna != "RIDINGTEST" && djoinpik806 == 1 && lpiktglfak <= ststglprjgl
 cdjoinbtmhrd1   djoinbtmhrd==1
+cdjointlmpkkry  djointlmpkkry == 1
 
 
 MAP(mscanpps806)
@@ -1050,6 +1098,15 @@ DBCALCS(djoincadumr)
         DBC_TARGET      cadcabdtidx   lbtmlokjual lDTGAJI lUMR lbtmlokjual
         DBC_COND        cdjoinbtmhrd1
         DBC_MAP         mjoincadumr
+
+MAP(mjoincadumrpkkry)
+        cadtot1         lcadtot1pkkry      REPLACE
+
+DBCALCS(djoincadumrpkkry)
+        DBC_COMMAND     JOIN_LAST_SFL
+        DBC_TARGET      cadcabdtidx   lpsicabskr lDTGAJI lUMR lpsicabskr
+        DBC_COND        cdjointlmpkkry
+        DBC_MAP         mjoincadumrpkkry
 
 MAP(mjointlmtgtklik)
 tlmnobuk	lnobuktgtklik	REPLACE
@@ -1202,6 +1259,39 @@ DBCALCS(djoinpsdlevel0)
 	DBC_COMMAND	JOIN
 	DBC_TARGET	psddattypidx	llevelklik llevelklik psikode lthbl21
 
+MAP(mjoinbtmkredit)
+btmdvs			lbtmdvsk			REPLACE
+btmtype			lbtmtypek			REPLACE
+btmtypjl		lbtmtypjlk			REPLACE
+btmdvsjl		lbtmdvsjlk			REPLACE
+DEBUG	ldum ldum		REPLACE
+
+DBCALCS(djoinbtmkredit)
+	DBC_COMMAND 	JOIN
+	DBC_TARGET		btmbukidx	tlmnoasal
+	DBC_MAP			mjoinbtmkredit    
+
+        MAP(mjoinamtpsi)
+amtstr1		lnipatsn1	REPLACE
+amtstr2		lnipatsn2	REPLACE
+
+DBCALCS(djoinamtpsi)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	amtdatotoidx	gv_dtplengkap psikode
+	DBC_MAP		mjoinamtpsi
+
+DBCALCS(djointlmizinklik)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	tlmbukidx	lnobukizinklik
+
+MAP(mjoincadspvklik)
+cadbrg		lnipspvklik	REPLACE
+
+DBCALCS(djoincadspvklik)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	cadcabdtidx	lnas lspvkliknss lthbl21 psikode
+	DBC_MAP		mjoincadspvklik
+
 IMAGE(master) 
 /-------------------------------------------------------------------------------\
 |              i.Type       : ___ ___                                           |  
@@ -1209,7 +1299,7 @@ IMAGE(master)
 |              i.Tgl        : _________ s/d _________                           |
 |              i.NoBuk      : ______________                                    |
 |              i.NoBuk      : ______________ ____ _____ ____                    |
-|                           : ______________                                    |
+|                           : ______________ ______                             |
 |-------------------------------------------------------------------------------|
 |i.NoBuk        i.NoRek    i.Ket                    i.Total        i.Sts        |
 \-------------------------------------------------------------------------------/
@@ -1225,7 +1315,8 @@ FIELD(master)
    ltype2   NONE                        INPUTRI  9
    lisi	    NUMERIC                     INPUTRI  10
    ltype3   NONE                        INPUTRI  11
-   lnohp    NONE                        INPUTRI  11
+   lnohp    NONE                        INPUTRI  12
+   ljamstart	NONE {hh:mm}		INPUTRI  13
 
 CALCS()
 cthbl		THBLS(g_tgltrn)
@@ -1261,7 +1352,7 @@ lTGL		INIT	TGL
 ltgl_awl        INIT    {g_tgltrn}
 ltgl_akh        INIT    {g_tgltrn}
 lINPG           INIT    INPG
-lversi		INIT	"110926v2"
+lversi		INIT	26102026v2
 ldtmangkir	INIT	DTMANGKIR
 lajusubs	INIT	AJUSUBS
 lcasb		INIT	CASB
@@ -1308,6 +1399,8 @@ lm4974c         INIT    m4974c
 lm4974d         INIT    m4974d
 lm4974e         INIT    m4974e
 lm4974f         INIT    m4974f
+lm4974g         INIT    m4974g
+lm4974h         INIT    m4974h
 lSLIK		INIT	SLIK
 lnas            INIT    NAS
 lUPLPDF		INIT	UPLPDF
@@ -1332,6 +1425,8 @@ ltypethbln	INIT	6
 lm2w		INIT	M2W
 lMDMEDIA		INIT		MDMEDIA
 lTMPWA			INIT		TMPWA
+
+
 /***************** ACT IBD *********************/
 ltglawlbln              INIT    {ctglawlbln}
 ltglact7                INIT    {cltglact7}
@@ -1433,6 +1528,8 @@ IF ckel3 lpil DFALT_SCAN        31 "ADD ABK CEK KUOTA DUKCAPIL"
 				36 "Pros Cek Hasil Antrian CBA HRD"
 				37 "Pros Target sdm Kliknss"
 				38 "Pros SLIK 714"
+                                39 "Pros tlm izin aktivitas admin kliknss hmc"
+				40 "Pros tlm izin aktivitas admin kliknss m2w"
 	
 lspkfaktbbn	INIT		SPKFAKTBBN
 lDTSSU		INIT		DTSSU
@@ -1519,6 +1616,12 @@ lK11		INIT		K
 lT11		INIT		T
 lthbl1a		INIT		{cthbllalu}
 lspvkliknss	INIT		SPVKLIKNSS
+
+
+lwablast    INIT    	WABLAST
+lTN206      INIT        TN206
+lUM206      INIT        UM206
+lm4708umtn  INIT        m4708umtn
 
 CALCS()
 cyear1		lyear - 1
@@ -1884,7 +1987,8 @@ cpil11x		((ltype2==BLANKS && tlmsts==gv_OPEN) ||
 		 (ltype2=="OFF" && tlmsts==gv_OPEN && tlmtgl>=ltgl_awl && tlmtgl<=ltgl_akh)
 		) &&
 		(ltype3==BLANKS || (ltype3!=BLANKS && tlmdvs==ltype3))
-cpil12x		tlmsts==gv_INPG && (ltype3==BLANKS || (ltype3!=BLANKS && tlmdvs==ltype3))
+cpil12x		tlmsts==gv_INPG && ((ltype3==BLANKS && tlmdvs=="HMC") || (ltype3!=BLANKS && tlmdvs==ltype3))
+cpilm2w		ltype3==BLANKS || (ltype3!=BLANKS && tlmjam2>=ljamstart)
 cpil12ok	ahmnourt==6 || ahmnourt==7 || ahmnourt==13 || ahmnourt==15
 cjalan		ljalan + 1
 cjalan1		ljalan == 1
@@ -1900,6 +2004,7 @@ cakumnomtunggakanx	ahmnourt==7 && ((lyear - lthnakadx >= 0 && lyear - lthnakadx 
 cmshcbaopen	tlmsts=="OPEN"
 cmshcbaopenx	tlmsts=="OPEN" && lisi>0 && tlmtgl==g_tgltrn && ljalan<=lisi
 cbukutamuhrdx	djoinbtmhrd==1 && lbtmdata=="DTCLNKRY" && tlmsts2=="OFF"
+cdaripkkryx 	djointlmpkkry==1 && ltlmdatapkkry=="SLIKPKKRY" && tlmsts2=="OFF"
 cbukutamuhrdx1  djoinbtmhrd==1 && lbtmdata=="DTCLNKRY" && lbtmsales!=BLANKS && (lbtmsts=="136" || lbtmsts=="135") && djoinabkhrd==0
 caddtldpmhn	tlmtype1=="PEMOHON" && djointldslikpmhn==0
 caddtldpjmn	tlmtype1=="PENJAMIN" && djointldslikpjmn==0
@@ -2034,6 +2139,9 @@ cparamnomnunggakorln6		ahmnourt == 7 && tlmtype1 == "ORGLAIN" && lakumnunggakorl
 
 /*crmdgabmasterslik	"KATSLIK" + STRIP(lkondfasakh) + STRIP(lkuaakh) + STRIP(lkatfasakh) + STRIP(lstatuswo) + STRIP(lparamplafon)*/
 crmdgabmasterslik	"KATSLIK" + STRIP(lkondfasakh) + STRIP(lkuaakh) + STRIP(lparamplafon) + STRIP(lstatuswo) + STRIP(lkatfasakh) + STRIP (lparamnomnunggak)
+crmdgabmasterslikkr	"KATSLIKNEW" + STRIP(lkondfasakh) + STRIP(lkuaakh) + STRIP(lparamplafon) + STRIP(lstatuswo) + STRIP(lkatfasakh) + STRIP (lparamnomnunggak) + STRIP(lbtmdvsk)
+ckredit				djoinbtmkredit == 1 && lbtmtypjlk == "K" && lbtmtypek != "EX" && (lbtmdvsk == "HMC" || lbtmdvsk == "M2W")
+
 chasilslik1	tlmtype1=="PEMOHON" && ahmnourt==7 && lrmdgabmasterslik!=BLANKS && djoinrmdmasterslik==1
 chasilslik2	tlmtype1=="PENJAMIN" && ahmnourt==7 && lrmdgabmasterslik!=BLANKS && djoinrmdmasterslik==1
 chasilslik3	tlmtype1=="ORGLAIN" && ahmnourt==7 && lrmdgabmasterslik!=BLANKS && djoinrmdmasterslik==1
@@ -2314,6 +2422,17 @@ l1              r_count1        REPLACE
 l2              r_count2        REPLACE
 lm2w		r_string3	REPLACE
 
+MAP(m4974g)
+btmnobuk        r_string1       REPLACE
+btmplg          r_string2       REPLACE
+l1              r_count1        REPLACE
+l1              r_count2        REPLACE
+
+MAP(m4974h)
+btmnobuk        r_string1       REPLACE
+lbtppsm         r_string2       REPLACE
+l1              r_count1        REPLACE
+l2              r_count2        REPLACE
 
 MAP(m4974a4w)
 bkmnobs         r_string1       REPLACE
@@ -2365,6 +2484,8 @@ cpil13ok	(
 		 (btmtypjl == "K" && btmtype=="IN" && (btmdvs=="HMC" || btmdvs=="M2W") && btmsts!="BTL" && btmsts!="DBL" && btmsts!="TACC" && btmsts!="CLSD" && btmsts!="721" && btmsts!="720" && btmsts!="715" && ltype2=="NOJUAL") 
 		  ||
 		 (btmtypjl == "K" && btmtype=="IN" && (btmdvs=="HMC" || btmdvs=="M2W") && (btmsts=="CLSD" || btmsts=="721" || btmsts=="720" || btmsts=="715") && ltype2=="JUAL")
+                  ||
+		 (btmnobuk==lnobuk2 && ltype2==BLANKS)
 		)
 		&& djointbdhitcbanas==1
 cnobuk641	"PDF" + STRIP(g_usrkode) + THBLS(g_tgltrn)
@@ -2382,6 +2503,8 @@ chitpkpmh	((ltype2=="TACC" || ltype2=="JUAL" || ltype2=="BTL") && lisi==77)
 		&& djoinahmcbas1==0
 chitpkpjm	btmstr1=="Y" && djoinbtp==1 && lbtppsm!=BLANKS && (ltype2=="TACC" || ltype2=="JUAL" || ltype2=="BTL") && lisi==77
 		&& djoinahmcbas2==0
+chitpkpmhx	ltype2==BLANKS && djoinahmcbas1==0
+chitpkpjmx	ltype2==BLANKS && btmstr1=="Y" && djoinahmcbas2==0                
 chitpkpmh4w	lisi==77 && djoinahmcbas1==0
 chitpkpjm4w	djoinsvipjmn == 1 && lidktppjmn!=BLANKS &&  lisi==77 && djoinm4wbas1==0 
 chitpkpsm4w	djoinsvipsgn == 1 && lidktppsgn!=BLANKS && lisi==77 && djoinm4wbas2==0 
@@ -2392,8 +2515,10 @@ SUBFILE(transg8)
 SFL_LINES(8)
 SFL_COND cpil13
 SFL_SELECT cpil13ok
-SFL_TARGET_GTE
+SFL_TARGET_GTE_IF ctdknobuk
 btmdattglidx gv_bukutamu ltgl_awl {gv_bukutamu} {ltgl_akh}
+SFL_TARGET_GTE_IF cadanobuk
+btmbukidx lnobuk2 {lnobuk2}
 
 IMAGE(transg9)
 ____________ ____________ ________ _______
@@ -3606,6 +3731,7 @@ ahmsubtot2	tldjml		REPLACE		/*PLAFON AWAL*/
 /*ahmjml4		tldhrg		REPLACE*/		/* NOMINAL TUNGGAKAN POKOK*/
 
 MAP(mupdtldslik3)
+ahmtgl2		tldtgl3		REPLACE
 ahmsubtot2	tldperdis6	REPLACE		/*PLAFON 3 thn terbesar*/
 
 MAP(mmap2g7b)
@@ -3714,6 +3840,8 @@ lpersenfasilitaspjmn	lpersenfasilitaspjmn	REPLACE_IF cupdsvipjmn
 lpersenfasilitasorln	lpersenfasilitasorln	REPLACE_IF cupdsviorln
 
 crmdgabmasterslik	lrmdgabmasterslik	DO_CALC
+crmdgabmasterslikkr	lrmdgabmasterslik	DO_CALC_IF ckredit
+DEBUG	ldum	ldum	REPLACE
 
 MAP(mupdsvislik3)
 lhasilkatslik1		svitblkode		REPLACE
@@ -3892,12 +4020,13 @@ MAP(mjoinsvislik)
 DBCALCS(djoinsvislik)
         DBC_COMMAND     JOIN
         DBC_TARGET      svidatbuktyp   lCEKSLIK tlmnoasal lCEKSLIK l1
-        DBC_MAP         mjoinsvislik
+        DBC_MAP         mjoinsvislik       
 
 
 CALCS()
 cdjoinbtmhrd2	djoinbtmhrd==1 && ljalan==ljmldtslik
 cbukutamuhrd	djoinbtmhrd==1 && lbtmdata=="DTCLNKRY" && ((lbtmsts=="136" && lbtmsurveyor=="SLIK") || (lbtmsts=="134" && lbtmsurveyor=="SLIK")) && djoinsvislik==1 && ljalan==ljmldtslik
+cdaripkkry	djointlmpkkry==1 && ltlmdatapkkry=="SLIKPKKRY" && ltlmsts == "SLIK" && djoinsvislik == 1 && ljalan == ljmldtslik
 
 MAP(mjointlm161)
 tlmnobuk	lnobuk161	REPLACE
@@ -3983,6 +4112,7 @@ DBC_SELECT     ccongrup
 
 CALCS()
 /*ctabi		djoinbtmhrd==1 && djoincadumr==1 && djoinsvislik==1 && ((lsvidf3<lcadtot1 && lsvidf1>90) || (lsvidf3>lcadtot1 && lsvidf1>0) ) && djointbdjalanslik==1*/
+cpkkry          djointlmpkkry == 1 && djoinpsipkkry == 1 && djoincadumrpkkry==1 && djoinsvislik==1 && ((ltotnunggak>lcadtot1pkkry && lsvidf1>0) || (lsvidf1>120) ) && djointbdjalanslik==1
 ctabi		djoinbtmhrd==1 && djoincadumr==1 && djoinsvislik==1 && ((ltotnunggak>lcadtot1 && lsvidf1>0) || (lsvidf1>120) ) && djointbdjalanslik==1
 cINTV_USER	"INTV_USER"
 cTABI		"TABI"
@@ -4044,6 +4174,17 @@ c134            btmsts          DO_CALC_IF ckhususttabi
 cSSLIK          btmytplgpsn     DO_CALC
 
 DEBUG           ldum    ldum    REPLACE
+
+MAP(mmappkkry)
+tlmnoasal       ltlmnoasal      REPLACE
+
+MAP(mupdtlmpkkry)
+gv_INPG         tlmsts          REPLACE
+cTABI           tlmsts          DO_CALC_IF cpkkry
+
+MAP(mupdtlmpkkryx)
+gv_INPG         tlmsts          REPLACE
+cTABI           tlmsts          DO_CALC_IF cpkkry
 
 MAP(maddabk41)
 lbtmnobuk       abknobuk        REPLACE_IF cdjoinbtmhrd1
@@ -4563,7 +4704,7 @@ bkmnobuk	aktkode		REPLACE
 bkmnobs		aktnobuk	REPLACE
 lkirimwa206	aktdata		REPLACE
 bkmjns		akttype		REPLACE
-lto		aktlok		REPLACE
+lto		    aktlok		REPLACE
 lktpkons	aktbrg		REPLACE
 
 EDITS(transg19)
@@ -5390,10 +5531,11 @@ tlmtgl2         ssdtgltrn       REPLACE
 lJTP            ssddata         REPLACE
 
 /*********************************************/
+/*
 DBCALCS(djoinabkmd)
         DBC_COMMAND     JOIN
         DBC_TARGET      abkdatbukidx lkunciabsen lnobukmd
-
+*/
 IMAGE(transg23)
 _____________
 FIELD(transg23)
@@ -5401,10 +5543,10 @@ psikode         NOCHANGE        INPUTRI 1
 
 CALCS()
 cpil28          lpil == 28
-cseninkamis     djoinabkmd==0 && djointgm==1 && ((ltgmke== 1 && ltgmtype=="HK") || (ltgmke== 4 && ltgmtype=="HK"))
+/*cseninkamis     djoinabkmd==0 && djointgm==1 && ((ltgmke== 1 && ltgmtype=="HK") || (ltgmke== 4 && ltgmtype=="HK"))*/
 cnobukmd        "CEKMD" + STRIP(ltglstr)
 c109            "109"
-cmdmedia        "CEK KUOTA MD MEDIA"
+/*cmdmedia        "CEK KUOTA MD MEDIA"*/
 
 SUBFILE(transg23)
 SFL_LINES(2)
@@ -5432,7 +5574,7 @@ stskodidx    lY
 
 MAP(mapmapmb)
 cnobukmd        lnobukmd        DO_CALC
-
+/*
 MAP(maddabkmb)
 lkunciabsen     abkdata         REPLACE
 lnobukmd        abknobuk        REPLACE
@@ -5442,6 +5584,7 @@ gv_INPG         abksts          REPLACE
 cmdmedia        abkkym2         DO_CALC
 c109            abkscr          DO_CALC
 DEBUG   ldum    ldum    REPLACE
+*/
 /*********************************************/
 
 /**************BSBBN OPEN OKE - 686****************/
@@ -5878,6 +6021,27 @@ SFL_COND cpil38
 SFL_TARGET
 tlmbukidx	lnobuk2
 
+IMAGE(transg32)
+|_________________|__________|___________________|
+
+FIELD(transg32)
+psikode		NOCHANGE	INPUTRI		1
+psists		PROTECT		INPUTRI		2
+psijabatan	PROTECT		INPUTRI		3
+
+CALCS()
+cpil3940	lpil == 39 || lpil == 40
+cpil39		lpil == 39
+cpil40		lpil == 40
+
+SUBFILE(transg32)
+SFL_LINES(10)
+SFL_COND cpil3940
+SFL_TARGET_IF cpil39
+	psistsjabkod	gv_INPG ladminklikhmc
+SFL_TARGET_IF cpil40
+	psistsjabkod	gv_INPG ladminklikm2w
+
 /*********************************/
 DBCALCS(djointlm915)
         DBC_COMMAND     JOIN
@@ -6014,6 +6178,8 @@ DO_LIB_IF caddtldpjmnx ap_dbclc(DNAME daddtldpjmnx,DCOMMAND ADD,DFILE tld,DMAP m
 DO_LIB_IF caddtldorlnx ap_dbclc(DNAME daddtldorlnx,DCOMMAND ADD,DFILE tld,DMAP maddtldorlnx);
 DO_LIB_IF cbukutamuhrdx  ap_dbclc(DNAME dupdbtmslikx,DCOMMAND UPDATE,DTARGET btmbukidx tlmnoasal,DMAP mupdbtmslikx);
 DO_LIB_IF cbukutamuhrdx1 ap_dbclc(DNAME daddabk41,DCOMMAND ADD,DFILE abk,DMAP maddabk41);
+DO_LIB ap_dbclc(DNAME dmappkkryx,DCOMMAND MAPMAP,DMAP mmappkkry);
+DO_LIB_IF cdaripkkryx  ap_dbclc(DNAME dupdtlmpkkryx,DCOMMAND UPDATE,DTARGET tlmbukidx tlmnoasal,DMAP mupdtlmpkkryx);
 
 SPCALCS(spdetail2g7)
 DO_LIB ap_dbclc(DNAME dmap2g7,DCOMMAND MAPMAP,DMAP mmap2g7);
@@ -6090,11 +6256,16 @@ DO_LIB_IF cdjointlm1611     ap_dbclc(DNAME dupdabk161,DCOMMAND UPDATE_RANGE,DTAR
 DO_LIB_IF cdjoinbtmhrd2     ap_dbclc(DNAME daddakthis,DCOMMAND ADD,DFILE akt,DMAP maddakthis);
 DO_LIB_IF cdjoinbtmhrd2     ap_dbclc(DNAME daddakthis2,DCOMMAND ADD,DFILE akt,DMAP maddakthis2);
 
+DO_LIB ap_dbclc(DNAME dmappkkry,DCOMMAND MAPMAP,DMAP mmappkkry);
+DO_LIB_IF cdaripkkry  ap_dbclc(DNAME dupdtlmpkkry,DCOMMAND UPDATE,DTARGET tlmbukidx tlmnoasal,DMAP mupdtlmpkkry);
+
 SPCALCS(spdetailg8)
 DO_LIB ap_dbclc(DNAME dmapg8,DCOMMAND MAPMAP,DMAP mmapmapg8);
 DO_LIB_IF caddtlm641	ap_dbclc(DNAME daddtlm641, DCOMMAND ADD, DFILE tlm, DLTARGET tlmbukidx tlmnobuk, DLLEN {19}, DMAP maddtlm641);
 DO_LIB_IF chitpkpmh ap_nxpst(l4974,lm4974a);
 DO_LIB_IF chitpkpjm ap_nxpst(l4974,lm4974b);
+DO_LIB_IF chitpkpmhx ap_nxpst(l4974,lm4974g);
+DO_LIB_IF chitpkpjmx ap_nxpst(l4974,lm4974h);
 
 SPCALCS(spdetailg9)
 DO_LIB ap_dbclc(DNAME dupdtlmcba641,DCOMMAND UPDATE,DTARGET tlmbukidx tlmnobuk,DMAP mupdtlmcba641);
@@ -6148,11 +6319,11 @@ DO_LIB_IF cBAS641c ap_nxpst(l4974,lm4974c);
 CALCS()
 cactm1          tgmtgl <= ltglact7
 CALCS()
-cactminggu1     abkkym2 == lketactibd1 && abktgl == ltglactibd
-cactminggu2     abkkym2 == lketactibd2 && abktgl == ltglactibd
-cactminggu3     abkkym2 == lketactibd3 && abktgl == ltglactibd
-cactminggu4     abkkym2 == lketactibd4 && abktgl == ltglactibd
-cactminggu5     abkkym2 == lketactibdfinal && abktgl == ltglactibd
+cactminggu1     abkkym2 == lketactibd1 && abktgl == ltglactibd && abknobuk == lnobuk
+cactminggu2     abkkym2 == lketactibd2 && abktgl == ltglactibd && abknobuk == lnobuk
+cactminggu3     abkkym2 == lketactibd3 && abktgl == ltglactibd && abknobuk == lnobuk
+cactminggu4     abkkym2 == lketactibd4 && abktgl == ltglactibd && abknobuk == lnobuk
+cactminggu5     abkkym2 == lketactibdfinal && abktgl == ltglactibd && abknobuk == lnobuk
 
 DBCALCS(dcekabkminggu1)
 DBC_COMMAND     JOIN
@@ -6421,11 +6592,14 @@ cgetnipNSOH		dgetnipNSOH == 1
 /*cgetnipDCAOPR		dgetnipDCAOPR == 1*/
 cgetnipKawil    	dgetnipKawil == 1
 /*cgetminggu    	dgetminggu == 1*/
-cakhirbulanact     	DO_LIB ap_akhbl(g_tgltrn,&lakhirbulanact);
-cplus7          	lakhirbulanact + 7
+cakhirbulanact     	DO_LIB ap_akhbl(ltgl_akh,&lakhirbulanact);
+cplus10          	lakhirbulanact + 10
 cdjoinnobuktgtbd	djoinnobuktgtbd == 1
 
+
 MAP(mapCariAMNSOH)
+cBLANKS		tlmnobuk	DO_CALC
+cBLANKS		lnobuk		DO_CALC
 cBLANKS         lNIPACTBD       DO_CALC
 lNipDcaopr	lNIPACTBD	REPLACE_IF cdjoinsgmDcaopr
 lNipKawil       lNIPACTBD       REPLACE_IF cdjoinsgmKawil
@@ -6438,7 +6612,7 @@ MAP(mapmap)
 cnobukbnsdlr    tlmnobuk        DO_CALC
 cabkode         lcab            REPLACE
 cakhirbulanact  lakhirbulanact  DO_CALC
-cplus7          lakhirbulanact  DO_CALC
+cplus10         lakhirbulanact  DO_CALC
 
 /*CALCS()*/
 /*cachmin         tlmperppn bagi 4 kali 100*/
@@ -6446,6 +6620,9 @@ cplus7          lakhirbulanact  DO_CALC
 cnilaitgtperformance    68
 cnilaitgtpotential      32
 */
+
+CALCS()
+ccustomminggu		lisi != BLANKS
 
 MAP(maddtlmbonusdealer)
 tlmnobuk        tlmnobuk        REPLACE
@@ -6463,6 +6640,7 @@ lNipDcaopr	tlmkodeapr	REPLACE_IF cdjoinsgmDcaopr
 l1              tlmperdis       REPLACE
 /*lweek           tlmjml          REPLACE_IF cgetminggu*/
 l1		tlmperppn	REPLACE
+lisi		tlmperppn	REPLACE_IF ccustomminggu
 /*cachmin		tlmperpph	DO_CALC*/
 /*
 cnilaitgtperformance    tlmjml  DO_CALC
@@ -6494,7 +6672,7 @@ DBC_MAP                 mmapminggu
 
 
 CALCS()
-chariiniact     ltglactibd < g_tgltrn
+chariiniact     ltglactibd <= g_tgltrn
 cM1             "1"
 cM2             "2"
 cM3             "3"
@@ -6505,11 +6683,14 @@ cambilminggu2   dgetminggu2a == 1
 cambilminggu3   dgetminggu3a == 1
 cambilminggu4   dgetminggu4a == 1
 cWeekString     FLD_TO_STRING(lweek)
+cactclsd	lnobuk2 != BLANKS
+
 MAP(maddabkactibd1)
 lkunciabsen     abkdata         REPLACE
 l1051            abkscr          REPLACE
 gt_RINP         abksts          REPLACE
 gv_INPG         abksts          REPLACE_IF chariiniact
+gv_CLSD		abksts		REPLACE_IF cactclsd
 lnobuk          abknobuk        REPLACE_IF cgetnobukact
 lNIPACTBD       abkkym          REPLACE
 lketactibd1     abkkym2         REPLACE
@@ -6523,6 +6704,7 @@ lkunciabsen     abkdata         REPLACE
 l1051            abkscr          REPLACE
 gt_RINP         abksts          REPLACE
 gv_INPG         abksts          REPLACE_IF chariiniact
+gv_CLSD         abksts          REPLACE_IF cactclsd
 lnobuk          abknobuk        REPLACE_IF cgetnobukact
 lNIPACTBD       abkkym          REPLACE
 lketactibd2     abkkym2         REPLACE
@@ -6536,6 +6718,7 @@ lkunciabsen     abkdata         REPLACE
 l1051            abkscr          REPLACE
 gt_RINP         abksts          REPLACE
 gv_INPG         abksts          REPLACE_IF chariiniact
+gv_CLSD         abksts          REPLACE_IF cactclsd
 lnobuk          abknobuk        REPLACE_IF cgetnobukact
 lNIPACTBD       abkkym          REPLACE
 lketactibd3     abkkym2         REPLACE
@@ -6549,6 +6732,7 @@ lkunciabsen     abkdata         REPLACE
 l1051            abkscr          REPLACE
 gt_RINP         abksts          REPLACE
 gv_INPG         abksts          REPLACE_IF chariiniact
+gv_CLSD         abksts          REPLACE_IF cactclsd
 lnobuk          abknobuk        REPLACE_IF cgetnobukact
 lNIPACTBD       abkkym          REPLACE
 lketactibd4     abkkym2         REPLACE
@@ -6562,6 +6746,7 @@ lkunciabsen     abkdata         REPLACE
 l1051            abkscr          REPLACE
 gt_RINP         abksts          REPLACE
 gv_INPG         abksts          REPLACE_IF chariiniact
+gv_CLSD         abksts          REPLACE_IF cactclsd
 lnobuk          abknobuk        REPLACE_IF cgetnobukact
 lNIPACTBD       abkkym          REPLACE
 lketactibdfinal      abkkym2         REPLACE
@@ -6570,11 +6755,11 @@ cM5             abktype         DO_CALC
 DEBUG ldum      ldum            REPLACE
 
 CALCS()
-cabkactibd1     lNIPACTBD != BLANKS && dhariefektifm1 >= 0 && dtglakhirm1 == 1 && dcekabkminggu1 == 0 && dcekabkminggu1RINP == 0 /*nip isi, ambil hari efektif max di minggu itu, ambil tglnya, cek kuncian di tgl itu*/
-cabkactibd2     lNIPACTBD != BLANKS && dhariefektifm2 >= 0 && dtglakhirm2 > 0 && dcekabkminggu2 == 0 && dcekabkminggu2RINP == 0
-cabkactibd3     lNIPACTBD != BLANKS && dhariefektifm3 >= 0 && dtglakhirm3 > 0 && dcekabkminggu3 == 0 && dcekabkminggu3RINP == 0
-cabkactibd4     lNIPACTBD != BLANKS && dhariefektifm4 >= 0 && dtglakhirm4 > 0 && dcekabkminggu4 == 0 && dcekabkminggu4RINP == 0
-cabkactibdfinal lNIPACTBD != BLANKS && dhariefektifmfinal >= 0 && dtglakhirmfinal > 0 && dcekabkminggufinal == 0 && dcekabkminggufinalRINP == 0
+cabkactibd1     lNIPACTBD != BLANKS && dhariefektifm1 >= 0 && dtglakhirm1 == 1 && dgetnobukact == 1 && dcekabkminggu1 == 0 && dcekabkminggu1RINP == 0 /*nip isi, ambil hari efektif max di minggu itu, ambil tglnya, cek kuncian di tgl itu*/
+cabkactibd2     lNIPACTBD != BLANKS && dhariefektifm2 >= 0 && dtglakhirm2 > 0 && dgetnobukact == 1 && dcekabkminggu2 == 0 && dcekabkminggu2RINP == 0
+cabkactibd3     lNIPACTBD != BLANKS && dhariefektifm3 >= 0 && dtglakhirm3 > 0 && dgetnobukact == 1 && dcekabkminggu3 == 0 && dcekabkminggu3RINP == 0
+cabkactibd4     lNIPACTBD != BLANKS && dhariefektifm4 >= 0 && dtglakhirm4 > 0 && dgetnobukact == 1 && dcekabkminggu4 == 0 && dcekabkminggu4RINP == 0
+cabkactibdfinal lNIPACTBD != BLANKS && dhariefektifmfinal >= 0 && dtglakhirmfinal > 0 && dgetnobukact == 1 && dcekabkminggufinal == 0 && dcekabkminggufinalRINP == 0
 cdjoinbnsdlr    lNIPACTBD != BLANKS && djoinbnsdlr == 0
 /************************       SPTRANS         ********************************/
 /************************       SPTRANS2        ********************************/
@@ -6796,15 +6981,145 @@ DO_LIB			ap_dbclc(DNAME dupdstsactibd,DCOMMAND UPDATE,DTARGET tlmbukidx tlmnobuk
 
 
 
+
+/*=================start add WA BLASH UM TN======================*/
+
+MAP(mjointbttmpwaum)
+tbtket          lket_um		REPLACE
+tbtkode2        lkodetmp_um	REPLACE
+
+DBCALCS(djointbttmpwa_UM206)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tbtdattypkod 	gv_dttabel gv_dttabel21 lMDMEDIA lTMPWA ladh lUM206
+        DBC_MAP         mjointbttmpwaum
+
+
+MAP(mjointbttmpwatn)
+tbtket          lket_tn		REPLACE
+tbtkode2        lkodetmp_tn	REPLACE
+
+
+DBCALCS(djointbttmpwa_TN206)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tbtdattypkod 	gv_dttabel gv_dttabel21 lMDMEDIA lTMPWA ladh lTN206
+        DBC_MAP         mjointbttmpwatn
+
+
+MAP(mjointlm933)
+tlmnobuk        ltlmnobuk933	REPLACE
+DEBUG ldum ldum REPLACE
+
+DBCALCS(djointlm933um)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tlmdatplgtgl 	lwablast lUM206 g_tgltrn
+        DBC_MAP         mjointlm933
+
+DBCALCS(djointlm933tn)
+        DBC_COMMAND     JOIN
+        DBC_TARGET      tlmdatplgtgl 	lwablast lTN206 g_tgltrn
+        DBC_MAP         mjointlm933
+
+MAP(mjointldurt933)
+tldnourt        ltldurt933	REPLACE
+
+DBCALCS(djointldurt933)
+        DBC_COMMAND     JOIN_LAST_SFL
+        DBC_TARGET      tldbukurtidx 	ltlmnobuk933
+        DBC_MAP         mjointldurt933        
+CALCS()
+cnobuk933           "WABLAST" + THBLS_DD(g_tgltrn) + THBLS_MM(g_tgltrn) + THBLS_YY(g_tgltrn)
+cdjointbtwa_tn206   bkmscr == "206" && bkmjns=="TN" && djointbttmpwa_TN206==1
+cdjointbtwa_um206   bkmscr == "206" && bkmjns=="UM" && djointbttmpwa_UM206==1
+
+cadd933tlm          bkmscr == "206" && djoinakt206 == 0 && ((bkmjns=="TN" && djointbttmpwa_TN206==1 && djointlm933tn==0) || (bkmjns=="UM" && djointbttmpwa_UM206==1 && djointlm933um==0)) 
+cadd933tld          bkmscr == "206" && djoinakt206 == 0 && ((bkmjns=="TN" && djointbttmpwa_TN206==1 && djointlm933tn==1) || (bkmjns=="UM" && djointbttmpwa_UM206==1 && djointlm933um==1)) 
+coktlm              (djointlm933tn==1|| djointlm933tn==0) || (djointlm933um==1 && djointlm933um==0)
+
+clUM206             bkmscr == "206" && bkmjns == "UM" 
+clTN206             bkmscr == "206" && bkmjns == "TN"
+
+ctld933nol          djointldurt933==0
+ctld933ok           djointldurt933==1
+cplus1              ltldurt933 + 1
+
+MAP(mmaptlm933)
+cnobuk933	tlmnobuk	DO_CALC
+
+MAP(maddtlm933)
+tlmnobuk        tlmnobuk        REPLACE
+lwablast        tlmdata         REPLACE
+g_tgltrn        tlmtgl          REPLACE
+gv_CLSD         tlmsts          REPLACE
+lUM206     	    tlmplg          REPLACE_IF clUM206
+lTN206     	    tlmplg          REPLACE_IF clTN206
+ladh            tlmdari         REPLACE
+lUM206   	    tlmuntuk        REPLACE_IF clUM206
+lTN206     	    tlmuntuk        REPLACE_IF clTN206
+
+lket_tn         tlmket          REPLACE_IF cdjointbtwa_tn206
+lkodetmp_tn     tlmnobbm        REPLACE_IF cdjointbtwa_tn206
+lket_um         tlmket          REPLACE_IF cdjointbtwa_um206
+lkodetmp_um     tlmnobbm        REPLACE_IF cdjointbtwa_um206
+DEBUG ldum ldum REPLACE
+
+
+MAP(maddtld933)
+ltlmnobuk933	        tldnobuk        REPLACE
+lwablast                tlddata         REPLACE
+gv_INPG                 tldsts          REPLACE
+gv_int1                 tldnourt        REPLACE_IF ctld933nol
+g_tgltrn	            tldtglfak	    REPLACE
+cplus1                  tldnourt        DO_CALC_IF ctld933ok
+bkmnobuk                tldplg          REPLACE
+bkmnobs                 tldbrg          REPLACE
+lhp                     tldlok2         REPLACE_IF cdjoincondesk
+
+
+MAP(m4708umtn)
+ltlmnobuk933    r_string1       REPLACE
+lUM206          r_string2       REPLACE_IF clUM206
+lTN206          r_string2       REPLACE_IF clTN206
+lkodetmp_tn     r_string3       REPLACE_IF cdjointbtwa_tn206
+lkodetmp_um     r_string3       REPLACE_IF cdjointbtwa_um206
+ladh            r_string4	    REPLACE
+lUM206          r_string5       REPLACE_IF clUM206
+lTN206          r_string5       REPLACE_IF clTN206
+
+MAP(mdum)
+DEBUG ldum ldum REPLACE
+
+/*=================end WA BLASH UM TN======================*/
+
 SPCALCS(spdetailg19)
+
 DO_LIB_IF cUM206      ap_dbclc(DNAME dmapmapUM206, DCOMMAND MAPMAP, DMAP mmapUM206);
 DO_LIB_IF cUM206      ap_dbclc(DNAME dmapmapUM206x, DCOMMAND MAPMAP, DMAP mmapUM206x);
 DO_LIB_IF cUM206      ap_nxpst(l4630,lm4630);
 
 DO_LIB_IF cUM206      ap_dbclc(DNAME dmapmapUM206x2, DCOMMAND MAPMAP, DMAP mmapUM206x);
-DO_LIB_IF cUM206x      ap_krmwa(ltoridea,lpesan,lfile,l20,l1,lappuid,lheadercontent,lurl);
-DO_LIB_IF cUM206x      ap_krmwa(lto,lpesan,lfile,l20,l1,lappuid,lheadercontent,lurl);
+/*DO_LIB_IF cUM206x      ap_krmwa(ltoridea,lpesan,lfile,l20,l1,lappuid,lheadercontent,lurl);
+DO_LIB_IF cUM206x      ap_krmwa(lto,lpesan,lfile,l20,l1,lappuid,lheadercontent,lurl);*/
+
+
+/*=================add WA BLASH UM TN======================*/
+/*add to tlm 933*/
+
+DO_LIB_IF cUM206        ap_dbclc(DNAME dmaptlm933, DCOMMAND MAPMAP, DMAP mmaptlm933);
+
+  
+DO_LIB_IF cadd933tlm    ap_dbclc(DNAME daddtlm933, DCOMMAND ADD, DFILE tlm, DLTARGET tlmbukidx tlmnobuk, DLLEN {stspjbuk}, DMAP maddtlm933);
+DO_LIB_IF coktlm        ap_dbclc(DNAME dmmdum, DCOMMAND MAPMAP, DMAP mdum);
+DO_LIB_IF cadd933tld    ap_dbclc(DNAME daddtld933, DCOMMAND ADD, DFILE tld, DMAP maddtld933);
+DO_LIB_IF cadd933tld    ap_nxpst(l4708,lm4708umtn);
+
+
+/*==========================================================*/
+
 DO_LIB_IF cUM206x      ap_dbclc(DNAME daddaktWA206, DCOMMAND ADD, DFILE akt, DMAP maddaktWA206);
+
+
+
+
 
 SPCALCS(sptransg20)
 DO_LIB		ap_dbclc(DNAME dmapmapsgm,DCOMMAND MAPMAP,DMAP mmapmap1425);
@@ -6846,7 +7161,7 @@ DO_LIB ap_dbclc(DNAME daddssdjtp, DCOMMAND ADD, DFILE ssd, DMAP maddssdjtp);
 
 SPCALCS(sptransg23)
 DO_LIB ap_dbclc(DNAME dmapmapmd,DCOMMAND MAPMAP,DMAP mapmapmb);
-DO_LIB_IF cseninkamis ap_dbclc(DNAME daddabkmd,DCOMMAND ADD,DFILE abk,DMAP maddabkmb);
+/*DO_LIB_IF cseninkamis ap_dbclc(DNAME daddabkmd,DCOMMAND ADD,DFILE abk,DMAP maddabkmb);*/
 
 
 
@@ -7093,18 +7408,18 @@ cabove20	ltglawl >  lstr20
 ctglmasuka	DO_LIB ap_awlbl(psitglawl,&ltglawla);
 ctglmasukb2	DO_LIB ap_tambl(psitglawl,gv_int1,&ltglawlb2);
 ctglmasukb	DO_LIB ap_awlbl(ltglawlb2,&ltglawlb);
-cscanabd1	tbtkode2 == "ADMIN" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanabd1 >= 0
-cscanabd2	tbtkode2 == "ADMIN" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanabd2 >= 0
-cscanabd3	tbtkode2 == "ADMIN" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanabd3 >= 0
-cscanpikHMCK1	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanpikHMCK1 >= 0
-cscanpikHMCK2	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanpikHMCK2 >= 0
-cscanpikHMCK3	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanpikHMCK3 >= 0
-cscanpikHMCT1	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanpikHMCT1 >= 0
-cscanpikHMCT2	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanpikHMCT2 >= 0
-cscanpikHMCT3	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanpikHMCT3 >= 0
-cscanpikM2WK1	tbtkode2 == "ADMIN" && tbtkolek == "M2W" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanpikM2WK1 >= 0
-cscanpikM2WK2	tbtkode2 == "ADMIN" && tbtkolek == "M2W" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanpikM2WK2 >= 0
-cscanpikM2WK3	tbtkode2 == "ADMIN" && tbtkolek == "M2W" && (lmonthnow == 1 || lmonthnow == 4 || lmonthnow == 7 || lmonthnow == 10) && dscanpikM2WK3 >= 0
+cscanabd1	tbtkode2 == "ADMIN" && dscanabd1 >= 0
+cscanabd2	tbtkode2 == "ADMIN" && dscanabd2 >= 0
+cscanabd3	tbtkode2 == "ADMIN" && dscanabd3 >= 0
+cscanpikHMCK1	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && dscanpikHMCK1 >= 0
+cscanpikHMCK2	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && dscanpikHMCK2 >= 0
+cscanpikHMCK3	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && dscanpikHMCK3 >= 0
+cscanpikHMCT1	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && dscanpikHMCT1 >= 0
+cscanpikHMCT2	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && dscanpikHMCT2 >= 0
+cscanpikHMCT3	tbtkode2 == "ADMIN" && tbtkolek == "HMC" && dscanpikHMCT3 >= 0
+cscanpikM2WK1	tbtkode2 == "ADMIN" && tbtkolek == "M2W" && dscanpikM2WK1 >= 0
+cscanpikM2WK2	tbtkode2 == "ADMIN" && tbtkolek == "M2W" && dscanpikM2WK2 >= 0
+cscanpikM2WK3	tbtkode2 == "ADMIN" && tbtkolek == "M2W" && dscanpikM2WK3 >= 0
 ckond_level0awl	tbtkode2 == "ADMIN" && llevelawl == BLANKS && ljmlbln == 0
 ckond_level1awl	tbtkode2 == "ADMIN" && llevelawl == BLANKS && ljmlbln >  0
 ckond_level0	tbtkode2 == "ADMIN" && (llevelawl == "NEW") && ljmlbln == 0
@@ -7230,6 +7545,45 @@ DO_LIB_IF caddpsdtgtklik ap_dbclc(DNAME daddpsdtgtklik,DCOMMAND ADD,DFILE psd,DM
 DO_LIB_IF cupdpsdtgtklik ap_dbclc(DNAME dupdpsdtgtklik,DCOMMAND UPDATE,DTARGET psddattypidx llevelklik llevelklik cadkode lthbl21,DMAP mupdpsdtgtklik);
 DO_LIB ap_dbclc(DNAME daddtldtgtklik,DCOMMAND ADD,DFILE tld,DMAP maddtldtgtklik);
 
+CALCS()
+cjoinamtpsi	djoinamtpsi == 1
+cjoincadspvklik	djoincadspvklik == 1
+cnobukizinklik	"IZIN" + STRIP(psikode) + THBLS(g_tgltrn) + THBLS_DD(g_tgltrn)
+cizinakt	"IZINAKT"
+c1032		"1032"
+cjointlmizinklik0	djointlmizinklik == 0
+cAPR_IZINKLIKHMC	"APR_IZINKLIKHMC"
+cAPR_IZINKLIKM2W	"APR_IZINKLIKM2W"
+
+MAP(mmapizinklik)
+cBLANKS		lnipatsn1	DO_CALC
+lnipatsn1	lnipatsn1	REPLACE_IF cjoinamtpsi
+cBLANKS		lnipatsn2	DO_CALC
+lnipatsn2	lnipatsn2	REPLACE_IF cjoinamtpsi
+cBLANKS		lnipspvklik	DO_CALC
+lnipspvklik	lnipspvklik	REPLACE_IF cjoincadspvklik
+cnobukizinklik	lnobukizinklik	DO_CALC
+
+MAP(maddtlmizinklik)
+cizinakt	tlmdata		DO_CALC
+lnobukizinklik	tlmnobuk	REPLACE
+gv_OPEN		tlmsts		REPLACE
+g_tgltrn	tlmtgl		REPLACE
+psikode		tlmplg		REPLACE
+lnipatsn1	tlmgrup		REPLACE
+lnipspvklik	tlmgrup		REPLACE
+lnipatsn2	tlmgrup2	REPLACE
+psidvs		tlmbisnis	REPLACE
+psicabskr	tlmcab		REPLACE
+psidvs		tlmdvs		REPLACE
+c1032		tlmscr		DO_CALC
+cAPR_IZINKLIKHMC	tlmkodeapr	DO_CALC_IF cpil39
+cAPR_IZINKLIKM2W	tlmkodeapr	DO_CALC_IF cpil40
+
+SPCALCS(sptransg32)
+DO_LIB ap_dbclc(DNAME dmapizinklik,DCOMMAND MAPMAP,DMAP mmapizinklik);
+DO_LIB_IF cjointlmizinklik0 ap_dbclc(DNAME daddtlmizinklik,DCOMMAND ADD,DFILE tlm,DMAP maddtlmizinklik);
+
 /*========================================================*/
 POSTING(trans)
     PST_COMMAND spdetail
@@ -7275,9 +7629,11 @@ POSTING(transg6)
 
 POSTING(transg7)
     PST_COMMAND spdetailg7
+    PST_COND cpilm2w
 
 POSTING(trans2g7)
     PST_COMMAND spdetail2g7
+    PST_COND cpilm2w
 
 POSTING(transg8)
     PST_COMMAND spdetailg8
@@ -7374,5 +7730,7 @@ PST_COMMAND sptrans2g14
 POSTING(transg31)
 PST_COMMAND spdetailg7
 
+POSTING(transg32)
+PST_COMMAND sptransg32
 
 END_SCREEN

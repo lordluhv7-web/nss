@@ -115,11 +115,13 @@ lBLANKS5		STRING			5
 lTgtPoint		DFLOAT			4
 lpanjang		INT2			3
 lINDIKATORBD            STRING                  21
+ltgl13			DATE			8
 
 CALCS()
 cpanjang        DO_LIB ap_strln(tldket,&lpanjang);
 cpanjangcukup	(tldjml3 < tldtmp1 && lpanjang >= 5 && lpanjang <= 100) || (tldjml3 >= tldtmp1)
-ctambl          DO_LIB ap_tambl(g_tgltrn,l1,&lblndpnmaster);
+ctambl          DO_LIB ap_tambl(tlmtgl,l1,&lblndpnmaster);
+ctgl13          THBLS_YYYY(lblndpnmaster) + THBLS_MM(lblndpnmaster) + "13"
 ctgl10          THBLS_YYYY(lblndpnmaster) + THBLS_MM(lblndpnmaster) + "10"
 ctgl1     	THBLS_YYYY(lblndpnmaster) + THBLS_MM(lblndpnmaster) + "01"
 ctgl5     	THBLS_YYYY(lblndpnmaster) + THBLS_MM(lblndpnmaster) + "05"
@@ -414,7 +416,7 @@ IMAGE(master)
 | |	t.NipKawil	____________	           t.NamaKawil     _______________| |
 | |	t.NipDCAOPR	____________	           t.NamaDCAOPR    _______________| |
 | \-------------------------------------------------------------------------------/ |
-| /*	t.SdhAdaACT	____________	*/			                    |
+| /*	t.SdhAdaACT*/	____________				                    |
 | /-------------------------------------------------------------------------------\ |
 /*
 | |	t.TgtPerformance _________ t.ActPerformance _________                     | |
@@ -451,6 +453,7 @@ tlmkodeapr		PROTECT			INPUTRI	17		/*NIP DCAOOPR*/
 lnamaDCAOPR		PROTECT			INPUTRI	18		/*NAMA DCAOPR*/
 
 /*tlmuntuk		NOCHANGE		INPUTRI	19	*/	/*SUDAH ADA ACT?*/
+tlmtgljtp2		NONE {DD-MM-YY} NOLIMIT	INPUTRI	20
 
 /*
 tlmjml			PROTECT			INPUTRI	20		TGT PERFORMANCE
@@ -499,7 +502,7 @@ lmnexthitungmaster	INIT			"mnexthitungmaster"
 tlmdata			INIT_QUERY_F11		"tlmdata=="ACTBNSDLR""
 tlmdata			INIT_ADD		"ACTBNSDLR"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT			"11092026v3"
+lversi			INIT			"26-10-2026v1"
 ltomdet1		INIT			"1d. Detail Input ACT"
 ltomdet2		INIT			"2d. Informasi"
 lACTBONUSDEALER		INIT			"ACTBONUSDEALER"	/*UNTUK TEMPLATE*/
@@ -533,6 +536,7 @@ lblndpnmaster           INIT                    {ctambl}
 ltgl1blndpn	        INIT                    {ctgl1}
 ltgl5blndpn           	INIT                    {ctgl5}
 ltgl10                  INIT                    {ctgl10}
+ltgl13			INIT			{ctgl13}
 tlmgrup			DFALT_SCAN_BLANKS	BLANKS
 						SESUAI		""
 						TIDAK_SESUAI	""
@@ -732,6 +736,17 @@ cBLANKS			tlmstspst		DO_CALC
 SPCALCS(standaposting)
 DO_LIB			ap_dbclc(DNAME dtandaposting,DCOMMAND UPDATE,DTARGET tlmotoidx tlmoto,DMAP mtandaposting);
 
+CALCS()
+cm5			abktype == lWeekString
+cm5b			lWeekString == "5" || tlmperppn == 5
+
+MAP(mmundurkuncian)
+tlmtgljtp2		abktgl		REPLACE_IF cm5
+gt_RINP			abksts		REPLACE_IF cm5
+
+SPCALCS(smundurkuncian)
+DO_LIB_IF cm5b		ap_dbclc(DNAME dmundurkuncian,DCOMMAND UPDATE_RANGE,DTARGET abkdatbukidx lKUNCIABSEN tlmnobuk,DMAP mmundurkuncian);
+
 HOOKS(master)
 BEFORE_INPUT		cur_field=tlmdata	DO_SKIP_IF	cLagiTambah
 BEFORE_INPUT		cur_field=tlmdata	DO_SKIP_IF	cLagiUpdate
@@ -762,6 +777,7 @@ BEFORE_INPUT            cur_field=tlmgrup2      DO_SKIP_IF      c1
 BEFORE_INPUT		cur_field=tlmuntuk	DO_SKIP_IF	cblmblndpn
 */
 CLICKED			cur_field=ltomtandapst	DO_SPCALCS	standaposting
+AFTER_INPUT		cur_field=tlmtgljtp2	DO_SPCALCS	smundurkuncian
 
 
 
@@ -1048,7 +1064,7 @@ HOOKS(transt)
 CLICKED                 cur_field=ltomsdhact    	DO_SPCALCS  ssdhisiact
 
 CALCS()
-cseltrans  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tlddata == tlmdata && tldth == tlmtype2 && (tldperdis7 == tlmperppn || tldperdis7 == 31)
+cseltrans  tldcab == tlmcab /* && tldbrg == lPERFORMANCE */ && tlddata == tlmdata && tldth == tlmtype2 && ((tldperdis7 == tlmperppn && tlmperppn < 5) || (tldperdis7 == 31 && tlmperppn >= 5))
 
 SUBFILE(trans)
 SFL_LINES(18)
@@ -1149,7 +1165,7 @@ SFL_TEMPLATE(tmp_ibdpotentialactfinal)
 */
 IMAGE(transat)
 /-t-------------------------------\
-|i.Keterangan                     |
+|t.Keterangan                     |
 \---------------------------------/
 
 IMAGE(transa)
