@@ -483,7 +483,7 @@ ltomdet1		TOMBOL			INPUTRI	32		/*TOMBOL 1D*/
 ltomdet2		TOMBOL			INPUTRI	33		/*TOMBOL 2D*/
 ltomdet3		TOMBOL			INPUTRI	34		/*TOMBOL 3D*/
 tlmytppn		PROTECT			INPUTRI	35		/* TANDA BACA */
-tlmdvs			PROTECT			INPUTRI	36		/* TANDA BACA */
+tlmdvs			NOCHANGE		INPUTRI	36		/* TANDA BACA */
 ltomtandapst		TOMBOL			INPUTRI	37
 
 DEFAULTS(master)
@@ -738,7 +738,8 @@ DO_LIB			ap_dbclc(DNAME dtandaposting,DCOMMAND UPDATE,DTARGET tlmotoidx tlmoto,D
 
 CALCS()
 cm5			abktype == lWeekString
-cm5b			lWeekString == "5" || tlmperppn == 5
+cm5b			(lWeekString == "5" || tlmperppn == 5) /* && tlmtgljtp2 > g_tgltrn */
+ctglvalid		tlmtgljtp2 > g_tgltrn && tlmtgljtp2 <= ltgl13
 
 MAP(mmundurkuncian)
 tlmtgljtp2		abktgl		REPLACE_IF cm5
@@ -778,6 +779,10 @@ BEFORE_INPUT		cur_field=tlmuntuk	DO_SKIP_IF	cblmblndpn
 */
 CLICKED			cur_field=ltomtandapst	DO_SPCALCS	standaposting
 AFTER_INPUT		cur_field=tlmtgljtp2	DO_SPCALCS	smundurkuncian
+AFTER_INPUT             cur_field=tlmtgljtp2    DO_MAP SHOW
+                        IF ctglvalid            mdum
+                        ELSE HKCURSOR STAY
+                        HKMSG Tanggal yang dipilih tidak boleh yang sudah lewat, dan maksimal tanggal 13
 
 
 
