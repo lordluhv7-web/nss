@@ -502,7 +502,7 @@ lmnexthitungmaster	INIT			"mnexthitungmaster"
 tlmdata			INIT_QUERY_F11		"tlmdata=="ACTBNSDLR""
 tlmdata			INIT_ADD		"ACTBNSDLR"
 lINDIKATORBD            INIT                    "INDIKATORBD"
-lversi			INIT			"26-10-2026v1"
+lversi			INIT			"26-10-2026v2"
 ltomdet1		INIT			"1d. Detail Input ACT"
 ltomdet2		INIT			"2d. Informasi"
 lACTBONUSDEALER		INIT			"ACTBONUSDEALER"	/*UNTUK TEMPLATE*/
@@ -778,8 +778,8 @@ BEFORE_INPUT            cur_field=tlmgrup2      DO_SKIP_IF      c1
 BEFORE_INPUT		cur_field=tlmuntuk	DO_SKIP_IF	cblmblndpn
 */
 CLICKED			cur_field=ltomtandapst	DO_SPCALCS	standaposting
-AFTER_INPUT		cur_field=tlmtgljtp2	DO_SPCALCS	smundurkuncian
-AFTER_INPUT             cur_keybd=EN    	DO_MAP SHOW
+AFTER_INPUT		cur_keybd=EN		DO_SPCALCS	smundurkuncian
+AFTER_INPUT             cur_field=tlmtgljtp2   	DO_MAP SHOW
                         IF ctglvalid            mdum
                         ELSE HKCURSOR STAY
                         HKMSG Tanggal yang dipilih tidak boleh yang sudah lewat, dan maksimal tanggal 13
