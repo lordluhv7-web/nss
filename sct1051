@@ -779,7 +779,7 @@ BEFORE_INPUT		cur_field=tlmuntuk	DO_SKIP_IF	cblmblndpn
 */
 CLICKED			cur_field=ltomtandapst	DO_SPCALCS	standaposting
 AFTER_INPUT		cur_field=tlmtgljtp2	DO_SPCALCS	smundurkuncian
-AFTER_INPUT             cur_field=tlmtgljtp2    DO_MAP SHOW
+AFTER_INPUT             cur_keybd=EN    	DO_MAP SHOW
                         IF ctglvalid            mdum
                         ELSE HKCURSOR STAY
                         HKMSG Tanggal yang dipilih tidak boleh yang sudah lewat, dan maksimal tanggal 13
