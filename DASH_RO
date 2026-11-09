@@ -1,0 +1,104 @@
+/*SELECT
+        piknobuk "MAX_NOBUK",
+        pikoto "MAX_OTO",
+        piksts,
+        piknobtm,
+        pikplg AS KTP,
+        pikcab,
+        pikcabpiu,
+        pikdvs,
+        piktypjl,
+        piktglfak "MAX_TGL"
+    FROM pik
+    WHERE pikdata = "DTPIU"
+      AND pikcab like "SLP%"
+      AND piktglfak BETWEEN 20260101 AND CURDATE()
+      AND piksts NOT IN ("VOID", "")*/
+      
+WITH base AS (
+    SELECT
+        MAX(piknobuk) "MAX_NOBUK",
+        MAX(pikoto) "MAX_OTO",
+        piksts,
+        piknobtm,
+        pikplg AS KTP,
+        pikcab,
+        pikcabpiu,
+        pikdvs,
+        piktypjl,
+        MAX(piktglfak) "MAX_TGL"
+    FROM pik
+    WHERE pikdata = "DTPIU"
+      AND pikcab like "SLP%"
+      AND piktglfak BETWEEN 20260101 AND CURDATE()
+      AND piksts NOT IN ("VOID", "")
+    GROUP BY pikplg
+),
+
+data1 AS (
+    SELECT
+        *,
+        (
+            SELECT pikoto
+            FROM pik
+            WHERE pikplg = ktp
+              AND piksts NOT IN ('VOID', '')
+              AND piktglfak <= base.MAX_TGL
+              AND pikoto != base.MAX_OTO
+            ORDER BY piktglfak DESC
+            LIMIT 1
+        ) AS FAKTUR_TERAKHIR,
+
+        CASE
+            WHEN EXISTS (
+                SELECT 1
+                FROM pik
+                WHERE pikplg = ktp
+                  AND piksts NOT IN ('VOID', '')
+                  AND piktglfak <= base.MAX_TGL
+                  AND pikoto != base.MAX_OTO
+            )
+            THEN 'RO'
+            ELSE 'NEW'
+        END AS STATUS_RO
+    FROM base
+),
+data2 AS(
+SELECT
+    KTP,
+    STATUS_RO,
+    data1.pikdvs "LATEST_BISNIS",
+    data1.piktypjl "LATEST_TYPE_JUAL",
+    data1.MAX_TGL "LATEST_TGL",
+    pik_ro.pikdvs "PREVIOUS_BISNIS",
+    pik_ro.piktypjl "PREVIOUS_TYPE_JUAL",
+    pik_ro.piktglfak "PREVIOUS_TGL"
+FROM data1
+LEFT JOIN pik pik_ro
+    ON pik_ro.pikoto = data1.FAKTUR_TERAKHIR
+   AND STATUS_RO = 'RO'
+)
+
+SELECT COUNT(data2.KTP) "TOTAL_KONSUMEN", COUNT(IF(data2.STATUS_RO = 'RO', data2.KTP, null)) "RO_BY_KTP",
+COUNT(IF(data2.LATEST_BISNIS = 'HMC' AND data2.PREVIOUS_BISNIS = 'HMC', data2.KTP, null)) "HMC_HMC",
+COUNT(IF(data2.LATEST_BISNIS = 'HMC' AND data2.PREVIOUS_BISNIS = 'M2W', data2.KTP, null)) "HMC_M2W",
+COUNT(IF(data2.LATEST_BISNIS = 'HMC' AND data2.PREVIOUS_BISNIS = 'M4W', data2.KTP, null)) "HMC_M4W",
+COUNT(IF(data2.LATEST_BISNIS = 'HMC' AND data2.PREVIOUS_BISNIS = 'MGA', data2.KTP, null)) "HMC_GADAI",
+
+COUNT(IF(data2.LATEST_BISNIS = 'M2W' AND data2.PREVIOUS_BISNIS = 'M2W', data2.KTP, null)) "M2W_M2W",
+COUNT(IF(data2.LATEST_BISNIS = 'M2W' AND data2.PREVIOUS_BISNIS = 'HMC', data2.KTP, null)) "M2W_HMC",
+COUNT(IF(data2.LATEST_BISNIS = 'M2W' AND data2.PREVIOUS_BISNIS = 'M4W', data2.KTP, null)) "M2W_M4W",
+COUNT(IF(data2.LATEST_BISNIS = 'M2W' AND data2.PREVIOUS_BISNIS = 'MGA', data2.KTP, null)) "M2W_GADAI",
+
+COUNT(IF(data2.LATEST_BISNIS = 'M4W' AND data2.PREVIOUS_BISNIS = 'M4W', data2.KTP, null)) "M4W_M4W",
+COUNT(IF(data2.LATEST_BISNIS = 'M4W' AND data2.PREVIOUS_BISNIS = 'HMC', data2.KTP, null)) "M4W_HMC",
+COUNT(IF(data2.LATEST_BISNIS = 'M4W' AND data2.PREVIOUS_BISNIS = 'M2W', data2.KTP, null)) "M4W_M2W",
+COUNT(IF(data2.LATEST_BISNIS = 'M4W' AND data2.PREVIOUS_BISNIS = 'MGA', data2.KTP, null)) "M4W_GADAI",
+
+COUNT(IF(data2.LATEST_BISNIS = 'MGA' AND data2.PREVIOUS_BISNIS = 'MGA', data2.KTP, null)) "GADAI_GADAI",
+COUNT(IF(data2.LATEST_BISNIS = 'MGA' AND data2.PREVIOUS_BISNIS = 'HMC', data2.KTP, null)) "GADAI_HMC",
+COUNT(IF(data2.LATEST_BISNIS = 'MGA' AND data2.PREVIOUS_BISNIS = 'M2W', data2.KTP, null)) "GADAI_M2W",
+COUNT(IF(data2.LATEST_BISNIS = 'MGA' AND data2.PREVIOUS_BISNIS = 'M4W', data2.KTP, null)) "GADAI_M4W"
+
+
+FROM data2
