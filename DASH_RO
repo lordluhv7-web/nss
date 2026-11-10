@@ -29,7 +29,7 @@ WITH base AS (
         MAX(piktglfak) "MAX_TGL"
     FROM pik
     WHERE pikdata = "DTPIU"
-      AND pikcab like "SLP%"
+      /*AND pikcab like "SLP%"*/
       AND piktglfak BETWEEN 20260101 AND CURDATE()
       AND piksts NOT IN ("VOID", "")
     GROUP BY pikplg
@@ -72,14 +72,17 @@ SELECT
     data1.MAX_TGL "LATEST_TGL",
     pik_ro.pikdvs "PREVIOUS_BISNIS",
     pik_ro.piktypjl "PREVIOUS_TYPE_JUAL",
-    pik_ro.piktglfak "PREVIOUS_TGL"
+    pik_ro.piktglfak "PREVIOUS_TGL",
+    data1.pikcab "CABANG"
 FROM data1
 LEFT JOIN pik pik_ro
     ON pik_ro.pikoto = data1.FAKTUR_TERAKHIR
    AND STATUS_RO = 'RO'
 )
 
-SELECT COUNT(data2.KTP) "TOTAL_KONSUMEN", COUNT(IF(data2.STATUS_RO = 'RO', data2.KTP, null)) "RO_BY_KTP",
+SELECT
+CABANG,
+COUNT(data2.KTP) "TOTAL_KONSUMEN", COUNT(IF(data2.STATUS_RO = 'RO', data2.KTP, null)) "RO_BY_KTP",
 COUNT(IF(data2.LATEST_BISNIS = 'HMC' AND data2.PREVIOUS_BISNIS = 'HMC', data2.KTP, null)) "HMC_HMC",
 COUNT(IF(data2.LATEST_BISNIS = 'HMC' AND data2.PREVIOUS_BISNIS = 'M2W', data2.KTP, null)) "HMC_M2W",
 COUNT(IF(data2.LATEST_BISNIS = 'HMC' AND data2.PREVIOUS_BISNIS = 'M4W', data2.KTP, null)) "HMC_M4W",
@@ -131,3 +134,4 @@ END
 AS TUNAI_KREDIT
 
 FROM data2
+group by CABANG
