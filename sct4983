@@ -718,14 +718,14 @@ SELECT
       data2.LATEST_TGL, INTERVAL 3 MONTH
     ) 
     AND data2.PREVIOUS_TYPE_JUAL = 'T' THEN COUNT(data2.KTP) ELSE 0 END
-  ) AS TUNAI_TUNAI/*, 
+  ) AS TUNAI_TUNAI, 
   (
     CASE WHEN data2.LATEST_TYPE_JUAL = 'T' 
     AND data2.PREVIOUS_TGL >= DATE_SUB(
       data2.LATEST_TGL, INTERVAL 3 MONTH
     ) 
     AND data2.PREVIOUS_TYPE_JUAL = 'K' THEN COUNT(data2.KTP) ELSE 0 END
-  ) AS TUNAI_KREDIT */
+  ) AS TUNAI_KREDIT
 
 FROM 
   data2 
@@ -7782,28 +7782,28 @@ ljam            dsbjamcrt       REPLACE
 
 MAP(mapsqlro)
 dsbtype2	dsbtype2	REPLACE		/* CABANG */
-dsbjml1		dsbjml1		REPLACE		/* RO_BY_KTP */
-dsbjml2		dsbjml2		REPLACE		/* HMC_HMC */
-dsbjml3		dsbjml3		REPLACE		/* HMC_M2W */
-dsbjml4		dsbjml4		REPLACE		/* HMC_M4W */
-dsbjml5		dsbjml5		REPLACE		/* HMC_GADAI */
-dsbjml6		dsbjml6		REPLACE		/* M2W_M2W */
-dsbjml7		dsbjml7		REPLACE		/* M2W_HMC */
-dsbjml8		dsbjml8		REPLACE		/* M2W_M4W */
-dsbjml9		dsbjml9		REPLACE		/* M2W_GADAI */
-dsbjml10	dsbjml10	REPLACE		/* M4W_M4W */
-dsbtot1		dsbtot1		REPLACE		/* M4W_HMC */
-dsbtot2		dsbtot2		REPLACE		/* M4W_M2W */
-dsbtot3		dsbtot3		REPLACE		/* M4W_GADAI */
-dsbtot4		dsbtot4		REPLACE		/* GADAI_GADAI */
-dsbtot5		dsbtot5		REPLACE		/* GADAI_HMC */
-dsbtot6		dsbtot6		REPLACE		/* GADAI_M2W */
-dsbtot7		dsbtot7		REPLACE		/* GADAI_M4W */
-dsbtot8		dsbtot8		REPLACE		/* KREDIT_KREDIT */
-dsbtot9		dsbtot9		REPLACE		/* KREDIT_TUNAI */
-dsbtot10	dsbtot10	REPLACE		/* TUNAI_TUNAI */
-dsbakum1	dsbakum1	REPLACE		/* TUNAI_KREDIT */
-
+dsbjml1		dsbjml1		REPLACE		/* TOTAL_KONSUMEN */
+dsbjml2		dsbjml2		REPLACE		/* RO_BY_KTP */
+dsbjml3		dsbjml3		REPLACE		/* HMC_HMC */
+dsbjml4		dsbjml4		REPLACE		/* HMC_M2W */
+dsbjml5		dsbjml5		REPLACE		/* HMC_M4W */
+dsbjml6		dsbjml6		REPLACE		/* HMC_GADAI */
+dsbjml7		dsbjml7		REPLACE		/* M2W_M2W */
+dsbjml8		dsbjml8		REPLACE		/* M2W_HMC */
+dsbjml9		dsbjml9		REPLACE		/* M2W_M4W */
+dsbjml10	dsbjml10	REPLACE		/* M2W_GADAI */
+dsbtot1		dsbtot1		REPLACE		/* M4W_M4W */
+dsbtot2		dsbtot2		REPLACE		/* M4W_HMC */
+dsbtot3		dsbtot3		REPLACE		/* M4W_M2W */
+dsbtot4		dsbtot4		REPLACE		/* M4W_GADAI */
+dsbtot5		dsbtot5		REPLACE		/* GADAI_GADAI */
+dsbtot6		dsbtot6		REPLACE		/* GADAI_HMC */
+dsbtot7		dsbtot7		REPLACE		/* GADAI_M2W */
+dsbtot8		dsbtot8		REPLACE		/* GADAI_M4W */
+dsbtot9		dsbtot9		REPLACE		/* KREDIT_KREDIT */
+dsbtot10	dsbtot10	REPLACE		/* KREDIT_TUNAI */
+dsbakum1	dsbakum1	REPLACE		/* TUNAI_TUNAI */
+dsbakum2    dsbakum2    REPLACE     /* TUNAI_KREDIT */
 
 MAP(mmap)
 DEBUG	ldum		ldum		REPLACE
