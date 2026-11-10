@@ -1,0 +1,5181 @@
+SCREEN 3520 APP_TYPE t.AmbilStrukturDb
+SCR_TGLTRN_PASS_OK
+SCR_TRANSACTION
+
+LOCAL
+PGM_FIELDS
+lSTRUKTURDBTRN		STRING	21
+l3581                   INT2	2
+l3585                   INT2	2
+lINDHAV	                STRING  21
+lDASHSPKREK             STRING  21
+lDASHCXGMB             STRING  21
+lDASHCLAIMBD            STRING  21
+lDASHREKRUT             STRING  21
+lDASHREKMEDSOS          STRING  21
+lABSHCD					STRING	21
+lJADWALPDCA             STRING  21
+ltmpdashhcd             STRING  21
+ltmpdashhcdcab          STRING  21
+ltmpdashhrdmpp   STRING          21
+ltmpdashhrdmpp1  STRING          21
+lsubpil         INT2            2
+lpil            INT2            2
+ltmpdtmkodeprop STRING          21
+ltmpdtmkodega   STRING          21
+ltmpdtmkodeh1   STRING          21
+ltmpdtmkodeadh  STRING          21
+ltmpdtmkodepiu   STRING          21
+ltmpdtmkodepiu2   STRING          21
+ltmpdtmkodeahs    STRING          21
+ltmpdtmkodeahscab    STRING          21
+ltmpdtmakumahs   STRING          21
+ltmpdtmviewahs   STRING          21
+ltmpdtmviewahs2   STRING          21
+ltmpdtmbrgahs   STRING          21
+ltmpdtmkoderem   STRING          21
+ltmpdtmkoderem2  STRING          21
+ltmpdtmkoderem3  STRING          21
+ltmpdtmkodepiu5  STRING          21
+ltmpdtmkodepiu6  STRING          21
+ltmpdtmkodepiu7  STRING          21
+ltmpdtmkodepiu8  STRING          21
+ltmpdtmkode     STRING          21
+ltmpdtmkodem2w2 STRING          21
+ltmpdtmkodefin	STRING		21
+ltmpdtmkodesvy	STRING		21
+ltmpdtmkdeaudit	STRING		21
+ltmpdtmkkdedesk	STRING		21
+ltmpdtmkkdeinfaud	STRING		21
+ltmpdtmkkplanthbl	STRING		21
+ltmpdtmkodeknsc STRING          21
+ltmpdtmkodeass  STRING          21
+ltmpdtmkdeit	STRING		21
+ltmpdtmkodesup	STRING		21
+ltmpdtmkodem2w  STRING          21
+ltmpdtmkodecrd2	STRING		21
+ltmpdtmkodecrd4	STRING		21
+ltmpdtmkodecrd5	STRING		21
+ltmpdtmkodecrd6	STRING		21
+ltmpdtmkodecoe	STRING		21
+lCABANG			STRING		21
+ltmpdtmkodecrm	STRING		21
+ltmpdtmkodeumroh	STRING	21
+ltmpdtmnpbtsgm	STRING	21
+ltmpdivhmcmkt   STRING  21
+ltmpdtmkodem4w  STRING          21
+ltmpdtmkodem2w4w  STRING          21
+ltmpdtmkdm2w4w   STRING          21
+ltmpdtmkdmit4w  STRING          21
+ltmpdtmkodepium4w  STRING          21
+ltmpdtmkodemktgm4w    STRING          21
+ltmpdtmkodenpbt  STRING          21
+ltmpdtmkodenpbtnas	STRING	21
+ltmpdtmkodenpbtklik	STRING		21
+ltmpdtmkodenpbtthbl  STRING          21
+ltmpdtmkodekliknss      STRING  21
+ltmpdtmkodecm4w  STRING          21
+ltmpdtmkodedev	STRING		21
+lTMPDASHCREDIT2JAM	STRING	21
+ltmpdashmga     STRING          21
+ltmpdashhrd     STRING          21
+ltmpcre2        STRING          21
+ltmpdtmkoderem4  STRING          21
+ldashnpbtm4w	STRING			21
+ldashopexhmc2w	STRING		21
+ldashspkmhrd    STRING          21
+lhkhl           STRING          11
+ltmpdashpenccab STRING                  21
+ltmpdashindkpiu STRING                  21
+ltmpdashpiu		STRING			21
+ltmpdashnpbtmga	STRING					21
+ltmpdashaydamga	STRING			21
+ltmpdashjuallelang	STRING 		21
+ltmpdashjaminan	STRING			21
+ltmpdashpiublnmga	STRING		21
+ltmpdashabsenpdca	STRING		21
+ltmpdashadvisor STRING          21
+ltmpdashabsenpdcathbl	STRING	21
+ltmpdashtalent		STRING	21
+ltmpdashpiumga	STRING			21
+ltmpmedsosmga	STRING			21
+ltmprekaplelang	STRING			21
+ltmpdashproyjual STRING			21
+ltmpdashodtm	STRING			21
+ltmpdashtomga	STRING			21
+ltmpdashrekgadai	STRING		21
+ltmpdashpenjgadai	STRING		21
+ltmpdashspkgdi		STRING		21
+ltmpdashrkppjlnmga 	STRING		21
+ltmpdashjualsoamga	STRING		21
+ltmpdashstokjmn		STRING		21
+ltmpmdsatlmga		STRING		21
+ltmpdashstokllg		STRING		21
+ltmpdashjlllgmga	STRING		21
+ltmpdashgmbmga	STRING		21
+ltmpdashadsmga	STRING		21
+ltmpdashkatprm		STRING		21
+ltmpdashradar           STRING          21
+ltmpdashrwdmga		STRING		21
+ltmpdashstsprc		STRING		21
+ltmpdashcabprc		STRING		21
+ltmpdashlap938		STRING		21
+ltmpnpbtcabpos		STRING		21
+ltmpdashcctvmga		STRING		21
+ltmpdashmpp			STRING		21
+ltmpdashcustro		STRING		21
+
+
+l3558		INT2		2
+l3545           INT2            2
+l3533		INT2		2
+ltgl1           DATE            4
+ltgl2           DATE            4
+ltgl3           DATE            4
+ltgl4		DATE		4
+ltgl1m1		DATE		4
+lakhm1		DATE		4
+l3521           INT2            2
+l3525		INT2		2
+l3522           INT2            2
+l3050           INT2            2
+l3058           INT2            2
+l3091           INT2            2
+l3559           INT2            2
+l3560           INT2            2
+l3566           INT2            2
+l3524           INT2            2
+l3542           INT2            2
+l3530           INT2            2
+lm3521          STRING          15
+lm3522			STRING          15
+lm3522h                 STRING          15
+lm3542		STRING		15
+lm3544		STRING		15
+lm3565		STRING		15
+l2934 		INT2		2
+l3526       INT2            2
+l3527       INT2            2
+l3528       INT2            2
+l3529       INT2            2
+l3531       INT2            2
+l3532		INT2		2
+l3523		INT2		2
+l3534		INT2		2
+l3535		INT2		2
+l3536		INT2		2
+l3537		INT2		2
+l3539		INT2		2
+l2990		INT2		2
+l3564		INT2		2
+l3541           INT2            2
+l3538		INT2		2
+l3540		INT2		2
+l3543		INT2		2
+l3555		INT2		2
+l4983		INT2		2
+l3593		INT2		2
+l3594		INT2		2
+l3547		INT2		2
+l2949		INT2		2
+l2929		INT2		2
+l2992		INT2		2
+l3544		INT2		2
+l2967		INT2		2
+l3569           INT2            2
+l3546		INT2		2
+l3556		INT2		2
+l2969		INT2		2
+l2928		INT2		2
+l3029		INT2		2
+l3049		INT2		2
+l3054		INT2		2
+l3549		INT2		2
+l3552		INT2		2
+l3095		INT2		2
+l3094		INT2		2
+l2904		INT2		2
+l2939		INT2		2
+l3557		INT2		2
+l2996		INT2		2
+l2998		INT2		2
+l2970		INT2		2
+l3561		INT2		2
+l3562           INT2            2
+l3563           INT2            2
+l3565		INT2		2
+l3567		INT2		2
+l4970		INT2		2
+l3568		INT2		2
+l3575		INT2		2
+l3595		INT2		2
+l3596		INT2		2
+l3053		INT2		2
+l3047		INT2		2
+l5104		INT2		2
+l4818           INT2            2
+l5103		INT2		2
+ltmpdvs         STRING          21
+ltmptypjl	STRING		5
+lversi		STRING		21
+lDASHBOARD4	STRING		21
+
+ltgl25min2      DATE            4
+ltgl25min3      DATE            4
+ltgl25min4      DATE            4
+ltgl25min5	DATE		4
+ltgl26min3      DATE            4
+ltgl26min4      DATE            4
+ltgl26min5      DATE            4
+ltgl26min6	DATE		4
+ltgl26min8      DATE            4
+
+lmin1		INT2		2
+lmin2           INT2            2
+lmin3           INT2            2
+lmin4           INT2            2
+lmin5           INT2            2
+lmin6           INT2            2
+lmin8           INT2            2
+
+ltglhmc1                DATE    4
+ltglhmc2                DATE    4
+lpil109                  STRING  21
+lpil174                  STRING  21
+lpil311                  STRING  21
+lpil291                  STRING  21
+lpilihan                STRING  21
+lTGLMASTER              STRING  21
+
+MAP(mjoinrmdmastertgl)
+rmdtglawl       ltglhmc1        REPLACE
+rmdtglakh       ltglhmc2        REPLACE
+
+DBCALCS(djoinrmdmastertgl)
+    DBC_COMMAND     JOIN
+    DBC_TARGET      rmdstskodgab    gv_INPG lTGLMASTER lpilihan
+    DBC_MAP         mjoinrmdmastertgl
+
+IMAGE(master)
+/-----------------------------------------------------\
+| /--------------------------------------------------\|
+| |            i.Pil  : ____    ____                 ||
+               t.Tgl  : __________ t.sd __________
+| \--------------------------------------------------/|
+\-----------------------------------------------------/
+
+FIELD(master)
+lsubpil         NUMERIC                 INPUTRI 1
+lpil            NUMERIC                 INPUTRI 1
+ltgl1           NONE {DD-MM-YYYY}       INPUTRI 2
+ltgl2           NONE {DD-MM-YYYY}       INPUTRI 3
+
+
+CALCS()
+cawlbln         ststglprjgl + 1
+cakhbln         DO_LIB ap_akhbl(ltgl1,&ltgl3);
+ctglawlm1	DO_LIB ap_tambl(ltgl1,lmin1,&ltgl1m1);
+ctglakhm1	DO_LIB ap_akhbl(ltgl1m1,&lakhm1);
+cketM2W         "M2W"
+cketHMC         "HMC"
+cketH1          "H1"
+cketAHS         "H2"
+cketUMROH		"UMROH"
+cketM4W         "M4W"
+cketM2W4W       "M2W4W"
+cketMGA         "MGA"
+cALLBIS         "BISNISLAIN"
+cNPBTMGA	"STRUKTURNPBTMGA"
+cDASHMGA	"STRUKSUPERSETMGA"
+cNPBTMGATHBL	"STRUKTURNPBTMGATHBLN"
+cDASHDEV	"STRUKDASHBOARDDEV"
+cDASHPENCCAB "STRUKPENCMGA"
+cDASHINDKPIU "STRUKINDKPIUTANG"
+cDBPIU			"STRUKDASHPIU"
+cDASHNPBTMGAv2 "STRUKNPBTMGAV2"
+cDASHAYDAMGA	"STRUKAYDAMGA"
+cDASHJUALLELANG "STRUKJUALLELANG"
+cDASHJAMINAN	"STRUKJAMINANGADAI"
+cDASHPIUBLNMGA	"STRUKPIUBLNMGA"
+cDASHADVISOR    "STRUKSUPERADVISOR"
+cDASHPIUMGA		"STRUKPIUMGA"
+cMEDSOSMGA		"STRUKMEDSOSMGA"
+cREKAPLELANG	"STRUKREKAPLELANG"
+cDASHPROYJUAL   "STRUKPROYJUAL"
+cDASHTOMGA		"STRUKTURNOVERMGA"
+cDASHREKGADAI	"STRUKREKRUTMGA"
+cDASHPENJGADAI	"STRUKPENJMGA"
+cDASHSPKGADAI	"STRUKSPKGADAI"
+cDASHRKPPJLNMGA	"STRUKREKAPJUAL"
+cDASHJUALSOAMGA	"STRUKJUALSOAMGA"
+cDASHSTOKJMN	"STRUKSTOKJMN"
+cDASHMDSATLMGA	"STRUKMDSATLBTL"
+cDASHSTOKLLG	"STRUKSTOKLLG"
+cDASHJLLLGMGA	"STRUKJLLELANGMGA"
+cDASHGMBMGA		"STRUKGMBMGA"
+cDASHADSMGA	"STRUKDASHADSMGA"
+cDASHKATPRM		"STRUKATPRM"
+cDASHRWDMGA		"STRUKRWDMGA"
+cDASHSTSPRC		"STRUKSTSPRC"
+cDASHCCTVMGA	"STRUKDASHCCTVMGA"
+cDASHCABPRC		"STRUKCABPRC"
+cDASHLAP938		"STRUKLAP938"
+cSTRUKNPBTCABPOS	"STRUKNPBTCABPOS"
+cDASHMPPREKRUT	"DASHMPPREK"
+cDASHCUSTRO	"STRUKDASHCUSTRO"
+
+
+cY		"Y"
+cT		"T"
+
+cADH            lpil == 1 || lpil == 59 || lpil == 63 || lpil == 66 || lpil == 129 || lpil == 138 || lpil == 139 || lpil == 175 || lpil == 268 || lpil == 315 || lpil == 319 || lpil == 320 || lpil == 342 || lpil == 374 
+cALL            lpil == 15
+cGA             lpil == 16
+cPROP           lpil == 236
+cHMC            lpil == 2 || lpil == 351 || lpil == 354 || lpil == 358 || lpil == 379 || lpil == 350 || lpil == 371 || lpil == 4 || lpil == 5 || lpil == 12 || lpil == 13 || lpil == 98 || lpil == 102 || lpil == 106 || lpil == 118 || lpil == 168 || lpil == 173 || lpil == 195 ||
+                lpil == 217 || lpil == 218 || lpil == 219 || lpil == 257 || lpil == 261 || lpil==272 || lpil==291 || lpil==292 || lpil==293 || lpil==293 || lpil==294 || lpil==295 || lpil==296 || lpil == 311 ||
+		lpil == 321 || lpil == 324 || lpil == 362 || lpil == 373 || lpil == 385
+
+cH1             lpil == 109 || lpil == 174 || lpil == 170 || lpil == 183 || lpil == 257 || lpil == 265
+cH1x            lpil == 109 || lpil == 174 || lpil == 183
+cHMC2           lpil == 2 || lpil == 168 || lpil == 261 || lpil == 296
+cHMC3           lpil == 350 || lpil == 360
+cHMC4		lpil == 351 || lpil == 354 || lpil == 358 || lpil == 379 || lpil == 371
+cHMC5		lpil == 12 || lpil == 102
+cHMC6		lpil == 98 || lpil == 106 || lpil == 195
+cHMC7		lpil == 321 || lpil == 324
+cM2W            lpil == 8 || lpil == 10 || lpil == 58 || lpil == 64 || lpil == 97 || lpil == 99 || lpil == 100 || lpil == 108 || lpil == 140 || lpil == 141 || lpil == 254 || lpil == 280 || lpil == 281 || lpil == 370 || lpil == 384
+cM2Wa           lpil == 8 || lpil == 58
+cM2Wb           lpil == 10
+cAHS		lpil == 29
+cMGA            lpil == 65 || lpil == 73 || lpil == 77 ||lpil == 81 || lpil == 84 || lpil == 206
+cM2Wc		lpil == 64 || lpil == 140
+cM2Wd		lpil == 97 || lpil == 141
+/*cM2We		lpil == 99*/
+cM2Wf		lpil == 100
+cM2Wg		lpil == 108
+cM2Wh		lpil == 169
+cM2Wi		lpil == 254 || lpil == 255 || lpil == 256
+cM2Wj		lpil == 280 || lpil == 281 || lpil == 370
+cMAPAGN		lpil == 384 || lpil == 385
+cHMCWA      lpil == 217 || lpil == 218 || lpil == 219
+cHMCKPI     lpil == 217 || lpil == 218 || lpil == 219 || lpil == 291 || lpil == 292 || lpil == 293 || lpil == 294 || lpil == 295 || lpil == 311 || lpil == 362
+
+cREM            lpil == 6 || lpil == 37 || lpil == 210 || lpil == 212 || lpil == 215 || lpil == 216
+cREM2           lpil == 36
+cREM3           lpil == 35 || lpil == 55 || lpil == 56 || lpil == 57
+cREM4          	lpil == 80 || lpil == 233 || lpil == 246 || lpil == 266 || lpil == 267 || lpil == 274 || lpil == 325 || lpil == 341 || lpil == 345 || lpil == 380 || lpil == 381
+
+cPIU4			lpil == 7
+/*cPIU5           lpil == 17*/
+cPIU2           lpil == 11
+cPIU18           lpil == 18
+cPIU7		lpil == 19
+cPIU8           lpil == 22
+cPIU23           lpil == 23
+cPIU10          lpil == 24 || lpil == 101 || lpil == 103
+cPIU48          lpil == 48
+cPIU49          lpil == 49
+cPIU50          lpil == 50
+cPIU51          lpil == 51
+cPIU67          lpil == 67
+cPIU75			lpil == 75
+cPIU78			lpil == 78
+cPIU79			lpil == 79
+cPIU83			lpil == 83
+cPIU86			lpil == 86
+cPIU92			lpil == 92
+cPIU93			lpil == 93
+cPIU112			lpil == 112
+cPIU113                 lpil == 113
+cPIU119			lpil == 119
+cPIU131			lpil == 131
+cPIU135                 lpil == 135
+cPIU142                 lpil == 142
+cPIU143			lpil == 143
+cPIU155 		lpil == 155
+cPIU163			lpil == 163
+cPIU172			lpil == 172
+cPIU177                 lpil == 177
+cPIU190                 lpil == 190
+cPIU193                 lpil == 193
+cPIU201			lpil == 201
+cPIU222			lpil == 222
+cPIU226			lpil == 226
+cPIU227			lpil == 227
+cPIU229         lpil == 229
+cPIU235			lpil == 235
+cPIU237			lpil == 237
+cPIU245			lpil == 245
+cPIU263			lpil == 263
+cPIU264			lpil == 264
+cPIU271			lpil == 271
+cPIU288			lpil == 288
+cPIU301			lpil == 301
+cPIU323			lpil == 323
+cPIU337			lpil == 337
+cPIU346			lpil == 346
+cPIU355			lpil == 355
+cPIU366			lpil == 366
+cPIU372			lpil == 372
+cPIU376			lpil == 376
+
+
+cpil195		lpil == 195
+cpil81		lpil == 81
+cpil84		lpil == 84
+cHRD68          lpil == 68
+cFIN		lpil == 20 || lpil == 25 || lpil == 26 || lpil == 27 || lpil == 32 || lpil == 52 || lpil == 147 || lpil == 148 || lpil == 149 || lpil == 150 || lpil == 151 || lpil == 152 || lpil == 153 || lpil == 154 || lpil == 156 || lpil == 157 || lpil == 158 || lpil == 159 || lpil == 160 || lpil == 161  || lpil == 164 || lpil == 184 || lpil == 186 || lpil == 187 || lpil == 188 || lpil == 189 || lpil == 194 || lpil == 196 || lpil == 197 || lpil == 198 || lpil == 199 || lpil == 200 || lpil == 204 || lpil == 205 || lpil == 207 || lpil == 211 || lpil == 213 || lpil == 214 || lpil == 221 || lpil == 223 || lpil == 224 || lpil == 225 || lpil == 327 || lpil == 359
+cFIN2		lpil == 28
+cSVY		lpil == 21
+cAUD1		lpil == 30
+cDESK		lpil == 249
+cKNSC		lpil == 31
+cIT1		lpil == 33
+cSUP2		lpil == 34
+cLCK            lpil == 9 || lpil == 14 || lpil == 85 || lpil == 104 || lpil == 122 || lpil == 123 || lpil == 126 || lpil == 127 || lpil == 132 || lpil == 169 || lpil == 179 || lpil == 191 || lpil == 192 || lpil == 255 || lpil == 256 || lpil == 373
+cLCK2		lpil == 9 || lpil == 132
+cLCK3           lpil == 14 || lpil == 126 || lpil == 127 || lpil == 179 || lpil == 192 || lpil == 373
+cLCK4		lpil == 85 || lpil == 122 || lpil == 123
+cLCK5           lpil == 104
+cLCK6		lpil == 191
+cCRM		lpil == 40
+cM4W            lpil == 41
+cM4W76			lpil == 76
+cM4W94                  lpil == 94
+cUMROH120		lpil == 120
+cM2W4W100               lpil == 114 || lpil == 115 || lpil == 165 || lpil == 361
+cM2W4W300               lpil == 302 || lpil == 303 || lpil == 304 || lpil == 306
+cM2W4W326		lpil == 326
+cPIUM4W			lpil == 71
+ccrdM4W         lpil == 60
+cKLIKNSS	lpil == 47 || lpil == 116 || lpil == 124 || lpil == 130 || lpil == 162 || lpil == 202 || lpil == 203 || lpil == 208 || lpil == 209 || lpil == 228 || lpil == 242 || lpil == 248 || lpil == 276 || lpil == 278 || lpil == 282 || lpil == 285 || lpil == 290 || lpil == 309 || lpil == 313 || lpil == 314 || lpil == 322 || lpil == 333 || lpil == 334 || lpil == 335 || lpil == 340 || lpil == 349 || lpil == 368
+cahasscab	lpil == 45 || lpil == 117 || lpil == 312 || lpil == 329
+cCRDT2JAM	lpil == 61
+cCRE2           lpil == 70
+cNPBTSGM	lpil == 121
+cSPKM           lpil == 128
+
+csub1		lsubpil == 1
+csub2		lsubpil == 2
+csub3		lsubpil == 3
+csub4		lsubpil == 4
+csub5		lsubpil == 5
+csub6		lsubpil == 6
+csub7		lsubpil == 7
+csub8		lsubpil == 8
+csub9		lsubpil == 9
+csub10		lsubpil	== 10
+csub11		lsubpil	== 11
+csub12		lsubpil	== 12
+csub13		lsubpil	== 13
+csub14		lsubpil	== 14
+csub15		lsubpil == 15
+csub16		lsubpil == 16
+csub17		lsubpil == 17
+csub18		lsubpil == 18
+csub19		lsubpil == 19
+csub20		lsubpil == 20
+csub21		lsubpil == 21
+csub22		lsubpil == 22
+csub23		lsubpil == 23
+csub24		lsubpil == 24
+csub25		lsubpil == 25
+csub26		lsubpil == 26
+csub27		lsubpil == 27
+csub28		lsubpil == 28
+csub29		lsubpil == 29
+csub30		lsubpil == 30
+csub31		lsubpil == 31
+csub32		lsubpil == 32
+csub33		lsubpil == 33
+csub34		lsubpil == 34
+csub35          lsubpil == 35
+csub36          lsubpil == 36
+csub37          lsubpil == 37
+csub38          lsubpil == 38
+csub39		lsubpil == 39
+csub40		lsubpil == 40
+
+MAP(m3521)
+tmpkode         r_string1       REPLACE
+tmpisistr1      r_string2       REPLACE
+tmpdvs          r_string3       REPLACE
+ltgl1           r_date1         REPLACE
+ltgl2           r_date2         REPLACE
+ltgl3           r_date3         REPLACE
+lpil            r_long1         REPLACE
+lpil            r_double1       REPLACE
+
+MAP(m3522)
+lCABANG 	r_string1       REPLACE
+tbtkode      	r_string2       REPLACE
+ltmpdvs         r_string3       REPLACE
+ltgl1           r_date1         REPLACE
+ltgl2           r_date2         REPLACE
+ltgl3           r_date3         REPLACE
+lpil            r_long1         REPLACE
+
+MAP(m3522h)
+lCABANG         r_string1       REPLACE
+tbtkode	      	r_string2       REPLACE
+ltmpdvs         r_string3       REPLACE
+ltgl2           r_date1         REPLACE
+ltgl2           r_date2         REPLACE
+ltgl3           r_date3         REPLACE
+lpil            r_long1         REPLACE
+
+MAP(m3542)
+tmpkode		r_string1	REPLACE
+tmpisistr1	r_string2	REPLACE
+tmpdvs		r_string3	REPLACE
+ltgl1		r_date1		REPLACE
+ltgl25min2	r_date2		REPLACE
+ltgl25min3	r_date3		REPLACE
+ltgl25min4	r_date4		REPLACE
+ltgl26min3	r_date5		REPLACE
+ltgl26min4	r_date6		REPLACE
+ltgl26min5	r_date7		REPLACE
+ltgl26min8	r_date8		REPLACE
+lpil		r_long1		REPLACE
+
+MAP(m3544)
+tmpkode         r_string1       REPLACE
+tmpisistr1      r_string2       REPLACE
+tmpdvs          r_string3       REPLACE
+tmpisistr2		r_string4		REPLACE
+ltgl1           r_date1         REPLACE
+ltgl2           r_date2         REPLACE
+ltgl3           r_date3         REPLACE
+lpil            r_long1         REPLACE
+DEBUG	lpil	lpil	REPLACE
+
+MAP(m3565)
+tmpkode         r_string1       REPLACE
+tmpisistr1      r_string2       REPLACE
+tmpdvs          r_string3       REPLACE
+ltgl1           r_date1         REPLACE
+ltgl2           r_date2         REPLACE
+ltgl26min5      r_date3         REPLACE
+ltgl26min6	r_date4		REPLACE
+ltgl25min4	r_date5		REPLACE
+ltgl25min5	r_date6		REPLACE
+lpil            r_long1         REPLACE
+
+DEFAULTS(master)
+ltgl1m1		INIT		{ctglawlm1}
+lakhm1		INIT		{ctglakhm1}
+lSTRUKTURDBTRN	INIT		STRUKTURDBTRN
+lINDHAV		INIT		INDHAV
+lDASHREKRUT	INIT		DASHREKRUT
+lDASHSPKREK	INIT		DASHSPKREK
+lDASHCXGMB	INIT		DASHCXGMB
+lJADWALPDCA     INIT            DASHJADWALPDCA
+lDASHCLAIMBD    INIT            DASHCLAIMBD
+lDASHREKMEDSOS  INIT            DASHREKMEDSOS
+lABSHCD		INIT		ABSHCD
+l3581           INIT            3581
+l3585           INIT            3585
+ltmpdashhcd     INIT            STRUKTURDSBHCD
+ltmpdashhcdcab  INIT            STRUKTURDSBHCDCAB
+ltmpdashodtm	INIT			STRUKTURDSBODTM
+l2996		INIT		2996
+l2998		INIT		2998
+l2970		INIT		2970
+lDASHBOARD4	INIT		DASHBOARDKREDIT4
+l2990		INIT		2990
+lmin1		INIT		-1
+lmin2           INIT            -2
+lmin3           INIT            -3
+lmin4           INIT            -4
+lmin5           INIT            -5
+lmin6           INIT            -6
+lmin8           INIT            -8
+
+lTGLMASTER      INIT                    TGLMASTER
+lpil109          INIT                    PIL109
+lpil291          INIT                    PIL291
+lpil174          INIT                    PIL174
+lpil311          INIT                    PIL311
+
+lsubpil                 DFALT_SCAN	1 "1-10"
+					2 "11-20"
+					3 "21-30"
+					4 "31-40"
+					5 "41-50"
+					6 "51-60"
+					7 "61-70"
+					8 "71-80"
+					9 "81-90"
+					10 "91-100"
+					11 "101-110"
+					12 "111-120"
+					13 "121-130"
+					14 "131-140"
+					15 "141-150"
+					16 "151-160"
+					17 "161-170"
+					18 "171-180"
+					19 "181-190"
+					20 "191-200"
+					21 "201-210"
+					22 "211-220"
+					23 "221-230"
+					24 "231-240"
+					25 "241-250"
+          26 "251-260"
+          27 "261-270"
+					28 "271-280"
+					29 "281-290"
+					30 "291-300"
+					31 "301-310"
+					32 "311-320"
+					33 "321-330"
+					34 "331-340"
+					35 "341-350"
+					36 "351-360"
+					37 "361-370"
+          38 "371-380"
+		  39 "381-390"
+		  40 "391-400"
+
+IF csub1 lpil           DFALT_SCAN
+                                        1 "STRUKTUR ADH"
+                                        2 "STRUKTUR HMC MPP NAS CAB PIC"
+                                        3 "HMC LCK ksdbhmc2 3050"
+                                        4 "STRUKTUR cab hmc 3050"
+                                        5 "STRUKTUR cab hmc 3050"
+                                        6 "STRUKTUR REM"
+                                        7 "STRUKTUR PIU5"
+                                        8 "STRUKTUR M2W"
+                                        9 "M2W LCK 3542"
+                                        10 "STRUKTUR M2W"
+
+IF csub2 lpil           DFALT_SCAN      11 "STRUKTUR PIU 2"
+                                        12 "STRUKTUR HMC LOKER cab 3091"
+                                        13 "STRUKTUR HMC MOCKUP 3091"
+                                        14 "STRUKTUR lck kel 3050"
+                                        15 "STRUKTUR ALL BISNIS 3522"
+                                        16 "STRUKTUR GA GEDUNG"
+                                        17 "STRUKTUR SPK KOL"
+                                        18 "STRUKTUR PIU 3"
+                                        19 "STRUKTUR PIU MKS"
+					20 "STRUKTUR FIN SUB"
+
+IF csub3 lpil		DFALT_SCAN	21 "STRUKTUR SURVEY"
+                                        22 "STRUKTUR PIU MPPKOL"
+                                        23 "STRUKTUR PIU 3 BAYAR BUNGA"
+                                        24 "STRUKTUR PIU MKS 2"
+					25 "STRUKTUR FIN BPKB"
+					26 "ASURANSI PRODUKSI MOTOR"
+					27 "ASURANSI PRODUKSI ASET"
+					28 "KLAIM ASURANSI"
+					29 "STRUKTUR AHASS"
+					30 "STRUKTUR AUDIT"
+
+IF csub4 lpil		DFALT_SCAN	31 "STRUKTUR KLIKNSC HMC"
+					32 "PEMBELIAN H2"
+					33 "STRUKTUR IT"
+					34 "STRUKTUR SUP MPP"
+					35 "STRUKTUR REM2"
+					36 "STRUKTUR REM3"
+					37 "STRUKTUR REM4"
+					38 "STRUKTUR CRD OVERVIEW HMC"
+					39 "STRUKTUR CRD OVERVIEW M2W"
+					40 "STRUKTUR CRM"
+
+IF csub5 lpil		DFALT_SCAN	41 "STRUKTUR M4W"
+					42 "STRUKTUR CRD BA HMC"
+					43 "STRUKTUR CRD PROSES HMC"
+					44 "STRUKTUR CRD PROSES M2W"
+					45 "STRUKTUR NOPOL AHASS"
+					46 "STRUKTUR NPBT M"
+					47 "STRUKTUR KOMISI M2W KLIKNSS"
+					48 "STRUKTUR PIU 3 LAP PIUTANG"
+					49 "STRUKTUR PIU 4 KUNJ PEND BUNGA PER KOL"
+					50 "STRUKTUR PIU 5 PENANDA FAKTUR TARIK"
+
+IF csub6 lpil		DFALT_SCAN	51 "STRUKTUR PIU 6 STOK MOKAS"
+					52 "STRUKTUR FIN BANK"
+					53 "STRUKTUR NPBT 1"
+					54 "STRUKTUR NPBT DATA KOSONG"
+					55 "STRUKTUR REM5"
+                                        56 "STRUKTUR REM6"
+                                        57 "STRUKTUR REM7"
+					58 "STRUKUTR M2W SPK"
+					59 "STRUKUTR ADH 2 JAM"
+					60 "STRUKUTR CREDIT M4W"
+
+IF csub7 lpil           DFALT_SCAN      61 "STRUKTUR CREDIT 2 JAM"
+					62 "STRUKTUR KLIKNSC M2W"
+					63 "STRUKTUR ADH 2"
+					64 "STRUKTUR M2W"
+					65 "STRUKTUR MGA"
+					66 "STRUKTUR OPEX"
+					67 "STRUKTUR PIU YTD"
+					68 "STRUKTUR HRD"
+					69 "STRUKTUR AKUM AHASS"
+					70 "STRUKTUR CRE YTD"
+
+IF csub8 lpil           DFALT_SCAN      71 "STRUKTUR PIU M4W"
+					72 "STRUKTUR NPBT TBHL M"
+					73 "STRUKTUR MGA 2"
+					74 "STRUKTUR CRD BA M2W"
+					75 "STRUKTUR PIU 3 KOL 2"
+					76 "STRUKTUR MKTG M4W"
+					77 "STRUKTRU MGA TANGGAL"
+					78 "STRUKTUR PIU 7 SPK HARIAN KOL"
+					79 "STRUKTUR PIU BM HRN"
+					80 "STRUKTUR REM8"
+
+IF csub9 lpil           DFALT_SCAN	81 "STRUKTUR NPBT MGA"
+					82 "STRUKTUR NPBT M4W"
+					83 "STRUKTUR PIU KOL HRN"
+					84 "STRUKTUR NPBT MGA THBL"
+					85 "STRUKTUR M2W KEL"
+					86 "STRUKTUR PIU RESURVEY"
+					87 "STRUKTUR CRD OVERVIEW HMC2"
+					88 "STRUKTUR CRD OVERVIEW M2W2"
+					89 "STRUKTUR CRD PROSES HMC2"
+					90 "STRUKTUR CRD PROSES M2W2"
+
+IF csub10 lpil	        DFALT_SCAN      91 "STRUK OPEX HMCM2W"
+					92 "STRUKTUR PIU KOL YTD"
+					93 "STRUKTUR PIU KWIT KOL YTD"
+					94 "STRUKTUR MITRA M4W"
+					95 "STRUKTUR AHASS MEKANIK"
+					96 "STRUKTUR BARANG AHASS"
+					97 "STRUKTUR MKT M2W 2"
+					98 "STRUKTUR AKTIVITAS EVENT"
+					99 "STRUKTUR MKT M2W 3"
+					100 " STRUKTUR M2W 4"
+
+IF csub11 lpil	        DFALT_SCAN      101 "STRUKTUR PIU KET BLASTWAMD"
+					102 "STRUKTUR CTR HMC"
+					103 "STRUKTUR PIU KET BLASTWAMD HRN"
+					104 "SERIES CABANG"
+					105 "STRUKTUR"
+					106 "HMC SERIES"
+					107 "MPP DAN AGEN KNSC HMC"
+					108 "PROSES KOMISI M2W"
+					109 "DATA MATI HMC"
+					110 "STRUKTUR STD MEET CRD HMC"
+
+IF csub12 lpil	        DFALT_SCAN      111 "STRUKTUR STD MEET CRD M2W"
+					112 "STRUKTUR PIU HE"
+					113 "STRUKTUR PIU PCP AKUM"
+					114 "STRUKTUR MKT M2W4W"
+					115 "STRUKTUR MKT AREA M2W4W"
+					116 "STRUKTUR HASIL ADS KLIKNSS"
+					117 "STRUKTUR TAHUNAN AHASS"
+					118 "BA HMC"
+					119 "STRUKTUR PIU UNIT BLN"
+					120 "STRUKTUR UMROH"
+
+IF csub13	lpil	DFALT_SCAN	121 "STRUKTUR NPBT SGM"
+					122 "STRUKTUR CABKEL"
+					123 "STRUKTUR CABKEL PER NIP"
+					124 "STRUKTUR TOP 10 ADS KLIKNSS"
+					125 "DASH DIV MKT HMC"
+					126 "CABKEL HMC"
+					127 "CABKEL PER NIP"
+					128 "STRUKTUR SPKM HRD"
+					129 "STRUKTUR PO DO MEETING ADH"
+					130 "STRUKTUR KLIKNSS HMC"
+
+IF csub14	lpil	DFALT_SCAN	131 "STRUKTUR PIU KWITANSI KOL"
+					132 "PROSES TLD M2W"
+					133 "STRUKTUR LAPORAN MONITORING SURVEY HMC HARIAN"
+					134 "STRUKTUR LAPORAN MONITORING SURVEY M2W HARIAN"
+					135 "STRUKTUR PIU KWITANSI"
+                                        136 "STRUKTUR LAPORAN MONITORING SURVEY HMC BULANAN"
+					137 "STRUKTUR LAPORAN MONITORING SURVEY M2W BULANAN"
+					138 "STRUKTUR PO DO MEETING ADH AHASS"
+					139 "STRUKTUR MPP ADH"
+					140 "STRUKTUR MKT M2W 4"
+
+IF csub15	lpil	DFALT_SCAN	141 "STRUKTUR MKT M2W 5"
+					142 "STRUKTUR PIU KELURAHAN"
+					143 "STRUKTUR PIU KUNJUNGAN"
+					144 "PRODUIKTIVITAS KNSC M2W"
+					145 "STRUKTUR NPBT 1 H+1"
+					146 "STRUKTUR NPBT DATA KOSONG H+1"
+					147 "STRUKTUR NERACALB FIN"
+					148 "STRUKTUR AGING FIN"
+					149 "STRUKTUR VIABYRANG FIN"
+					150 "STRUKTUR HUTANG BANK"
+
+IF csub16       lpil    DFALT_SCAN      151 "STRUKTUR JATUH TEMPO PIUTANG"
+					152 "STRUKTUR PORTOFOLIO FIN"
+					153 "STRUKTUR JUAL HMC FIN"
+					154 "STRUKTUR BELI HMC FIN"
+					155 "STRUKTUR PIU TGT KWIT KOL"
+					156 "STRUKTUR PENARIKAN WO "
+					157 "STRUKTUR PENARIKAN NON WO"
+					158 "STRUKTUR NCL FIN"
+					159 "STRUKTUR JUAL KREDIT FIN"
+					160 "STRUKTUR NSCJUALKREDIT"
+
+IF csub17	lpil	DFALT_SCAN	161 "STRUKTUR SDM"
+					162 "STRUKTUR KLIKNSS M2W"
+					163 "STRUKTUR PIU HASIL KUNJUNGAN CABANG"
+					164 "STRUKTUR LR"
+					165 "STRUKTUR LCK M2W4W"
+					166 "STRUKTUR LCK M2W4W"
+					167 "STRUKTUR KBA NAS"
+					168 "STOK MOTOR HMC"
+					169 "STRUKTUR SPK M2W"
+					170 "SPK HARIAN"
+
+IF csub18	lpil	DFALT_SCAN	171 "STRUKTUR COE"
+					172 "STRUKTUR PIU KWITANSI PER KUNJ"
+					173 "LAPORAN PER 2 JAM HMC"
+					174 "JUAL STOK DO SERIES"
+					175 "STRUKTUR CEKKAS ADH"
+					176 "STRUKTUR NPBT THBL M4W"
+					177 "STRUKTUR PIU KOL ABSENSI"
+					178 "PROSES SPK KBA M2W"
+					179 "SPK HARIAN PERSALES"
+					180 "STRUKTUR REKRUTMEN HMC-M2W"
+
+IF csub19	lpil	DFALT_SCAN	181 "PROSES SPK KBA HMC"
+					182 "PROSES OPEX ADH"
+					183 "PROSES 2019-2022 HMC"
+					184 "STRUKTUR SUB FIN"
+					185 "PROSES NPBT Y-1"
+					186 "STRUKTUR SUB FIN2"
+					187 "STRUKTUR SUB FIN2"
+					188 "STRUKTUR SUB FIN2"
+					189 "STRUKTUR SUB FIN2"
+					190 "STRUKTUR PIU PCP WO"
+
+IF csub20	lpil	DFALT_SCAN	191 "PROSES KBA REVIEW HMC"
+					192 "PROSES KEL ONE ON ONE"
+					193 "STRUKTUR PIU KLASIFIKASI KONS PER KUNJ"
+					194 "STRUKTUR VIABYRANG FIN2"
+					195 "PROSES PK MASUK HMC"
+					196 "STRUKTUR AGING FIN2"
+					197 "STRUKTUR PORTOFOLIO FIN2"
+					198 "STRUKTUR JUAL MOTOR FIN3"
+					199 "STRUKTUR BIAYA KREDIT FIN3"
+					200 "STRUKTUR JUAL KREDIT FIN3"
+
+IF csub21	lpil	DFALT_SCAN	201 "STRUKTUR PIU GABUNGAN HE"
+					202 "STRUKTUR KPI KLIKNSS HMC"
+					203 "STRUKTUR KPI KLIKNSS M2W"
+					204 "STRUKTUR PEND BANK"
+					205 "STRUKTUR PEND BANK2"
+					206 "STRUKTUR JUAL GADAI"
+					207 "STRUKTUR BPKB LOK PUSAT"
+					208 "STRUKTUR KLIKNSS HMC PK HARIAN"
+					209 "STRUKTUR KLIKNSS HMC JUAL HARIAN"
+					210 "STRUKTUR REM9"
+
+IF csub22       lpil    DFALT_SCAN 	211 "STRUKTUR BPKB LOK CABANG"
+					212 "STRUKTUR REM10"
+					213 "STRUKTUR BPKB LOK TRANSIT"
+					214 "STRUKTUR BPKB BELUM JADI"
+					215 "STRUKTUR REM11"
+					216 "STRUKTUR REM12"
+					217 "PROSES JUAL HMC"
+					218 "PROSES PK HMC"
+					219 "PROSES MPP HMC"
+					220 "STRUKTUR NPBT 2"
+
+IF csub23       lpil    DFALT_SCAN 	221 "STRUKTUR ARSIP RKPJUALTLK"
+					222 "STRUKTUR PIU GAB BISNIS"
+					223 "STRUKTUR ARSIP UPLTLKBLMCEK"
+					224 "STRUKTUR ARSIP TLKPLGBYK"
+					225 "STRUKTUR ARSIP RKPKATAM"
+					226 "STRUKTUR PIU BISNIS PER HE"
+					227 "STRUKTUR PIU KWIT REVIEW PER CABANG"
+					228 "STRUKTUR ABSENSI KLIKNSS"
+					229 "STRUKTUR PIU KWIT REVIEW PER KOL"
+					230 "STRUKTUR DASHBOARD HCD"
+
+IF csub24	lpil	DFALT_SCAN	231 "STRUKTUR DASH SPK DEV"
+					232 "NPBT TAHUN LAMA"
+					233 "STRUKTUR REM13"
+					234 "STRUKTUR DASHBOARD HCD CAB"
+					235 "STRUKTUR PIU YTD ALIR"
+					236 "STRUKTUR PROP CABANG"
+					237 "STRUKTUR PIU PEND BUNGA"
+					238 "STRUKTUR DASHBOARD CAPAI PER CAB"
+					239 "STRUKTUR DASHBOARD HCD M-3"
+					240 "STRUKTUR DASHBOARD HCD PER LOKER"
+
+IF csub25   lpil 	DFALT_SCAN 241 "STURUKTUR DASH INDIKATOR PIUTANG"
+					242 "STRUKTUR KLIKNSS PK HMC"
+					243 "STRUKTUR NPBT 1 PART 2"
+					244 "STRUKTUR HAV"
+					245 "STRUKTUR PIU SPK PER KOL"
+					246 "STRUKTUR REM14"
+					247 "STRUKTUR DASHBOARD REKRUT"
+					248 "STRUKTUR KLIKNSS JUAL HMC"
+					249 "STRUKTUR DESKCALL"
+					250 "STRUKTUR DASH PIU MGA"
+
+IF csub26   lpil        DFALT_SCAN      251 "STRUKTUR MEKANIK PENCAPAIAN AHASS"
+					252 "STRUKTUR DASHBOARD NPBT MGA V2"
+					253 "STRUKTUR DASHBOARD AYDA MGA"
+					254 "STRUKTUR DASHBOARD M2W KAPOS MSO"
+					255 "STRUKTUR DASHBOARD M2W TLD"
+					256 "STRUKTUR DASHBOARD M2W SALES COUNTER"
+					257 "STRUKTUR SOA HMC"
+					258 "STRUKTUR DASHBOARD REKAP JUAL LELANG"
+					259 "STRUKTUR ABSEN HCD"
+					260 "STRUKTUR MEDSOS DASH REKRUT"
+
+IF csub27   lpil        DFALT_SCAN      261 "PIL 2 NSO AM KAWIL"
+				        262 "STRUKTUR BARANG JAMINAN GADAI"
+					263 "STRUKTUR PIU SPK KUNJ PER KOL"
+					264 "STRUKTUR PIU SISPOK PER KOL"
+					265 "STRUKTUR DASHBOARD PIC KLIKNSCHMC"
+					266 "STRUKTUR REM15"
+				        267 "STRUKTUR REM16"
+				        268 "STRUKTUR ADH ABSENSI ALL DIV"
+					269 "STRUKTUR DASHBOARD OVERVIEW PENCAPAIAN"
+				        270 "STRUKTUR PIUTANG BULANAN MGA"
+
+IF csub28  lpil		DFALT_SCAN	271 "STRUKTUR PIU KONTROL PIUTANG HE"
+				        272 "STRUKTUR FID PER KELURAHAN"
+				        273 "STRUKTUR AHASSSA OVERVIEW  "
+				        274 "STRUKTUR REM17"
+					275 "STRUKTUR PDCA ABSEN"
+					276 "STRUKTUR KLIKNSS CLOSING HMC"
+					277 "STRUKTUR SERVICE ADVISOR"
+					278 "STRUKTUR KLIKNSS SPK M2W RO"
+					279 "STRUKTUR ABSEN PDCA THBL"
+					280 "STRUKTUR OVERVIEW KLIKNSC M2W"
+
+IF csub29  lpil		DFALT_SCAN	281 "PROSES DASH PEND KPI KNSC M2W"
+					282 "STRUKTUR KLIKNSS CLOSING M2W"
+					283 "STRUKTUR DASHBOARD TALENT"
+					284 "STRUKTUR ONBOARDING TRAINING"
+					285 "STRUKTUR NPBT KLIKNSS HMC"
+					286 "STRUKTUR PIUTANG MGA"
+					287 "STRUKTUR MEDSOS MGA"
+					288 "STRUKTUR PIU PCP BERJALAN"
+					289 "STRUKTUR KATEGORI PIUTANG MGA"
+					290 "STRUKTUR KPI KLIKNSS HMC 3"
+IF csub30  lpil		DFALT_SCAN	291 "HMC KPI NPBT CABANG SERIES"
+					292 "HMC KPI NPBT CABANG JUAL PK"
+					293 "HMC KPI NPBT CABANG MPP JUAL"
+					294 "HMC KPI NPBT CABANG USIA MPP JUAL"
+					295 "HMC KPI NPBT CABANG EVENT"
+					296 "HMC KPI NPBT LCK"
+					297 "STRUKTUR REKAP LELANG GADAI"
+					298 "STRUKTUR NPBT NAS"
+					299 "STRUKTUR MEKANIK PENCAPAIAN AHASS"
+					300 "STRUKTUR INFORMASI CABANG AUDIT"
+
+IF csub31  lpil		DFALT_SCAN	301 "STRUKTUR PIUTANG BAYAR LUNAS TARIK"
+					302 "STRUKTUR M2W4W"
+					303 "STRUKTUR PIU 2 M2W4W"
+					304 "STRUKTUR M2W4W 2"
+					305 "STRUKTUR PLAN AUDIT THBL"
+					306 "STRUKTUR M2W4W TLD"
+					307 "STRUKTUR DB PROYEKSI JUAL PIU"
+					308 "STRUKTUR DB SPK REKRUT"
+					309 "STRUKTUR KLIKNSS JUAL/PK M2W"
+					310 "STRUKTUR CRD PROSES M2W3"
+
+IF csub32  lpil		DFALT_SCAN	311 "HMC KPI NPBT CABANG 2"
+					312 "STRUKTUR DB KARTU STOK"
+					313 "STRUKTUR KPI KLIKNSS HMC 4"
+					314 "STRUKTUR KPI KLIKNSS M2W 3"
+					315 "STRUKTUR PROD ADH"
+					316 "STRUKTUR CRD PROSES M2W 4"
+					317 "STRUKTUR DASHBOARD ODTM"
+					318 "STRUKTUR CX GMB"
+					319 "STRUKTUR PROD ADH 2"
+					320 "STRUKTUR PROD ADH 3"
+
+IF csub33  lpil		DFALT_SCAN	321 "PROSES PEND KPI KNSC HMC"
+					322 "STRUKTUR KPI KLIKNSS M2W 4"
+					323 "STRUKTUR PIU PDP BUNGA"
+					324 "PROSES DASH KNSC HMC"
+					325 "STRUKTUR TREN PENDAPATAN REM"
+					326 "PROSES DASHBOARD BARU M2W4W"
+					327 "STRUKTUR ADH BAYAR ONLINE"
+					328 "PROSES DASHBOARD TURNOVER GADAI"
+					329 "PROSES DASHBOARD KPB BALIK"
+					330	"STRUKTUR DB REKRUTMEN GADAI HRD"
+
+IF csub34  lpil		DFALT_SCAN 331	"STRUKTUR DB REKRUTMEN GADAI AREA"
+					332 "STRUKTUR DB REKRUTMEN GADAI JABATAN"
+					333 "STRUKTUR KONTRIBUSI KLIKNSS HMC"
+					334 "STRUKTUR PK KLIKNSS HMC 2"
+					335 "STRUKTUR PRODUKTIVITAS KLIKNSS HMC"
+					336 "STRUKTUR NPBT CABANG3"
+					337 "STRUKTUR PIU HISTORIS KONSUMEN"
+					338 "STRUKTUR DB PENJUALAN HARIAN GADAI"
+					339 "STRUKTUR DB PENJUALAN AKUM GADAI"
+					340 "STRUKTUR KONTRIBUSI KLIKNSS M2W"
+
+IF csub35  lpil     DFALT_SCAN      341 "STRUKTUR KPI REMEDIAL NASIONAL"
+					342 "STRUKTUR PROD ADH 4"
+					343 "STRUKTUR DB SPK GADAI"
+					344 "STRUKTUR DB JUAL HARIAN DAN AKUM GADAI"
+					345 "STRUKTUR REM18 PPTGH"
+					346 "STRUKTUR PIU SPK KETEMU KONS KOL"
+					347 "STRUKTUR DB PENJUALAN HARIAN GADAI SOA"
+					348 "STRUKTUR DB PENJUALAN AKUM GADAI SOA"
+					349 "STRUKTUR NPBT KLIKNSS M2W"
+					350 "HMC CAB HARIAN 15MENIT DATAHRHMC"
+IF csub36  lpil     DFALT_SCAN          351 "STRUKTUR HMC 1jAM 3091 DATAMKTHMC"
+					352 "STRUKTUR DB STOK JAMINAN"
+					353 "STRUKTUR DB STOK JAMINAN PER KATEGORI"
+					354 "STRUKTUR HMC 1jAM 3091 DTMKTHMC2"
+					355 "STRUKTUR PIU REVIEW DCOO M2W4W"
+					356 "STRUKTUR DB MDS ATLBTL MGA"
+					357 "STRUKTUR DB HGA APPAREL"
+					358 "STRUKTUR HMC 1jAM 3091 DTMKTHMC3"
+					359 "STRUKTUR FIN BANK 305"
+					360 "STRUKTUR HMC LCK DTHMCLCK"
+IF csub37	lpil	DFALT_SCAN			361 "STRUKTUR DATA PENDUKUNG M2W4W"
+					362 "STRUKTUR RINCI SDM HMC"
+					363 "STRUKTUR DB STOK LELANG"
+					364 "STRUKTUR DB STOK LELANG PER KATEGORI"
+					365 "STRUKTUR DB JUAL LELANG"
+					366 "STRUKTUR PIU PROBLEM ALIR KUNJ AHASS"
+					367 "STRUKTUR DB GMB GADAI"
+					368 "STRUKTUR LABA SO KLIKNSS HMC"
+                                        369 "STRUKTUR CLAIM BONUS DEALER"
+					370 "STRUKTUR PENDUKUNG KPI M2W"
+IF csub38	lpil	DFALT_SCAN	371 "STRUKTUR HMC 1jAM 3091 DTMKTHMC4"
+                    			372 "STRUKTUR PIU KUNJUNGAN PENDAPATAN BUNGA"
+					373 "SLS CTR CAPAI SPK HARIAN"
+					374 "STRUKTUR LABA RUGI AHASS"
+					375	"STRUKTUR DB ADS GADAI"
+					376 "STRUKTUR PIU PITSTOP JTP"
+					377 "DASHBOARD REKAP ACTIVITY GADAI"
+					378 "DASHBOARD RADAR CABANG HIJAU"
+          			379 "STRUKTUR HMC 1jAM 3091 LCK SPK"
+					380 "STRUKTUR REM19 PRIORITAS"
+IF csub39	lpil	DFALT_SCAN	381 "STRUKTUR REM20 SPK BULANAN"
+					382 "DASHBOARD REWARD EKSPANSI"
+                    383 "DASHBOARD JADWAL DIREKSI, COO, DCOO, & COE SDM"
+					384 "DASHBOARD M2W MAPPING AGEN KNSC"
+					385 "DASHBOARD HMC MAPPING AGEN KNSC"
+					386 "DASHBOARD STATUS PENGAJUAN PROPERTI CABANG"
+					387 "DASHBOARD SPK CCTV MGA"
+					388 "DASHBOARD PENGAJUAN PROPERTI CABANG GADAI"
+					389	"STRUKTUR DB PENGAJUAN SEWA GADAI"
+					390	"STRUKTUR NPBT CABANG JUAL"
+IF csub40	lpil	DFALT_SCAN	391 "DASHBOARD MPP REKRUT"
+					392 "DASHBOARD CUSTOMER RO"
+
+lm3521                  INIT    	m3521
+lm3522                  INIT    	m3522
+lm3522h                 INIT            m3522h
+lm3542			INIT		m3542
+lm3544			INIT		m3544
+lm3565			INIT		m3565
+l2934 		 	INIT    	2934
+l3521                   INIT    	3521
+l3522                   INIT    	3522
+l3050                   INIT    	3050
+l3058                   INIT    	3058
+l3091                   INIT    	3091
+l3559                   INIT    	3559
+l3560                   INIT    	3560
+l3566                   INIT    	3566
+l3524                   INIT    	3524
+l3542                   INIT    	3542
+l3525			INIT		3525
+l3526                   INIT    	3526
+l3527                   INIT    	3527
+l3528                   INIT    	3528
+l3529                   INIT    	3529
+l3530                   INIT    	3530
+l3531                   INIT            3531
+l3532			INIT		3532
+l3523			INIT		3523
+l3533			INIT		3533
+l3534                   INIT            3534
+l3535                   INIT            3535
+l3536                   INIT            3536
+l3537                   INIT            3537
+l3539			INIT		3539
+l3541                   INIT            3541
+l3538			INIT		3538
+l2949			INIT		2949
+l3540			INIT		3540
+l3543                   INIT            3543
+l3593                   INIT            3593
+l3594                   INIT            3594
+l3555                   INIT            3555
+l4983			INIT		4983
+l3547                   INIT            3547
+l2929			INIT		2929
+l3544			INIT		3544
+l2967			INIT		2967
+l2992			INIT		2992
+l3569                   INIT            3569
+l3545           	INIT            3545
+l3546           	INIT            3546
+l3556			INIT		3556
+l2969			INIT		2969
+l2928			INIT		2928
+l3029			INIT		3029
+l3049			INIT		3049
+l3054			INIT		3054
+l3549			INIT		3549
+l3552			INIT		3552
+l3561			INIT		3561
+l3562			INIT		3562
+l3563           	INIT            3563
+l3095			INIT		3095
+l3094			INIT		3094
+l3564			INIT		3564
+l2904                   INIT            2904
+l2939			INIT		2939
+l3557                   INIT            3557
+l3558                   INIT            3558
+l3565			INIT		3565
+l3567			INIT		3567
+l4970			INIT		4970
+l3568			INIT		3568
+l3575			INIT		3575
+l3595			INIT		3595
+l3596			INIT		3596
+l3053			INIT		3053
+l3047			INIT		3047
+l5104			INIT		5104
+l4818			INIT		4818
+l5103			INIT		5103
+ltgl1           	INIT            {cawlbln}
+ltgl2           	INIT            {g_tgltrn}
+ltgl3           	INIT            {cakhbln}
+ltgl4			INIT		"31-08-2025"
+
+ltmpdtmkdeaudit		INIT		STRUKSUPERSETAUDIT
+ltmpdtmkkdedesk		INIT		STRUKSUPERSETDESK
+ltmpdtmkkdeinfaud	INIT		STRUKSUPERSETINFAUD
+ltmpdtmkkplanthbl	INIT		STRUKAUDTHBL
+ltmpdtmkodega           INIT            STRUKSUPERSETGA
+ltmpdtmkodeprop         INIT            STRUKSUPERSETPROP
+ltmpdtmkodeh1           INIT            STRUKSUPERSETH1
+ltmpdtmkoderem          INIT            STRUKSUPERSETREM2
+ltmpdtmkoderem2         INIT            STRUKSUPERSETREM3
+ltmpdtmkoderem3         INIT            STRUKSUPERSETREM4
+ltmpdtmkodepiu          INIT            STRUKSUPERSETPIU4
+ltmpdtmkodepiu2         INIT            STRUKSUPERSETPIU2
+ltmpdtmkodepiu5         INIT            STRUKSUPERSETPIU5
+ltmpdtmkodepiu6         INIT            STRUKSUPERSETPIU6
+ltmpdtmkodepiu7         INIT            STRUKSUPERSETPIU7
+ltmpdtmkodepiu8         INIT            STRUKSUPERSETPIU8
+ltmpdtmkode             INIT            STRUKSUPERSET
+ltmpdtmkodem2w2         INIT            STRUKSUPERSETM2W2
+ltmpdtmkodeahs          INIT            STRUKSUPERSETAHASS
+ltmpdtmkodeahscab	INIT		STRUKSUPSETAHASSCAB
+ltmpdtmakumahs		INIT		STRUKSUPSETAKUMAHS
+ltmpdtmviewahs		INIT		STRUKSUPERSETVIEWAHS
+ltmpdtmviewahs2		INIT	        STRUKSUPERADVISOR
+ltmpdtmbrgahs           INIT            STRUKSUPSETBRGAHS
+ltmpdtmkodefin		INIT		STRFINSUPERSET
+ltmpdtmkodesvy		INIT		STRUKSUPERSETSVY
+ltmpdtmkodeknsc         INIT            STRUKSUPERSETKNSC2
+ltmpdtmkodeass	        INIT            STRUKSUPERSETASS
+ltmpdtmkdeit		INIT		STRUKSUPERSETIT
+ltmpdtmkodesup		INIT		STRUKSUPERSETSUP2
+ltmpdtmkodem2w          INIT            STRUKSUPERSETM2W
+ltmpdtmkodecrd2		INIT		STRUKTURKREDIT3
+ltmpdtmkodecrd4		INIT		STRUKTURKREDIT4
+ltmpdtmkodecrd5		INIT		STRUKTURKREDIT5
+ltmpdtmkodecrd6		INIT		STRUKTURKREDIT6
+ltmpdtmkodecoe		INIT		STRUKTURCOE
+lCABANG			INIT		"CABANG"
+ltmpdtmkodecrm		INIT		STRUKSUPERSETCRM
+ltmpdtmkodeumroh	INIT		STRUKSUPERSETUMROH
+ltmpdtmnpbtsgm		INIT		STRUKSUPERNPBTSGM
+ltmpdivhmcmkt           INIT            STRUKSUPSETDIVMKTHMC
+ltmpdtmkodem4w          INIT            STRUKSUPERSETM4W
+ltmpdtmkodem2w4w        INIT            STRUKSUPERSETM2W4W
+ltmpdtmkdm2w4w          INIT            STRUKSUPERSETM2W4W2
+ltmpdtmkdmit4w          INIT            STRUKSUPERSETMIT4W
+ltmpdtmkodepium4w       INIT         	STRUKSUPERSETPM4W
+ltmpdtmkodemktgm4w      INIT        	STRUKSUPERSETMKTGM4W
+ltmpdtmkodecm4w         INIT            STRUKSUPERSETCM4W
+ltmpdtmkodenpbt         INIT            STRUKSUPERSETNPBT
+ltmpdtmkodenpbtnas	INIT		STRUKTURNPBTNAS
+ltmpdtmkodenpbtklik     INIT            STRUKNPBTKLIK
+ltmpdtmkodenpbtthbl     INIT            STRUKTURNPBTTHBL
+ltmpdtmkodekliknss      INIT            STRUKSUPERKLIKNSS
+lTMPDASHCREDIT2JAM	INIT		TMPDASHCREDIT2JAM
+ltmpdashmga             INIT            STRUKSUPERSETMGA/*STRUKSUPERSET*/
+ltmpdashhrd             INIT            STRUKSUPERSETHRD
+ltmpdashhrdmpp          INIT            STRUKSUPERSETMPPHRD
+ltmpdashhrdmpp1         INIT            STRUKSUPERSETMPPHRD1
+ltmpcre2                INIT            STRUKSUPERSETCRE2
+ltmpdtmkoderem4         INIT            STRUKSUPERSETREM5
+ldashnpbtm4w		INIT		STRUKSUPERSETNPBTM4W
+ldashopexhmc2w		INIT		STRUKSUPEROPEXHMCM2W
+ldashspkmhrd            INIT            STRUKSUPERSPKMHRD
+ltmpdashabsenpdca	INIT		STRUKPDCAABSEN
+ltmpdashadvisor         INIT            STRUKSUPERADVISOR
+ltmpdashabsenpdcathbl	INIT		STRUKPDCAABSENTHBLN
+ltmpdashtalent		INIT		STRUKDASHTALENT
+ltmpdashradar		INIT		INDIRADARSVY
+lversi			INIT		"20261110v1"
+
+CALCS()
+/*cpiu5			"STRUKSUPERSETPIU5"*/
+cpiu6			"STRUKSUPERSETPIU6"
+/*cpil7			lpil == 7*/
+cpil16			lpil == 17
+cADH1			"STRUKSUPERSETADH"
+cADH59			"STRUKSUPERSETADH2JAM"
+cpil1			lpil == 1
+cpil59			lpil == 59
+cpil63			lpil == 63
+cpil66			lpil == 66
+cpil129			lpil == 129
+cpil138                 lpil == 138
+cpil139                 lpil == 139
+cpil175                 lpil == 175
+cpil268			lpil == 268
+cpil69			lpil == 69
+cpil95			lpil == 95
+cpil251			lpil == 251
+cpil299			lpil == 299
+cpil96			lpil == 96
+cpil269			lpil == 269
+cpil273			lpil == 273
+cpil315			lpil == 315
+cpil319			lpil == 319
+cpil320			lpil == 320
+cpil342			lpil == 342
+cpil374			lpil == 374
+
+cpil38			lpil == 38
+cpil39			lpil == 39
+cpil43			lpil == 43
+cpil44			lpil == 44
+cpil42			lpil == 42
+cpil74			lpil == 74
+cpil87			lpil == 87
+cpil88			lpil == 88
+cpil89			lpil == 89
+cpil90			lpil == 90
+
+cpil62			lpil == 62
+cpil107			lpil == 107
+cpil144			lpil == 144
+cpil167			lpil == 167
+
+cpil178			lpil == 178
+cpil181			lpil == 181
+
+
+cpil180     		lpil == 180
+
+cpil110                 lpil == 110
+cpil111                 lpil == 111
+cpil133		lpil == 133
+cpil134		lpil == 134
+cpil136         lpil == 136
+cpil137         lpil == 137
+cpil45			lpil == 45
+cpil117			lpil == 117
+cpil312			lpil == 312 || lpil == 329
+cpil171		lpil == 171
+cpil169		lpil == 169
+cpil220		lpil == 220
+cpil231		lpil == 231
+cpil232		lpil == 232
+cpil238     lpil == 238
+cpil241		lpil == 241
+cpil250		lpil == 250
+cpil252		lpil == 252
+cpil253		lpil == 253
+cpil257		lpil == 257
+cpil258 	lpil == 258
+cpil259		lpil == 259
+cpil262		lpil == 262
+cpil270		lpil == 270
+cpil272		lpil == 272
+cpil275		lpil == 275
+cpil277		lpil == 277
+cpil279		lpil == 279
+cpil286		lpil == 286 || lpil == 289
+cpil287		lpil == 287
+cpil297		lpil == 297
+cpil300		lpil == 300
+cpil305		lpil == 305
+cpil307		lpil == 307
+cpil310		lpil == 310
+cpil316		lpil == 316
+cpil318		lpil == 318
+cpil328		lpil == 328
+cpil330		lpil == 330
+cpil331		lpil == 331
+cpil332		lpil == 332
+cpil338		lpil == 338
+cpil339		lpil == 339
+cpil343		lpil == 343
+cpil344		lpil == 344
+cpil347		lpil == 347
+cpil348		lpil == 348
+cpil352		lpil == 352
+cpil353		lpil == 353
+cpil356		lpil == 356
+cpil357		lpil == 357
+cpil363		lpil == 363
+cpil364		lpil == 364
+cpil365		lpil == 365
+cpil367		lpil == 367	
+cpil369		lpil == 369	
+cpil375		lpil == 375
+cpil377		lpil == 377
+cpil378		lpil == 378
+cpil382		lpil == 382
+cpil383     lpil == 383
+cpil386		lpil == 386
+cpil387 	lpil == 387
+cpil388		lpil == 388
+cpil389		lpil == 389
+cpil390		lpil == 390
+cpil391		lpil == 391
+cpil392		lpil == 392
+
+cKPIKNSC	lpil == 281 || lpil == 321 || lpil == 370
+
+
+ctgl26min3a     DO_LIB ap_tambl(ltgl1,lmin3,&ltgl26min3);
+ctgl26min3b     ltgl26min3 + 25
+ctgl26min4a     DO_LIB ap_tambl(ltgl1,lmin4,&ltgl26min4);
+ctgl26min4b     ltgl26min4 + 25
+ctgl26min5a     DO_LIB ap_tambl(ltgl1,lmin5,&ltgl26min5);
+ctgl26min5b     ltgl26min5 + 25
+ctgl26min6a	DO_LIB ap_tambl(ltgl1,lmin6,&ltgl26min6);
+ctgl26min6b	ltgl26min6 + 25
+ctgl26min8a     DO_LIB ap_tambl(ltgl1,lmin8,&ltgl26min8);
+ctgl26min8b     ltgl26min8 + 25
+
+ctgl25min2a     DO_LIB ap_tambl(ltgl1,lmin2,&ltgl25min2);
+ctgl25min2b     ltgl25min2 + 24
+ctgl25min3a     DO_LIB ap_tambl(ltgl1,lmin3,&ltgl25min3);
+ctgl25min3b     ltgl25min3 + 24
+ctgl25min4a     DO_LIB ap_tambl(ltgl1,lmin4,&ltgl25min4);
+ctgl25min4b     ltgl25min4 + 24
+ctgl25min5a	DO_LIB ap_tambl(ltgl1,lmin5,&ltgl25min5);
+ctgl25min5b	ltgl25min5 + 24
+cpilhmcaja      djoinrmdmastertgl == 1 &&  (lpil == 109 || lpil == 174 || lpil == 291 || lpil == 311 ) && ltglhmc1 != BLANKS && ltglhmc2 != BLANKS
+cpil109          lpil == 109
+cpil174          lpil == 174
+cpil291          lpil == 291
+cpil311          lpil == 311
+
+MAP(mpil2)
+cakhbln         ltgl3           DO_CALC
+
+MAP(mpil)
+cawlbln         ltgl1           DO_CALC
+g_tgltrn        ltgl2           REPLACE
+ststglprjgl	ltgl2		REPLACE_IF cpil220
+ctglawlm1	ltgl1		DO_CALC_IF cKPIKNSC
+ctglakhm1	ltgl2		DO_CALC_IF cKPIKNSC
+lpil109          lpilihan        REPLACE_IF cpil109
+lpil174          lpilihan        REPLACE_IF cpil174
+lpil291          lpilihan        REPLACE_IF cpil291
+lpil311          lpilihan        REPLACE_IF cpil311
+ltglhmc1        ltgl1           REPLACE_IF cpilhmcaja
+ltglhmc2        ltgl2           REPLACE_IF cpilhmcaja
+cketM4W		ltmpdvs		DO_CALC_IF cNPBTSGM
+cketM2W         ltmpdvs         DO_CALC_IF cADH
+cketHMC         ltmpdvs         DO_CALC_IF cHMC
+cketH1          ltmpdvs         DO_CALC_IF cH1
+cketM2W         ltmpdvs         DO_CALC_IF cM2W
+cketM2W         ltmpdvs         DO_CALC_IF cREM
+cketM2W         ltmpdvs         DO_CALC_IF cREM2
+cketM2W         ltmpdvs         DO_CALC_IF cREM3
+cketM2W         ltmpdvs         DO_CALC_IF cREM4
+
+cketM2W         ltmpdvs         DO_CALC_IF cPIU4
+/*cketM2W         ltmpdvs         DO_CALC_IF cPIU5*/
+cketM2W         ltmpdvs         DO_CALC_IF cPIU2
+cketM2W         ltmpdvs         DO_CALC_IF cPIU18
+cketM2W         ltmpdvs         DO_CALC_IF cPIU7
+cketM2W         ltmpdvs         DO_CALC_IF cPIU8
+cketM2W         ltmpdvs         DO_CALC_IF cPIU23
+cketM2W         ltmpdvs         DO_CALC_IF cPIU10
+cketM2W         ltmpdvs         DO_CALC_IF cPIU48
+cketM2W         ltmpdvs         DO_CALC_IF cPIU49
+cketM2W         ltmpdvs         DO_CALC_IF cPIU50
+cketM2W         ltmpdvs         DO_CALC_IF cPIU51
+cketM2W         ltmpdvs         DO_CALC_IF cPIU67
+cketM2W         ltmpdvs         DO_CALC_IF cPIU75
+cketM2W         ltmpdvs         DO_CALC_IF cPIU78
+cketM2W         ltmpdvs         DO_CALC_IF cPIU79
+cketM2W         ltmpdvs         DO_CALC_IF cPIU83
+cketM2W         ltmpdvs         DO_CALC_IF cPIU86
+cketM2W         ltmpdvs         DO_CALC_IF cPIU92
+cketM2W         ltmpdvs         DO_CALC_IF cPIU93
+cketM2W         ltmpdvs         DO_CALC_IF cPIU112
+cketM2W         ltmpdvs         DO_CALC_IF cPIU113
+cketM2W         ltmpdvs         DO_CALC_IF cPIU119
+cketM2W         ltmpdvs         DO_CALC_IF cPIU131
+cketM2W         ltmpdvs         DO_CALC_IF cPIU135
+cketM2W         ltmpdvs         DO_CALC_IF cPIU142
+cketM2W         ltmpdvs         DO_CALC_IF cPIU143
+cketM2W         ltmpdvs         DO_CALC_IF cPIU155
+cketM2W         ltmpdvs         DO_CALC_IF cPIU163
+cketM2W         ltmpdvs         DO_CALC_IF cPIU172
+cketM2W         ltmpdvs         DO_CALC_IF cPIU177
+cketM2W         ltmpdvs         DO_CALC_IF cPIU190
+cketM2W         ltmpdvs         DO_CALC_IF cPIU193
+cketM2W         ltmpdvs         DO_CALC_IF cPIU201
+cketM2W         ltmpdvs         DO_CALC_IF cPIU222
+cketM2W         ltmpdvs         DO_CALC_IF cPIU226
+cketM2W         ltmpdvs         DO_CALC_IF cPIU227
+cketM2W         ltmpdvs         DO_CALC_IF cPIU229
+cketM2W         ltmpdvs         DO_CALC_IF cPIU235
+cketM2W         ltmpdvs         DO_CALC_IF cPIU237
+cketM2W         ltmpdvs         DO_CALC_IF cPIU245
+cketM2W         ltmpdvs         DO_CALC_IF cPIU263
+cketM2W         ltmpdvs         DO_CALC_IF cPIU264
+cketM2W         ltmpdvs         DO_CALC_IF cPIU271
+cketM2W         ltmpdvs         DO_CALC_IF cPIU288
+cketM2W         ltmpdvs         DO_CALC_IF cPIU301
+cketM2W         ltmpdvs         DO_CALC_IF cPIU323
+cketM2W         ltmpdvs         DO_CALC_IF cPIU337
+cketM2W         ltmpdvs         DO_CALC_IF cPIU346
+cketM2W         ltmpdvs         DO_CALC_IF cPIU355
+cketM2W         ltmpdvs         DO_CALC_IF cPIU366
+cketM2W         ltmpdvs         DO_CALC_IF cPIU372
+cketM2W         ltmpdvs         DO_CALC_IF cPIU376
+
+cketHMC		ltmpdvs		DO_CALC_IF cpil195
+
+cketM2W         ltmpdvs         DO_CALC_IF cGA
+cketM2W         ltmpdvs         DO_CALC_IF cPROP
+cketM2W		ltmpdvs		DO_CALC_IF cSVY
+cketM2W		ltmpdvs		DO_CALC_IF cFIN
+cketAHS         ltmpdvs         DO_CALC_IF cAHS
+cketAHS         ltmpdvs         DO_CALC_IF cahasscab
+cketAHS         ltmpdvs         DO_CALC_IF cpil69
+cketAHS         ltmpdvs         DO_CALC_IF cpil95
+cketAHS         ltmpdvs         DO_CALC_IF cpil251
+cketAHS         ltmpdvs         DO_CALC_IF cpil299
+cketAHS         ltmpdvs         DO_CALC_IF cpil269
+cketAHS         ltmpdvs         DO_CALC_IF cpil273
+cketAHS         ltmpdvs         DO_CALC_IF cpil357
+cketAHS         ltmpdvs         DO_CALC_IF cpil96
+cketAHS         ltmpdvs         DO_CALC_IF cCRM
+cketM2W		ltmpdvs		DO_CALC_IF cCRDT2JAM
+/*cpiu5		ltmpdtmkodepiu5	DO_CALC_IF cpil7*/
+cpiu6		ltmpdtmkodepiu5	DO_CALC_IF cpil16
+cT              ltmptypjl       DO_CALC_IF cPIU2
+cY              ltmptypjl       DO_CALC_IF cPIU18
+cY              ltmptypjl       DO_CALC_IF cPIU4
+cT              ltmptypjl       DO_CALC_IF cPIU67
+cT              ltmptypjl       DO_CALC_IF cPIU86
+cT              ltmptypjl       DO_CALC_IF cPIU92
+cT              ltmptypjl	DO_CALC_IF cPIU75
+cY              ltmptypjl	DO_CALC_IF cPIU79
+cT              ltmptypjl	DO_CALC_IF cPIU83
+cT              ltmptypjl	DO_CALC_IF cPIU93
+cY              ltmptypjl	DO_CALC_IF cPIU10
+cT              ltmptypjl	DO_CALC_IF cPIU112
+cY              ltmptypjl	DO_CALC_IF cPIU119
+cY              ltmptypjl       DO_CALC_IF cPIU113
+cY              ltmptypjl       DO_CALC_IF cPIU135
+cY              ltmptypjl       DO_CALC_IF cPIU172
+cY              ltmptypjl       DO_CALC_IF cPIU190
+cY              ltmptypjl       DO_CALC_IF cPIU193
+cY              ltmptypjl       DO_CALC_IF cPIU201
+cY              ltmptypjl       DO_CALC_IF cPIU222
+cY              ltmptypjl       DO_CALC_IF cPIU226
+cY              ltmptypjl       DO_CALC_IF cPIU227
+cY              ltmptypjl       DO_CALC_IF cPIU235
+cY              ltmptypjl       DO_CALC_IF cPIU237
+
+cketH1		ltmpdvs		DO_CALC_IF cAUD1
+cketHMC         ltmpdvs         DO_CALC_IF cKNSC
+cketHMC		ltmpdvs		DO_CALC_IF cpil62
+cketHMC         ltmpdvs         DO_CALC_IF cpil167
+cketM2W		ltmpdvs		DO_CALC_IF cpil107
+cketM2W		ltmpdvs		DO_CALC_IF cpil144
+
+cketM2W		ltmpdvs		DO_CALC_IF cpil178
+cketM2W		ltmpdvs		DO_CALC_IF cpil181
+
+cketM2W     	ltmpdvs     	DO_CALC_IF cpil180
+cketM2W		ltmpdvs		DO_CALC_IF cFIN2
+cketM2W		ltmpdvs		DO_CALC_IF cpil169
+cH1		ltmpdvs		DO_CALC_IF cIT1
+cketHMC		ltmpdvs		DO_CALC_IF cSUP2
+cketHMC         ltmpdvs         DO_CALC_IF cLCK3
+cketHMC         ltmpdvs         DO_CALC_IF cLCK6
+cketHMC         ltmpdvs         DO_CALC_IF cLCK5
+cketM2W         ltmpdvs         DO_CALC_IF cLCK2
+cketM2W         ltmpdvs         DO_CALC_IF cLCK4
+cketUMROH		ltmpdvs			DO_CALC_IF cUMROH120
+cketM4W		ltmpdvs		DO_CALC_IF cM4W
+cketM4W		ltmpdvs		DO_CALC_IF cM4W76
+cketM4W		ltmpdvs		DO_CALC_IF cM4W94
+cketM2W4W	ltmpdvs		DO_CALC_IF cM2W4W100
+cketM2W4W	ltmpdvs		DO_CALC_IF cM2W4W300
+cketM2W4W	ltmpdvs		DO_CALC_IF cM2W4W326
+cketM4W		ltmpdvs		DO_CALC_IF cPIUM4W
+cketM4W         ltmpdvs         DO_CALC_IF ccrdM4W
+cketM2W         ltmpdvs         DO_CALC_IF cKLIKNSS
+cketMGA         ltmpdvs         DO_CALC_IF cMGA
+cALLBIS		ltmpdvs		DO_CALC_IF cALL
+
+cketHMC		ltmpdvs		DO_CALC_IF cpil38
+cketM2W		ltmpdvs		DO_CALC_IF cpil39
+cketHMC		ltmpdvs		DO_CALC_IF cpil43
+cketM2W		ltmpdvs		DO_CALC_IF cpil44
+cketHMC		ltmpdvs		DO_CALC_IF cpil42
+cketM2W		ltmpdvs		DO_CALC_IF cpil74
+cketHMC		ltmpdvs		DO_CALC_IF cpil87
+cketM2W		ltmpdvs		DO_CALC_IF cpil88
+cketHMC		ltmpdvs		DO_CALC_IF cpil89
+cketM2W		ltmpdvs		DO_CALC_IF cpil90
+cketM2W		ltmpdvs		DO_CALC_IF cpil310
+cketM2W		ltmpdvs		DO_CALC_IF cpil316
+cketHMC         ltmpdvs         DO_CALC_IF cpil110
+cketHMC         ltmpdvs         DO_CALC_IF cpil318
+cketM2W         ltmpdvs         DO_CALC_IF cpil111
+cketHMC		ltmpdvs		DO_CALC_IF cpil133
+cketM2W		ltmpdvs		DO_CALC_IF cpil134
+cketHMC         ltmpdvs         DO_CALC_IF cpil136
+cketM2W         ltmpdvs         DO_CALC_IF cpil137
+cketH1		ltmpdvs		DO_CALC_IF cpil257
+
+cketHMC         ltmpdvs         DO_CALC_IF cSPKM
+cketM2W         ltmpdvs         DO_CALC_IF cHRD68
+
+cketHMC		ltmpdvs			DO_CALC_IF cpil275
+cketHMC		ltmpdvs			DO_CALC_IF cpil279
+
+cADH1		ltmpdtmkodeadh	DO_CALC_IF cpil1
+cADH1		ltmpdtmkodeadh  DO_CALC_IF cpil139
+cADH59		ltmpdtmkodeadh	DO_CALC_IF cpil59
+cADH59		ltmpdtmkodeadh	DO_CALC_IF cpil63
+cADH59		ltmpdtmkodeadh	DO_CALC_IF cpil66
+cADH59		ltmpdtmkodeadh	DO_CALC_IF cpil129
+cADH59          ltmpdtmkodeadh  DO_CALC_IF cpil138
+cADH1          ltmpdtmkodeadh  DO_CALC_IF cpil175
+cADH1          ltmpdtmkodeadh  DO_CALC_IF cpil268
+cADH1          ltmpdtmkodeadh  DO_CALC_IF cpil315
+cADH1          ltmpdtmkodeadh  DO_CALC_IF cpil319
+cADH1          ltmpdtmkodeadh  DO_CALC_IF cpil320
+cADH1          ltmpdtmkodeadh  DO_CALC_IF cpil342
+cADH1          ltmpdtmkodeadh  DO_CALC_IF cpil374
+cketHMC         ltmpdvs         DO_CALC_IF cCRE2
+
+/*cketM2W		ltmpdvs		DO_CALC_IF cM2We*/
+cketM2W		ltmpdvs		DO_CALC_IF cM2Wd
+cketM2W		ltmpdvs		DO_CALC_IF cM2Wc
+cketM2W		ltmpdvs		DO_CALC_IF cM2Wj
+cketM2W         ltmpdvs         DO_CALC_IF cpil374
+cDASHMGA	ltmpdashmga	DO_CALC_IF cMGA
+cNPBTMGA	ltmpdashmga	DO_CALC_IF cpil81
+cNPBTMGATHBL    ltmpdashmga     DO_CALC_IF cpil84
+cDASHDEV	ltmpdtmkodedev	DO_CALC_IF cpil231
+cDASHPENCCAB    ltmpdashpenccab DO_CALC_IF cpil238
+cDASHINDKPIU    ltmpdashindkpiu DO_CALC_IF cpil241
+cDBPIU		ltmpdashpiu		DO_CALC_IF cpil250
+cDASHNPBTMGAv2  ltmpdashnpbtmga DO_CALC_IF cpil252
+cDASHAYDAMGA	ltmpdashaydamga	DO_CALC_IF cpil253
+cDASHJUALLELANG ltmpdashjuallelang DO_CALC_IF cpil258
+cDASHJAMINAN	ltmpdashjaminan	DO_CALC_IF cpil262
+cDASHPIUBLNMGA	ltmpdashpiublnmga	DO_CALC_IF cpil270
+cDASHADVISOR    ltmpdashadvisor DO_CALC_IF cpil277
+cDASHPIUMGA		ltmpdashpiumga	DO_CALC_IF cpil286
+cMEDSOSMGA		ltmpmedsosmga	DO_CALC_IF cpil287
+cREKAPLELANG	ltmprekaplelang	DO_CALC_IF cpil297
+cDASHPROYJUAL   ltmpdashproyjual DO_CALC_IF cpil307
+cDASHTOMGA		ltmpdashtomga	DO_CALC_IF cpil328
+cDASHREKGADAI	ltmpdashrekgadai DO_CALC_IF	cpil330
+cDASHREKGADAI	ltmpdashrekgadai DO_CALC_IF	cpil331
+cDASHREKGADAI	ltmpdashrekgadai DO_CALC_IF	cpil332
+cDASHPENJGADAI	ltmpdashpenjgadai	DO_CALC_IF cpil338
+cDASHPENJGADAI	ltmpdashpenjgadai	DO_CALC_IF cpil339
+cDASHSPKGADAI	ltmpdashspkgdi		DO_CALC_IF cpil343
+cDASHRKPPJLNMGA ltmpdashrkppjlnmga	DO_CALC_IF cpil344
+cDASHJUALSOAMGA	ltmpdashjualsoamga	DO_CALC_IF cpil347
+cDASHJUALSOAMGA	ltmpdashjualsoamga	DO_CALC_IF cpil348
+cDASHSTOKJMN	ltmpdashstokjmn		DO_CALC_IF cpil352
+cDASHSTOKJMN	ltmpdashstokjmn		DO_CALC_IF cpil353
+cDASHMDSATLMGA	ltmpmdsatlmga		DO_CALC_IF cpil356
+cDASHSTOKLLG	ltmpdashstokllg		DO_CALC_IF cpil363
+cDASHSTOKLLG	ltmpdashstokllg		DO_CALC_IF cpil364
+cDASHJLLLGMGA	ltmpdashjlllgmga	DO_CALC_IF cpil365
+cDASHGMBMGA		ltmpdashgmbmga		DO_CALC_IF cpil367
+cDASHADSMGA		ltmpdashadsmga		DO_CALC_IF cpil375
+cDASHKATPRM		ltmpdashkatprm		DO_CALC_IF cpil377
+cDASHRWDMGA		ltmpdashrwdmga		DO_CALC_IF cpil382
+cDASHSTSPRC		ltmpdashstsprc		DO_CALC_IF cpil386
+cDASHCCTVMGA	ltmpdashcctvmga		DO_CALC_IF cpil387
+cDASHCABPRC		ltmpdashcabprc		DO_CALC_IF cpil388
+cDASHLAP938		ltmpdashlap938		DO_CALC_IF cpil389
+cSTRUKNPBTCABPOS	ltmpnpbtcabpos	DO_CALC_IF cpil390
+cDASHMPPREKRUT	ltmpdashmpp			DO_CALC_IF cpil391
+cDASHCUSTRO	ltmpdashcustro		DO_CALC_IF cpil392
+
+
+ctgl26min3a     ltgl26min3      DO_CALC
+ctgl26min3b     ltgl26min3      DO_CALC
+ctgl26min4a     ltgl26min4      DO_CALC
+ctgl26min4b     ltgl26min4      DO_CALC
+ctgl26min5a     ltgl26min5      DO_CALC
+ctgl26min5b     ltgl26min5      DO_CALC
+ctgl26min6a	ltgl26min6	DO_CALC
+ctgl26min6b	ltgl26min6	DO_CALC
+ctgl26min8a     ltgl26min8      DO_CALC
+ctgl26min8b     ltgl26min8      DO_CALC
+
+ctgl25min2a     ltgl25min2      DO_CALC
+ctgl25min2b     ltgl25min2      DO_CALC
+ctgl25min3a     ltgl25min3      DO_CALC
+ctgl25min3b     ltgl25min3      DO_CALC
+ctgl25min4a     ltgl25min4      DO_CALC
+ctgl25min4b     ltgl25min4      DO_CALC
+ctgl25min5a	ltgl25min5	DO_CALC
+ctgl25min5b	ltgl25min5	DO_CALC
+
+MAP(mjointgm)
+tgmtype         lhkhl           REPLACE
+
+DBCALCS(djointgm)
+DBC_COMMAND     JOIN
+DBC_TARGET      tgmdattglidx gv_dttgl ltgl2
+DBC_MAP         mjointgm
+
+HOOKS(master)
+AFTER_INPUT     cur_field=lpil  DO_MAP SHOW mpil
+AFTER_INPUT     cur_field=ltgl1  DO_MAP SHOW mpil2
+
+CALCS()
+cjointgm        djointgm == 1 && lhkhl == "HK" && lpil == 118 || lpil != 118
+
+IMAGE(transt)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(trans)
+|_____ __________|___________________________________________________|
+
+FIELD(trans)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpilok          lpil == 1  || lpil == 6 ||  lpil == 37 || lpil == 59 || lpil == 63 || lpil == 66 || lpil == 129 || lpil == 138 || lpil == 139 || lpil == 175 || lpil == 210 || lpil == 212  || lpil == 215 || lpil == 216 || lpil == 268 || lpil == 315 || lpil == 319 || lpil == 320 || lpil == 342 || lpil == 374
+
+SUBFILE(trans)
+SFL_TITLE(transt)
+SFL_LINES(15)
+SFL_COND cpilok
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET_IF cADH
+tmpdatdvskod   gv_dttemplate ltmpdtmkodeadh ltmpdvs
+
+SFL_TARGET_IF cREM
+tmpdatdvskod   gv_dttemplate ltmpdtmkoderem ltmpdvs
+
+/*SFL_TARGET_IF cPIU5
+tmpdatdvskod   gv_dttemplate ltmpdtmkodepiu5 ltmpdvs*/
+
+
+/***********************************************************/
+/***********************************************************/
+IMAGE(transg1t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg1)
+|_____ __________|___________________________________________________|
+
+FIELD(transg1)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpilmktg        lpil == 2 || lpil == 351 || lpil == 354 || lpil == 358 || lpil == 379 || lpil == 350 || lpil == 371 || lpil == 4 || lpil == 5 || lpil == 8 || lpil == 10 || lpil == 12 || lpil == 13 ||
+		lpil == 58 || lpil == 64 || lpil == 97 || lpil == 98 || lpil == 99 || lpil == 100 || lpil == 102 || lpil == 106 || lpil == 108 || lpil == 118 || lpil == 140 ||
+		lpil == 141 || lpil == 168 || lpil == 173 || lpil == 195 || lpil == 217 || lpil == 218 || lpil == 219 || lpil == 254 || lpil == 261 || lpil == 280 || lpil == 281 ||  lpil == 291 ||  lpil == 292 ||  lpil == 293 ||  lpil == 293 ||  lpil == 294 ||  lpil == 295 || lpil == 296 || lpil == 311 ||
+		lpil == 321 || lpil == 324 || lpil == 360 || lpil == 362 || lpil == 370 || lpil == 384 || lpil == 385
+
+cselg1		((lpil == 173 && tmpkode == "CABANG") ||
+		(lpil == 2 && (tmpkode == "KAWIL" || tmpkode == "HMCAM")) ||
+		((lpil == 350 || lpil == 351 || lpil == 354 || lpil == 358 || lpil == 370 || lpil == 371) && tmpkode == "CABANG") ||
+		(lpil == 261 && (tmpkode == "KAWIL" || tmpkode == "HMCAM")) ||
+		(lpil == 98 && tmpkode == "CABANG") ||
+		((lpil == 291 || lpil == 292 || lpil == 293 || lpil == 294 || lpil == 295 || lpil == 311) && tmpkode == "CABANG") ||
+		((lpil == 296 || lpil == 360 || lpil == 362 || lpil == 379) && tmpkode == "SALES") ||
+		(lpil == 280 && (tmpkode == "DCOOAREA" || tmpkode == "KAWIL" || tmpkode == "M2WAM" || tmpkode == "MSOHEAD" ||tmpkode == "SPVKLIKNSC" || tmpkode == "DIGMKTSPV" || tmpkode == "PICMKTM2W" || tmpkode == "TGTSPVKBA")) ||
+		(lpil == 281 && (tmpkode == "NAS" || tmpkode == "DCOOAREA" || tmpkode == "KAWIL" || tmpkode == "M2WAM" || tmpkode == "MSOHEAD" ||tmpkode == "SPVKLIKNSC" || tmpkode == "DIGMKTSPV" || tmpkode == "KBA")) ||
+		(lpil == 321 && (tmpkode == "NAS" || tmpkode == "DCOOAREA" || tmpkode == "KAWIL" || tmpkode == "HMCAM" || tmpkode == "NSOHEAD" || tmpkode == "SPVKLIKNSC" || tmpkode == "PICMKT" || tmpkode == "DIGMKTSPV" || tmpkode == "KBA")) ||
+		(lpil == 324 && (tmpkode == "NAS" || tmpkode == "DCOOAREA" || tmpkode == "KAWIL" || tmpkode == "HMCAM" || tmpkode == "NSOHEAD" || tmpkode == "SPVKLIKNSC" || tmpkode == "PICMKT" || tmpkode == "DIGMKTSPV" || tmpkode == "TGTSPVKBA")) ||
+		(lpil == 384 && (tmpkode == "NAS" || tmpkode == "DCOOAREA" || tmpkode == "KAWIL" || tmpkode == "M2WAM" || tmpkode == "MSOHEAD" ||tmpkode == "SPVKLIKNSC" || tmpkode == "DIGMKTSPV")) ||
+		(lpil == 385 && (tmpkode == "NAS" || tmpkode == "DCOOAREA" || tmpkode == "KAWIL" || tmpkode == "HMCAM" || tmpkode == "NSOHEAD" || tmpkode == "SPVKLIKNSC" || tmpkode == "DIGMKTSPV"))
+
+		|| (lpil != 173 && lpil != 2 && lpil != 350 && lpil != 351 && lpil != 371 && lpil != 379 && lpil != 354 && lpil != 358 &&lpil != 261 && lpil != 98 && lpil != 291 && lpil != 292 && 
+		    lpil != 293 && lpil != 294 && lpil != 295 && lpil != 296 && lpil != 311 && lpil != 280 && lpil != 281 && lpil != 321 && lpil != 324 && lpil != 360 && lpil != 362 && lpil != 370 &&
+		    lpil != 384 && lpil != 385 
+		
+		    && tmpkode != "SPVKLIKNSC" && tmpkode != "DIGMKTSPV" && tmpkode != "KBA" && tmpkode != "TGTSPVKBA"))
+
+SUBFILE(transg1)
+SFL_TITLE(transg1t)
+SFL_LINES(15)
+SFL_COND cpilmktg
+SFL_SELECT cselg1
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET_IF cHMC
+tmpdatdvskod   gv_dttemplate ltmpdtmkode ltmpdvs
+SFL_TARGET_IF cM2W
+tmpdatdvskod   gv_dttemplate ltmpdtmkodem2w2 ltmpdvs
+
+/***********************************************************/
+/***********************************************************/
+IMAGE(transg2t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg2)
+|_____ __________|___________________________________________________|
+
+FIELD(transg2)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpil1823        lpil == 7 || lpil == 11 || lpil == 18 || lpil == 75 || lpil == 79 || lpil == 83 || lpil == 93 || lpil == 113 || lpil == 119 || lpil == 135 || lpil == 172 || lpil == 190 || lpil == 193 || lpil == 201 || lpil == 222 || lpil == 226 || lpil == 227 || lpil == 235
+
+
+SUBFILE(transg2)
+SFL_TITLE(transg2t)
+SFL_LINES(15)
+SFL_COND cpil1823
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodepiu ltmpdvs ltmptypjl
+
+IMAGE(transg3t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg3)
+|_____ __________|___________________________________________________|
+
+FIELD(transg3)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg3)
+SFL_TITLE(transg3t)
+SFL_LINES(15)
+SFL_COND cGA
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodega ltmpdvs
+
+IMAGE(transg4t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg4)
+|_____ __________|___________________________________________________|
+
+FIELD(transg4)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cfin		lpil == 20  || lpil == 25  || lpil == 26  || lpil == 27  || lpil == 32  || lpil == 52  ||
+		lpil == 147 || lpil == 148 || lpil == 149 || lpil == 150 || lpil == 151 || lpil == 152 ||
+		lpil == 153 || lpil == 154 || lpil == 156 || lpil == 157 || lpil == 158 || lpil == 159 ||
+		lpil == 160 || lpil == 161 || lpil == 164 || lpil == 184 || lpil == 186 || lpil == 187 ||
+		lpil == 188 || lpil == 189 || lpil == 194 || lpil == 196 || lpil == 197 || lpil == 198 ||
+		lpil == 199 || lpil == 200 || lpil == 204 || lpil == 205 || lpil == 207 || lpil == 211 ||
+		lpil == 213 || lpil == 214 || lpil == 221 || lpil == 223 || lpil == 224 || lpil == 225 ||
+		lpil == 327 || lpil == 359
+
+SUBFILE(transg4)
+SFL_TITLE(transg4t)
+SFL_LINES(15)
+SFL_COND cfin
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodefin ltmpdvs
+
+/*******************************/
+IMAGE(transg5t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg5)
+|_____ __________|___________________________________________________|
+
+FIELD(transg5)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg5)
+SFL_TITLE(transg5t)
+SFL_LINES(15)
+SFL_COND cSVY
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodesvy ltmpdvs
+
+
+/***********************************************************/
+/***********************************************************/
+IMAGE(transg6t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg6)
+|_____ __________|___________________________________________________|
+
+FIELD(transg6)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+/*CALCS()
+cpilpiu         lpil == 11 || lpil == 19*/
+
+SUBFILE(transg6)
+SFL_TITLE(transg6t)
+SFL_LINES(15)
+SFL_COND cPIU7
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodepiu5 ltmpdvs
+
+/***********************************************************/
+/***********************************************************/
+IMAGE(transg7t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg7)
+|_____ __________|___________________________________________________|
+
+FIELD(transg7)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpilpiu         lpil == 22 || lpil == 23 || lpil == 48 || lpil == 49 || lpil == 50 || lpil == 51 || lpil == 78 || lpil == 67 || lpil == 86 || lpil == 92 || lpil == 112 || lpil == 131 || lpil == 142 || lpil == 143 || lpil == 155 || lpil == 163 || lpil == 177 || lpil == 229 || lpil == 237 || lpil == 245 || lpil == 263 || lpil == 264 || lpil == 271 || lpil == 288 || lpil == 301 || lpil == 323 || lpil == 337 || lpil == 346 || lpil == 355 || lpil == 366 || lpil == 372 || lpil == 376
+cpil22			lpil == 22 || lpil == 23 || lpil == 48 || lpil == 49 || lpil == 50 || lpil == 51 || lpil == 78 || lpil == 131 || lpil == 142 || lpil == 143 || lpil == 155 || lpil == 163 || lpil == 177 || lpil == 229 || lpil == 237 || lpil == 245 || lpil == 263 || lpil == 264 || lpil == 271 || lpil == 288 || lpil == 301 || lpil == 323 || lpil == 337 || lpil == 346 || lpil == 355 || lpil == 366 || lpil == 372 || lpil == 376
+cpil6786		lpil == 67 || lpil == 86 || lpil == 92 || lpil == 112
+
+SUBFILE(transg7)
+SFL_TITLE(transg7t)
+SFL_LINES(15)
+SFL_COND cpilpiu
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET_IF cpil6786
+tmpdatdvskod   gv_dttemplate ltmpdtmkodepiu6 ltmpdvs ltmptypjl
+
+SFL_TARGET_IF cpil22
+tmpdatdvskod   gv_dttemplate ltmpdtmkodepiu7 ltmpdvs
+
+
+/***********************************************************/
+/***********************************************************/
+IMAGE(transg8t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg8)
+|_____ __________|___________________________________________________|
+
+FIELD(transg8)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg8)
+SFL_TITLE(transg8t)
+SFL_LINES(15)
+SFL_COND cPIU10
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodepiu ltmpdvs ltmptypjl
+
+/***********************************************************/
+IMAGE(transg9t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg9)
+|_____ __________|___________________________________________________|
+
+FIELD(transg9)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg9)
+SFL_TITLE(transg9t)
+SFL_LINES(15)
+SFL_COND cAHS
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodeahs  ltmpdvs ltmptypjl
+
+
+/***********************************************************/
+IMAGE(transg10t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg10)
+|_____ __________|___________________________________________________|
+
+FIELD(transg10)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg10)
+SFL_TITLE(transg10t)
+SFL_LINES(15)
+SFL_COND cAUD1
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkdeaudit ltmpdvs
+
+/***********************************************************/
+/***********************************************************/
+IMAGE(transg11t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg11)
+|_____ __________|___________________________________________________|
+
+FIELD(transg11)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpilknsc         lpil == 31 || lpil == 62 || lpil == 107 || lpil == 144 || lpil == 167 || lpil == 178 || lpil == 181
+
+SUBFILE(transg11)
+SFL_TITLE(transg11t)
+SFL_LINES(15)
+SFL_COND cpilknsc
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodeknsc ltmpdvs
+
+/***********************************************************/
+IMAGE(transg12t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg12)
+|_____ __________|___________________________________________________|
+
+FIELD(transg12)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cfin2		lpil == 28
+
+SUBFILE(transg12)
+SFL_TITLE(transg12t)
+SFL_LINES(15)
+SFL_COND cfin2
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodefin ltmpdvs
+
+/***********************************************************/
+IMAGE(transg13t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg13)
+|_____ __________|___________________________________________________|
+
+FIELD(transg13)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg13)
+SFL_TITLE(transg13t)
+SFL_LINES(15)
+SFL_COND cIT1
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkdeit ltmpdvs
+
+IMAGE(transg14t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg14)
+|_____ __________|___________________________________________________|
+
+FIELD(transg14)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg14)
+SFL_TITLE(transg14t)
+SFL_LINES(15)
+SFL_COND cSUP2
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodesup ltmpdvs
+
+IMAGE(transg15t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg15)
+|_____ __________|___________________________________________________|
+
+FIELD(transg15)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+clcksel		(((lpil == 14 || lpil == 85 || lpil == 104 || lpil == 122 || lpil == 123 || lpil == 126 || lpil == 127 || lpil == 192) && tmpkode=="KELURAHAN")) ||
+		((lpil==15 || lpil==9 || lpil == 132 || lpil == 179 || lpil == 256  || lpil == 373) && tmpkode=="SALES") ||
+		(lpil == 255 && tmpkode == "TLD") ||
+		((lpil == 169 || lpil == 191) && (tmpkode=="SALES" || tmpkode=="DIGMKTSPV" || tmpkode=="SPVKLIKNSC"))
+
+SUBFILE(transg15)
+SFL_TITLE(transg15t)
+SFL_LINES(15)
+SFL_COND cLCK
+SFL_SELECT clcksel
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodem2w ltmpdvs ltmptypjl
+
+IMAGE(transg16t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg16)
+|_____ __________|___________________________________________________|
+
+FIELD(transg16)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+ctransg16ok	lpil == 35 || lpil == 36 || lpil == 55 || lpil == 56 || lpil == 57 || lpil == 80 || lpil == 233 || lpil == 246 || lpil == 266 || lpil == 267 || lpil == 274 || lpil == 325 || lpil == 341 || lpil == 345 || lpil == 380 || lpil == 381
+
+SUBFILE(transg16)
+SFL_TITLE(transg16t)
+SFL_LINES(15)
+SFL_COND ctransg16ok
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET_IF cREM2
+tmpdatdvskod   gv_dttemplate ltmpdtmkoderem2 ltmpdvs
+
+SFL_TARGET_IF cREM3
+tmpdatdvskod   gv_dttemplate ltmpdtmkoderem3 ltmpdvs
+
+SFL_TARGET_IF cREM4
+tmpdatdvskod   gv_dttemplate ltmpdtmkoderem4 ltmpdvs
+
+
+IMAGE(transg17t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg17)
+|_____ __________|___________________________________________________|
+
+FIELD(transg17)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg17)
+SFL_TITLE(transg17t)
+SFL_LINES(15)
+SFL_COND cCRM
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodecrm ltmpdvs
+
+
+IMAGE(transg18t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg18)
+|_____ __________|___________________________________________________|
+
+FIELD(transg18)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpilm4w 	lpil == 41 || lpil == 76  || lpil == 94
+
+SUBFILE(transg18)
+SFL_TITLE(transg18t)
+SFL_LINES(15)
+SFL_COND cpilm4w
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET_IF cM4W
+tmpdatdvskod   gv_dttemplate ltmpdtmkodem4w ltmpdvs
+
+SFL_TARGET_IF cM4W76
+tmpdatdvskod   gv_dttemplate ltmpdtmkodemktgm4w ltmpdvs
+
+SFL_TARGET_IF cM4W94
+tmpdatdvskod   gv_dttemplate ltmpdtmkdmit4w     ltmpdvs
+
+
+
+IMAGE(transg19t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg19)
+|_____ __________|___________________________________________________|
+
+FIELD(transg19)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cKREDIT		lpil == 38 || lpil == 39 || lpil == 42 || lpil == 43 || lpil == 44 || lpil == 74 ||
+		lpil == 87 || lpil == 88 || lpil == 89 || lpil == 90 || lpil == 310 || lpil == 316
+
+SUBFILE(transg19)
+SFL_TITLE(transg19t)
+SFL_LINES(15)
+SFL_COND cKREDIT
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod	gv_dttemplate ltmpdtmkodecrd2 ltmpdvs
+
+IMAGE(transg20t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg20)
+|_____ __________|___________________________________________________|
+
+FIELD(transg20)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cselect53               lpil ==53 || lpil ==54	|| lpil ==145 || lpil ==146 || lpil == 185 || lpil == 220 || lpil == 243 || lpil == 336
+cbatas_template		(
+						((lpil == 53 || lpil == 220 || lpil == 243) && tmpkode =="NPBTHARIAN") ||
+						(lpil != 53 && lpil != 220 && lpil != 243 && lpil != 336)
+					) || (
+						(lpil == 336 && (tmpkode == "CABANG3" || tmpkode == "TARGET2")) ||
+						(lpil != 53 && lpil != 220 && lpil != 243 && lpil != 336)
+					)
+cbatas_layar3544		lpil ==53 || lpil ==54	|| lpil ==145 || lpil ==146 || lpil == 185 || lpil == 220 || lpil == 243 &&
+						(tmpkode == "CABANG1" || tmpkode == "CABANG2" || tmpkode == "NPBTHARIAN" || tmpkode == "TARGET")
+cbatas_layar2967		(lpil == 145 || lpil == 336) && (tmpkode == "CABANG3" || tmpkode == "TARGET2")
+
+SUBFILE(transg20)
+SFL_TITLE(transg20t)
+SFL_LINES(15)
+SFL_COND cselect53
+SFL_SELECT    cbatas_template
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodenpbt
+
+/*********************************************************************/
+IMAGE(transg21t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg21)
+|_____ __________|___________________________________________________|
+
+FIELD(transg21)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cKLIKNSS2	((lpil == 47 && tmpkode == "KOMISIM2W") || (lpil == 116 && tmpkode == "HASILADS") || (lpil == 124 && tmpkode == "TOP10ADS") || (lpil == 130 && tmpkode == "KLIKNSSHMC") || (lpil == 162 && tmpkode == "KLIKNSSM2W") || (lpil == 202 && tmpkode == "KPIHMC") || (lpil == 203 && tmpkode == "KPIM2W") || (lpil == 208 && tmpkode == "HMCPKHARIAN") || (lpil == 209 && tmpkode == "HMCJLHARIAN") || (lpil == 228 && tmpkode == "ABSENSIKLIKNSS") || (lpil == 242 && (tmpkode == "PKHMCNAS" || tmpkode == "PKHMCSDM" || tmpkode == "PKHMCCAB")) || (lpil == 248 && (tmpkode == "JLHMCNAS" || tmpkode == "JLHMCSDM" || tmpkode == "JLHMCCAB")) || (lpil == 276 && tmpkode == "CLOSINGHMC") || (lpil == 278 && (tmpkode == "SPKM2WTU" || tmpkode == "SPKHMCTU" || tmpkode == "SPKM2WWB" || tmpkode == "SPKHMCWB" || tmpkode == "SPKH1" || tmpkode == "SPKM2WTUALL" || tmpkode == "SPKHMCTUALL" || tmpkode == "SPKM2WWBALL" || tmpkode == "SPKHMCWBALL" || tmpkode == "SPKH1ALL")) || (lpil == 282 && (tmpkode == "CLOSINGM2W" || tmpkode == "CLOSINGM2W2" || tmpkode == "CLOSINGM2W3" || tmpkode == "CLOSINGM2W4")) || (lpil == 285 && tmpkode == "NPBTHMC") || (lpil == 290 && tmpkode == "KPIHMC3") || (lpil == 309 && (tmpkode == "JLM2WSDM" || tmpkode == "PKM2WSDM" || tmpkode == "JLM2WSDM2" || tmpkode == "PKM2WSDM2")) || (lpil == 313 && tmpkode == "KPIHMC4") || (lpil == 314 && tmpkode == "KPIM2W3") || (lpil == 322 && tmpkode == "KPIM2W4") || (lpil == 333 && tmpkode == "KONTRIHMC") || (lpil == 334 && tmpkode == "PKHMC2") || (lpil == 335 && tmpkode == "PRODHMC") || (lpil == 340 && tmpkode == "KONTRIM2W") || (lpil == 349 && tmpkode == "NPBTM2W") || (lpil == 368 && tmpkode == "LABASOHMC"))
+
+SUBFILE(transg21)
+SFL_TITLE(transg21t)
+SFL_LINES(15)
+SFL_COND cKLIKNSS
+SFL_SELECT cKLIKNSS2
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodekliknss
+
+
+
+IMAGE(transg22t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg22)
+|_____ __________|___________________________________________________|
+
+FIELD(transg22)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg22)
+SFL_TITLE(transg22t)
+SFL_LINES(15)
+SFL_COND ccrdM4W
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodecm4w ltmpdvs
+
+IMAGE(transg23t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg23)
+|_____ __________|___________________________________________________|
+
+FIELD(transg23)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg23)
+SFL_TITLE(transg23t)
+SFL_LINES(15)
+SFL_COND cCRDT2JAM
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate lTMPDASHCREDIT2JAM ltmpdvs
+
+IMAGE(transg24t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg24)
+|_____ __________|___________________________________________________|
+
+FIELD(transg24)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+ctdk329         lpil != 329
+c329            lpil == 329
+
+
+SUBFILE(transg24)
+SFL_TITLE(transg24t)
+SFL_LINES(15)
+SFL_COND cahasscab
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET_IF ctdk329
+tmpdatdvskod   gv_dttemplate ltmpdtmkodeahscab ltmpdvs
+SFL_TARGET_IF c329
+tmpdatdvskod   gv_dttemplate ltmpdtmkodeahscab ltmpdvs
+
+
+IMAGE(transg25t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg25)
+|_____ __________|___________________________________________________|
+
+FIELD(transg25)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg25)
+SFL_TITLE(transg25t)
+SFL_LINES(15)
+SFL_COND cMGA
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashmga ltmpdvs
+
+
+/*HRD*/
+
+IMAGE(transg26t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg26)
+|_____ __________|___________________________________________________|
+
+FIELD(transg26)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg26)
+SFL_TITLE(transg26t)
+SFL_LINES(15)
+SFL_COND cHRD68
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashhrdmpp ltmpdvs
+
+/* AKUM AHASS */
+IMAGE(transg27t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg27)
+|_____ __________|___________________________________________________|
+
+FIELD(transg27)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpilahs         lpil == 69 || lpil == 95 || lpil == 251 || lpil == 299
+
+
+SUBFILE(transg27)
+SFL_TITLE(transg27t)
+SFL_LINES(15)
+SFL_COND cpilahs
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmakumahs ltmpdvs
+
+IMAGE(transg28t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg28)
+|_____ __________|___________________________________________________|
+
+FIELD(transg28)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg28)
+SFL_TITLE(transg28t)
+SFL_LINES(15)
+SFL_COND cCRE2
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpcre2 ltmpdvs
+
+IMAGE(transg29t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg29)
+|_____ __________|___________________________________________________|
+
+FIELD(transg29)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg29)
+SFL_TITLE(transg29t)
+SFL_LINES(15)
+SFL_COND cALL
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkode ltmpdvs
+
+IMAGE(transg30t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg30)
+|_____ __________|___________________________________________________|
+
+FIELD(transg30)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg30)
+SFL_TITLE(transg30t)
+SFL_LINES(15)
+SFL_COND cPIUM4W
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodepium4w ltmpdvs
+
+IMAGE(transg31t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg31)
+|_____ __________|___________________________________________________|
+
+FIELD(transg31)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cselect46               lpil ==46 || lpil == 176 || lpil == 182 || lpil == 72
+ckond46			 lpil ==46 || lpil == 176 || lpil == 182 || lpil == 72
+
+SUBFILE(transg31)
+SFL_TITLE(transg31t)
+SFL_LINES(15)
+SFL_COND cselect46
+SFL_SELECT	ckond46
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodenpbtthbl
+
+IMAGE(transg32t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg32)
+|_____ __________|___________________________________________________|
+
+FIELD(transg32)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cselect82		lpil == 82
+
+SUBFILE(transg32)
+SFL_TITLE(transg32t)
+SFL_LINES(15)
+SFL_COND cselect82
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ldashnpbtm4w
+
+IMAGE(transg33t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg33)
+|_____ __________|___________________________________________________|
+
+FIELD(transg33)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cselect91		lpil == 91
+
+SUBFILE(transg33)
+SFL_TITLE(transg33t)
+SFL_LINES(15)
+SFL_COND cselect91
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ldashopexhmc2w
+
+/******************* barang ahass **********/
+IMAGE(transg34t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg34)
+|_____ __________|___________________________________________________|
+
+FIELD(transg34)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cbrgahs         lpil == 96
+
+
+SUBFILE(transg34)
+SFL_TITLE(transg34t)
+SFL_LINES(15)
+SFL_COND cbrgahs
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmbrgahs ltmpdvs
+
+IMAGE(transg35t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg35)
+|_____ __________|___________________________________________________|
+
+FIELD(transg35)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cselect105               lpil ==105
+
+SUBFILE(transg35)
+SFL_TITLE(transg35t)
+SFL_LINES(15)
+SFL_COND cselect105
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodenpbtklik
+/*********************************************************************/
+
+IMAGE(transg36t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg36)
+|_____ __________|___________________________________________________|
+
+FIELD(transg36)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cselect109       lpil == 109 || lpil == 174 || lpil == 170 || lpil == 183 || lpil == 257 || lpil == 265
+csel174         ((lpil==174 || lpil==170 || lpil==183 || lpil==109 || lpil==257 || lpil == 265) && tmpkode=="CABANG")
+
+
+SUBFILE(transg36)
+SFL_TITLE(transg36t)
+SFL_LINES(15)
+SFL_COND cselect109
+SFL_SELECT csel174
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET_IF cH1
+tmpdatdvskod   gv_dttemplate ltmpdtmkodeh1 ltmpdvs
+SFL_TARGET_IF cM2W
+tmpdatdvskod   gv_dttemplate ltmpdtmkodem2w2 ltmpdvs
+
+/*********************************************************************/
+IMAGE(transg37t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg37)
+|_____ __________|___________________________________________________|
+
+FIELD(transg37)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cSTDKREDIT	lpil == 110 || lpil == 111
+
+SUBFILE(transg37)
+SFL_TITLE(transg37t)
+SFL_LINES(15)
+SFL_COND cSTDKREDIT
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod    gv_dttemplate ltmpdtmkodecrd4 ltmpdvs
+
+
+/*********************************************************************/
+IMAGE(transg38t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg38)
+|_____ __________|___________________________________________________|
+
+FIELD(transg38)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpilm2w4w       lpil == 114 || lpil == 115 || lpil == 165 || lpil == 302 || lpil == 303 || lpil == 304 || lpil == 306 || lpil == 326 || lpil == 361
+c114            lpil == 114 || lpil == 303 || lpil == 304 || lpil == 326 || lpil == 361
+c115            lpil == 115 || lpil == 165 || lpil == 302 || lpil == 306
+clcksales	((lpil==302 || lpil == 306 ) && tmpkode=="SALES") ||
+		(lpil == 114 || lpil == 115 || lpil == 165 || lpil == 303 || lpil == 304 || (lpil == 326 && tmpkode== "NAS") || (lpil == 361 && tmpkode== "CABANG"))
+
+SUBFILE(transg38)
+SFL_TITLE(transg38t)
+SFL_LINES(15)
+SFL_COND cpilm2w4w
+SFL_SELECT clcksales
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET_IF c114
+tmpdatdvskod   gv_dttemplate ltmpdtmkodem2w4w     ltmpdvs
+
+SFL_TARGET_IF c115
+tmpdatdvskod   gv_dttemplate ltmpdtmkdm2w4w ltmpdvs
+
+/********************************UMROH*******************************/
+
+IMAGE(transg39t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg39)
+|_____ __________|___________________________________________________|
+
+FIELD(transg39)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpilUMROH 	lpil == 120
+
+SUBFILE(transg39)
+SFL_TITLE(transg39t)
+SFL_LINES(15)
+SFL_COND cpilUMROH
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET_IF cUMROH120
+tmpdatdvskod   gv_dttemplate ltmpdtmkodeumroh ltmpdvs
+
+/***********************************************************/
+
+/********************************NPBT*******************************/
+
+IMAGE(transg40t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg40)
+|_____ __________|___________________________________________________|
+
+FIELD(transg40)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg40)
+SFL_TITLE(transg40t)
+SFL_LINES(15)
+SFL_COND cNPBTSGM
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmnpbtsgm ltmpdvs
+
+IMAGE(transg41t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg41)
+|_____ __________|___________________________________________________|
+
+FIELD(transg41)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpildivhmc      lpil == 125
+
+SUBFILE(transg41)
+SFL_TITLE(transg41t)
+SFL_LINES(15)
+SFL_COND cpildivhmc
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdivhmcmkt
+
+
+IMAGE(transg42t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg42)
+|_____ __________|___________________________________________________|
+
+FIELD(transg42)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg42)
+SFL_TITLE(transg42t)
+SFL_LINES(15)
+SFL_COND cSPKM
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ldashspkmhrd ltmpdvs
+
+/*********************************************************************/
+IMAGE(transg43t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg43)
+|_____ __________|___________________________________________________|
+
+FIELD(transg43)
+tbttype          PROTECT SCROLL          INPUTRI         1
+tbtkode         NOCHANGE                INPUTRI     1
+tbtket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cMONITORSVY	lpil == 133 ||  lpil == 134 || lpil == 136 || lpil == 137
+
+SUBFILE(transg43)
+SFL_TITLE(transg43t)
+SFL_LINES(15)
+SFL_COND cMONITORSVY
+SFL_SORT_BY_FIELD tbtnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tbtdattypkod   gv_dttemplate ltmpdvs ltmpdtmkodecrd5 lCABANG lCABANG
+
+/***********************************************************/
+
+IMAGE(transg44t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg44)
+|_____ __________|___________________________________________________|
+
+
+/***************************** KALENDER COE **********************************/
+
+FIELD(transg44)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg44)
+SFL_TITLE(transg44t)
+SFL_LINES(15)
+SFL_COND cpil171
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodecoe
+
+IMAGE(transg45t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg45)
+|_____ __________|___________________________________________________|
+
+FIELD(transg45)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg45)
+SFL_TITLE(transg45t)
+SFL_LINES(10)
+SFL_COND cpil180
+SFL_SORT_BY_FIELD tmpnourt
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashhrdmpp1 ltmpdvs
+
+IMAGE(transg46t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg46)
+|_____ __________|___________________________________________________|
+
+FIELD(transg46)
+        tmpdvs          PROTECT         SCROLL  INPUTRI     1
+        tmpkode         NOCHANGE                INPUTRI     2
+        tmpket          PROTECT         SCROLL  INPUTRI     3
+
+CALCS()
+c230                    lpil == 230 || lpil == 239  || lpil == 240
+
+SUBFILE(transg46)
+SFL_TITLE(transg46t)
+SFL_LINES(15)
+SFL_COND                c230
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate ltmpdashhcd
+
+
+IMAGE(transg47t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg47)
+|_____ __________|___________________________________________________|
+
+FIELD(transg47)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg47)
+SFL_TITLE(transg47t)
+SFL_LINES(10)
+SFL_COND cpil231
+SFL_SORT_BY_FIELD tmpnourt
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodedev
+
+IMAGE(transg48t)
+/--------------------t----------\
+| i.kode			 | t.thbl	|
+\--------------------.----------/
+
+IMAGE(transg48)
+|____________________|__________|
+
+FIELD(transg48)
+tmpkode		NOCHANGE	INPUTRI	1
+tmpisistr1	NOCHANGE	INPUTRI	2
+
+SUBFILE(transg48)
+SFL_TITLE(transg48t)
+SFL_LINES(15)
+SFL_COND cpil232
+SFL_TARGET
+	tmpdatdvskod	gv_dttemplate ltmpdtmkodenpbtthbl
+
+IMAGE(transg49t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg49)
+|_____ __________|___________________________________________________|
+
+FIELD(transg49)
+tmpdvs          PROTECT         SCROLL  INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     2
+tmpket          PROTECT         SCROLL  INPUTRI     3
+
+CALCS()
+c234                    lpil == 234
+
+SUBFILE(transg49)
+SFL_TITLE(transg49t)
+SFL_LINES(15)
+SFL_COND                c234
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate ltmpdashhcdcab
+
+IMAGE(transg50t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg50)
+|_____ __________|___________________________________________________|
+
+FIELD(transg50)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg50)
+SFL_TITLE(transg50t)
+SFL_LINES(15)
+SFL_COND cPROP
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkodeprop ltmpdvs
+
+IMAGE(transg51t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg51)
+|_____ __________|___________________________________________________|
+
+FIELD(transg51)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg51)
+SFL_TITLE(transg51t)
+SFL_LINES(10)
+SFL_COND cpil238
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashpenccab
+
+IMAGE(transg52t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg52)
+|_____ __________|___________________________________________________|
+
+FIELD(transg52)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg52)
+SFL_TITLE(transg52t)
+SFL_LINES(10)
+SFL_COND cpil241
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashindkpiu
+
+IMAGE(transg53t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg53)
+|_____ __________|___________________________________________________|
+
+FIELD(transg53)
+        tmpdvs          PROTECT         SCROLL  INPUTRI     1
+        tmpkode         NOCHANGE                INPUTRI     2
+        tmpket          PROTECT         SCROLL  INPUTRI     3
+
+CALCS()
+c244                    lpil == 244
+
+SUBFILE(transg53)
+SFL_TITLE(transg53t)
+SFL_LINES(15)
+SFL_COND                c244
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate lINDHAV
+
+IMAGE(transg54t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg54)
+|_____ __________|___________________________________________________|
+
+FIELD(transg54)
+        tmpdvs          PROTECT         SCROLL  INPUTRI     1
+        tmpkode         NOCHANGE                INPUTRI     2
+        tmpket          PROTECT         SCROLL  INPUTRI     3
+
+CALCS()
+c247                    lpil == 247
+
+SUBFILE(transg54)
+SFL_TITLE(transg54t)
+SFL_LINES(15)
+SFL_COND                c247
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate lDASHREKRUT
+
+/***********************************************************/
+IMAGE(transg55t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg55)
+|_____ __________|___________________________________________________|
+
+FIELD(transg55)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg55)
+SFL_TITLE(transg55t)
+SFL_LINES(15)
+SFL_COND cDESK
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkkdedesk
+
+/***********************************************************/
+IMAGE(transg56t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg56)
+|_____ __________|___________________________________________________|
+
+FIELD(transg56)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg56)
+SFL_TITLE(transg56t)
+SFL_LINES(15)
+SFL_COND				cpil250
+SFL_SORT_BY_FIELD		tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashpiu
+/***********************************************************/
+
+IMAGE(transg57t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg57)
+|_____ __________|___________________________________________________|
+
+FIELD(transg57)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg57)
+SFL_TITLE(transg57t)
+SFL_LINES(10)
+SFL_COND cpil252
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashnpbtmga
+/***********************************************************/
+
+IMAGE(transg58t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg58)
+|_____ __________|___________________________________________________|
+
+FIELD(transg58)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg58)
+SFL_TITLE(transg58t)
+SFL_LINES(10)
+SFL_COND cpil253
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashaydamga
+/***********************************************************/
+IMAGE(transg59t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg59)
+|_____ __________|___________________________________________________|
+
+FIELD(transg59)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg59)
+SFL_TITLE(transg59t)
+SFL_LINES(10)
+SFL_COND cpil258
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashjuallelang
+/***********************************************************/
+
+IMAGE(transg60t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg60)
+|_____ __________|___________________________________________________|
+
+FIELD(transg60)
+tmpdvs          PROTECT         SCROLL  INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     2
+tmpket          PROTECT         SCROLL  INPUTRI     3
+
+CALCS()
+
+
+SUBFILE(transg60)
+SFL_TITLE(transg60t)
+SFL_LINES(15)
+SFL_COND                cpil259
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate lABSHCD
+
+IMAGE(transg61t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg61)
+|_____ __________|___________________________________________________|
+
+FIELD(transg61)
+        tmpdvs          PROTECT         SCROLL  INPUTRI     1
+        tmpkode         NOCHANGE                INPUTRI     2
+        tmpket          PROTECT         SCROLL  INPUTRI     3
+
+CALCS()
+c260                    lpil == 260
+
+SUBFILE(transg61)
+SFL_TITLE(transg61t)
+SFL_LINES(15)
+SFL_COND                c260
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate lDASHREKMEDSOS
+/***********************************************************/
+IMAGE(transg62t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg62)
+|_____ __________|___________________________________________________|
+
+FIELD(transg62)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg62)
+SFL_TITLE(transg62t)
+SFL_LINES(15)
+SFL_COND				cpil262
+SFL_SORT_BY_FIELD		tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashjaminan
+
+/*********** DASHBOARD OVERVIEW AHASS 1 ********************/
+IMAGE(transg63t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg63)
+|_____ __________|___________________________________________________|
+
+FIELD(transg63)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpilahs2         lpil == 269 || lpil == 273 || lpil == 357
+
+
+SUBFILE(transg63)
+SFL_TITLE(transg63t)
+SFL_LINES(15)
+SFL_COND cpilahs2
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET_IF cpil269
+tmpdatdvskod   gv_dttemplate ltmpdtmviewahs ltmpdvs
+SFL_TARGET_IF cpil273
+tmpdatdvskod   gv_dttemplate ltmpdtmviewahs2 ltmpdvs
+SFL_TARGET_IF cpil357
+tmpdatdvskod   gv_dttemplate ltmpdtmviewahs ltmpdvs
+
+/***********************************************************/
+
+
+
+IMAGE(transg64t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg64)
+|_____ __________|___________________________________________________|
+
+FIELD(transg64)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg64)
+SFL_TITLE(transg64t)
+SFL_LINES(15)
+SFL_COND				cpil270
+SFL_SORT_BY_FIELD		tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashpiublnmga
+/***********************************************************/
+/**************************FIDKEL**************************/
+
+IMAGE(transg65t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg65)
+|_____ __________|___________________________________________________|
+
+FIELD(transg65)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpilfidkel         lpil == 272
+
+
+SUBFILE(transg65)
+SFL_TITLE(transg65t)
+SFL_LINES(15)
+SFL_COND cpilfidkel
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod	gv_dttemplate ltmpdtmkodecrd6 ltmpdvs
+
+/********************************************************************/
+/***************************DASH PDCA********************************/
+IMAGE(transg66t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg66)
+|_____ __________|___________________________________________________|
+
+FIELD(transg66)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpilpdcaabsen         lpil == 275
+
+
+SUBFILE(transg66)
+SFL_TITLE(transg66t)
+SFL_LINES(15)
+SFL_COND cpilpdcaabsen
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod	gv_dttemplate ltmpdashabsenpdca ltmpdvs
+
+/********************************************************************/
+/* SERVICE ADVISOR */
+IMAGE(transg67t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg67)
+|_____ __________|___________________________________________________|
+
+FIELD(transg67)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg67)
+SFL_TITLE(transg67t)
+SFL_LINES(15)
+SFL_COND cpil277
+SFL_SORT_BY_FIELD tmpnourt
+/*SFL_SORT_UPDOWN UP*/
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashadvisor
+
+/***************************DASH PDCA********************************/
+IMAGE(transg68t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+IMAGE(transg68)
+|_____ __________|___________________________________________________|
+
+FIELD(transg68)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg68)
+SFL_TITLE(transg68t)
+SFL_LINES(15)
+SFL_COND cpil279
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod	gv_dttemplate ltmpdashabsenpdcathbl ltmpdvs
+
+IMAGE(transg69t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg69)
+|_____ __________|___________________________________________________|
+
+FIELD(transg69)
+        tmpdvs          PROTECT         SCROLL  INPUTRI     1
+        tmpkode         NOCHANGE                INPUTRI     2
+        tmpket          PROTECT         SCROLL  INPUTRI     3
+
+CALCS()
+c283                    lpil == 283
+
+SUBFILE(transg69)
+SFL_TITLE(transg69t)
+SFL_LINES(15)
+SFL_COND                c283
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate ltmpdashtalent
+
+IMAGE(transg70)
+|_____ __________|___________________________________________________|
+
+FIELD(transg70)
+        tmpdvs          PROTECT         SCROLL  INPUTRI     1
+        tmpkode         NOCHANGE                INPUTRI     2
+        tmpket          PROTECT         SCROLL  INPUTRI     3
+
+CALCS()
+c284                    lpil == 284
+
+SUBFILE(transg70)
+SFL_LINES(15)
+SFL_COND                c284
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate lSTRUKTURDBTRN
+
+IMAGE(transg71t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg71)
+|_____ __________|___________________________________________________|
+
+FIELD(transg71)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg71)
+SFL_TITLE(transg71t)
+SFL_LINES(15)
+SFL_COND				cpil286
+SFL_SORT_BY_FIELD		tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashpiumga
+
+IMAGE(transg72t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg72)
+|_____ __________|___________________________________________________|
+
+FIELD(transg72)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg72)
+SFL_TITLE(transg72t)
+SFL_LINES(15)
+SFL_COND				cpil287
+SFL_SORT_BY_FIELD		tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpmedsosmga
+
+IMAGE(transg73t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg73)
+|_____ __________|___________________________________________________|
+
+FIELD(transg73)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg73)
+SFL_TITLE(transg73t)
+SFL_LINES(15)
+SFL_COND				cpil297
+SFL_SORT_BY_FIELD		tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmprekaplelang
+
+IMAGE(transg74t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg74)
+|_____ __________|___________________________________________________|
+
+FIELD(transg74)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+CALCS()
+cpil298		lpil == 298
+
+SUBFILE(transg74)
+SFL_LINES(10)
+SFL_TITLE(transg74t)
+SFL_COND	cpil298
+SFL_TARGET
+	tmpdatdvskod   gv_dttemplate ltmpdtmkodenpbtnas
+
+/***********************************************************/
+IMAGE(transg75t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg75)
+|_____ __________|___________________________________________________|
+
+FIELD(transg75)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg75)
+SFL_TITLE(transg75t)
+SFL_LINES(15)
+SFL_COND cpil300
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkkdeinfaud
+
+/***********************************************************/
+
+IMAGE(transg76t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg76)
+|_____ __________|___________________________________________________|
+
+FIELD(transg76)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg76)
+SFL_TITLE(transg76t)
+SFL_LINES(15)
+SFL_COND cpil305
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdtmkkplanthbl
+
+/***********************************************************/
+
+IMAGE(transg77t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg77)
+|_____ __________|___________________________________________________|
+
+FIELD(transg77)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg77)
+SFL_TITLE(transg77t)
+SFL_LINES(10)
+SFL_COND cpil307
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashproyjual
+
+IMAGE(transg78t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg78)
+|_____ __________|___________________________________________________|
+
+FIELD(transg78)
+        tmpdvs          PROTECT         SCROLL  INPUTRI     1
+        tmpkode         NOCHANGE                INPUTRI     2
+        tmpket          PROTECT         SCROLL  INPUTRI     3
+
+CALCS()
+c308                    lpil == 308
+
+SUBFILE(transg78)
+SFL_TITLE(transg78t)
+SFL_LINES(15)
+SFL_COND                c308
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate lDASHSPKREK
+
+IMAGE(transg79t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg79)
+|_____ __________|___________________________________________________|
+
+FIELD(transg79)
+        tmpdvs          PROTECT         SCROLL  INPUTRI     1
+        tmpkode         NOCHANGE                INPUTRI     2
+        tmpket          PROTECT         SCROLL  INPUTRI     3
+
+CALCS()
+c317                    lpil == 317
+
+SUBFILE(transg79)
+SFL_TITLE(transg79t)
+SFL_LINES(15)
+SFL_COND                c317
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate ltmpdashodtm
+
+
+/***********************AWL CS GMB***********************/
+IMAGE(transg80t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg80)
+|_____ __________|___________________________________________________|
+
+FIELD(transg80)
+        tmpdvs          PROTECT         SCROLL  INPUTRI     1
+        tmpkode         NOCHANGE                INPUTRI     2
+        tmpket          PROTECT         SCROLL  INPUTRI     3
+
+CALCS()
+c318                    lpil == 318
+
+SUBFILE(transg80)
+SFL_TITLE(transg80t)
+SFL_LINES(15)
+SFL_COND                c318
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate lDASHCXGMB
+
+/***********************AKH CS GMB***********************/
+/***********************AWL CS GMB***********************/
+IMAGE(transg81t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg81)
+|_____ __________|___________________________________________________|
+
+FIELD(transg81)
+        tmpdvs          PROTECT         SCROLL  INPUTRI     1
+        tmpkode         NOCHANGE                INPUTRI     2
+        tmpket          PROTECT         SCROLL  INPUTRI     3
+
+
+SUBFILE(transg81)
+SFL_TITLE(transg81t)
+SFL_LINES(15)
+SFL_COND                cpil328
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+        tmpdatdvskod    gv_dttemplate ltmpdashtomga
+
+IMAGE(transg82t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg82)
+|_____ __________|___________________________________________________|
+
+FIELD(transg82)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg82)
+SFL_TITLE(transg82t)
+SFL_LINES(10)
+SFL_COND cpil330
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashrekgadai
+
+IMAGE(transg83t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg83)
+|_____ __________|___________________________________________________|
+
+FIELD(transg83)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg83)
+SFL_TITLE(transg83t)
+SFL_LINES(10)
+SFL_COND cpil331
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashrekgadai
+
+IMAGE(transg84t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg84)
+|_____ __________|___________________________________________________|
+
+FIELD(transg84)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg84)
+SFL_TITLE(transg84t)
+SFL_LINES(10)
+SFL_COND cpil332
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashrekgadai
+
+IMAGE(transg85t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg85)
+|_____ __________|___________________________________________________|
+
+FIELD(transg85)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg85)
+SFL_TITLE(transg85t)
+SFL_LINES(10)
+SFL_COND cpil338
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashpenjgadai
+
+IMAGE(transg86t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg86)
+|_____ __________|___________________________________________________|
+
+FIELD(transg86)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg86)
+SFL_TITLE(transg86t)
+SFL_LINES(10)
+SFL_COND cpil339
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashpenjgadai
+
+IMAGE(transg87t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg87)
+|_____ __________|___________________________________________________|
+
+FIELD(transg87)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg87)
+SFL_TITLE(transg87t)
+SFL_LINES(10)
+SFL_COND cpil343
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashspkgdi
+
+IMAGE(transg88t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg88)
+|_____ __________|___________________________________________________|
+
+FIELD(transg88)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg88)
+SFL_TITLE(transg88t)
+SFL_LINES(10)
+SFL_COND cpil344
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashrkppjlnmga
+
+IMAGE(transg89t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg89)
+|_____ __________|___________________________________________________|
+
+FIELD(transg89)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg89)
+SFL_TITLE(transg89t)
+SFL_LINES(10)
+SFL_COND cpil347
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashjualsoamga
+
+IMAGE(transg90t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg90)
+|_____ __________|___________________________________________________|
+
+FIELD(transg90)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg90)
+SFL_TITLE(transg90t)
+SFL_LINES(10)
+SFL_COND cpil348
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashjualsoamga
+
+IMAGE(transg91t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg91)
+|_____ __________|___________________________________________________|
+
+FIELD(transg91)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg91)
+SFL_TITLE(transg91t)
+SFL_LINES(10)
+SFL_COND cpil352
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashstokjmn
+
+IMAGE(transg92t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg92)
+|_____ __________|___________________________________________________|
+
+FIELD(transg92)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg92)
+SFL_TITLE(transg92t)
+SFL_LINES(10)
+SFL_COND cpil353
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashstokjmn
+
+
+IMAGE(transg93t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg93)
+|_____ __________|___________________________________________________|
+
+FIELD(transg93)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg93)
+SFL_TITLE(transg93t)
+SFL_LINES(10)
+SFL_COND cpil356
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpmdsatlmga
+
+IMAGE(transg94t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg94)
+|_____ __________|___________________________________________________|
+
+FIELD(transg94)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg94)
+SFL_TITLE(transg94t)
+SFL_LINES(10)
+SFL_COND cpil363
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashstokllg
+
+IMAGE(transg95t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg95)
+|_____ __________|___________________________________________________|
+
+FIELD(transg95)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg95)
+SFL_TITLE(transg95t)
+SFL_LINES(10)
+SFL_COND cpil364
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashstokllg
+
+
+IMAGE(transg96t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg96)
+|_____ __________|___________________________________________________|
+
+FIELD(transg96)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg96)
+SFL_TITLE(transg96t)
+SFL_LINES(10)
+SFL_COND cpil365
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashjlllgmga
+
+IMAGE(transg97t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg97)
+|_____ __________|___________________________________________________|
+
+FIELD(transg97)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg97)
+SFL_TITLE(transg97t)
+SFL_LINES(10)
+SFL_COND cpil367
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashgmbmga
+
+IMAGE(transg98t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg98)
+|_____ __________|___________________________________________________|
+
+FIELD(transg98)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg98)
+SFL_TITLE(transg98t)
+SFL_LINES(10)
+SFL_COND cpil369
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate lDASHCLAIMBD
+
+IMAGE(transg99t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg99)
+|_____ __________|___________________________________________________|
+
+FIELD(transg99)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg99)
+SFL_TITLE(transg99t)
+SFL_LINES(10)
+SFL_COND cpil375
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashadsmga
+
+IMAGE(transg100t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg100)
+|_____ __________|___________________________________________________|
+
+FIELD(transg100)
+tmpdvs          PROTECT SCROLL          INPUTRI         1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg100)
+SFL_TITLE(transg100t)
+SFL_LINES(10)
+SFL_COND cpil377
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashkatprm
+
+IMAGE(transg101t)
+/---------------------t---------------------------------------------------\
+|  i.Kode             | t.Ket                                             |
+\---------------------.---------------------------------------------------/
+
+IMAGE(transg101)
+|______ ____________|___________________________________________________|
+
+FIELD(transg101)
+tmpdvs		  PROTECT SCROLL          INPUTRI         1	
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+
+SUBFILE(transg101)
+SFL_TITLE(transg101t)
+SFL_LINES(15)
+SFL_COND                cpil378
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod gv_dttemplate ltmpdashradar
+
+IMAGE(transg102t)
+/---------------------t---------------------------------------------------\
+|  i.Kode             | t.Ket                                             |
+\---------------------.---------------------------------------------------/
+
+IMAGE(transg102)
+|______ ____________|___________________________________________________|
+
+FIELD(transg102)
+tmpdvs		  PROTECT SCROLL          INPUTRI         1	
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg102)
+SFL_TITLE(transg102t)
+SFL_LINES(15)
+SFL_COND                cpil382
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod gv_dttemplate ltmpdashrwdmga
+
+/*===== TRANS PDCA =====*/
+IMAGE(transg103t)
+/-------------t--------------------\
+|   i.kode    |  i.ket             |
+\-------------.--------------------/
+
+IMAGE(transg103)
+|____________|_________________________|
+
+FIELDS(transg103)
+tmpkode     NOCHANGE SCROLL     INPUTRI     1
+tmpket      NOCHANGE SCROLL     INPUTRI     1
+
+SUBFILE(transg103)
+SFL_TITLE(transg103t)
+SFL_LINES(15)
+SFL_COND cpil383
+SFL_SORT_BY_FIELD tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET tmpdatdvskod gv_dttemplate lJADWALPDCA
+
+IMAGE(transg104t)
+/---------------------t---------------------------------------------------\
+|  i.Kode             | t.Ket                                             |
+\---------------------.---------------------------------------------------/
+
+IMAGE(transg104)
+|______ ____________|___________________________________________________|
+
+FIELD(transg104)
+tmpdvs		  	PROTECT SCROLL          INPUTRI		1	
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg104)
+SFL_TITLE(transg104t)
+SFL_LINES(15)
+SFL_COND                cpil386
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod gv_dttemplate ltmpdashstsprc
+
+IMAGE(transg105t)
+/---------------------t---------------------------------------------------\
+|  i.Kode             | t.Ket                                             |
+\---------------------.---------------------------------------------------/
+
+IMAGE(transg105)
+|______ ____________|___________________________________________________|
+
+FIELD(transg105)
+tmpdvs		  	PROTECT SCROLL          INPUTRI		1	
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg105)
+SFL_TITLE(transg105t)
+SFL_LINES(15)
+SFL_COND                cpil388
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod gv_dttemplate ltmpdashcabprc
+
+IMAGE(transg106t)
+/---------------------t---------------------------------------------------\
+|  i.Kode             | t.Ket                                             |
+\---------------------.---------------------------------------------------/
+
+IMAGE(transg106)
+|______ ____________|___________________________________________________|
+
+FIELD(transg106)
+tmpdvs		  	PROTECT SCROLL          INPUTRI		1	
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg106)
+SFL_TITLE(transg106t)
+SFL_LINES(15)
+SFL_COND                cpil389
+SFL_SORT_BY_FIELD       tmpnourt
+SFL_SORT_UPDOWN UP
+SFL_TARGET
+tmpdatdvskod gv_dttemplate ltmpdashlap938
+
+IMAGE(transg107t)
+/---------------------t---------------------------------------------------\
+|  i.Kode             | t.Ket                                             |
+\---------------------.---------------------------------------------------/
+
+IMAGE(transg107)
+|___________|_____________________|
+
+FIELD(transg107)
+tmpkode			NOCHANGE		INPUTRI	1
+tmpket			NOCHANGE		INPUTRI	2
+
+SUBFILE(transg107)
+SFL_TITLE(transg107t)
+SFL_LINES(15)
+SFL_COND	cpil390
+SFL_TARGET
+tmpdatdvskod	gv_dttemplate ltmpnpbtcabpos
+
+IMAGE(transg108t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg108)
+|_____ __________|___________________________________________________|
+
+FIELD(transg108)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg108)
+SFL_TITLE(transg108t)
+SFL_LINES(10)
+SFL_COND cpil387
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashcctvmga
+
+IMAGE(transg109t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg109)
+|_____ __________|___________________________________________________|
+
+FIELD(transg109)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg109)
+SFL_TITLE(transg109t)
+SFL_LINES(10)
+SFL_COND cpil391
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashmpp
+
+IMAGE(transg110t)
+/----------------t---------------------------------------------------\
+|  i.Kode        | t.Ket                                             |
+\----------------.---------------------------------------------------/
+
+IMAGE(transg110)
+|_____ __________|___________________________________________________|
+
+FIELD(transg110)
+tmpdvs          PROTECT SCROLL          INPUTRI     1
+tmpkode         NOCHANGE                INPUTRI     1
+tmpket          PROTECT SCROLL          INPUTRI     2
+
+SUBFILE(transg110)
+SFL_TITLE(transg110t)
+SFL_LINES(10)
+SFL_COND cpil392
+SFL_SORT_BY_FIELD tmpnourt
+SFL_TARGET
+tmpdatdvskod   gv_dttemplate ltmpdashcustro
+
+/***********************AKH***********************/
+/***********************AKH***********************/
+
+
+/***** dshdel ******/
+
+SPCALCS(sptrans)
+DO_LIB_IF cADH ap_nxpst(l3521,lm3521);
+DO_LIB_IF cREM ap_nxpst(l3526,lm3521);
+/*DO_LIB_IF cPIU5 ap_nxpst(l3528,lm3521);*/
+
+SPCALCS(sptransg1)
+DO_LIB_IF cHMC2		ap_nxpst(l3522,lm3521);
+DO_LIB_IF cHMC3		ap_nxpst(l3050,lm3521);
+DO_LIB_IF cHMC4		ap_nxpst(l3091,lm3521);
+DO_LIB_IF cHMC5		ap_nxpst(l3559,lm3521);
+DO_LIB_IF cHMC6		ap_nxpst(l3560,lm3521);
+DO_LIB_IF cHMC7		ap_nxpst(l3047,lm3521);
+DO_LIB_IF cM2Wa 	ap_nxpst(l3524,lm3521);
+DO_LIB_IF cM2Wb 	ap_nxpst(l3542,lm3521);
+DO_LIB_IF cM2Wc 	ap_nxpst(l3095,lm3521);
+DO_LIB_IF cM2Wd		ap_nxpst(l3094,lm3521);
+/*DO_LIB_IF cM2We 	ap_nxpst(l3564,lm3521);*/
+DO_LIB_IF cM2Wf 	ap_nxpst(l3542,lm3542);
+DO_LIB_IF cM2Wg 	ap_nxpst(l3565,lm3565);
+DO_LIB_IF cM2Wi		ap_nxpst(l3575,lm3521);
+DO_LIB_IF cM2Wj		ap_nxpst(l3053,lm3521);
+DO_LIB_IF cMAPAGN	ap_nxpst(l3595,lm3521);
+DO_LIB_IF cHMCWA 	ap_nxpst(l2934,lm3521);
+DO_LIB_IF cHMCKPI       ap_nxpst(l3566,lm3521);
+
+SPCALCS(sptransg2)
+DO_LIB_IF cPIU18	ap_nxpst(l3531,lm3521);
+DO_LIB_IF cPIU4 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU75 ap_nxpst(l3058,lm3521);
+DO_LIB_IF cPIU79 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU83 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU93 ap_nxpst(l3529,lm3521);
+DO_LIB_IF cPIU2 ap_nxpst(l3529,lm3521);
+DO_LIB_IF cPIU113 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU119 ap_nxpst(l3529,lm3521);
+DO_LIB_IF cPIU135 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU172 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU190 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU193 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU201 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU222 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU226 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU227 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU235 ap_nxpst(l3528,lm3521);
+
+SPCALCS(sptransg3)
+DO_LIB_IF cGA	ap_nxpst(l3530,lm3521);
+
+SPCALCS(sptransg4)
+DO_LIB_IF cfin	ap_nxpst(l3523,lm3521);
+
+SPCALCS(sptransg5)
+DO_LIB_IF cSVY	ap_nxpst(l3533,lm3521);
+
+SPCALCS(sptransg6)
+DO_LIB_IF cPIU7	ap_nxpst(l3532,lm3521);
+
+SPCALCS(sptransg7)
+DO_LIB_IF cPIU67 ap_nxpst(l3529,lm3521);
+DO_LIB_IF cPIU8	ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU78 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU86 ap_nxpst(l3529,lm3521);
+DO_LIB_IF cPIU92 ap_nxpst(l3529,lm3521);
+DO_LIB_IF cPIU112 ap_nxpst(l3529,lm3521);
+DO_LIB_IF cPIU131 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU142 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU143 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU155 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU163 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU177 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU229 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU237 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU245 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU263 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU264 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU271 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU288 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU301 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU323 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU337 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU346 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU355 ap_nxpst(l3528,lm3521);
+DO_LIB_IF cPIU366 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU372 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU376 ap_nxpst(l3534,lm3521);
+DO_LIB_IF cPIU23  ap_nxpst(l3540,lm3521);
+DO_LIB_IF cPIU48  ap_nxpst(l3540,lm3521);
+DO_LIB_IF cPIU49  ap_nxpst(l3540,lm3521);
+DO_LIB_IF cPIU50  ap_nxpst(l3540,lm3521);
+DO_LIB_IF cPIU51  ap_nxpst(l3540,lm3521);
+
+SPCALCS(sptransg8)
+DO_LIB_IF cPIU10 ap_nxpst(l3535,lm3521);
+
+SPCALCS(sptransg9)
+DO_LIB_IF cAHS ap_nxpst(l3536,lm3521);
+
+SPCALCS(sptransg10)
+DO_LIB_IF cAUD1 ap_nxpst(l3539,lm3521);
+
+SPCALCS(sptransg11)
+DO_LIB_IF cKNSC ap_nxpst(l3527,lm3521);
+DO_LIB_IF cpil62 ap_nxpst(l3029,lm3521);
+DO_LIB_IF cpil107 ap_nxpst(l3049,lm3521);
+DO_LIB_IF cpil144 ap_nxpst(l3054,lm3521);
+DO_LIB_IF cpil167 ap_nxpst(l3029,lm3521);
+DO_LIB_IF cpil178 ap_nxpst(l3533,lm3521);
+DO_LIB_IF cpil181 ap_nxpst(l3569,lm3521);
+
+SPCALCS(sptransg12)
+DO_LIB_IF cfin2 ap_nxpst(l3523,lm3521);
+
+SPCALCS(sptransg13)
+DO_LIB_IF cIT1 ap_nxpst(l3525,lm3521);
+
+SPCALCS(sptransg14)
+DO_LIB_IF cSUP2 ap_nxpst(l3537,lm3521);
+
+SPCALCS(sptransg15)
+DO_LIB_IF cLCK3  ap_nxpst(l3050,lm3542);
+DO_LIB_IF cLCK2  ap_nxpst(l3542,lm3542);
+DO_LIB_IF cLCK4  ap_nxpst(l3524,lm3521);
+DO_LIB_IF cLCK5  ap_nxpst(l3560,lm3521);
+DO_LIB_IF cLCK6  ap_nxpst(l3522,lm3521);
+DO_LIB_IF cM2Wh  ap_nxpst(l3565,lm3521);
+DO_LIB_IF cM2Wi	 ap_nxpst(l3575,lm3521);
+DO_LIB_IF cM2Wj	 ap_nxpst(l3053,lm3521);
+
+SPCALCS(sptransg16)
+DO_LIB_IF cREM2 ap_nxpst(l3541,lm3521);
+DO_LIB_IF cREM3 ap_nxpst(l3546,lm3521);
+DO_LIB_IF cREM4 ap_nxpst(l3546,lm3521);
+
+SPCALCS(sptransg17)
+DO_LIB_IF cCRM ap_nxpst(l3538,lm3521);
+
+SPCALCS(sptransg18)
+DO_LIB_IF cM4W ap_nxpst(l3543,lm3521);
+DO_LIB_IF cM4W76 ap_nxpst(l3593,lm3521);
+DO_LIB_IF cM4W94 ap_nxpst(l3594,lm3521);
+
+SPCALCS(sptransg19)
+DO_LIB_IF cpil38 ap_nxpst(l2990,lm3521);
+DO_LIB_IF cpil39 ap_nxpst(l3564,lm3521);
+DO_LIB_IF cpil43 ap_nxpst(l2969,lm3521);
+DO_LIB_IF cpil44 ap_nxpst(l2928,lm3521);
+DO_LIB_IF cpil42 ap_nxpst(l2929,lm3521);
+DO_LIB_IF cpil74 ap_nxpst(l2929,lm3521);
+DO_LIB_IF cpil87 ap_nxpst(l2990,lm3521);
+DO_LIB_IF cpil88 ap_nxpst(l3564,lm3521);
+DO_LIB_IF cpil89 ap_nxpst(l2969,lm3521);
+DO_LIB_IF cpil90 ap_nxpst(l2928,lm3521);
+DO_LIB_IF cpil310 ap_nxpst(l2928,lm3521);
+DO_LIB_IF cpil316 ap_nxpst(l2928,lm3521);
+
+SPCALCS(sptransg20)
+DO_LIB_IF cbatas_layar3544 ap_nxpst(l3544,lm3521);
+DO_LIB_IF cbatas_layar2967 ap_nxpst(l2967,lm3521);
+
+SPCALCS(sptransg21)
+DO_LIB ap_nxpst(l3545,lm3521);
+
+SPCALCS(sptransg22)
+DO_LIB_IF ccrdM4W ap_nxpst(l3547,lm3521);
+
+SPCALCS(sptransg23)
+DO_LIB_IF cCRDT2JAM ap_nxpst(l3556,lm3521);
+
+SPCALCS(sptransg24)
+DO_LIB_IF cpil45 ap_nxpst(l3549,lm3521);
+DO_LIB_IF cpil117 ap_nxpst(l3568,lm3521);
+DO_LIB_IF cpil312 ap_nxpst(l3562,lm3521);
+
+SPCALCS(sptransg25)
+DO_LIB_IF cMGA ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg26)
+DO_LIB_IF cHRD68 ap_nxpst(l2998,lm3521);
+
+SPCALCS(sptransg27)
+DO_LIB_IF cpil69 ap_nxpst(l3561,lm3521);
+DO_LIB_IF cpil95 ap_nxpst(l3563,lm3521);
+DO_LIB_IF cpil251 ap_nxpst(l3563,lm3521);
+DO_LIB_IF cpil299 ap_nxpst(l3563,lm3521);
+
+SPCALCS(sptransg28)
+DO_LIB_IF cCRE2 ap_nxpst(l3557,lm3521);
+
+SPCALCS(sptransg29)
+DO_LIB_IF cALL ap_nxpst(l3091,lm3521);
+
+SPCALCS(sptransg30)
+DO_LIB_IF cPIUM4W ap_nxpst(l3555,lm3521);
+
+SPCALCS(sptransg31)
+DO_LIB ap_nxpst(l2992,lm3521);
+
+SPCALCS(sptransg32)
+DO_LIB ap_nxpst(l2992,lm3521);
+
+SPCALCS(sptransg33)
+DO_LIB	ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg34)
+DO_LIB  ap_nxpst(l3562,lm3521);
+
+SPCALCS(sptransg35)
+DO_LIB	ap_nxpst(l3544,lm3521);
+
+SPCALCS(sptransg36)
+DO_LIB_IF cH1x	ap_nxpst(l3566,lm3521);
+DO_LIB_IF cHMC3	ap_nxpst(l3050,lm3542);
+
+SPCALCS(sptransg37)
+DO_LIB_IF cpil110 ap_nxpst(l2990,lm3521);
+DO_LIB_IF cpil111 ap_nxpst(l3564,lm3521);
+
+SPCALCS(sptransg38)
+DO_LIB_IF cM2W4W100 ap_nxpst(l3567,lm3521);
+DO_LIB_IF cM2W4W300 ap_nxpst(l4970,lm3542);
+DO_LIB_IF cM2W4W326 ap_nxpst(l5104,lm3542);
+
+SPCALCS(sptransg39)
+DO_LIB_IF cUMROH120 ap_nxpst(l3595,lm3521);
+
+SPCALCS(sptransg40)
+DO_LIB ap_nxpst(l2992,lm3521);
+
+SPCALCS(sptransg41)
+DO_LIB_IF cpildivhmc ap_nxpst(l3569,lm3521);
+
+SPCALCS(sptransg42)
+DO_LIB_IF cSPKM ap_nxpst(l2996,lm3521);
+
+SPCALCS(sptransg43)
+DO_LIB_IF cpil133 ap_nxpst(l2990,lm3522h);
+DO_LIB_IF cpil134 ap_nxpst(l3564,lm3522h);
+DO_LIB_IF cpil136 ap_nxpst(l2990,lm3522);
+DO_LIB_IF cpil137 ap_nxpst(l3564,lm3522);
+
+SPCALCS(sptransg44)
+DO_LIB_IF cpil171 ap_nxpst(l3596,lm3521);
+
+SPCALCS(sptransg45)
+DO_LIB_IF cpil180 ap_nxpst(l2970,lm3521);
+
+SPCALCS(sptransg46)
+DO_LIB_IF c230         ap_nxpst(l3585,lm3521);
+
+SPCALCS(sptransg47)
+DO_LIB_IF cpil231         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg48)
+DO_LIB_IF cpil232 ap_nxpst(l3544,lm3544);
+
+SPCALCS(sptransg49)
+DO_LIB_IF c234         ap_nxpst(l3581,lm3521);
+
+SPCALCS(sptransg50)
+DO_LIB_IF cPROP	ap_nxpst(l3530,lm3521);
+
+SPCALCS(sptransg51)
+DO_LIB_IF cpil238         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg52)
+DO_LIB_IF cpil241         ap_nxpst(l2992,lm3521);
+
+SPCALCS(sptransg53)
+DO_LIB_IF c244         ap_nxpst(l3585,lm3521);
+
+SPCALCS(sptransg54)
+DO_LIB_IF c247         ap_nxpst(l3585,lm3521);
+
+SPCALCS(sptransg55)
+DO_LIB_IF cDESK 	ap_nxpst(l3539,lm3521);
+
+SPCALCS(sptransg56)
+DO_LIB_IF cpil250         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg57)
+DO_LIB_IF cpil252        ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg58)
+DO_LIB_IF cpil253		ap_nxpst(l2904, lm3521);
+
+SPCALCS(sptransg59)
+DO_LIB_IF cpil258		ap_nxpst(l2904, lm3521);
+
+SPCALCS(sptransg60)
+DO_LIB_IF cpil259         ap_nxpst(l3581,lm3521);
+
+SPCALCS(sptransg61)
+DO_LIB_IF c260         ap_nxpst(l3585,lm3521);
+
+SPCALCS(sptransg62)
+DO_LIB_IF	cpil262		ap_nxpst(l2904, lm3521);
+
+SPCALCS(sptransg63)
+DO_LIB_IF cpil269 ap_nxpst(l3562,lm3521);
+DO_LIB_IF cpil273 ap_nxpst(l3562,lm3521);
+DO_LIB_IF cpil357 ap_nxpst(l3563,lm3521);
+
+SPCALCS(sptransg64)
+DO_LIB_IF	cpil270		ap_nxpst(l2904, lm3521);
+
+SPCALCS(sptransg65)
+DO_LIB_IF cpil272 ap_nxpst(l2929,lm3521);
+
+SPCALCS(sptransg66)
+DO_LIB_IF cpil275 ap_nxpst(l3539,lm3521);
+
+SPCALCS(sptransg67)
+DO_LIB_IF       cpil277         ap_nxpst(l3562, lm3521);
+
+SPCALCS(sptransg68)
+DO_LIB_IF cpil279 ap_nxpst(l3539, lm3521);
+
+SPCALCS(sptransg69)
+DO_LIB_IF c283 ap_nxpst(l3581, lm3521);
+
+SPCALCS(sptransg70)
+DO_LIB ap_nxpst(l3585, lm3521);
+
+SPCALCS(sptransg71)
+DO_LIB_IF	cpil286		ap_nxpst(l2904, lm3521);
+
+SPCALCS(sptransg72)
+DO_LIB_IF	cpil287		ap_nxpst(l2904, lm3521);
+
+SPCALCS(sptransg73)
+DO_LIB_IF	cpil297		ap_nxpst(l2904, lm3521);
+
+SPCALCS(sptransg74)
+DO_LIB_IF	cpil298		ap_nxpst(l2996,lm3544);
+
+SPCALCS(sptransg75)
+DO_LIB_IF cpil300 	ap_nxpst(l3539,lm3521);
+
+SPCALCS(sptransg76)
+DO_LIB_IF cpil305 	ap_nxpst(l3539,lm3521);
+
+SPCALCS(sptransg77)
+DO_LIB_IF cpil307         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg78)
+DO_LIB_IF c308         ap_nxpst(l3581,lm3521);
+
+SPCALCS(sptransg79)
+DO_LIB_IF c317         ap_nxpst(l3581,lm3521);
+
+SPCALCS(sptransg80)
+DO_LIB_IF c318         ap_nxpst(l4983,lm3521);
+
+SPCALCS(sptransg81)
+DO_LIB_IF cpil328		ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg82)
+DO_LIB_IF cpil330         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg83)
+DO_LIB_IF cpil331         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg84)
+DO_LIB_IF cpil332         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg85)
+DO_LIB_IF cpil338         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg86)
+DO_LIB_IF cpil339         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg87)
+DO_LIB_IF cpil343         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg88)
+DO_LIB_IF cpil344         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg89)
+DO_LIB_IF cpil347         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg90)
+DO_LIB_IF cpil348         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg91)
+DO_LIB_IF cpil352         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg92)
+DO_LIB_IF cpil353         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg93)
+DO_LIB_IF cpil356         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg94)
+DO_LIB_IF cpil363         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg95)
+DO_LIB_IF cpil364         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg96)
+DO_LIB_IF cpil365         ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg97)
+DO_LIB_IF cpil367         ap_nxpst(l2939,lm3521);
+
+SPCALCS(sptransg98)
+DO_LIB_IF cpil369         ap_nxpst(l4983,lm3521);
+
+SPCALCS(sptransg99)
+DO_LIB_IF cpil375		  ap_nxpst(l5103,lm3521);
+
+SPCALCS(sptransg100)
+DO_LIB_IF cpil377		  ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg101)
+DO_LIB_IF cpil378 		ap_nxpst(l4818,lm3521);
+
+SPCALCS(sptransg102)
+DO_LIB_IF cpil382 		ap_nxpst(l2904,lm3521);
+
+SPCALCS(sptransg103)
+DO_LIB_IF cpil383               ap_nxpst(l3596, lm3521);
+
+SPCALCS(sptransg104)
+DO_LIB_IF cpil386 		ap_nxpst(l5103,lm3521);
+
+SPCALCS(sptransg105)
+DO_LIB_IF cpil388 		ap_nxpst(l5103,lm3521);
+
+SPCALCS(sptransg106)
+DO_LIB_IF cpil389 		ap_nxpst(l5103,lm3521);
+
+SPCALCS(sptransg107)
+DO_LIB_IF	cpil390		ap_nxpst(l2967,lm3521);
+
+SPCALCS(sptransg108)
+DO_LIB_IF cpil387		ap_nxpst(l5103, lm3521);
+
+SPCALCS(sptransg109)
+DO_LIB_IF cpil391		ap_nxpst(l3581, lm3521);
+
+SPCALCS(sptransg110)
+DO_LIB_IF cpil392		ap_nxpst(l4983, lm3521);
+
+POSTING(trans)
+PST_COMMAND     sptrans
+
+POSTING(transg1)
+PST_COMMAND     sptransg1
+PST_COND        cjointgm
+
+POSTING(transg2)
+PST_COMMAND     sptransg2
+
+POSTING(transg3)
+PST_COMMAND     sptransg3
+
+POSTING(transg4)
+PST_COMMAND	sptransg4
+
+POSTING(transg5)
+PST_COMMAND	sptransg5
+
+POSTING(transg6)
+PST_COMMAND	sptransg6
+
+POSTING(transg7)
+PST_COMMAND	sptransg7
+
+POSTING(transg8)
+PST_COMMAND	sptransg8
+
+POSTING(transg9)
+PST_COMMAND	sptransg9
+
+POSTING(transg10)
+PST_COMMAND	sptransg10
+
+POSTING(transg11)
+PST_COMMAND	sptransg11
+
+POSTING(transg12)
+PST_COMMAND     sptransg12
+
+POSTING(transg13)
+PST_COMMAND	sptransg13
+
+POSTING(transg14)
+PST_COMMAND	sptransg14
+
+POSTING(transg15)
+PST_COMMAND     sptransg15
+
+POSTING(transg16)
+PST_COMMAND     sptransg16
+
+POSTING(transg17)
+PST_COMMAND     sptransg17
+
+POSTING(transg18)
+PST_COMMAND     sptransg18
+
+POSTING(transg19)
+PST_COMMAND     sptransg19
+
+POSTING(transg20)
+PST_COMMAND     sptransg20
+
+POSTING(transg21)
+PST_COMMAND     sptransg21
+
+
+POSTING(transg22)
+PST_COMMAND     sptransg22
+
+POSTING(transg23)
+PST_COMMAND     sptransg23
+
+POSTING(transg24)
+PST_COMMAND	sptransg24
+
+POSTING(transg25)
+PST_COMMAND     sptransg25
+
+POSTING(transg26)
+PST_COMMAND     sptransg26
+
+POSTING(transg27)
+PST_COMMAND     sptransg27
+
+POSTING(transg28)
+PST_COMMAND     sptransg28
+
+POSTING(transg29)
+PST_COMMAND     sptransg29
+
+POSTING(transg30)
+PST_COMMAND     sptransg30
+
+POSTING(transg31)
+PST_COMMAND     sptransg31
+
+POSTING(transg32)
+PST_COMMAND		sptransg32
+
+POSTING(transg33)
+PST_COMMAND		sptransg33
+
+POSTING(transg34)
+PST_COMMAND             sptransg34
+
+POSTING(transg35)
+PST_COMMAND             sptransg35
+
+POSTING(transg36)
+PST_COMMAND             sptransg36
+
+POSTING(transg37)
+PST_COMMAND             sptransg37
+
+POSTING(transg38)
+PST_COMMAND             sptransg38
+
+POSTING(transg39)
+PST_COMMAND				sptransg39
+
+POSTING(transg40)
+PST_COMMAND				sptransg40
+
+POSTING(transg41)
+PST_COMMAND                             sptransg41
+
+POSTING(transg42)
+PST_COMMAND             sptransg42
+
+POSTING(transg43)
+PST_COMMAND             sptransg43
+
+POSTING(transg44)
+PST_COMMAND             sptransg44
+
+POSTING(transg45)
+PST_COMMAND             sptransg45
+
+POSTING(transg46)
+PST_COMMAND             sptransg46
+
+POSTING(transg47)
+PST_COMMAND             sptransg47
+
+POSTING(transg48)
+PST_COMMAND		sptransg48
+
+POSTING(transg49)
+PST_COMMAND             sptransg49
+
+POSTING(transg50)
+PST_COMMAND             sptransg50
+
+POSTING(transg51)
+PST_COMMAND             sptransg51
+
+POSTING(transg52)
+PST_COMMAND             sptransg52
+
+POSTING(transg53)
+PST_COMMAND             sptransg53
+
+POSTING(transg54)
+PST_COMMAND             sptransg54
+
+POSTING(transg55)
+PST_COMMAND		sptransg55
+
+POSTING(transg56)
+PST_COMMAND				sptransg56
+
+POSTING(transg57)
+PST_COMMAND				sptransg57
+
+POSTING(transg58)
+PST_COMMAND				sptransg58
+
+POSTING(transg59)
+PST_COMMAND				sptransg59
+
+POSTING(transg60)
+PST_COMMAND				sptransg60
+
+POSTING(transg61)
+PST_COMMAND                             sptransg61
+
+POSTING(transg62)
+PST_COMMAND				sptransg62
+
+POSTING(transg63)
+PST_COMMAND				sptransg63
+
+POSTING(transg64)
+PST_COMMAND				sptransg64
+
+POSTING(transg65)
+PST_COMMAND				sptransg65
+
+POSTING(transg66)
+PST_COMMAND				sptransg66
+
+POSTING(transg67)
+PST_COMMAND             sptransg67
+
+POSTING(transg68)
+PST_COMMAND				sptransg68
+
+POSTING(transg69)
+PST_COMMAND                             sptransg69
+
+POSTING(transg70)
+PST_COMMAND	sptransg70
+
+POSTING(transg71)
+PST_COMMAND	sptransg71
+
+POSTING(transg72)
+PST_COMMAND sptransg72
+
+POSTING(transg73)
+PST_COMMAND sptransg73
+
+POSTING(transg74)
+PST_COMMAND sptransg74
+
+POSTING(transg75)
+PST_COMMAND		sptransg75
+
+POSTING(transg76)
+PST_COMMAND		sptransg76
+
+POSTING(transg77)
+PST_COMMAND		sptransg77
+
+POSTING(transg78)
+PST_COMMAND             sptransg78
+
+POSTING(transg79)
+PST_COMMAND             sptransg79
+
+POSTING(transg80)
+PST_COMMAND             sptransg80
+
+POSTING(transg81)
+PST_COMMAND             sptransg81
+
+POSTING(transg82)
+PST_COMMAND				sptransg82
+
+POSTING(transg83)
+PST_COMMAND				sptransg83
+
+POSTING(transg84)
+PST_COMMAND				sptransg84
+
+POSTING(transg85)
+PST_COMMAND				sptransg85
+
+POSTING(transg86)
+PST_COMMAND				sptransg86
+
+POSTING(transg87)
+PST_COMMAND				sptransg87
+
+POSTING(transg88)
+PST_COMMAND				sptransg88
+
+POSTING(transg89)
+PST_COMMAND				sptransg89
+
+POSTING(transg90)
+PST_COMMAND				sptransg90
+
+POSTING(transg91)
+PST_COMMAND				sptransg91
+
+POSTING(transg92)
+PST_COMMAND				sptransg92
+
+POSTING(transg93)
+PST_COMMAND				sptransg93
+
+POSTING(transg94)
+PST_COMMAND				sptransg94
+
+POSTING(transg95)
+PST_COMMAND				sptransg95
+
+POSTING(transg96)
+PST_COMMAND				sptransg96
+
+POSTING(transg97)
+PST_COMMAND				sptransg97
+
+POSTING(transg98)
+PST_COMMAND				sptransg98
+
+POSTING(transg99)
+PST_COMMAND				sptransg99
+
+POSTING(transg100)
+PST_COMMAND				sptransg100
+
+POSTING(transg101)
+PST_COMMAND             sptransg101
+
+POSTING(transg102)
+PST_COMMAND             sptransg102
+
+POSTING(transg103)
+PST_COMMAND             sptransg103
+
+POSTING(transg104)
+PST_COMMAND             sptransg104
+
+POSTING(transg105)
+PST_COMMAND             sptransg105
+
+POSTING(transg106)
+PST_COMMAND             sptransg106
+
+POSTING(transg107)
+PST_COMMAND				sptransg107
+
+POSTING(transg108)
+PST_COMMAND				sptransg108
+
+POSTING(transg109)
+PST_COMMAND				sptransg109
+
+POSTING(transg110)
+PST_COMMAND				sptransg110
+
+END_SCREEN
