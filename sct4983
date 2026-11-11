@@ -56,6 +56,7 @@ lmaindealerCBD  STRING          21
 lcabkode	STRING		21
 
 lperintahquery	STRING		5000
+lperintahqueryro    STRING		5000
 
 lmapsql01	STRING		21
 
@@ -103,6 +104,7 @@ lDASHOBOARDCXGMB	STRING		21
 lDASHBOARDCLAIMBD       STRING          21
 lCUSTOMEREXPERIENCE     STRING          21
 lMASTERMD       STRING          21
+lMASTERRO	STRING		21
 
 lnobukcbd       STRING          21
 lPROGCLAIM      STRING          11
@@ -272,6 +274,7 @@ lHK			INIT		HK
 lsgmdata		INIT		DTPICCAB
 lCUSTOMEREXPERIENCE     INIT            CUSTOMEREXPERIENCE
 lMASTERMD               INIT            MASTERMD
+lMASTERRO		INIT		MASTERRO
 
 lnamamaptrg2		INIT		"mmapmaptrg2"
 lnamamaptr2g1		INIT		"mmapmaptr2g1"
@@ -303,7 +306,7 @@ lCUSTOMERRO		INIT		"CUSTOMERRO"
 lCABANG			INIT		"CABANG"
 lmapsqlro		INIT		"mapsqlro"
 l0			INIT		0
-lversi			INIT		10112026_v1
+lversi			INIT		11112026_v1
 
 CALCS()
 cdjointgm	djointgm == 1
@@ -480,265 +483,25 @@ cabkode		NOCHANGE		INPUTRI	1
 cabnama		NOCHANGE		INPUTRI	2
 
 CALCS()
+cselcabbis	cadkode == "HMC" || cadkode == "M2W" || cadkode == "M4W" || cadkode == "MGA"
+
+DBCALCS(djoincabbis)
+	DBC_COMMAND	JOIN
+	DBC_TARGET	cadkdurtidx   gv_cabbis cabkode
+	DBC_SELECT	cselcabbis
+
+CALCS()
 cpil392a	lpil == 392 && lsgmtype == "CABANG"
-
-DEFAULTS(transg2)
-
-lperintahquery		INIT		"WITH 
-  base AS (
-    SELECT 
-      MAX(piknobuk) as MAX_NOBUK, 
-      MAX(pikoto) as MAX_OTO, 
-      piksts, 
-      piknobtm, 
-      pikplg as KTP, 
-      pikcab, 
-      pikcabpiu, 
-      pikdvs, 
-      piktypjl, 
-      MAX(piktglfak) as MAX_TGL 
-    FROM 
-      pik 
-    WHERE 
-      pikdata = 'DTPIU' 
-      AND pikcab = {cabkode} 
-      AND piktglfak BETWEEN {ltgl1} AND {ltgl2} 
-      AND piksts NOT IN ('VOID', '') 
-    GROUP BY 
-      pikplg
-  ), 
-  data1 AS (
-    SELECT 
-      *, 
-      (
-        SELECT 
-          pikoto 
-        FROM 
-          pik 
-        WHERE 
-          pikplg = ktp 
-          AND piksts NOT IN ('VOID', '') 
-          AND piktglfak <= base.MAX_TGL 
-          AND pikoto != base.MAX_OTO 
-        ORDER BY 
-          piktglfak DESC 
-        LIMIT 
-          1
-      ) AS FAKTUR_TERAKHIR, 
-      CASE WHEN EXISTS (
-        SELECT 
-          1 
-        FROM 
-          pik 
-        WHERE 
-          pikplg = ktp 
-          AND piksts NOT IN ('VOID', '') 
-          AND piktglfak <= base.MAX_TGL 
-          AND pikoto != base.MAX_OTO
-      ) THEN 'RO' ELSE 'NEW' END AS STATUS_RO 
-    FROM 
-      base
-  ), 
-  data2 AS(
-    SELECT 
-      KTP, 
-      STATUS_RO, 
-      data1.pikdvs as LATEST_BISNIS, 
-      data1.piktypjl as LATEST_TYPE_JUAL, 
-      data1.MAX_TGL as LATEST_TGL, 
-      pik_ro.pikdvs as PREVIOUS_BISNIS, 
-      pik_ro.piktypjl as PREVIOUS_TYPE_JUAL, 
-      pik_ro.piktglfak as PREVIOUS_TGL, 
-      data1.pikcab as CABANG 
-    FROM 
-      data1 
-      LEFT JOIN pik pik_ro ON pik_ro.pikoto = data1.FAKTUR_TERAKHIR 
-      AND STATUS_RO = 'RO'
-  ) 
-SELECT 
-  CABANG, 
-  COUNT(data2.KTP) as TOTAL_KONSUMEN, 
-  COUNT(
-    IF(
-      data2.STATUS_RO = 'RO', data2.KTP, 
-      null
-    )
-  ) as RO_BY_KTP, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'HMC' 
-      AND data2.PREVIOUS_BISNIS = 'HMC', 
-      data2.KTP, 
-      null
-    )
-  ) as HMC_HMC, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'HMC' 
-      AND data2.PREVIOUS_BISNIS = 'M2W', 
-      data2.KTP, 
-      null
-    )
-  ) as HMC_M2W, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'HMC' 
-      AND data2.PREVIOUS_BISNIS = 'M4W', 
-      data2.KTP, 
-      null
-    )
-  ) as HMC_M4W, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'HMC' 
-      AND data2.PREVIOUS_BISNIS = 'MGA', 
-      data2.KTP, 
-      null
-    )
-  ) as HMC_GADAI, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'M2W' 
-      AND data2.PREVIOUS_BISNIS = 'M2W', 
-      data2.KTP, 
-      null
-    )
-  ) as M2W_M2W, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'M2W' 
-      AND data2.PREVIOUS_BISNIS = 'HMC', 
-      data2.KTP, 
-      null
-    )
-  ) as M2W_HMC, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'M2W' 
-      AND data2.PREVIOUS_BISNIS = 'M4W', 
-      data2.KTP, 
-      null
-    )
-  ) as M2W_M4W, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'M2W' 
-      AND data2.PREVIOUS_BISNIS = 'MGA', 
-      data2.KTP, 
-      null
-    )
-  ) as M2W_GADAI, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'M4W' 
-      AND data2.PREVIOUS_BISNIS = 'M4W', 
-      data2.KTP, 
-      null
-    )
-  ) as M4W_M4W, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'M4W' 
-      AND data2.PREVIOUS_BISNIS = 'HMC', 
-      data2.KTP, 
-      null
-    )
-  ) as M4W_HMC, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'M4W' 
-      AND data2.PREVIOUS_BISNIS = 'M2W', 
-      data2.KTP, 
-      null
-    )
-  ) as M4W_M2W, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'M4W' 
-      AND data2.PREVIOUS_BISNIS = 'MGA', 
-      data2.KTP, 
-      null
-    )
-  ) as M4W_GADAI, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'MGA' 
-      AND data2.PREVIOUS_BISNIS = 'MGA', 
-      data2.KTP, 
-      null
-    )
-  ) as GADAI_GADAI, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'MGA' 
-      AND data2.PREVIOUS_BISNIS = 'HMC', 
-      data2.KTP, 
-      null
-    )
-  ) as GADAI_HMC, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'MGA' 
-      AND data2.PREVIOUS_BISNIS = 'M2W', 
-      data2.KTP, 
-      null
-    )
-  ) as GADAI_M2W, 
-  COUNT(
-    IF(
-      data2.LATEST_BISNIS = 'MGA' 
-      AND data2.PREVIOUS_BISNIS = 'M4W', 
-      data2.KTP, 
-      null
-    )
-  ) as GADAI_M4W,
-  (
-    CASE WHEN data2.LATEST_TYPE_JUAL = 'K' 
-    AND data2.PREVIOUS_TGL < DATE_SUB(
-      data2.LATEST_TGL, INTERVAL 3 MONTH
-    ) THEN COUNT(data2.KTP) WHEN data2.LATEST_TYPE_JUAL = 'K' 
-    AND data2.PREVIOUS_TGL >= DATE_SUB(
-      data2.LATEST_TGL, INTERVAL 3 MONTH
-    ) 
-    AND data2.PREVIOUS_TYPE_JUAL = 'K' THEN COUNT(data2.KTP) ELSE 0 END
-  ) AS KREDIT_KREDIT, 
-  (
-    CASE WHEN data2.LATEST_TYPE_JUAL = 'K' 
-    AND data2.PREVIOUS_TGL >= DATE_SUB(
-      data2.LATEST_TGL, INTERVAL 3 MONTH
-    ) 
-    AND data2.PREVIOUS_TYPE_JUAL = 'T' THEN COUNT(data2.KTP) ELSE 0 END
-  ) AS KREDIT_TUNAI, 
-  (
-    CASE WHEN data2.LATEST_TYPE_JUAL = 'T' 
-    AND data2.PREVIOUS_TGL < DATE_SUB(
-      data2.LATEST_TGL, INTERVAL 3 MONTH
-    ) THEN COUNT(data2.KTP) WHEN data2.LATEST_TYPE_JUAL = 'T' 
-    AND data2.PREVIOUS_TGL >= DATE_SUB(
-      data2.LATEST_TGL, INTERVAL 3 MONTH
-    ) 
-    AND data2.PREVIOUS_TYPE_JUAL = 'T' THEN COUNT(data2.KTP) ELSE 0 END
-  ) AS TUNAI_TUNAI, 
-  (
-    CASE WHEN data2.LATEST_TYPE_JUAL = 'T' 
-    AND data2.PREVIOUS_TGL >= DATE_SUB(
-      data2.LATEST_TGL, INTERVAL 3 MONTH
-    ) 
-    AND data2.PREVIOUS_TYPE_JUAL = 'K' THEN COUNT(data2.KTP) ELSE 0 END
-  ) AS TUNAI_KREDIT
-
-FROM 
-  data2 
-group by 
-  CABANG"
-
+cdjoincabbis	djoincabbis == 1
 
 SUBFILE(transg2)
 SFL_COND	cpil392a
+SFL_SELECT	cdjoincabbis
 SFL_LINES(8)
 SFL_TITLE(transg2t)
+SFL_REKAP	cabkode
 SFL_TARGET
-	cabstsushkod    gv_INPG gv_dealer
+	cabstsushkod    gv_INPG
 
 
 IMAGE(trans2) 				
@@ -7604,6 +7367,318 @@ SFL_LINES(10)
 SFL_TARGET
 cabstsushkod	gv_INPG gv_dealer
 
+IMAGE(trans2g3t)
+/---------------t-----------------------\
+| t.Cab         | t.NamaCabang          |
+\---------------.-----------------------/
+
+IMAGE(trans2g3)
+|_______________|________________________|
+
+FIELD(trans2g3)
+tbdkode         NOCHANGE                INPUTRI 1
+tbdket         	NOCHANGE                INPUTRI 2
+
+CALCS()
+cakum       tbdkode == "AKUM"
+cgadai_gadai tbdkode == "GADAI-GADAI"
+cgadai_hmc	tbdkode == "GADAI-HMC"
+cgadai_m2w	tbdkode == "GADAI-M2W"
+cgadai_m4w	tbdkode == "GADAI-M4W"
+
+chmc_hmc	tbdkode == "HMC-HMC"
+chmc_gadai	tbdkode == "HMC-GADAI"
+chmc_m2w	tbdkode == "HMC-M2W"
+chmc_m4w	tbdkode == "HMC-M4W"
+
+cm2w_m2w	tbdkode == "M2W-M2W"
+cm2w_gadai	tbdkode == "M2W-GADAI"
+cm2w_m4w	tbdkode == "M2W-M4W"
+cm2w_hmc	tbdkode == "M2W-HMC"
+
+cm4w_m4w	tbdkode == "M4W-M4W"
+cm4w_m2w	tbdkode == "M4W-M2W"
+cm4w_hmc	tbdkode == "M4W-HMC"
+cm4w_gadai	tbdkode == "M4W-GADAI"
+
+DEFAULTS(trans2g3)
+IF	cakum	lperintahqueryro		INIT		"WITH 
+  base AS (
+    SELECT 
+      MAX(piknobuk) as MAX_NOBUK, 
+      MAX(pikoto) as MAX_OTO, 
+      piksts, 
+      piknobtm, 
+      pikplg as KTP, 
+      pikcab, 
+      pikcabpiu, 
+      pikdvs, 
+      piktypjl, 
+      MAX(piktglfak) as MAX_TGL 
+    FROM 
+      pik 
+    WHERE 
+      pikdata = 'DTPIU' 
+      AND pikcab = {cabkode} 
+      AND piktglfak BETWEEN {ltgl1} AND {ltgl2} 
+      AND piksts NOT IN ('VOID', '') 
+    GROUP BY 
+      pikplg
+  ), 
+  data1 AS (
+    SELECT 
+      *, 
+      (
+        SELECT 
+          pikoto 
+        FROM 
+          pik 
+        WHERE 
+          pikplg = ktp 
+          AND piksts NOT IN ('VOID', '') 
+          AND piktglfak <= base.MAX_TGL 
+          AND pikoto != base.MAX_OTO 
+        ORDER BY 
+          piktglfak DESC 
+        LIMIT 
+          1
+      ) AS FAKTUR_TERAKHIR, 
+      CASE WHEN EXISTS (
+        SELECT 
+          1 
+        FROM 
+          pik 
+        WHERE 
+          pikplg = ktp 
+          AND piksts NOT IN ('VOID', '') 
+          AND piktglfak <= base.MAX_TGL 
+          AND pikoto != base.MAX_OTO
+      ) THEN 'RO' ELSE 'NEW' END AS STATUS_RO 
+    FROM 
+      base
+  ), 
+  data2 AS(
+    SELECT 
+      KTP, 
+      STATUS_RO, 
+      data1.pikdvs as LATEST_BISNIS, 
+      data1.piktypjl as LATEST_TYPE_JUAL, 
+      data1.MAX_TGL as LATEST_TGL, 
+      pik_ro.pikdvs as PREVIOUS_BISNIS, 
+      pik_ro.piktypjl as PREVIOUS_TYPE_JUAL, 
+      pik_ro.piktglfak as PREVIOUS_TGL, 
+      data1.pikcab as CABANG 
+    FROM 
+      data1 
+      LEFT JOIN pik pik_ro ON pik_ro.pikoto = data1.FAKTUR_TERAKHIR 
+      AND STATUS_RO = 'RO'
+  ) 
+SELECT 
+  CABANG, 
+  COUNT(data2.KTP) as TOTAL_KONSUMEN, 
+  COUNT(
+    IF(
+      data2.STATUS_RO = 'RO', data2.KTP, 
+      null
+    )
+  ) as RO_BY_KTP, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'HMC' 
+      AND data2.PREVIOUS_BISNIS = 'HMC', 
+      data2.KTP, 
+      null
+    )
+  ) as HMC_HMC, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'HMC' 
+      AND data2.PREVIOUS_BISNIS = 'M2W', 
+      data2.KTP, 
+      null
+    )
+  ) as HMC_M2W, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'HMC' 
+      AND data2.PREVIOUS_BISNIS = 'M4W', 
+      data2.KTP, 
+      null
+    )
+  ) as HMC_M4W, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'HMC' 
+      AND data2.PREVIOUS_BISNIS = 'MGA', 
+      data2.KTP, 
+      null
+    )
+  ) as HMC_GADAI, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'M2W' 
+      AND data2.PREVIOUS_BISNIS = 'M2W', 
+      data2.KTP, 
+      null
+    )
+  ) as M2W_M2W, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'M2W' 
+      AND data2.PREVIOUS_BISNIS = 'HMC', 
+      data2.KTP, 
+      null
+    )
+  ) as M2W_HMC, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'M2W' 
+      AND data2.PREVIOUS_BISNIS = 'M4W', 
+      data2.KTP, 
+      null
+    )
+  ) as M2W_M4W, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'M2W' 
+      AND data2.PREVIOUS_BISNIS = 'MGA', 
+      data2.KTP, 
+      null
+    )
+  ) as M2W_GADAI, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'M4W' 
+      AND data2.PREVIOUS_BISNIS = 'M4W', 
+      data2.KTP, 
+      null
+    )
+  ) as M4W_M4W, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'M4W' 
+      AND data2.PREVIOUS_BISNIS = 'HMC', 
+      data2.KTP, 
+      null
+    )
+  ) as M4W_HMC, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'M4W' 
+      AND data2.PREVIOUS_BISNIS = 'M2W', 
+      data2.KTP, 
+      null
+    )
+  ) as M4W_M2W, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'M4W' 
+      AND data2.PREVIOUS_BISNIS = 'MGA', 
+      data2.KTP, 
+      null
+    )
+  ) as M4W_GADAI, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'MGA' 
+      AND data2.PREVIOUS_BISNIS = 'MGA', 
+      data2.KTP, 
+      null
+    )
+  ) as GADAI_GADAI, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'MGA' 
+      AND data2.PREVIOUS_BISNIS = 'HMC', 
+      data2.KTP, 
+      null
+    )
+  ) as GADAI_HMC, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'MGA' 
+      AND data2.PREVIOUS_BISNIS = 'M2W', 
+      data2.KTP, 
+      null
+    )
+  ) as GADAI_M2W, 
+  COUNT(
+    IF(
+      data2.LATEST_BISNIS = 'MGA' 
+      AND data2.PREVIOUS_BISNIS = 'M4W', 
+      data2.KTP, 
+      null
+    )
+  ) as GADAI_M4W,
+  (
+    CASE WHEN data2.LATEST_TYPE_JUAL = 'K' 
+    AND data2.PREVIOUS_TGL < DATE_SUB(
+      data2.LATEST_TGL, INTERVAL 3 MONTH
+    ) THEN COUNT(data2.KTP) WHEN data2.LATEST_TYPE_JUAL = 'K' 
+    AND data2.PREVIOUS_TGL >= DATE_SUB(
+      data2.LATEST_TGL, INTERVAL 3 MONTH
+    ) 
+    AND data2.PREVIOUS_TYPE_JUAL = 'K' THEN COUNT(data2.KTP) ELSE 0 END
+  ) AS KREDIT_KREDIT, 
+  (
+    CASE WHEN data2.LATEST_TYPE_JUAL = 'K' 
+    AND data2.PREVIOUS_TGL >= DATE_SUB(
+      data2.LATEST_TGL, INTERVAL 3 MONTH
+    ) 
+    AND data2.PREVIOUS_TYPE_JUAL = 'T' THEN COUNT(data2.KTP) ELSE 0 END
+  ) AS KREDIT_TUNAI, 
+  (
+    CASE WHEN data2.LATEST_TYPE_JUAL = 'T' 
+    AND data2.PREVIOUS_TGL < DATE_SUB(
+      data2.LATEST_TGL, INTERVAL 3 MONTH
+    ) THEN COUNT(data2.KTP) WHEN data2.LATEST_TYPE_JUAL = 'T' 
+    AND data2.PREVIOUS_TGL >= DATE_SUB(
+      data2.LATEST_TGL, INTERVAL 3 MONTH
+    ) 
+    AND data2.PREVIOUS_TYPE_JUAL = 'T' THEN COUNT(data2.KTP) ELSE 0 END
+  ) AS TUNAI_TUNAI, 
+  (
+    CASE WHEN data2.LATEST_TYPE_JUAL = 'T' 
+    AND data2.PREVIOUS_TGL >= DATE_SUB(
+      data2.LATEST_TGL, INTERVAL 3 MONTH
+    ) 
+    AND data2.PREVIOUS_TYPE_JUAL = 'K' THEN COUNT(data2.KTP) ELSE 0 END
+  ) AS TUNAI_KREDIT
+
+FROM 
+  data2 
+group by 
+  CABANG"
+IF cgadai_gadai		lperintahqueryro	INIT	"SELECT 'GADAI-GADAI'"
+IF cgadai_hmc		lperintahqueryro	INIT	"SELECT 'GADAI-HMC'"
+IF cgadai_m2w		lperintahqueryro	INIT	"SELECT 'GADAI-M2W'"
+IF cgadai_m4w		lperintahqueryro	INIT	"SELECT 'GADAI-M4W'"
+
+IF chmc_hmc		    lperintahqueryro	INIT	"SELECT 'HMC-HMC'"
+IF chmc_gadai		lperintahqueryro	INIT	"SELECT 'HMC-GADAI'"
+IF chmc_m2w		    lperintahqueryro	INIT	"SELECT 'HMC-M2W'"
+IF chmc_m4w		    lperintahqueryro	INIT	"SELECT 'HMC-M4W'"
+
+IF cm2w_m2w		    lperintahqueryro	INIT	"SELECT 'M2W-M2W'"
+IF cm2w_gadai		lperintahqueryro	INIT	"SELECT 'M2W-GADAI'"
+IF cm2w_m4w		    lperintahqueryro	INIT	"SELECT 'M2W-M4W'"
+IF cm2w_hmc		    lperintahqueryro	INIT	"SELECT 'M2W-HMC'"
+
+IF cm4w_m4w		    lperintahqueryro	INIT	"SELECT 'M4W-M4W'"
+IF cm4w_m2w		    lperintahqueryro	INIT	"SELECT 'M4W-M2W'"
+IF cm4w_hmc		    lperintahqueryro	INIT	"SELECT 'M4W-HMC'"
+IF cm4w_gadai		lperintahqueryro	INIT	"SELECT 'M4W-GADAI'"
+
+
+SUBFILE(trans2g3)
+SFL_COND        cpil392a
+SFL_LINES(8)
+SFL_TITLE(trans2g3t)
+SFL_TARGET
+	tbddatkodidx   gv_dttabel lCUSTOMEREXPERIENCE lMASTERRO
+
+
+
 MAP(mmapblanks)
 cBLANKS		lquery01	DO_CALC
 cBLANKS		lquery02	DO_CALC
@@ -7773,7 +7848,9 @@ DEBUG	lpil	lpil		REPLACE
 
 MAP(mmapmaptrg2)
 lCUSTOMERRO     dsbdata         REPLACE
-lCABANG       	dsbtype1        REPLACE
+lthbl       	dsbtype1        REPLACE
+cabkode		    dsbtype2	    REPLACE
+tbdkode         dsbtype3        REPLACE
 ltgl1         	dsbtgl1         REPLACE
 ltgl2           dsbtgl2         REPLACE
 g_usrkode       dsbusrcrt       REPLACE
@@ -7781,7 +7858,7 @@ g_tgltrn        dsbtglcrt       REPLACE
 ljam            dsbjamcrt       REPLACE
 
 MAP(mapsqlro)
-dsbtype2	dsbtype2	REPLACE		/* CABANG */
+dsbtype4	dsbtype4	REPLACE		/* CABANG */
 dsbjml1		dsbjml1		REPLACE		/* TOTAL_KONSUMEN */
 dsbjml2		dsbjml2		REPLACE		/* RO_BY_KTP */
 dsbjml3		dsbjml3		REPLACE		/* HMC_HMC */
@@ -7803,9 +7880,35 @@ dsbtot8		dsbtot8		REPLACE		/* GADAI_M4W */
 dsbtot9		dsbtot9		REPLACE		/* KREDIT_KREDIT */
 dsbtot10	dsbtot10	REPLACE		/* KREDIT_TUNAI */
 dsbakum1	dsbakum1	REPLACE		/* TUNAI_TUNAI */
-dsbakum2    dsbakum2    REPLACE     /* TUNAI_KREDIT */
+dsbakum2    	dsbakum2    REPLACE     /* TUNAI_KREDIT */
 
 MAP(mmap)
+DEBUG	ldum		ldum		REPLACE
+
+MAP(mmapg2)
+cBLANKS	    dsbtype3	DO_CALC		/* CABANG */
+cBLANKS		dsbjml1		DO_CALC		/* TOTAL_KONSUMEN */
+cBLANKS		dsbjml2		DO_CALC		/* RO_BY_KTP */
+cBLANKS		dsbjml3		DO_CALC		/* HMC_HMC */
+cBLANKS		dsbjml4		DO_CALC		/* HMC_M2W */
+cBLANKS		dsbjml5		DO_CALC		/* HMC_M4W */
+cBLANKS		dsbjml6		DO_CALC		/* HMC_GADAI */
+cBLANKS		dsbjml7		DO_CALC		/* M2W_M2W */
+cBLANKS		dsbjml8		DO_CALC		/* M2W_HMC */
+cBLANKS		dsbjml9		DO_CALC		/* M2W_M4W */
+cBLANKS	    dsbjml10	DO_CALC		/* M2W_GADAI */
+cBLANKS		dsbtot1		DO_CALC		/* M4W_M4W */
+cBLANKS		dsbtot2		DO_CALC		/* M4W_HMC */
+cBLANKS		dsbtot3		DO_CALC		/* M4W_M2W */
+cBLANKS		dsbtot4		DO_CALC		/* M4W_GADAI */
+cBLANKS		dsbtot5		DO_CALC		/* GADAI_GADAI */
+cBLANKS		dsbtot6		DO_CALC		/* GADAI_HMC */
+cBLANKS		dsbtot7		DO_CALC		/* GADAI_M2W */
+cBLANKS		dsbtot8		DO_CALC		/* GADAI_M4W */
+cBLANKS		dsbtot9		DO_CALC		/* KREDIT_KREDIT */
+cBLANKS	    dsbtot10	DO_CALC		/* KREDIT_TUNAI */
+cBLANKS	    dsbakum1	DO_CALC		/* TUNAI_TUNAI */
+cBLANKS     dsbakum2    DO_CALC     /* TUNAI_KREDIT */
 DEBUG	ldum		ldum		REPLACE
 
 SPCALCS(spmaster)
@@ -7819,9 +7922,7 @@ SPCALCS(sptransg1)
 DO_LIB ap_dbclc(DNAME dmapmapg,DCOMMAND MAPMAP,DMAP mmap);
 
 SPCALCS(sptransg2)
-DO_LIB		ap_dbclc(DNAME dmapmapg2,DCOMMAND MAPMAP,DMAP mmap);
-DO_LIB		ap_dsmap(lnamamaptrg2);
-DO_LIB          ap_dsqry(lperintahquery,lnoip,lnamadb,lmapsqlro,l0);
+DO_LIB		ap_dbclc(DNAME dmapmapg2,DCOMMAND MAPMAP,DMAP mmapg2);
 
 
 SPCALCS(sptrans2)
@@ -7848,6 +7949,11 @@ DO_LIB ap_dbclc(DNAME dmaptransg1,DCOMMAND MAPMAP, DMAP mmaptrans2);
 DO_LIB ap_dsmap(lnamamaptr2g2);
 DO_LIB ap_dsadd(lnoip,lnamadb);
 
+SPCALCS(sptrans2g3)
+DO_LIB		ap_dbclc(DNAME dmapmapg2g3,DCOMMAND MAPMAP,DMAP mmapg2);
+DO_LIB		ap_dsmap(lnamamaptrg2);
+DO_LIB      ap_dsqry(lperintahqueryro,lnoip,lnamadb,lmapsqlro,l0);
+
 POSTING(master)
 PST_COMMAND	spmaster
 
@@ -7868,5 +7974,8 @@ PST_COMMAND     sptrans2g1
 
 POSTING(trans2g2)
 PST_COMMAND     sptrans2g2
+
+POSTING(trans2g3)
+PST_COMMAND     sptrans2g3
 
 END_SCREEN
