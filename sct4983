@@ -306,7 +306,7 @@ lCUSTOMERRO		INIT		"CUSTOMERRO"
 lCABANG			INIT		"CABANG"
 lmapsqlro		INIT		"mapsqlro"
 l0			INIT		0
-lversi			INIT		11112026_v2
+lversi			INIT		"12-11-2026_v3"
 
 CALCS()
 cdjointgm	djointgm == 1
@@ -7401,6 +7401,11 @@ cm4w_m2w	tbdkode == "M4W-M2W"
 cm4w_hmc	tbdkode == "M4W-HMC"
 cm4w_gadai	tbdkode == "M4W-GADAI"
 
+ck_k        tbdkode == "KREDIT-KREDIT"
+ck_t        tbdkode == "KREDIT-TUNAI"
+ct_t        tbdkode == "TUNAI-TUNAI"
+ct_k        tbdkode == "TUNAI-KREDIT"
+
 DEFAULTS(trans2g3)
 IF	cakum	lperintahqueryro		INIT		"WITH 
   base AS (
@@ -8852,6 +8857,354 @@ FROM
 group by 
   CABANG"
 
+IF ck_k		lperintahqueryro	INIT	"WITH 
+  base AS (
+    SELECT 
+      MAX(piknobuk) AS MAX_NOBUK,
+      MAX(pikoto) AS MAX_OTO,
+      piksts,
+      piknobtm,
+      pikplg AS KTP,
+      pikcab,
+      pikcabpiu,
+      pikdvs,
+      piktypjl,
+      MAX(piktglfak) AS MAX_TGL
+    FROM pik
+    WHERE 
+      pikdata = 'DTPIU'
+      AND pikcab = {cabkode}
+      AND piktglfak BETWEEN {ltgl1} AND {ltgl2}
+      AND piksts NOT IN ('VOID', '')
+    GROUP BY pikplg
+  ),
+
+  data1 AS (
+    SELECT 
+      *,
+      (
+        SELECT pikoto
+        FROM pik
+        WHERE 
+          pikplg = base.KTP
+          AND piksts NOT IN ('VOID', '')
+          AND piktglfak <= base.MAX_TGL
+          AND pikoto != base.MAX_OTO
+        ORDER BY piktglfak DESC
+        LIMIT 1
+      ) AS FAKTUR_TERAKHIR,
+
+      CASE 
+        WHEN EXISTS (
+          SELECT 1
+          FROM pik
+          WHERE 
+            pikplg = base.KTP
+            AND piksts NOT IN ('VOID', '')
+            AND piktglfak <= base.MAX_TGL
+            AND pikoto != base.MAX_OTO
+        )
+        THEN 'RO'
+        ELSE 'NEW'
+      END AS STATUS_RO
+    FROM base
+  ),
+
+  data2 AS (
+    SELECT 
+      data1.KTP,
+      data1.STATUS_RO,
+      data1.pikdvs AS LATEST_BISNIS,
+      data1.piktypjl AS LATEST_TYPE_JUAL,
+      data1.MAX_TGL AS LATEST_TGL,
+      pik_ro.pikdvs AS PREVIOUS_BISNIS,
+      pik_ro.piktypjl AS PREVIOUS_TYPE_JUAL,
+      pik_ro.piktglfak AS PREVIOUS_TGL,
+      data1.pikcab AS CABANG
+    FROM data1
+    LEFT JOIN pik pik_ro
+      ON pik_ro.pikoto = data1.FAKTUR_TERAKHIR
+      AND data1.STATUS_RO = 'RO'
+  )
+
+SELECT
+  SUM(
+    CASE
+      WHEN LATEST_TYPE_JUAL = 'K'
+        AND PREVIOUS_TGL < DATE_SUB(LATEST_TGL, INTERVAL 3 MONTH)
+      THEN 1
+
+      WHEN LATEST_TYPE_JUAL = 'K'
+        AND PREVIOUS_TGL >= DATE_SUB(LATEST_TGL, INTERVAL 3 MONTH)
+        AND PREVIOUS_TYPE_JUAL = 'K'
+      THEN 1
+
+      ELSE 0
+    END
+  ) AS KREDIT_KREDIT
+
+FROM data2
+GROUP BY CABANG;
+"
+
+IF ck_t		lperintahqueryro	INIT	"WITH 
+  base AS (
+    SELECT 
+      MAX(piknobuk) AS MAX_NOBUK,
+      MAX(pikoto) AS MAX_OTO,
+      piksts,
+      piknobtm,
+      pikplg AS KTP,
+      pikcab,
+      pikcabpiu,
+      pikdvs,
+      piktypjl,
+      MAX(piktglfak) AS MAX_TGL
+    FROM pik
+    WHERE 
+      pikdata = 'DTPIU'
+      AND pikcab = {cabkode}
+      AND piktglfak BETWEEN {ltgl1} AND {ltgl2}
+      AND piksts NOT IN ('VOID', '')
+    GROUP BY pikplg
+  ),
+
+  data1 AS (
+    SELECT 
+      *,
+      (
+        SELECT pikoto
+        FROM pik
+        WHERE 
+          pikplg = base.KTP
+          AND piksts NOT IN ('VOID', '')
+          AND piktglfak <= base.MAX_TGL
+          AND pikoto != base.MAX_OTO
+        ORDER BY piktglfak DESC
+        LIMIT 1
+      ) AS FAKTUR_TERAKHIR,
+
+      CASE 
+        WHEN EXISTS (
+          SELECT 1
+          FROM pik
+          WHERE 
+            pikplg = base.KTP
+            AND piksts NOT IN ('VOID', '')
+            AND piktglfak <= base.MAX_TGL
+            AND pikoto != base.MAX_OTO
+        )
+        THEN 'RO'
+        ELSE 'NEW'
+      END AS STATUS_RO
+    FROM base
+  ),
+
+  data2 AS (
+    SELECT 
+      data1.KTP,
+      data1.STATUS_RO,
+      data1.pikdvs AS LATEST_BISNIS,
+      data1.piktypjl AS LATEST_TYPE_JUAL,
+      data1.MAX_TGL AS LATEST_TGL,
+      pik_ro.pikdvs AS PREVIOUS_BISNIS,
+      pik_ro.piktypjl AS PREVIOUS_TYPE_JUAL,
+      pik_ro.piktglfak AS PREVIOUS_TGL,
+      data1.pikcab AS CABANG
+    FROM data1
+    LEFT JOIN pik pik_ro
+      ON pik_ro.pikoto = data1.FAKTUR_TERAKHIR
+      AND data1.STATUS_RO = 'RO'
+  )
+
+SELECT
+  SUM(
+    CASE
+      WHEN LATEST_TYPE_JUAL = 'K'
+        AND PREVIOUS_TGL >= DATE_SUB(LATEST_TGL, INTERVAL 3 MONTH)
+        AND PREVIOUS_TYPE_JUAL = 'T'
+      THEN 1
+      ELSE 0
+    END
+  ) AS KREDIT_TUNAI
+FROM data2
+GROUP BY CABANG
+"
+
+IF ct_t		lperintahqueryro	INIT	"WITH 
+  base AS (
+    SELECT 
+      MAX(piknobuk) AS MAX_NOBUK,
+      MAX(pikoto) AS MAX_OTO,
+      piksts,
+      piknobtm,
+      pikplg AS KTP,
+      pikcab,
+      pikcabpiu,
+      pikdvs,
+      piktypjl,
+      MAX(piktglfak) AS MAX_TGL
+    FROM pik
+    WHERE 
+      pikdata = 'DTPIU'
+      AND pikcab = {cabkode}
+      AND piktglfak BETWEEN {ltgl1} AND {ltgl2}
+      AND piksts NOT IN ('VOID', '')
+    GROUP BY pikplg
+  ),
+
+  data1 AS (
+    SELECT 
+      *,
+      (
+        SELECT pikoto
+        FROM pik
+        WHERE 
+          pikplg = base.KTP
+          AND piksts NOT IN ('VOID', '')
+          AND piktglfak <= base.MAX_TGL
+          AND pikoto != base.MAX_OTO
+        ORDER BY piktglfak DESC
+        LIMIT 1
+      ) AS FAKTUR_TERAKHIR,
+
+      CASE 
+        WHEN EXISTS (
+          SELECT 1
+          FROM pik
+          WHERE 
+            pikplg = base.KTP
+            AND piksts NOT IN ('VOID', '')
+            AND piktglfak <= base.MAX_TGL
+            AND pikoto != base.MAX_OTO
+        )
+        THEN 'RO'
+        ELSE 'NEW'
+      END AS STATUS_RO
+    FROM base
+  ),
+
+  data2 AS (
+    SELECT 
+      data1.KTP,
+      data1.STATUS_RO,
+      data1.pikdvs AS LATEST_BISNIS,
+      data1.piktypjl AS LATEST_TYPE_JUAL,
+      data1.MAX_TGL AS LATEST_TGL,
+      pik_ro.pikdvs AS PREVIOUS_BISNIS,
+      pik_ro.piktypjl AS PREVIOUS_TYPE_JUAL,
+      pik_ro.piktglfak AS PREVIOUS_TGL,
+      data1.pikcab AS CABANG
+    FROM data1
+    LEFT JOIN pik pik_ro
+      ON pik_ro.pikoto = data1.FAKTUR_TERAKHIR
+      AND data1.STATUS_RO = 'RO'
+  )
+
+SELECT
+  SUM(
+    CASE
+      WHEN LATEST_TYPE_JUAL = 'T'
+        AND PREVIOUS_TGL < DATE_SUB(LATEST_TGL, INTERVAL 3 MONTH)
+      THEN 1
+
+      WHEN LATEST_TYPE_JUAL = 'T'
+        AND PREVIOUS_TGL >= DATE_SUB(LATEST_TGL, INTERVAL 3 MONTH)
+        AND PREVIOUS_TYPE_JUAL = 'T'
+      THEN 1
+
+      ELSE 0
+    END
+  ) AS TUNAI_TUNAI
+
+FROM data2
+GROUP BY CABANG;
+"
+
+IF ct_k		lperintahqueryro	INIT	"WITH 
+  base AS (
+    SELECT 
+      MAX(piknobuk) AS MAX_NOBUK,
+      MAX(pikoto) AS MAX_OTO,
+      piksts,
+      piknobtm,
+      pikplg AS KTP,
+      pikcab,
+      pikcabpiu,
+      pikdvs,
+      piktypjl,
+      MAX(piktglfak) AS MAX_TGL
+    FROM pik
+    WHERE 
+      pikdata = 'DTPIU'
+      AND pikcab = {cabkode}
+      AND piktglfak BETWEEN {ltgl1} AND {ltgl2}
+      AND piksts NOT IN ('VOID', '')
+    GROUP BY pikplg
+  ),
+
+  data1 AS (
+    SELECT 
+      *,
+      (
+        SELECT pikoto
+        FROM pik
+        WHERE 
+          pikplg = base.KTP
+          AND piksts NOT IN ('VOID', '')
+          AND piktglfak <= base.MAX_TGL
+          AND pikoto != base.MAX_OTO
+        ORDER BY piktglfak DESC
+        LIMIT 1
+      ) AS FAKTUR_TERAKHIR,
+
+      CASE 
+        WHEN EXISTS (
+          SELECT 1
+          FROM pik
+          WHERE 
+            pikplg = base.KTP
+            AND piksts NOT IN ('VOID', '')
+            AND piktglfak <= base.MAX_TGL
+            AND pikoto != base.MAX_OTO
+        )
+        THEN 'RO'
+        ELSE 'NEW'
+      END AS STATUS_RO
+    FROM base
+  ),
+
+  data2 AS (
+    SELECT 
+      data1.KTP,
+      data1.STATUS_RO,
+      data1.pikdvs AS LATEST_BISNIS,
+      data1.piktypjl AS LATEST_TYPE_JUAL,
+      data1.MAX_TGL AS LATEST_TGL,
+      pik_ro.pikdvs AS PREVIOUS_BISNIS,
+      pik_ro.piktypjl AS PREVIOUS_TYPE_JUAL,
+      pik_ro.piktglfak AS PREVIOUS_TGL,
+      data1.pikcab AS CABANG
+    FROM data1
+    LEFT JOIN pik pik_ro
+      ON pik_ro.pikoto = data1.FAKTUR_TERAKHIR
+      AND data1.STATUS_RO = 'RO'
+  )
+
+SELECT
+  SUM(
+    CASE
+      WHEN LATEST_TYPE_JUAL = 'T'
+        AND PREVIOUS_TGL >= DATE_SUB(LATEST_TGL, INTERVAL 3 MONTH)
+        AND PREVIOUS_TYPE_JUAL = 'K'
+      THEN 1
+      ELSE 0
+    END
+  ) AS TUNAI_KREDIT
+FROM data2
+GROUP BY CABANG
+"
+
 
 SUBFILE(trans2g3)
 SFL_COND        cpil392a
@@ -9042,56 +9395,56 @@ ljam            dsbjamcrt       REPLACE
 
 MAP(mapsqlro)
 /*dsbtype4	dsbtype4	REPLACE	 	*/
-dsbjml1		dsbjml1		REPLACE		/* TOTAL_KONSUMEN */
-dsbjml2		dsbjml2		REPLACE		/* RO_BY_KTP */
-dsbjml3		dsbjml3		REPLACE		/* HMC_HMC */
-dsbjml4		dsbjml4		REPLACE		/* HMC_M2W */
-dsbjml5		dsbjml5		REPLACE		/* HMC_M4W */
-dsbjml6		dsbjml6		REPLACE		/* HMC_GADAI */
-dsbjml7		dsbjml7		REPLACE		/* M2W_M2W */
-dsbjml8		dsbjml8		REPLACE		/* M2W_HMC */
-dsbjml9		dsbjml9		REPLACE		/* M2W_M4W */
-dsbjml10	dsbjml10	REPLACE		/* M2W_GADAI */
-dsbtot1		dsbtot1		REPLACE		/* M4W_M4W */
-dsbtot2		dsbtot2		REPLACE		/* M4W_HMC */
-dsbtot3		dsbtot3		REPLACE		/* M4W_M2W */
-dsbtot4		dsbtot4		REPLACE		/* M4W_GADAI */
-dsbtot5		dsbtot5		REPLACE		/* GADAI_GADAI */
-dsbtot6		dsbtot6		REPLACE		/* GADAI_HMC */
-dsbtot7		dsbtot7		REPLACE		/* GADAI_M2W */
-dsbtot8		dsbtot8		REPLACE		/* GADAI_M4W */
-dsbtot9		dsbtot9		REPLACE		/* KREDIT_KREDIT */
-dsbtot10	dsbtot10	REPLACE		/* KREDIT_TUNAI */
-dsbakum1	dsbakum1	REPLACE		/* TUNAI_TUNAI */
-dsbakum2    	dsbakum2    REPLACE     /* TUNAI_KREDIT */
+dsbjml1		dsbjml1		REPLACE		
+dsbjml2		dsbjml2		REPLACE		
+dsbjml3		dsbjml3		REPLACE		
+dsbjml4		dsbjml4		REPLACE		
+dsbjml5		dsbjml5		REPLACE		
+dsbjml6		dsbjml6		REPLACE		
+dsbjml7		dsbjml7		REPLACE		
+dsbjml8		dsbjml8		REPLACE		
+dsbjml9		dsbjml9		REPLACE		
+dsbjml10	dsbjml10	REPLACE		
+dsbtot1		dsbtot1		REPLACE		
+dsbtot2		dsbtot2		REPLACE		
+dsbtot3		dsbtot3		REPLACE		
+dsbtot4		dsbtot4		REPLACE		
+dsbtot5		dsbtot5		REPLACE		
+dsbtot6		dsbtot6		REPLACE		
+dsbtot7		dsbtot7		REPLACE		
+dsbtot8		dsbtot8		REPLACE		
+dsbtot9		dsbtot9		REPLACE		
+dsbtot10	dsbtot10	REPLACE		
+dsbakum1	dsbakum1	REPLACE		
+dsbakum2    dsbakum2    REPLACE     
 
 MAP(mmap)
 DEBUG	ldum		ldum		REPLACE
 
 MAP(mmapg2)
-cBLANKS	    dsbtype3	DO_CALC		/* CABANG */
-cBLANKS		dsbjml1		DO_CALC		/* TOTAL_KONSUMEN */
-cBLANKS		dsbjml2		DO_CALC		/* RO_BY_KTP */
-cBLANKS		dsbjml3		DO_CALC		/* HMC_HMC */
-cBLANKS		dsbjml4		DO_CALC		/* HMC_M2W */
-cBLANKS		dsbjml5		DO_CALC		/* HMC_M4W */
-cBLANKS		dsbjml6		DO_CALC		/* HMC_GADAI */
-cBLANKS		dsbjml7		DO_CALC		/* M2W_M2W */
-cBLANKS		dsbjml8		DO_CALC		/* M2W_HMC */
-cBLANKS		dsbjml9		DO_CALC		/* M2W_M4W */
-cBLANKS	    dsbjml10	DO_CALC		/* M2W_GADAI */
-cBLANKS		dsbtot1		DO_CALC		/* M4W_M4W */
-cBLANKS		dsbtot2		DO_CALC		/* M4W_HMC */
-cBLANKS		dsbtot3		DO_CALC		/* M4W_M2W */
-cBLANKS		dsbtot4		DO_CALC		/* M4W_GADAI */
-cBLANKS		dsbtot5		DO_CALC		/* GADAI_GADAI */
-cBLANKS		dsbtot6		DO_CALC		/* GADAI_HMC */
-cBLANKS		dsbtot7		DO_CALC		/* GADAI_M2W */
-cBLANKS		dsbtot8		DO_CALC		/* GADAI_M4W */
-cBLANKS		dsbtot9		DO_CALC		/* KREDIT_KREDIT */
-cBLANKS	    dsbtot10	DO_CALC		/* KREDIT_TUNAI */
-cBLANKS	    dsbakum1	DO_CALC		/* TUNAI_TUNAI */
-cBLANKS     dsbakum2    DO_CALC     /* TUNAI_KREDIT */
+cBLANKS	    dsbtype3	DO_CALC		
+cBLANKS		dsbjml1		DO_CALC		
+cBLANKS		dsbjml2		DO_CALC		
+cBLANKS		dsbjml3		DO_CALC		
+cBLANKS		dsbjml4		DO_CALC		
+cBLANKS		dsbjml5		DO_CALC		
+cBLANKS		dsbjml6		DO_CALC		
+cBLANKS		dsbjml7		DO_CALC		
+cBLANKS		dsbjml8		DO_CALC		
+cBLANKS		dsbjml9		DO_CALC		
+cBLANKS	    dsbjml10	DO_CALC		
+cBLANKS		dsbtot1		DO_CALC		
+cBLANKS		dsbtot2		DO_CALC		
+cBLANKS		dsbtot3		DO_CALC		
+cBLANKS		dsbtot4		DO_CALC		
+cBLANKS		dsbtot5		DO_CALC		
+cBLANKS		dsbtot6		DO_CALC		
+cBLANKS		dsbtot7		DO_CALC		
+cBLANKS		dsbtot8		DO_CALC		
+cBLANKS		dsbtot9		DO_CALC		
+cBLANKS	    dsbtot10	DO_CALC		
+cBLANKS	    dsbakum1	DO_CALC		
+cBLANKS     dsbakum2    DO_CALC     
 DEBUG	ldum		ldum		REPLACE
 
 SPCALCS(spmaster)
