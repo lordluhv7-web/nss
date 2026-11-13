@@ -300,13 +300,13 @@ lDASHBOARDCLAIMBD       INIT            DASHBOARDCLAIMBD
 ltmpkode		INIT		DEALER
 lperintahdel		INIT		"delete from dsb where dsbtgl1 = {ltgl2} and dsbdata = {lDB} and dsbtype1 = {lthbl} and dsbtype2 = {cabkode} and dsbtype3 = {tbtkode}"
 lperintahdelCBD         INIT            "delete from dsb where dsbtgl1 = {ltgl2} and dsbdata = {lCLAIMBD} and dsbtype1 = {lthbl} and dsbtype2 = {cabkode} and dsbtype3 = {tbtkode}"
-lperintahdelRO		INIT		"DELETE FROM dsb WHERE dsbdata = 'CUSTOMERRO' and dsbtglcrt = {g_tgltrn}"
+lperintahdelRO		INIT		"DELETE FROM dsb WHERE dsbdata = 'CUSTOMERRO' and dsbtgl1 = {ltgl1} and dsbtgl2 = {ltgl2}"
 
 lCUSTOMERRO		INIT		"CUSTOMERRO"
 lCABANG			INIT		"CABANG"
 lmapsqlro		INIT		"mapsqlro"
 l0			INIT		0
-lversi			INIT		"12-11-2026_v3"
+lversi			INIT		"13-11-2026_v1"
 
 CALCS()
 cdjointgm	djointgm == 1
