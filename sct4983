@@ -307,7 +307,7 @@ lCUSTOMERRO		INIT		"CUSTOMERRO"
 lCABANG			INIT		"CABANG"
 lmapsqlro		INIT		"mapsqlro"
 l0			INIT		0
-lversi			INIT		"17-11-2026_v5"
+lversi			INIT		"18-11-2026_v1"
 
 CALCS()
 cdjointgm	djointgm == 1
@@ -9398,9 +9398,10 @@ lthbl       	dsbtype1        REPLACE
 cabkode		    dsbtype2	    REPLACE
 tbdkode         dsbtype3        REPLACE
 lsgmtype        dsbtype4        REPLACE /*bisnis*/
-lmaindealer     dsbtype5        REPLACE
+lmaindealer     dsbtype5        REPLACE /* MD */
 lnipsdm1        dsbkode1        REPLACE /* am */
 lnipsdm2        dsbkode2        REPLACE /* kawil */
+cabpst2         dsbkode3        REPLACE /* cabang dealer*/
 ltgl1         	dsbtgl1         REPLACE
 ltgl2           dsbtgl2         REPLACE
 g_usrkode       dsbusrcrt       REPLACE
